@@ -107,7 +107,9 @@ def validate(root: Path, manifest: str) -> dict:
         except json.JSONDecodeError as exc:
             raise TaskError("Invalid evidence-blocker receipt") from exc
         if (not isinstance(blocked, dict)
-                or blocked.get("status") != "CONTRACTS_UNRESOLVED"
+                or blocked.get("schema") != "pc-gate-receipt/v1"
+                or not isinstance(blocked.get("status"), str)
+                or not blocked["status"].endswith("_UNRESOLVED")
                 or not isinstance(blocked.get("unresolved"), list)
                 or not blocked["unresolved"]):
             raise TaskError("Evidence planning requires a nonempty unresolved list")
