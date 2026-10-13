@@ -1,0 +1,37 @@
+schema: pc-ap-authority/v1
+id: AP-002-PROVISIONAL-SELECTION-001
+status: approved
+decision: PROVISIONALLY_SELECTED
+architecture: AS-001
+selected_candidate: AP-002
+stage: AP
+authorizes: CON_FIRST_DECOMPOSITION
+approved_by: user:engineering_authority
+approved_date_local: "2026-10-13"
+authority_evidence: process/decisions/AP-002-PROVISIONAL-SELECTION-001.md
+basis:
+  request: process/decisions/AP-002-PROVISIONAL-AUTHORITY-REQUEST-v2.md
+  evaluation: knowledge/architecture/AS-001/evaluations/AE-004.md
+  independent_review: reviews/AE-004-review-v3.json
+  selection_policy: process/policies/AP_SELECTION_v2.yaml
+  figure_of_merit: knowledge/architecture/AS-001/merit.md
+  memory_scope: process/decisions/C-002-scope.yaml
+accepted_architectural_debt: [AD-003]
+carried_verification_obligations: [VO-002, VO-003, VO-004, VO-005, VO-006]
+protected_requirements:
+  - 2048_bytes_detector_attributable_sram_C-002
+  - one_sample_per_millisecond_R-001
+  - exact_32_sample_zero_padded_squared_sum_R-002
+  - no_overflow_for_legal_inputs_R-003
+  - no_fpu_C-003
+conditions:
+  - CON must allocate enforceable interface, memory, timing and proof obligations
+  - F-001 comparison remains unverified; no Pareto winner is claimed
+  - complete F comparison and debt disposition before final acceptance
+  - review at implementation when resource and timing evidence becomes available
+  - failed binding requirement reopens affected AP/CON/DE commitments
+not_authorized:
+  - modify_AS_or_F_001
+  - accept_firmware_or_target_validation
+  - discharge_VO_002_through_VO_006
+  - assert_measured_resource_costs

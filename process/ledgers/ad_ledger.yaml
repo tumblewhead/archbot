@@ -29,3 +29,23 @@ items:
   due_stage: TARGET_VALIDATION
   consequence: A provisionally selected AP may be inferior under final F-001
   fallback: Reopen proposal selection using accepted target measurements
+- id: AD-003
+  title: Provisional AP-002 selection with incomplete F-001 comparison
+  linked_requirement: R-001
+  linked_architecture: AS-001
+  selected_candidate: AP-002
+  state: accepted
+  owner: evaluation-agent
+  accepted_by: user:engineering_authority
+  accepted_decision: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+  trigger: AP-002 selected for CON-first decomposition without measured target cycles and compiled flash
+  consequence: AP-002 might be less efficient or become infeasible after measured costs or concrete verification
+  due_stage: TARGET_VALIDATION
+  due_before: final_acceptance
+  intermediate_checkpoints:
+    - stage: CON
+      action: Record resource and timing budgets, ownership and verification plan; do not require completed firmware
+    - stage: IMPLEMENTATION
+      action: Review actual memory, compiler behavior, available cycle and flash evidence
+  fallback: Suspend affected commitments and reopen AP selection if a binding requirement fails or unaccepted risk exceeds bounds
+  outstanding_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

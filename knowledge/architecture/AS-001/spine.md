@@ -29,6 +29,12 @@ relations:
   target: /architecture/AS-001/evaluations/AE-002.md
 - kind: evaluated_by
   target: /architecture/AS-001/evaluations/AE-003.md
+- kind: evaluated_by
+  target: /architecture/AS-001/evaluations/AE-004.md
+- kind: selected
+  target: /architecture/AS-001/proposals/AP-002.md
+- kind: addresses
+  target: /architecture/AS-001/decisions/AP-002-SELECTED-001.md
 - kind: specifies
   target: /architecture/AS-001/evidence/EP-001.md
 - kind: specifies

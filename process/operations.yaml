@@ -8,3 +8,6 @@ operations:
   REVIEW_AP_EVALUATION:
     role: verification-agent
     playbook: process/playbooks/REVIEW_AP_EVALUATION.md
+  DEFINE_CON:
+    role: contract-agent
+    playbook: process/playbooks/DEFINE_CON.md
