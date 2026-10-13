@@ -1,0 +1,23 @@
+version: 1
+transitions:
+  - id: contract_revision
+    receipt_schema: pc-contract-review/v1
+    requires:
+      gate: CONTRACT_REVIEW
+      disposition: REVISE
+      next_stage_recommendation: CON_REVISION_REQUIRED
+      independent_of_authoring_invocation: true
+    require_blocking_finding: true
+    operation: REVISE_CON
+    target: receipt
+    trigger_kind: CONTRACT_REVIEW_REVISION_REQUIRED
+    gate: CONTRACT_REVIEW
+  - id: contract_review
+    receipt_schema: pc-gate-receipt/v1
+    requires:
+      gate: CONTRACT_REVIEW
+      status: CONTRACTS_READY_FOR_INDEPENDENT_REVIEW
+    operation: REVIEW_CON
+    target: changed_contract_spine
+    trigger_kind: CONTRACT_DRAFT_SUBMITTED
+    gate: CONTRACT_REVIEW
