@@ -1,0 +1,22 @@
+# Copy beside the final review receipt after a real task run.
+schema: pc-qualification-observation/v1
+task_id: TOY1-AE004
+toy: toy1
+gate: AP_EVALUATION
+telemetry_run_id: pending_from_local_run
+git_revision: pending_from_run_receipt
+human:
+  setup_minutes: null
+  intervention_minutes: null
+  review_minutes: null
+  manual_fixes: []
+  authority_decisions: []
+  bespoke_prompts_written: 0
+  reusable_engine_files_edited: []
+  domain_artifacts_authored: []
+  notes: null
+assessment:
+  process_gate_result: PENDING
+  independence_reviewed: false
+  follow_up_required: []
+# Null = not observed. Do not replace null with a guessed value.

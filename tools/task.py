@@ -146,7 +146,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"TASK={task['id']} MANIFEST={task['manifest']} ROLE={task['role']}", flush=True)
     return subprocess.run(
         [sys.executable, str(ROOT / "tools/telemetry.py"),
-         "run", "--role", task["role"], "--prompt", str(task_prompt)],
+         "run", "--role", task["role"], "--prompt", str(task_prompt),
+         "--label", task["id"]],
         cwd=ROOT, check=False
     ).returncode
 

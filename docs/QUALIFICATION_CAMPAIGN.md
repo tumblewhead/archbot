@@ -113,6 +113,10 @@ For each toy and every gate, record:
 Track the human friction as a lightweight, versioned file per gate (not a
 huge raw transcript). Avoid inferring actual LLM file reads from selected
 context estimates.
+The run label is the task manifest ID; record human observations using
+`process/examples/qualification-observation-v1.yaml` as a template, then
+place the completed observation alongside its versioned review receipt.
+Human minutes must be recorded by the human, never guessed by the LLM.
 
 ## Acceptance tests for **reusability**
 
