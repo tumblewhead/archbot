@@ -253,6 +253,61 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "blocking REVISE"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_evidence_plan_must_have_real_artifacts(self):
+        self._make_contract_task()
+        report = self.root / "reviews/gates/evidence-plan.json"
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text(json.dumps({
+            "schema": "pc-evidence-plan/v1",
+            "status": "EVIDENCE_PLAN_READY_FOR_REVISION",
+            "plan_artifacts": ["reviews/gates/missing-plan.md"],
+        }))
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text())
+        registry["operations"]["REVISE_CON"] = {
+            "role": "contract-agent",
+            "playbook": "process/playbooks/REVISE_CON.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry))
+        (self.root / "process/playbooks/REVISE_CON.md").write_text("# Revise\n")
+        self.manifest.update(
+            operation="REVISE_CON",
+            playbook="process/playbooks/REVISE_CON.md",
+            trigger={"kind": "EVIDENCE_PLAN_READY",
+                     "reference": "reviews/gates/evidence-plan.json"},
+        )
+        self.store()
+        with self.assertRaisesRegex(task.TaskError, "Required task input is missing"):
+            task.validate(self.root, "process/tasks/task.yaml")
+        (self.root / "reviews/gates/missing-plan.md").write_text("# Bounded plan\n")
+        self.assertEqual(task.validate(self.root, "process/tasks/task.yaml")["operation"], "REVISE_CON")
+
+    def test_unresolved_stage_needs_real_blocker(self):
+        self._make_contract_task()
+        receipt = self.root / "reviews/gates/blocker.json"
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        receipt.write_text(json.dumps({
+            "schema": "pc-gate-receipt/v1", "status": "CONTRACTS_UNRESOLVED",
+            "unresolved": [],
+        }))
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text())
+        registry["operations"]["PLAN_EVIDENCE"] = {
+            "role": "contract-agent",
+            "playbook": "process/playbooks/PLAN_EVIDENCE.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry))
+        (self.root / "process/playbooks/PLAN_EVIDENCE.md").write_text("# Plan\n")
+        self.manifest.update(
+            operation="PLAN_EVIDENCE",
+            playbook="process/playbooks/PLAN_EVIDENCE.md",
+            trigger={"kind": "STAGE_EVIDENCE_REQUIRED",
+                     "reference": "reviews/gates/blocker.json"},
+        )
+        self.store()
+        with self.assertRaisesRegex(task.TaskError, "nonempty unresolved"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_missing_evidence_must_not_pass(self):
         self.manifest["gate"]["on_missing_evidence"] = "PASS"
         self.store()
