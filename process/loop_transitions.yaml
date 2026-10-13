@@ -53,3 +53,15 @@ transitions:
     related_concept_type: null
     trigger_kind: AS_REVISION_SUBMITTED
     gate: AS_REVIEW
+  - id: as_revision_after_independent_review
+    receipt_schema: pc-as-review/v1
+    requires:
+      gate: AS_REVIEW
+      disposition: REVISE
+      next_stage_recommendation: AS_REVISION_REQUIRED
+      independent_of_authoring_invocation: true
+    require_blocking_finding: true
+    operation: REVISE_AS
+    target: receipt
+    trigger_kind: AS_REVIEW_REVISION_REQUIRED
+    gate: AS_REVIEW
