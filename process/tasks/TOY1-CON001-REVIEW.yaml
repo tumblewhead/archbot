@@ -1,0 +1,40 @@
+# Toy 1 task-specific inputs; reusable REVIEW_CON role and playbook.
+schema: pc-task/v1
+id: TOY1-CON001-REVIEW
+role: verification-agent
+operation: REVIEW_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: CONTRACT_DRAFT_SUBMITTED
+  reference: knowledge/architecture/AS-001/contracts/spine.md
+  revision: 5013f9af7030a0963a63bcc2836693e2361a8adb
+playbook: process/playbooks/REVIEW_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    approved_ap: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    selected_candidate: knowledge/architecture/AS-001/proposals/AP-002.md
+    contract_spine: knowledge/architecture/AS-001/contracts/spine.md
+    coverage_matrix: reviews/gates/TOY1-CON001-coverage-v1.md
+    submission_receipt: reviews/gates/TOY1-CON001-receipt-v1.json
+    selection_debt_ledger: process/ledgers/ad_ledger.yaml
+    verification_ledger: process/ledgers/vo_ledger.yaml
+    abstract_proof_review: knowledge/architecture/AS-001/proofs/PR-002.md
+outputs:
+  allowed:
+    - versioned_independent_contract_review
+    - review_receipt
+    - contract_findings
+  prohibited:
+    - overwrite_contracts_under_review
+    - change_authorized_AP_or_AS_or_F
+    - discharge_verification_obligation
+    - accept_new_architectural_debt
+    - approve_design_elements
+    - implement_firmware
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

@@ -99,3 +99,15 @@ reviewable proposal; F-001 was not amended by the authority decision.
 A prior accepted VO-001 receipt hashes the old AS spine; newly added
 navigation edges should be assessed for claim-level relevance without
 silently changing that receipt's recorded hash or C-001 scope.
+
+## Contract gate: TOY1-CON001
+Commit `5013f9af7030` added draft CON-AP2-001/002/003, a contract spine,
+seven DE responsibility placeholders and a VO/AD coverage matrix.
+The authoring receipt states `CONTRACTS_UNRESOLVED`, not acceptance.
+Next: run the generic `REVIEW_CON` playbook through task manifest
+`process/tasks/TOY1-CON001-REVIEW.yaml`. Independent review must examine
+whether unsettled queue/ISR/platform choices are deferrable engineering
+implementation details or contract semantic blockers. Review also must
+check that the proposed 72-byte persistent state cap accounts for all
+specified state/control fields. No implementation work is authorized by
+this review alone.

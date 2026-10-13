@@ -168,6 +168,35 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "carry an open verification obligation"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_generic_contract_review_operation_retargets_two_spines(self):
+        # Role and playbook are unchanged between toy architectures.
+        role_path = self.root / "agents/verification-agent.md"
+        role_path.write_text("# Independent reviewer\n")
+        playbook_path = self.root / "process/playbooks/REVIEW_CON.md"
+        playbook_path.write_text("# Reusable contract review\n")
+        views_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_path.read_text())
+        views["roles"]["verification-agent"] = {"follow": []}
+        views_path.write_text(yaml.safe_dump(views))
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text())
+        registry["operations"]["REVIEW_CON"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_CON.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry))
+        for name in ("alpha", "beta"):
+            self.manifest.update(
+                role="verification-agent",
+                operation="REVIEW_CON",
+                playbook="process/playbooks/REVIEW_CON.md",
+                spine=f"/architecture/{name}/spine.md",
+            )
+            self.store()
+            result = task.validate(self.root, "process/tasks/task.yaml")
+            self.assertEqual(result["operation"], "REVIEW_CON")
+            self.assertEqual(result["spine"], f"/architecture/{name}/spine.md")
+
     def test_missing_evidence_must_not_pass(self):
         self.manifest["gate"]["on_missing_evidence"] = "PASS"
         self.store()

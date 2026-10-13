@@ -11,3 +11,6 @@ operations:
   DEFINE_CON:
     role: contract-agent
     playbook: process/playbooks/DEFINE_CON.md
+  REVIEW_CON:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_CON.md
