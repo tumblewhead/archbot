@@ -1,0 +1,35 @@
+# Template ONLY: illustrative budget allocations, not evidence and not a selected AP.
+# All categories contribute to detector-attributable SRAM at worst simultaneous peak.
+candidate: AP-002
+scope_id: C-002-SCOPE-001
+memory_envelope:
+  boundary: detector_charged_sram
+  limit_bytes: 2048
+  aggregation: nonoverlapping_peak
+  nonoverlap_reasoning: "DRAFT: explain physical sharing and worst-case concurrency"
+  buckets:
+    persistent_state:
+      max_bytes: 128
+      basis: "PROPOSED BUDGET: must justify 32 samples, sum and ring index"
+    temporary_or_scratch:
+      max_bytes: 128
+      basis: "PROPOSED BUDGET: must justify transient buffers"
+    detector_stack:
+      max_bytes: 512
+      basis: "PROPOSED BUDGET: contract cap, not measured stack high water"
+    detector_attributable_interrupt_context:
+      max_bytes: 256
+      basis: "PROPOSED BUDGET: establish permitted interrupt nesting"
+    detector_attributable_shared_allocations:
+      max_bytes: 256
+      basis: "PROPOSED BUDGET: document attribution and exclusivity"
+    detector_attributable_dynamic_allocations:
+      max_bytes: 0
+      basis: "ASSUMPTION: no dynamic allocation permitted"
+    other_detector_attributable:
+      max_bytes: 128
+      basis: "PROPOSED BUDGET: other attributed resources"
+  reserved_margin_bytes: 640  # charged budgets sum 1408; total 2048
+  unknown_unbounded_contributors: []
+  budget_enforcement: "DRAFT: link concrete CON/DE ownership and escalation"
+  evidence_refs: []             # Must contain real evidence to pass C-002 stage

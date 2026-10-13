@@ -1,0 +1,36 @@
+version: 1
+# Declarative design only; the starter has no automatic dispatcher.
+gates:
+  AS_REVIEW: [evidence_traceable, obligations_consistent]
+  PROOF_REVIEW: [assumptions_explicit, valid_argument_or_counterexample]
+  AP_REVIEW: [ap_stage_obligations_met, deferred_verification_planned, f_evaluation_predeclared]
+  CONTRACT_REVIEW: [interfaces_complete, obligations_preserved]
+  IMPLEMENTATION_REVIEW: [contract_tests, target_resource_evidence]
+events:
+  AS_CHANGED:
+    dispatch: [architecture-agent, proof-scout]
+    requires_review: AS_REVIEW
+  AS_APPROVED:
+    dispatch: [proposal-agent]
+  PROOF_REVIEW_REQUESTED:
+    dispatch: [proof-reviewer]
+    requires_review: PROOF_REVIEW
+  PROOF_REVIEW_RECORDED:
+    dispatch: [evaluation-agent]
+    requires_review: AP_REVIEW
+  AP_EVALUATION_REQUESTED:
+    dispatch: [evaluation-agent]
+    requires_review: AP_REVIEW
+  AP_SUBMITTED:
+    dispatch: [proof-scout, verification-agent]
+    requires_review: AP_REVIEW
+  PO_APPROVED:
+    dispatch: [proof-engineer]
+  AP_SELECTED:
+    dispatch: [contract-agent]
+    requires_review: CONTRACT_REVIEW
+  DESIGN_APPROVED:
+    dispatch: [implementation-agent]
+  IMPLEMENTATION_SUBMITTED:
+    dispatch: [verification-agent]
+    requires_review: IMPLEMENTATION_REVIEW

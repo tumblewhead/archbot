@@ -1,0 +1,32 @@
+version: 1
+roles:
+  knowledge-curator:
+    file: agents/knowledge-curator.md
+    triggers: [BKP_CHANGED, NEW_SOURCE]
+  architecture-agent:
+    file: agents/architecture-agent.md
+    triggers: [NEW_PROBLEM, BKP_CHANGED]
+  proof-scout:
+    file: agents/proof-scout.md
+    triggers: [AS_CHANGED, AP_SUBMITTED, CONTRACT_CHANGED, DESIGN_CHANGED]
+  proof-engineer:
+    file: agents/proof-engineer.md
+    triggers: [PO_APPROVED]
+  proposal-agent:
+    file: agents/proposal-agent.md
+    triggers: [AS_APPROVED]
+  verification-agent:
+    file: agents/verification-agent.md
+    triggers: [GATE_REVIEW_REQUESTED]
+  contract-agent:
+    file: agents/contract-agent.md
+    triggers: [AP_SELECTED]
+  implementation-agent:
+    file: agents/implementation-agent.md
+    triggers: [DESIGN_APPROVED]
+  proof-reviewer:
+    file: agents/proof-reviewer.md
+    triggers: [PROOF_REVIEW_REQUESTED]
+  evaluation-agent:
+    file: agents/evaluation-agent.md
+    triggers: [AP_EVALUATION_REQUESTED]

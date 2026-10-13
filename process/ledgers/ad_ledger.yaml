@@ -1,0 +1,31 @@
+version: 1
+id: AD-LEDGER-001
+status_note: 'Architectural Debt is decision risk, not a waiver of a Verification
+  Obligation. Every accepted AD needs an owner, triggering assumption, consequence,
+  deadline, fallback, and accepted decision reference. Entries below are examples/open
+  risks; none is an authorized acceptance of the associated uncertainty.
+
+  '
+items:
+- id: AD-001
+  title: C-002 memory accounting scope is ambiguous
+  linked_requirement: C-002
+  state: resolved
+  owner: architecture-agent
+  accepted_by: null
+  accepted_decision: null
+  due_stage: AP
+  consequence: Invalid or incomparable memory estimates
+  fallback: Obtain scope decision and repeat AP gate
+  resolved_by: C-002-SCOPE-001
+  resolution_evidence: process/decisions/C-002-approval.md
+- id: AD-002
+  title: Target cycle and flash rankings remain unknown
+  linked_requirement: R-001
+  state: proposed
+  owner: evaluation-agent
+  accepted_by: null
+  accepted_decision: null
+  due_stage: TARGET_VALIDATION
+  consequence: A provisionally selected AP may be inferior under final F-001
+  fallback: Reopen proposal selection using accepted target measurements

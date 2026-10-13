@@ -1,0 +1,17 @@
+{
+  "schema": "pc.proof-review-disposition.v1",
+  "source": "knowledge/architecture/AS-001/proofs/PR-002.md",
+  "source_sha256": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+  "reviewer_reported_disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "accepted_scope": "abstract_mathematics_only",
+  "implementation_approved": false,
+  "architecture_selected": false,
+  "gate_automatically_approved": false,
+  "unresolved": [
+    "C implementation mapping",
+    "input validation",
+    "concurrency",
+    "WCET",
+    "SRAM/flash measurements"
+  ]
+}

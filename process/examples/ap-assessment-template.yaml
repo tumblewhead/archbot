@@ -1,0 +1,31 @@
+# Fill this with independently reviewable evidence; this file is a template,
+# not an assertion about the current APs or an accepted gate receipt.
+schema: pc-ap-assessment/v2
+candidate: AP-002
+stage: AP
+simulation_only: false
+policy_id: AP-SELECT-002
+scope_id: C-002-SCOPE-001
+comparative_decision:
+  mode: incomplete
+  authority: null
+  rationale: null
+requirements:
+  C-001:
+    stage_status: UNRESOLVED
+    evidence: []
+  C-002:
+    stage_status: UNRESOLVED
+    evidence: []
+  C-003:
+    stage_status: UNRESOLVED
+    evidence: []
+  R-001:
+    stage_status: UNRESOLVED
+    evidence: []
+  R-002:
+    stage_status: UNRESOLVED
+    evidence: []
+  R-003:
+    stage_status: UNRESOLVED
+    evidence: []

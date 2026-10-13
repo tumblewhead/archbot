@@ -1,0 +1,115 @@
+schema: pc-ap-assessment/v2
+candidate: AP-001
+stage: AP
+simulation_only: false
+policy_id: AP-SELECT-002
+scope_id: C-002-SCOPE-001
+comparative_decision:
+  mode: incomplete
+  rationale: >-
+    F-001's three projected dimensions are recorded below; state SRAM is
+    conditionally estimated, target cycles and flash remain unknown, so no
+    supported projection or stakeholder-authorized tradeoff exists.
+  projected_dimensions:
+    state_sram_bytes:
+      estimate: 72
+      uncertainty: conditional on envelope representation and object layout; not measured
+      evidence: /architecture/AS-001/proposals/envelopes/AP-001-SRAM-ENVELOPE-001.md
+    worst_case_cycles_per_update:
+      estimate: unknown
+      uncertainty: bounded work is at most 32 square/add terms plus loop/control; target cycles not established
+      evidence: /architecture/AS-001/proposals/AP-001.md
+    flash_bytes:
+      estimate: unknown
+      uncertainty: no concrete build or target compiler
+      evidence: /architecture/AS-001/proposals/envelopes/AP-001-SRAM-ENVELOPE-001.md
+  proposed_tradeoff:
+    status: not_accepted
+    authority_needed: engineering authority
+    rationale: If both candidates clear their AP obligations, choose whether to prioritize lower expected update work or a different F-001 Pareto dimension while cycles and flash remain uncertain.
+    architectural_debt: AD-003 (proposal only; not entered as accepted)
+requirements:
+  C-001:
+    stage_status: UNRESOLVED
+    evidence:
+      - /bkp/adc.md
+      - /architecture/AS-001/verification/VO-001.md
+      - /reviews/VO-001-reconciliation-v1.md
+    vo: VO-001
+    final_status: OPEN
+    deferral:
+      owner: architecture-agent
+      method: Obtain independent source-adequacy review and accepted receipt for the declared ADC domain.
+      due_stage: AS
+      acceptance: Independent review receipt accepts BKP-ADC-001 as authority for the exact C-001 scope.
+      assumptions: The declared synthetic ADC domain is intended to define legal inputs.
+      escalation: Keep C-001 unresolved and block AP advancement if the authority review does not accept the source.
+  C-002:
+    stage_status: CONDITIONALLY_SATISFIED
+    evidence:
+      - /architecture/AS-001/decisions/C-002-SCOPE-001.md
+      - /architecture/AS-001/proposals/envelopes/AP-001-SRAM-ENVELOPE-001.md
+    assumptions:
+      - CON/DE enforce one detector task, one non-nested detector ISR, no heap, and the stated category caps.
+      - Shared memory attribution and simultaneous peaks conform to the envelope; actual physical allocation remains unverified.
+    vo: VO-002
+    final_status: OPEN
+    memory_envelope:
+      boundary: detector_charged_sram
+      limit_bytes: 2048
+      aggregation: nonoverlapping_peak
+      nonoverlap_reasoning: >-
+        Sum category caps conservatively; task and interrupt stacks are separate
+        allocations and both are charged. Scratch outside task stack is bounded
+        separately; CON/DE must reconcile any stack-resident overlap. No heap.
+      buckets:
+        persistent_state: {max_bytes: 72, basis: "32 uint16 samples, 32-bit accumulator and index/control allowance, as proposed in AP-001 envelope"}
+        temporary_or_scratch: {max_bytes: 64, basis: "Square/product temporaries and spills outside task-stack cap; later DE audit reconciles overlap"}
+        detector_stack: {max_bytes: 384, basis: "Proposed dedicated detector task stack cap; static/compiler stack verification is later"}
+        detector_attributable_interrupt_context: {max_bytes: 128, basis: "Proposed single non-nested detector ISR context/stack cap"}
+        detector_attributable_shared_allocations: {max_bytes: 128, basis: "Proposed handoff, mailbox and synchronization cap with named detector attribution"}
+        detector_attributable_dynamic_allocations: {max_bytes: 0, basis: "No-heap assumption; CON forbids allocation and DE scans allocator references"}
+        other_detector_attributable: {max_bytes: 128, basis: "Allowance for alignment, padding and directly attributable sections; later inventory required"}
+      reserved_margin_bytes: 1024
+      unknown_unbounded_contributors: []
+      budget_enforcement: >-
+        CON assigns ownership and caps; DE inventories allocations and enforces
+        task/interrupt restrictions; implementation map, stack analysis and
+        bounded runtime accounting verify the allocation. Failure reopens AP;
+        this envelope is an allocation proposal, not physical proof.
+      evidence_refs:
+        - /architecture/AS-001/proposals/envelopes/AP-001-SRAM-ENVELOPE-001.md
+        - /architecture/AS-001/decisions/C-002-SCOPE-001.md
+    deferral:
+      owner: implementation-agent
+      method: Map/static SRAM accounting, compiler stack analysis and shared/dynamic attribution under the approved scope.
+      due_stage: IMPLEMENTATION
+      acceptance: Independently reviewed evidence bounds all charged categories within 2048 bytes and preserves positive margin.
+      assumptions: CON/DE retain envelope caps and no-heap/non-nested execution restrictions.
+      escalation: Rebudget and revisit DE/CON/AP if a cap or margin cannot be demonstrated.
+  C-003:
+    stage_status: CONDITIONALLY_SATISFIED
+    evidence: [/architecture/AS-001/proposals/AP-001.md, /bkp/target.md]
+    assumptions: ["The proposed algorithm and target arithmetic use integer operations only; compiled toolchain behavior remains to verify."]
+    vo: VO-003
+    final_status: OPEN
+    deferral: {owner: implementation-agent, method: Inspect build and toolchain for floating-point use, due_stage: IMPLEMENTATION, acceptance: Independent build/code inspection confirms no FPU reliance, assumptions: "Implementation follows the integer-only proposal.", escalation: "Rework implementation or revisit architecture if floating point is required."}
+  R-001:
+    stage_status: CONDITIONALLY_SATISFIED
+    evidence: [/architecture/AS-001/proposals/AP-001.md, /architecture/AS-001/verification_plan.md]
+    assumptions: ["At most 32 square/add terms and bounded loop/control execute per update; this is an operation bound, not a cycle or WCET result."]
+    vo: VO-004
+    final_status: OPEN
+    deferral: {owner: verification-agent, method: Establish target-specific WCET or representative timing with documented interrupt load and margin, due_stage: TARGET_VALIDATION, acceptance: "Every update completes within 1 ms with documented margin.", assumptions: "Compiler, target profile, and interrupt load are recorded.", escalation: "Revisit implementation and then DE/CON/AP if timing fails."}
+  R-002:
+    stage_status: UNRESOLVED
+    evidence: [/architecture/AS-001/proposals/AP-001.md, /architecture/AS-001/evaluations/AE-002.md]
+    vo: VO-005
+    final_status: OPEN
+    deferral: {owner: verification-agent, method: Provide candidate-specific recomputation exactness and zero-padded startup argument, due_stage: IMPLEMENTATION, acceptance: "Independent review accepts the AP-001 exactness argument and later C correspondence.", assumptions: "Legal samples are in 0..4095.", escalation: "Do not advance AP-001 while its AP-stage exactness argument is absent."}
+  R-003:
+    stage_status: UNRESOLVED
+    evidence: [/architecture/AS-001/proposals/AP-001.md, /architecture/AS-001/evaluations/AE-002.md]
+    vo: VO-006
+    final_status: OPEN
+    deferral: {owner: proof-reviewer, method: Provide universal AP-001 accumulator bound and arithmetic-width argument, due_stage: IMPLEMENTATION, acceptance: "Independent review accepts universal no-overflow reasoning and later C mapping.", assumptions: "Legal samples are in 0..4095 and accumulator width is specified.", escalation: "Do not advance AP-001 while its AP-stage bound is absent."}

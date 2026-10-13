@@ -1,0 +1,846 @@
+diff --git a/README_PROCESS_V2.md b/README_PROCESS_V2.md
+new file mode 100644
+--- /dev/null
++++ b/README_PROCESS_V2.md
+@@ -0,0 +1,46 @@
++# Progressive Concretization v2: Process repair
++
++This update is an incremental overlay for the pilot repository, **not** a replacement
++for the user's live Codex checkout. It does not rewrite AE-001, AE-002, EP-001,
++EP-002, PR-002 or the original AS and F. The EP-002 review ZIP motivated it.
++
++## Changes
++
++- Explicit provisional AP commitment and separate final acceptance gate.
++- Tracked Architectural Debt separate from Verification Obligations.
++- Stage-specific admissibility policy that preserves original F-001 final dimensions.
++- C-002 interpretation is **pending an authority decision**. No fabricated approval.
++- Declarative workflow and first-class Evidence Planning Agent with bounded spine view.
++- Deterministic gate-completeness validator and simulated positive/negative cases.
++- Updated root theory_of_operation.md and Codex guidance.
++
++## Apply and verify (after backing up/committing local work)
++
++    git apply --check pc-process-v2.patch
++    git apply pc-process-v2.patch
++    python tools/attach_process_spine.py
++    python tools/pc.py check --fast
++    python -m unittest discover -s tests -v
++    python tools/stage_gate.py inspect
++    python tools/stage_gate.py evaluate --assessment process/examples/ap-assessment-template.yaml
++
++The final evaluate currently returns NO_DOWNSELECTION (exit 2) by design,
++because C-002 scope is not yet authorized and the example is not an evaluated AP.
++
++## Next step
++
++First obtain an explicit C-002 accounting decision. Also reconcile the prior
++AS-due VO-001 acceptance with an independently reviewable receipt using
++`prompts/13-vo-reconciliation.md`; it is deliberately left `open` in the
++conservative ledger until accepted evidence is attached. Review
++`process/decisions/C-002-scope.yaml` and `prompts/11-scope-authority.md`.
++After authorization, run `prompts/12-ae003-provisional.md`. A `NO_DOWNSELECTION`
++result until the required approval/evidence exists is correct behavior.
++
++The tool checks record completeness and status discipline, not mathematical or
++hardware truth. Every architecture decision still needs independent review.
++
++The patch deliberately does not overwrite the local `AGENTS.md` or AS spine.
++Your existing `AGENTS.md` rule about optional theory reading is preserved; the
++updated role files and policy control the new decisions. Run the spine-attachment
++script once after applying (it is idempotent).
+diff --git a/agents/evaluation-agent.md b/agents/evaluation-agent.md
+--- a/agents/evaluation-agent.md
++++ b/agents/evaluation-agent.md
+@@ -4,8 +4,15 @@
+ ---
+ # Architecture Evaluation Agent
+ 
+-Trigger: AP_EVALUATION_REQUESTED. Start at AS spine; read AS, F, candidate APs, staged verification plan VP, outstanding VOs and accepted mathematical evidence. A prior evaluation (AE-001) is immutable history.
++Trigger: AP_EVALUATION_REQUESTED. Start at AS spine. Read AS, original F-001, proof acceptance, VP, current VO and AD ledgers, `process/policies/AP_SELECTION_v2.yaml`, and `process/decisions/C-002-scope.yaml`. Read earlier AE and EP artifacts only as needed.
+ 
+-For every AP and every AS obligation, assess the **evidence due at AP** and state `SATISFIED`, `CONDITIONALLY_SATISFIED`, `DEFERRED`, `UNRESOLVED`, or `VIOLATED`. A later due date is insufficient for `DEFERRED`: record the credible method, responsible agent, key assumptions, and escalation. If AP-stage evidence is absent, mark `UNRESOLVED`. Do not waive AS or change F. Do not convert accepted abstract mathematical claims into firmware validation.
++There are **two different decisions**:
+ 
+-Apply predeclared F only to stage-admissible proposals. Use the existing Pareto criteria; do not invent measurements or weights. If insufficient comparative evidence remains, return `NO_DOWNSELECTION` and specify the least-cost missing evidence. Otherwise selection is provisional with VOs attached. Never overwrite AE-001. Produce AE-002 and a review receipt. Do not implement firmware or claim final target verification.
++1. **Provisional AP commitment:** stage obligations have accepted evidence; later obligations have credible deferred plans; the applicable accounting scope and process authority are approved. Comparisons under F-001 may be *projected*; unknown or incomparable metrics require an explicitly authorized provisional tradeoff, which must be recorded as Architectural Debt. Do not report a final Pareto winner from operation counts.
++2. **Final acceptance:** every binding requirement is discharged by verified implementation/target evidence, and original F-001's final SRAM, WCET/cycle and flash Pareto policy is honored.
++
++Record each C/R's `stage_status` separately from `final_status`. Mark missing AP evidence UNRESOLVED and known violations VIOLATED. A deferred obligation without owner, method, assumptions, acceptance criterion, due stage and fallback is not an admissible deferral.
++
++C-002 scope remains unapproved until an authority record explicitly accepts one interpretation. Do not count unrelated stack or shared services merely because a verifier wants a larger budget. Do not claim either option selected before a decision exists.
++
++Use `python tools/stage_gate.py evaluate --assessment <path>` for structural gate discipline; its PASS is still not independent design approval. Create a versioned AE artifact, a review receipt, and, only after actual authorization, an OKF selection relation. Never modify previous AE, P, AS or F.
+diff --git a/agents/evidence-planning-agent.md b/agents/evidence-planning-agent.md
+new file mode 100644
+--- /dev/null
++++ b/agents/evidence-planning-agent.md
+@@ -0,0 +1,11 @@
++---
++id: evidence-planning-agent
++role: stage-specific evidence planner
++---
++# Evidence Planning Agent
++
++Trigger: EVIDENCE_PLAN_REQUESTED. Start at the architecture spine; read the selected evidence plan, verification plan, AS, F, outstanding VO ledger and applicable AD ledger.
++
++Identify minimal AP-stage evidence that enables a defensible provisional commitment without demanding complete firmware or target results. Record measurement boundaries, assumptions, due stages, ownership, and the least expensive credible method for each obligation. Distinguish early AP assessment from final verification, and distinguish Architectural Debt from a Verification Obligation.
++
++Do not unilaterally interpret AS or F, accept your own debt, close a VO, or authorize scope changes. Produce a versioned EP artifact and a review receipt. Preserve earlier evaluations and evidence plans.
+diff --git a/agents/registry.yaml b/agents/registry.yaml
+--- a/agents/registry.yaml
++++ b/agents/registry.yaml
+@@ -30,3 +30,7 @@
+   evaluation-agent:
+     file: agents/evaluation-agent.md
+     triggers: [AP_EVALUATION_REQUESTED]
++
++  evidence-planning-agent:
++    file: agents/evidence-planning-agent.md
++    triggers: [EVIDENCE_PLAN_REQUESTED]
+diff --git a/knowledge/architecture/AS-001/decisions/PC-002-spine.md b/knowledge/architecture/AS-001/decisions/PC-002-spine.md
+new file mode 100644
+--- /dev/null
++++ b/knowledge/architecture/AS-001/decisions/PC-002-spine.md
+@@ -0,0 +1,37 @@
++---
++type: Process Decision Spine
++id: PC-002-SPINE
++title: Provisional architecture commitment and obligations
++status: draft
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: evaluated_by
++    target: /architecture/AS-001/merit.md
++  - kind: specifies
++    target: /architecture/AS-001/verification_plan.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-001.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-002.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-003.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-004.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-005.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-006.md
++---
++# PC-002: Process control spine
++
++This is an OKF index into the obligations. It does not approve or select AP-001 or AP-002.
++
++The governing machine-readable process policy and ledgers are in:
++
++- `process/policies/AP_SELECTION_v2.yaml`
++- `process/decisions/C-002-scope.yaml`
++- `process/ledgers/vo_ledger.yaml`
++- `process/ledgers/ad_ledger.yaml`
++
++Existing AE-001, AE-002, EP-001, and EP-002 are immutable history.
+diff --git a/process/decisions/C-002-scope.yaml b/process/decisions/C-002-scope.yaml
+new file mode 100644
+--- /dev/null
++++ b/process/decisions/C-002-scope.yaml
+@@ -0,0 +1,17 @@
++version: 1
++id: C-002-SCOPE-001
++requirement: C-002
++status: pending_authority
++# Options are a request for authority, not an approved modification to AS-001.
++options:
++  - id: detector_owned_state
++    definition: >
++      Persistent algorithm-owned detector state and any other memory explicitly
++      defined as state by AS; stack and shared context reported separately.
++  - id: detector_charged_sram
++    definition: >
++      All SRAM charged to this detector, potentially including state, stack,
++      interrupt context and relevant shared allocations with nonoverlap rules.
++chosen: null
++approved_by: null
++approval_evidence: null
+diff --git a/process/examples/ap-assessment-template.yaml b/process/examples/ap-assessment-template.yaml
+new file mode 100644
+--- /dev/null
++++ b/process/examples/ap-assessment-template.yaml
+@@ -0,0 +1,31 @@
++# Fill this with independently reviewable evidence; this file is a template,
++# not an assertion about the current APs or an accepted gate receipt.
++schema: pc-ap-assessment/v2
++candidate: AP-002
++stage: AP
++simulation_only: false
++policy_id: AP-SELECT-002
++scope_id: C-002-SCOPE-001
++comparative_decision:
++  mode: incomplete
++  authority: null
++  rationale: null
++requirements:
++  C-001:
++    stage_status: UNRESOLVED
++    evidence: []
++  C-002:
++    stage_status: UNRESOLVED
++    evidence: []
++  C-003:
++    stage_status: UNRESOLVED
++    evidence: []
++  R-001:
++    stage_status: UNRESOLVED
++    evidence: []
++  R-002:
++    stage_status: UNRESOLVED
++    evidence: []
++  R-003:
++    stage_status: UNRESOLVED
++    evidence: []
+diff --git a/process/ledgers/ad_ledger.yaml b/process/ledgers/ad_ledger.yaml
+new file mode 100644
+--- /dev/null
++++ b/process/ledgers/ad_ledger.yaml
+@@ -0,0 +1,28 @@
++version: 1
++id: AD-LEDGER-001
++status_note: >
++  Architectural Debt is decision risk, not a waiver of a Verification Obligation.
++  Every accepted AD needs an owner, triggering assumption, consequence, deadline,
++  fallback, and accepted decision reference. Entries below are examples/open risks;
++  none is an authorized acceptance of the associated uncertainty.
++items:
++  - id: AD-001
++    title: C-002 memory accounting scope is ambiguous
++    linked_requirement: C-002
++    state: blocking
++    owner: architecture-agent
++    accepted_by: null
++    accepted_decision: null
++    due_stage: AP
++    consequence: Invalid or incomparable memory estimates
++    fallback: Obtain scope decision and repeat AP gate
++  - id: AD-002
++    title: Target cycle and flash rankings remain unknown
++    linked_requirement: R-001
++    state: proposed
++    owner: evaluation-agent
++    accepted_by: null
++    accepted_decision: null
++    due_stage: TARGET_VALIDATION
++    consequence: A provisionally selected AP may be inferior under final F-001
++    fallback: Reopen proposal selection using accepted target measurements
+diff --git a/process/ledgers/vo_ledger.yaml b/process/ledgers/vo_ledger.yaml
+new file mode 100644
+--- /dev/null
++++ b/process/ledgers/vo_ledger.yaml
+@@ -0,0 +1,43 @@
++version: 1
++id: VO-LEDGER-001
++status_note: >
++  This is a conservative current-state index. VO documents define obligations.
++  Only independently accepted gate receipts can discharge them. No missing
++  receipt is inferred to be a PASS, including claims in earlier narrative reviews.
++obligations:
++  - id: VO-001
++    requirement: C-001
++    state: open
++    due_stage: AS
++    owner: architecture-agent
++    evidence_receipt: null
++  - id: VO-002
++    requirement: C-002
++    state: open
++    due_stage: IMPLEMENTATION
++    owner: implementation-agent
++    evidence_receipt: null
++  - id: VO-003
++    requirement: C-003
++    state: open
++    due_stage: IMPLEMENTATION
++    owner: implementation-agent
++    evidence_receipt: null
++  - id: VO-004
++    requirement: R-001
++    state: open
++    due_stage: TARGET_VALIDATION
++    owner: verification-agent
++    evidence_receipt: null
++  - id: VO-005
++    requirement: R-002
++    state: open
++    due_stage: IMPLEMENTATION
++    owner: verification-agent
++    evidence_receipt: null
++  - id: VO-006
++    requirement: R-003
++    state: open
++    due_stage: IMPLEMENTATION
++    owner: verification-agent
++    evidence_receipt: null
+diff --git a/process/policies/AP_SELECTION_v2.yaml b/process/policies/AP_SELECTION_v2.yaml
+new file mode 100644
+--- /dev/null
++++ b/process/policies/AP_SELECTION_v2.yaml
+@@ -0,0 +1,22 @@
++version: 2
++id: AP-SELECT-002
++status: approved_for_trial
++authority: user_agreement_to_progressive_verification_and_provisional_commitment
++original_f: F-001
++# Does not modify F-001's hard requirements or its final SRAM/cycle/flash Pareto ranking.
++selection_kind: PROVISIONAL_COMMITMENT
++stages: [AS, AP, CON, DE, IMPLEMENTATION, TARGET_VALIDATION]
++requirements: [C-001, C-002, C-003, R-001, R-002, R-003]
++# Only the governing policy (not an agent-authored assessment) sets AP-due checks.
++ap_due_requirements: [C-001, C-002, C-003, R-001, R-002, R-003]
++allowed_stage_states: [SATISFIED, CONDITIONALLY_SATISFIED, DEFERRED]
++future_evidence_required: [owner, method, due_stage, acceptance, assumptions, escalation]
++protected_scope_decisions: [C-002]
++f_dimensions: [state_sram_bytes, worst_case_cycles_per_update, flash_bytes]
++selection_rules:
++  - All AP-due assessments must have admissible evidence and required assumptions.
++  - Deferred final checks must remain open VOs with complete plans.
++  - No known hard violation or unresolved AP-due evidence can be ignored.
++  - A stakeholder-authorized provisional commitment may resolve an incomplete projected F comparison, but may not claim a Pareto winner.
++  - Final acceptance requires every binding VO to be discharged with accepted evidence.
++  - Revisions to AS or F require separate authorized versioned decisions.
+diff --git a/process/views.yaml b/process/views.yaml
+--- a/process/views.yaml
++++ b/process/views.yaml
+@@ -26,6 +26,10 @@
+     follow: [defines, constrained_by, motivated_by, supported_by, assumes, results]
+     max_depth: 3
+     max_bytes: 28000
++  evidence-planning-agent:
++    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
++    max_depth: 5
++    max_bytes: 42000
+   experimental-investigator:
+     follow: [supported_by, results, raw_data, derived_from, defines]
+     max_depth: 4
+diff --git a/process/workflow.yaml b/process/workflow.yaml
+--- a/process/workflow.yaml
++++ b/process/workflow.yaml
+@@ -1,11 +1,14 @@
+-version: 1
+-# Declarative design only; the starter has no automatic dispatcher.
++version: 2
++# Declarative only: no automatic dispatch. The deterministic stage_gate checker
++# validates decision packets but does not run models or provide human approval.
+ gates:
+   AS_REVIEW: [evidence_traceable, obligations_consistent]
+   PROOF_REVIEW: [assumptions_explicit, valid_argument_or_counterexample]
+-  AP_REVIEW: [ap_stage_obligations_met, deferred_verification_planned, f_evaluation_predeclared]
+-  CONTRACT_REVIEW: [interfaces_complete, obligations_preserved]
+-  IMPLEMENTATION_REVIEW: [contract_tests, target_resource_evidence]
++  AP_PROVISIONAL_SELECTION: [policy_authorized, scope_authorized, ap_stage_evidence, credible_vo_carry_forward, comparative_decision_authorized]
++  CONTRACT_REVIEW: [interfaces_complete, obligations_preserved, debt_and_vo_allocated]
++  DE_REVIEW: [contracts_implemented_by_design, resource_budgets_allocated]
++  IMPLEMENTATION_REVIEW: [contract_tests, concrete_types_and_bounds, implementation_due_vos]
++  TARGET_ACCEPTANCE: [all_binding_vos_discharged, final_f_evaluation, debt_resolved_or_explicitly_accepted]
+ events:
+   AS_CHANGED:
+     dispatch: [architecture-agent, proof-scout]
+@@ -17,20 +20,26 @@
+     requires_review: PROOF_REVIEW
+   PROOF_REVIEW_RECORDED:
+     dispatch: [evaluation-agent]
+-    requires_review: AP_REVIEW
++  EVIDENCE_PLAN_REQUESTED:
++    dispatch: [evidence-planning-agent]
+   AP_EVALUATION_REQUESTED:
+     dispatch: [evaluation-agent]
+-    requires_review: AP_REVIEW
++    requires_review: AP_PROVISIONAL_SELECTION
+   AP_SUBMITTED:
+     dispatch: [proof-scout, verification-agent]
+-    requires_review: AP_REVIEW
+   PO_APPROVED:
+     dispatch: [proof-engineer]
+-  AP_SELECTED:
++  AP_PROVISIONALLY_SELECTED:
+     dispatch: [contract-agent]
+     requires_review: CONTRACT_REVIEW
++  CONTRACTS_APPROVED:
++    dispatch: [design-agent]
++    requires_review: DE_REVIEW
+   DESIGN_APPROVED:
+     dispatch: [implementation-agent]
+   IMPLEMENTATION_SUBMITTED:
+     dispatch: [verification-agent]
+     requires_review: IMPLEMENTATION_REVIEW
++  TARGET_VALIDATION_REQUESTED:
++    dispatch: [verification-agent]
++    requires_review: TARGET_ACCEPTANCE
+diff --git a/prompts/11-scope-authority.md b/prompts/11-scope-authority.md
+new file mode 100644
+--- /dev/null
++++ b/prompts/11-scope-authority.md
+@@ -0,0 +1,10 @@
++# C-002 authority decision preparation
++
++Read `AGENTS.md` and `theory_of_operation.md` and inspect C-002 in AS-001,
++BKP target note, VP-001, EP-002, and `process/decisions/C-002-scope.yaml`.
++
++Prepare a short options memorandum distinguishing detector-owned persistent state
++from charged subsystem SRAM. Explain how each interpretation changes memory
++accounting and review obligations. Include a recommendation, but do not claim
++stakeholder approval, change AS/F, or change `pending_authority` yourself.
++Request an explicit scope decision from the engineering authority.
+diff --git a/prompts/12-ae003-provisional.md b/prompts/12-ae003-provisional.md
+new file mode 100644
+--- /dev/null
++++ b/prompts/12-ae003-provisional.md
+@@ -0,0 +1,22 @@
++# AE-003: Provisional AP selection under Progressive Concretization v2
++
++Read `AGENTS.md`, `agents/evaluation-agent.md`, `theory_of_operation.md` and
++`process/policies/AP_SELECTION_v2.yaml`. Start at the AS spine and inspect
++AS-001, F-001, proof acceptance, AP-001, AP-002, VP, VO/AD ledgers, AE-001,
++AE-002, EP-001 and EP-002. Preserve history.
++
++First verify that C-002's scope is explicitly approved. If it is not, report
++`NO_DOWNSELECTION`, identify the needed authority decision, and stop short of
++selection. If approved, build a candidate-specific AP-stage evidence matrix
++including conservative memory envelope, abstract correctness and intermediate
++bounds, work model and explicit future verification obligations.
++
++Distinguish provisional AP commitment from final F-001 ranking. If F components
++are unknown/incomparable, obtain a documented authorized provisional tradeoff,
++record its architectural debt, and do not claim a Pareto winner.
++
++Produce AE-003 with cited sources, outstanding VOs, accepted AD risks and exact
++revisit triggers. Run the deterministic stage gate on a completed assessment
++packet and structural tests. The gate script checks policy completeness but does
++not replace independent acceptance. Do not select by default, invent missing
++approval, weaken AS/F or rewrite earlier evaluations.
+diff --git a/prompts/13-vo-reconciliation.md b/prompts/13-vo-reconciliation.md
+new file mode 100644
+--- /dev/null
++++ b/prompts/13-vo-reconciliation.md
+@@ -0,0 +1,18 @@
++# VO-001 reconciliation and independent authority record
++
++Read AGENTS.md, theory_of_operation.md and agents/verification-agent.md.
++Start at the AS spine and inspect the exact sources for C-001, AS-001,
++VP-001 and VO-001, including any prior independent AS-review receipts.
++
++Determine whether the C-001 input-domain obligation is already discharged by
++independently accepted evidence or still needs acceptance. Do not infer PASS
++from a narrative statement, an agent's confidence, or a structural-check PASS.
++
++If accepted evidence exists, prepare a versioned, source-revision-bound receipt
++identifying the reviewer, claim, checked evidence and precise scope. If no such
++review exists, create an independent review request with an explicit pending
++status. Do not forge approval and do not close VO-001 on your own authority.
++
++Propose, but do not silently perform, the resulting
++`process/ledgers/vo_ledger.yaml` update. Preserve prior VO definitions and
++other review history. Record unresolved obligations and next gate.
+diff --git a/tests/test_stage_gate.py b/tests/test_stage_gate.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_stage_gate.py
+@@ -0,0 +1,100 @@
++"""Policy checks are not engineering approvals or proof validators."""
++import copy
++import sys
++from pathlib import Path
++import unittest
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / 'tools'))
++import stage_gate
++
++
++class StageGateTests(unittest.TestCase):
++    def setUp(self):
++        self.policy = stage_gate.read_doc(ROOT/'process/policies/AP_SELECTION_v2.yaml')
++        self.scope = stage_gate.read_doc(ROOT/'process/decisions/C-002-scope.yaml')
++        self.vo = stage_gate.read_doc(ROOT/'process/ledgers/vo_ledger.yaml')
++        self.ad = stage_gate.read_doc(ROOT/'process/ledgers/ad_ledger.yaml')
++        self.scope.update(status='approved', chosen='detector_owned_state',
++                          approved_by='SIMULATED STAKEHOLDER', approval_evidence='SIMULATED DECISION')
++        # Simulate an accepted AS-stage receipt. This is NEVER written to repo.
++        self.vo['obligations'][0]['state'] = 'discharged'
++        self.vo['obligations'][0]['evidence_receipt'] = 'SIMULATED-AS-REVIEW'
++        self.ad['items'][0]['state'] = 'resolved'
++        self.ad['items'][1].update(state='accepted', accepted_by='SIMULATED STAKEHOLDER',
++                                    accepted_decision='SIMULATED-TRADEOFF')
++        self.assessment = {
++            'schema':'pc-ap-assessment/v2', 'candidate':'AP-002', 'stage':'AP',
++            'simulation_only': True,
++            'policy_id':'AP-SELECT-002', 'scope_id':'C-002-SCOPE-001',
++            'comparative_decision':{'mode':'authorized_tradeoff',
++                                     'authority':'SIMULATED STAKEHOLDER',
++                                     'rationale':'SIMULATED EXPLICIT COMPROMISE',
++                                     'architectural_debt':'AD-002'},
++            'requirements': {},
++        }
++        for req in self.policy['requirements']:
++            binding = next(v for v in self.vo['obligations'] if v['requirement']==req)
++            item = {'stage_status':'CONDITIONALLY_SATISFIED',
++                    'evidence':['SIMULATED AP STAGE EVIDENCE'],
++                    'assumptions':['SIMULATED DOMAIN'], 'vo':binding['id'],
++                    'final_status':'OPEN',
++                    'deferral':{'owner':binding['owner'], 'method':'SIMULATED VERIFICATION',
++                                'due_stage':binding['due_stage'], 'acceptance':'SIMULATED PASS CONDITION',
++                                'assumptions':['SIMULATED DOMAIN'],
++                                'escalation':'SIMULATED REOPEN AP'}}
++            if req == 'C-001':
++                item.update(final_status='DISCHARGED')
++                item.pop('deferral')
++            self.assessment['requirements'][req] = item
++
++    def judge(self):
++        return stage_gate.evaluate(self.assessment, self.policy, self.scope, self.vo, self.ad)
++
++    def test_legitimate_future_verification_allows_provisional_review(self):
++        res = self.judge()
++        self.assertEqual(res['decision'], 'PASS_SIMULATION', res['errors'])
++        self.assertIn('not proof', res['reminder'])
++
++    def test_scope_authority_cannot_be_assumed(self):
++        self.scope['status']='pending_authority'
++        res=self.judge()
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++        self.assertIn('C-002 scope requires independent explicit authority', res['errors'])
++
++    def test_unjustified_deferral_is_rejected(self):
++        item=self.assessment['requirements']['R-001']
++        item['stage_status']='DEFERRED'
++        item['ap_assessment_due']=False  # An agent cannot override the governing policy.
++        item.pop('evidence')
++        item['deferral'].pop('owner')
++        res=self.judge()
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++        self.assertTrue(any('AP-due' in x for x in res['errors']))
++        self.assertTrue(any('lacks owner' in x for x in res['errors']))
++
++    def test_known_violation_blocks(self):
++        self.assessment['requirements']['C-002']['stage_status'] = 'VIOLATED'
++        res=self.judge()
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++        self.assertTrue(any('C-002: AP-stage evidence' in x for x in res['errors']))
++
++    def test_unaccepted_debt_blocks_tradeoff(self):
++        self.ad['items'][1]['state']='proposed'
++        res=self.judge()
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++        self.assertTrue(any('independently accepted Architectural Debt' in x for x in res['errors']))
++
++    def test_cannot_claim_final_discharge_from_prose(self):
++        self.assessment['requirements']['R-003']['final_status']='DISCHARGED'
++        res=self.judge()
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++        self.assertTrue(any('without accepted VO receipt' in x for x in res['errors']))
++
++    def test_default_policy_scope_unapproved(self):
++        original = stage_gate.read_doc(ROOT/'process/decisions/C-002-scope.yaml')
++        res = stage_gate.evaluate(self.assessment, self.policy, original, self.vo, self.ad)
++        self.assertEqual(res['decision'], 'NO_DOWNSELECTION')
++
++
++if __name__=='__main__': unittest.main()
+diff --git a/theory_of_operation.md b/theory_of_operation.md
+--- a/theory_of_operation.md
++++ b/theory_of_operation.md
+@@ -40,7 +40,7 @@
+     V -. "New evidence" .-> BKP
+ ```
+ 
+-The principal progression is **knowledge → obligations → proposals → selected architecture → contracts → component designs → firmware**. Proof discovery, independent verification, and evidence updates may occur throughout the progression.
++The principal progression is **knowledge → obligations → proposals → provisionally selected architecture → contracts → component designs → firmware → final acceptance**. Proof discovery, independent verification, and evidence updates may occur throughout the progression.
+ 
+ ### 2.1 Architectural objects
+ 
+@@ -161,6 +161,43 @@
+ 
+ The AS, F, and prior evaluations remain immutable historical evidence: when gate semantics change, produce a new evaluation (for example, AE-002) rather than rewriting AE-001's `NO_DOWNSELECTION` conclusion. F retains its predeclared criteria and hard final constraints; the gate clarifies which stage-appropriate evidence permits a **provisional** ranking.
+ 
++## 5.3 Provisional architectural commitment, final acceptance, and Architectural Debt
++
++**Commitment precedes complete verification.** A candidate AP may be selected **provisionally** for CON-first decomposition when all evidence due at the AP gate is adequate and all later obligations have owned, credible discharge plans. It is not declared finally compliant or the final F winner. When mandatory AP-stage evidence is missing, selection remains blocked; the process must not demand a linker map from an AP that has not yet been decomposed.
++
++**Verification Obligations (VO)** describe *what must be demonstrated* and when. **Architectural Debt (AD)** describes *decision risk voluntarily accepted before complete knowledge*. Examples: VO: demonstrate worst-case deadline compliance; AD: selecting a promising AP before target cycle comparisons are available. Recording AD never discharges a VO. Each accepted AD must name its initiating decision and assumptions, owner, exposure if false, resolution deadline, fallback, and authority accepting the risk. A critical missing requirement interpretation is a **blocker**, not ordinary debt that an LLM can silently accept.
++
++```mermaid
++flowchart TD
++  AS["AS + P + F"] --> AP["Candidate APs"]
++  AP --> G{"AP-stage gate"}
++  G -->|"Sufficient evidence + explicit conditions"| SEL["Provisional AP commitment"]
++  G -->|"Missing AP-due evidence"| REOPEN["Resolve evidence or authority"]
++  SEL --> CON["Contracts and budgets"] --> DE["Design Elements"] --> I["Implementation"]
++  I --> FIN{"Final acceptance gate"}
++  FIN -->|"All VOs discharged"| ACCEPT["Accepted firmware"]
++  FIN -->|"Violation or stale assumptions"| REOPEN
++  SEL -.-> AD["Architectural Debt ledger"]
++  AS -.-> VO["Verification Obligation ledger"]
++  AD -.-> FIN
++  VO -.-> FIN
++```
++
++An **authoritative VO ledger** records current open/discharged verification state, grounded in accepted review receipts. Individual VO documents define the obligations and historical revisions; they must not become conflicting authorities for current state. An **AD ledger** separately records accepted decision risks and unresolved blockers. A provisional AP decision must transfer all outstanding VO and accepted AD records to CON and DE handoffs. Debt cannot be accepted by the same agent that proposed it.
++
++A versioned **AP-stage selection policy** supplements, but must not silently rewrite, F. For example, F-001's final objective remains the Pareto frontier of state SRAM, worst-case cycles/update and flash bytes after complete hard-feasibility verification. Stage selection may instead assess architectural resource envelopes and projected operating cost, if an authorized stage policy permits such evidence. An unknown flash or cycle metric must never be reported as a measured value. If no projected candidate dominates, a provisional tradeoff needs explicit stakeholder authority and a debt record.
++
++**Requirement scope is part of the obligation.** For example, AS-001 states that *detector state* shall fit 2 KiB; it does not automatically establish that interrupt context and unrelated shared services are included. The responsible stakeholder must authorize that boundary. Until then, C-002 is an unresolved AP-stage authority decision, not a failure of a plausible 72–76 B algorithm-state estimate. Scope decisions must be linked to the existing AS or versioned as changes. Final verification retains the original hard limit with its approved accounting boundary.
++
++### Two gate decisions, not one
++
++| Gate | Commitment | Permitted outstanding work |
++|---|---|---|
++| Provisional AP selection | Authorize CON-first decomposition from a feasible AP family with credible assumptions | Final implementation/target VOs, plus explicitly accepted architectural decision risk |
++| Final implementation/target acceptance | Establish concrete compliance with all binding requirements | No unresolved binding VO; any remaining noncompliance risk requires an explicit separate policy rather than silent PASS |
++
++A failing later-stage VO reopens the smallest relevant decision (I, DE, CON, AP, or even AS authority) and invalidates dependent gate receipts. Previously recorded evaluation decisions remain historical, not overwritten. Every stage must distinguish a process-check PASS from an independently accepted engineering conclusion.
++
+ ## 6. Contract-first decomposition
+ 
+ After choosing an AP, derive **contracts (CON)** from the selected architecture before designing the internals of individual **design elements (DE)**. A contract defines the inputs, outputs, data representation where required, temporal behavior, ownership, preconditions, postconditions, invariants, and error handling at a boundary.
+@@ -176,10 +213,10 @@
+ | **G0 Evidence** | Is the relevant BKP identifiable and trustworthy enough? | Provenance, assumptions, and known gaps recorded |
+ | **G1 Statement** | Are C, R, and PS coherent and traceable? | Reviewed AS; conflicts or uncertainties explicit |
+ | **G2 Proof** | Are useful mathematical guarantees available? | Reviewed P where applicable; absence is explicit, not disguised as failure |
+-| **G3 Proposal** | Which APs satisfy hard obligations, and which ranks best under F? | Feasibility records and downselection rationale |
++| **G3 AP provisional commitment** | Which AP passes AP-due evidence, and what future conditions remain? | Provisional decision, VO/AD carry-forward, stage-authorized tradeoff if needed |
+ | **G4 Decomposition** | Do contracts and DE responsibilities faithfully refine the selected AP? | Reviewed boundary guarantees and composition obligations |
+ | **G5 Implementation** | Does code satisfy DE and CON? | Tests, analysis, and resource evidence |
+-| **G6 Target validation** | Does real target behavior satisfy AS? | Measurements, acceptance results, unresolved risks |
++| **G6 Final target acceptance** | Does real target behavior satisfy AS, and have all binding VOs been discharged? | Independent evidence and final F ranking; no silent final deferrals |
+ 
+ A gate records one of **PASS**, **FAIL**, or **UNRESOLVED** (with richer dispositions where useful). An LLM's confidence or its ability to produce polished documentation cannot substitute for a reproducible check or independent acceptance. No agent approves its own work.
+ 
+diff --git a/tools/attach_process_spine.py b/tools/attach_process_spine.py
+new file mode 100644
+--- /dev/null
++++ b/tools/attach_process_spine.py
+@@ -0,0 +1,28 @@
++#!/usr/bin/env python3
++"""Idempotently attach the process spine without replacing the user's evolving AS spine."""
++from pathlib import Path
++import sys
++import yaml
++ROOT = Path(__file__).resolve().parents[1]
++SPINE = ROOT / 'knowledge/architecture/AS-001/spine.md'
++TARGET = '/architecture/AS-001/decisions/PC-002-spine.md'
++
++
++def main():
++    text = SPINE.read_text(encoding='utf-8')
++    if not text.startswith('---\n') or '\n---\n' not in text[4:]:
++        raise SystemExit('Spine is not YAML-frontmatter Markdown')
++    _, header, body = text.split('---\n', 2)
++    data = yaml.safe_load(header)
++    rels = data.setdefault('relations', [])
++    if not any(edge.get('kind') == 'specifies' and edge.get('target') == TARGET for edge in rels):
++        rels.append({'kind': 'specifies', 'target': TARGET})
++        SPINE.write_text('---\n' + yaml.safe_dump(data, sort_keys=False, allow_unicode=True) + '---\n' + body, encoding='utf-8')
++        print('Attached process spine')
++    else:
++        print('Process spine already attached')
++    return 0
++
++
++if __name__ == '__main__':
++    sys.exit(main())
+diff --git a/tools/stage_gate.py b/tools/stage_gate.py
+new file mode 100644
+--- /dev/null
++++ b/tools/stage_gate.py
+@@ -0,0 +1,193 @@
++#!/usr/bin/env python3
++"""Deterministic completeness checks for staged architecture decisions.
++
++Does NOT establish physical validity, mathematical proof, or engineering approval.
++Use immutable independent review receipts to establish those properties.
++"""
++from __future__ import annotations
++import argparse
++import json
++from pathlib import Path
++import sys
++import yaml
++
++ROOT = Path(__file__).resolve().parents[1]
++DEFAULTS = {
++    'policy': 'process/policies/AP_SELECTION_v2.yaml',
++    'scope': 'process/decisions/C-002-scope.yaml',
++    'vo': 'process/ledgers/vo_ledger.yaml',
++    'ad': 'process/ledgers/ad_ledger.yaml',
++}
++STAGES = ['AS', 'AP', 'CON', 'DE', 'IMPLEMENTATION', 'TARGET_VALIDATION']
++ACCEPTABLE = {'SATISFIED', 'CONDITIONALLY_SATISFIED', 'DEFERRED'}
++DEFERRAL_FIELDS = ['owner', 'method', 'due_stage', 'acceptance', 'assumptions', 'escalation']
++
++
++def read_doc(path):
++    data = yaml.safe_load(Path(path).read_text(encoding='utf-8'))
++    if not isinstance(data, dict):
++        raise ValueError(f'Expected YAML mapping: {path}')
++    return data
++
++
++def nonempty(value):
++    if isinstance(value, str):
++        return bool(value.strip())
++    if isinstance(value, list):
++        return len(value) > 0 and all(nonempty(x) for x in value)
++    return value is not None and value is not False
++
++
++def inspect_state(policy, scope, vo, ad):
++    return {
++        'policy': {'id': policy.get('id'), 'status': policy.get('status')},
++        'scope': {'id': scope.get('id'), 'status': scope.get('status'), 'chosen': scope.get('chosen')},
++        'vos': [{k: x.get(k) for k in ('id', 'requirement', 'state', 'due_stage')}
++                for x in vo.get('obligations', [])],
++        'debts': [{k: x.get(k) for k in ('id', 'state', 'due_stage')}
++                  for x in ad.get('items', [])],
++    }
++
++
++def evaluate(assessment, policy, scope, vo_ledger, ad_ledger):
++    """Check eligibility of a PROVISIONAL_COMMITMENT, not final acceptance.
++
++    This procedure is intentionally strict about evidence receipts and permissions.
++    It cannot determine whether cited evidence is actually true.
++    """
++    errors = []
++    note = []
++    simulated = assessment.get('simulation_only') is True
++    if policy.get('status') != 'approved_for_trial' or policy.get('selection_kind') != 'PROVISIONAL_COMMITMENT':
++        errors.append('AP-stage policy not authorized for trial')
++    if assessment.get('policy_id') != policy.get('id'):
++        errors.append('Assessment policy identifier mismatch')
++    if assessment.get('stage') != 'AP' or assessment.get('schema') != 'pc-ap-assessment/v2':
++        errors.append('Invalid gate stage or assessment schema')
++    if not nonempty(assessment.get('candidate')):
++        errors.append('Candidate not identified')
++    if assessment.get('scope_id') != scope.get('id'):
++        errors.append('C-002 scope-decision identifier mismatch')
++    choices = [option.get('id') for option in scope.get('options', [])]
++    if not (scope.get('status') == 'approved' and scope.get('chosen') in choices
++            and nonempty(scope.get('approved_by')) and nonempty(scope.get('approval_evidence'))):
++        errors.append('C-002 scope requires independent explicit authority')
++    else:
++        note.append('C-002 has an identified approved accounting boundary')
++
++    ledger = {entry['requirement']: entry for entry in vo_ledger.get('obligations', [])
++              if isinstance(entry, dict) and entry.get('requirement')}
++    debts = {entry['id']: entry for entry in ad_ledger.get('items', [])
++             if isinstance(entry, dict) and entry.get('id')}
++    reqs = assessment.get('requirements', {})
++    if not isinstance(reqs, dict):
++        errors.append('Requirements assessment must be a mapping')
++        reqs = {}
++    expected = policy.get('requirements', [])
++    if set(reqs) != set(expected):
++        errors.append(f'Requirements mismatch: missing={sorted(set(expected)-set(reqs))}, extra={sorted(set(reqs)-set(expected))}')
++
++    for req in expected:
++        item = reqs.get(req)
++        if not isinstance(item, dict):
++            errors.append(f'{req}: missing assessment')
++            continue
++        status = item.get('stage_status')
++        if status not in ACCEPTABLE:
++            errors.append(f'{req}: AP-stage evidence is {status!r} (not admissible)')
++            continue
++        if not nonempty(item.get('evidence')) and status != 'DEFERRED':
++            errors.append(f'{req}: missing AP-stage evidence references')
++        if status == 'CONDITIONALLY_SATISFIED' and not nonempty(item.get('assumptions')):
++            errors.append(f'{req}: conditional evidence missing assumptions')
++        if status == 'DEFERRED' and req in policy.get('ap_due_requirements', expected):
++            errors.append(f'{req}: cannot defer an AP-due assessment')
++        binding = ledger.get(req)
++        if binding is None:
++            errors.append(f'{req}: missing authoritative VO ledger entry')
++            continue
++        if item.get('vo') != binding.get('id'):
++            errors.append(f'{req}: does not carry expected {binding.get("id")}')
++        final_status = item.get('final_status', 'OPEN')
++        if final_status == 'DISCHARGED':
++            if binding.get('state') != 'discharged' or not nonempty(binding.get('evidence_receipt')):
++                errors.append(f'{req}: cannot claim final discharge without accepted VO receipt')
++        elif final_status == 'OPEN':
++            if binding.get('state') == 'discharged':
++                errors.append(f'{req}: final_status contradicts discharged ledger')
++            plan = item.get('deferral')
++            if not isinstance(plan, dict):
++                errors.append(f'{req}: open VO requires complete forward plan')
++                continue
++            for field in DEFERRAL_FIELDS:
++                if not nonempty(plan.get(field)):
++                    errors.append(f'{req}: deferral lacks {field}')
++            due = plan.get('due_stage')
++            if due not in STAGES:
++                errors.append(f'{req}: unknown due stage {due}')
++            elif STAGES.index(due) <= STAGES.index('AP'):
++                errors.append(f'{req}: binding VO was due at or before AP; cannot defer it')
++            if due != binding.get('due_stage'):
++                errors.append(f'{req}: deferral due stage differs from authoritative ledger')
++        else:
++            errors.append(f'{req}: invalid final status {final_status}')
++
++    comparative = assessment.get('comparative_decision', {})
++    if not isinstance(comparative, dict):
++        comparative = {}
++    mode = comparative.get('mode')
++    if mode == 'supported_projection':
++        if not nonempty(comparative.get('evidence')):
++            errors.append('Projection ranking requires actual cited comparative evidence')
++        note.append('Comparative projection is not the final F-001 Pareto ranking')
++    elif mode == 'authorized_tradeoff':
++        if not nonempty(comparative.get('authority')) or not nonempty(comparative.get('rationale')):
++            errors.append('Provisional tradeoff requires explicit authority and rationale')
++        debt_id = comparative.get('architectural_debt')
++        debt = debts.get(debt_id)
++        if not debt or debt.get('state') != 'accepted' or not all(nonempty(debt.get(k)) for k in ('accepted_by','accepted_decision','owner','due_stage','fallback')):
++            errors.append('Unknown F tradeoff requires independently accepted Architectural Debt')
++        else:
++            note.append(f'Accepted risk linked: {debt_id}')
++    else:
++        errors.append('Cannot commit an AP without projected comparison or authorized tradeoff')
++
++    for debt in ad_ledger.get('items', []):
++        if debt.get('state') == 'blocking' and debt.get('due_stage') in ('AS', 'AP'):
++            errors.append(f'Architectural blocker remains open: {debt.get("id")}')
++
++    return {
++        'gate': 'AP_PROVISIONAL_SELECTION',
++        'candidate': assessment.get('candidate'),
++        'decision': 'PASS_SIMULATION' if simulated and not errors else ('ELIGIBLE_FOR_INDEPENDENT_REVIEW' if not errors else 'NO_DOWNSELECTION'),
++        'errors': list(dict.fromkeys(errors)),
++        'notes': note,
++        'simulation_only': simulated,
++        'reminder': 'A successful policy check is not proof, final F-001 ranking, or an approved architectural selection.',
++    }
++
++
++def main(argv=None):
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('command', choices=('inspect','evaluate'))
++    parser.add_argument('--assessment')
++    for k, v in DEFAULTS.items():
++        parser.add_argument(f'--{k}', default=v)
++    args = parser.parse_args(argv)
++    try:
++        inputs = {k: read_doc(ROOT / getattr(args, k)) for k in DEFAULTS}
++        if args.command == 'inspect':
++            print(json.dumps(inspect_state(inputs['policy'], inputs['scope'], inputs['vo'], inputs['ad']), indent=2))
++            return 0
++        if not args.assessment:
++            parser.error('evaluate requires --assessment')
++        result = evaluate(read_doc(ROOT / args.assessment), inputs['policy'], inputs['scope'], inputs['vo'], inputs['ad'])
++        print(json.dumps(result, indent=2))
++        return 0 if result['decision'] in ('ELIGIBLE_FOR_INDEPENDENT_REVIEW', 'PASS_SIMULATION') else 2
++    except (OSError, ValueError, yaml.YAMLError) as exc:
++        print('ERROR:', exc, file=sys.stderr)
++        return 1
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())

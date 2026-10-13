@@ -1,0 +1,20 @@
+version: 1
+# Project-defined typed edge vocabulary. Not part of Google OKF v0.2.
+relations:
+  - defines
+  - constrained_by
+  - motivated_by
+  - supported_by
+  - assumes
+  - opportunity
+  - proven_by
+  - evaluated_by
+  - candidate
+  - addresses
+  - results
+  - raw_data
+  - derived_from
+  - specifies
+  - decomposes_into
+  - selected
+  - verifies

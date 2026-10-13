@@ -1,0 +1,55 @@
+{
+  "record_type": "independent_review_request",
+  "id": "VO-001-IRR-001",
+  "version": 1,
+  "status": "pending",
+  "requested_reviewer": "independent verification reviewer (not the author of this request)",
+  "claim_under_review": {
+    "id": "C-001",
+    "text": "All ADC samples are unsigned 12-bit integers, 0..4095.",
+    "scope": "The declared synthetic ADC input-domain assumption for AS-001; this review can establish the stated model domain only, not physical ADC accuracy, analog behavior, or sample-loss guarantees."
+  },
+  "requested_decision": "Determine whether the cited ADC-domain source is adequate to accept C-001 at the AS stage. Record ACCEPTED or NOT_ACCEPTED, rationale, reviewer identity, checked evidence, and any assumptions. Do not infer acceptance from evaluation narratives or structural checks.",
+  "source_revision": {
+    "git_head": "1983e7cf5ce1912c419ba90739ce09bd289b0a98",
+    "working_tree_note": "Relevant files were hashed from the working tree at request creation; unrelated pre-existing working-tree changes exist.",
+    "sha256": {
+      "knowledge/architecture/AS-001/statement.md": "c8290dc23fb8f48dd87e34923cd7ca4debd4912bc7f72bf10bb30360d55c48b1",
+      "knowledge/bkp/adc.md": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "knowledge/architecture/AS-001/verification_plan.md": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5",
+      "knowledge/architecture/AS-001/verification/VO-001.md": "3e07bd181c07294217bb27d0df905bdd44fc9f8681a1afd4a09dd8d027a06ce2",
+      "knowledge/architecture/AS-001/evaluations/AE-001.md": "5d467f43150414511a21f2cd28f777604a77fdf677db3b790c58771890069aaa",
+      "knowledge/architecture/AS-001/evaluations/AE-002.md": "cd6229ddb251bf8fe05f3e3ac0b9b90081946bc84a26389db29b93bee1e25d1d",
+      "reviews/AE-001.md": "80ea24bef0a96410ec6d89d7c51712f9cc758586b3f8095815585d8c3b46fb68",
+      "reviews/AE-002.md": "3fa3c8c9773eee59ab5749a48ffe4c471e48863c61e31a0d1e8be3a1751d384e"
+    }
+  },
+  "evidence_to_check": [
+    "AS-001 C-001 and its adc footnote/source link.",
+    "BKP-ADC-001, which declares the hypothetical toy-device samples to be unsigned integers in [0, 4095] and labels this a model assumption, not an actual ADC measurement.",
+    "VP-001, which makes C-001 assessable and finally due at AS, with ADC-domain evidence from BKP and the BKP specification as final evidence.",
+    "VO-001, currently pending and requiring an independent reviewer decision tied to source revisions."
+  ],
+  "prior_review_records_examined": [
+    {
+      "path": "reviews/AE-001.md",
+      "sha256": "80ea24bef0a96410ec6d89d7c51712f9cc758586b3f8095815585d8c3b46fb68",
+      "relevance": "Evaluation receipt, not an independent C-001 source acceptance."
+    },
+    {
+      "path": "reviews/AE-002.md",
+      "sha256": "3fa3c8c9773eee59ab5749a48ffe4c471e48863c61e31a0d1e8be3a1751d384e",
+      "relevance": "Evaluation receipt whose C-001 SATISFIED narrative does not discharge VO-001; it also states VO-001 remains pending."
+    }
+  ],
+  "inspected": [
+    "AS-001 spine projection, AS-001 statement, BKP-ADC-001, VP-001, VO-001.",
+    "AE-001 and AE-002 plus their review receipts as historical context."
+  ],
+  "not_inspected": [
+    "Physical ADC datasheet or silicon evidence; the repository source is explicitly hypothetical/synthetic.",
+    "Raw sample fixture, implementation, and target measurements; they do not establish the declared model-domain authority."
+  ],
+  "current_assessment": "UNRESOLVED pending independent acceptance. The source text supports the C-001 domain as a declared model assumption, but no independent source-revision-bound C-001 acceptance receipt was found.",
+  "proposed_next_gate": "Independent reviewer completes this request. If accepted, prepare a separate source-revision-bound acceptance receipt and propose a VO ledger update; if not accepted, identify needed authority/evidence. Do not close VO-001 based on this request."
+}

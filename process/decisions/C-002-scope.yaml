@@ -1,0 +1,45 @@
+version: 1
+id: C-002-SCOPE-001
+requirement: C-002
+status: approved
+options:
+- id: detector_owned_state
+  definition: 'Persistent algorithm-owned detector state and any other memory explicitly
+    defined as state by AS; stack and shared context reported separately.
+
+    '
+- id: detector_charged_sram
+  definition: 'All SRAM charged to this detector, potentially including state, stack,
+    interrupt context and relevant shared allocations with nonoverlap rules.
+
+    '
+chosen: detector_charged_sram
+approved_by: user:engineering_authority
+approval_evidence: process/decisions/C-002-approval.md
+approval_date_local: '2026-10-12'
+accounting:
+  limit_bytes: 2048
+  boundary: Unique SRAM charged to operating this detector, including detector-owned
+    state and detector-attributable runtime allocations.
+  included_categories:
+  - persistent_state
+  - temporary_or_scratch
+  - detector_stack
+  - detector_attributable_interrupt_context
+  - detector_attributable_shared_allocations
+  - detector_attributable_dynamic_allocations
+  - other_detector_attributable
+  excludes: Unrelated system allocations with no detector attributable share; must
+    be identified when relevant.
+  shared_rule: Each shared SRAM byte is charged at most once to this detector accounting
+    envelope. Use a documented conservative attribution rule for each shared allocation;
+    no ungrounded zero attribution.
+  simultaneous_peak_rule: Account for mutually simultaneous live SRAM. Exclusive lifetimes
+    can share storage only if nonoverlap is justified. Include worst-case concurrent
+    detector activity and interrupt nesting where relevant.
+  ap_stage_rule: Allocate a bounded envelope for every charged category, with margin
+    and explicit assumptions. Budget allocations are commitments to be checked later,
+    not measurements or proof of physical feasibility.
+  implementation_rule: Verify charged SRAM use through static allocations, stack and
+    interrupt analysis, bounded dynamic allocation (if any), and documented shared-resource
+    charging; retain VO-002 until independently accepted.

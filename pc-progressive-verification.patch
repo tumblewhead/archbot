@@ -1,0 +1,326 @@
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/AGENTS.md pc-progressive-verification/AGENTS.md
+--- pc-next-gate/AGENTS.md	2026-10-13 04:59:44.435837199 +0000
++++ pc-progressive-verification/AGENTS.md	2026-10-13 05:06:20.918033256 +0000
+@@ -35,3 +35,7 @@
+ 
+ ## Run review handoff
+ At the end of each task, write the role-specific review receipt in `reviews/`, stating claims, supporting artifact links, inspected and uninspected evidence, unresolved obligations, and suggested next gate. Local telemetry may measure execution and structural checks, but it must not substitute for this semantic receipt. The user may share an explicitly exported bounded packet for independent review.
++
++## Progressive verification
++
++Read `theory_of_operation.md` before changing process gate semantics. Use `knowledge/architecture/AS-001/verification_plan.md` and its VO links when evaluating APs. Do not treat a later verification deadline as a stage PASS. Preserve AE-001 and other previous evaluations; create new versioned decisions.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/README_NEXT_GATE.md pc-progressive-verification/README_NEXT_GATE.md
+--- pc-next-gate/README_NEXT_GATE.md	2026-10-13 04:59:44.455837076 +0000
++++ pc-progressive-verification/README_NEXT_GATE.md	2026-10-13 05:06:20.918069783 +0000
+@@ -27,3 +27,15 @@
+ ```
+ 
+ The patch was generated against the supplied starter snapshot; existing files may have moved on. Inspect any patch rejects. Commit or stash local changes first so rollback is easy.
++
++## Next experiment: Progressive Verification / AE-002
++
++The new staged verification plan lives in `knowledge/architecture/AS-001/verification_plan.md`, with six VOs in `knowledge/architecture/AS-001/verification/`. See root `theory_of_operation.md` for rationale. Older AE-001 and F-001 stay unchanged.
++
++```bash
++python tools/pc.py check --fast
++python tools/telemetry.py run --role evaluation-agent --prompt prompts/08-ap-evaluation-staged.md
++python tools/telemetry.py export --run latest
++```
++
++A `NO_DOWNSELECTION` may still be correct: the new gate permits credible deferrals, not unsupported estimates.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/agents/evaluation-agent.md pc-progressive-verification/agents/evaluation-agent.md
+--- pc-next-gate/agents/evaluation-agent.md	2026-10-13 04:56:26.517531365 +0000
++++ pc-progressive-verification/agents/evaluation-agent.md	2026-10-13 05:06:20.917820866 +0000
+@@ -4,4 +4,8 @@
+ ---
+ # Architecture Evaluation Agent
+ 
+-Trigger: AP_EVALUATION_REQUESTED. Start at the AS spine and read AS, F, candidate APs, and accepted mathematical evidence. Make a per-obligation feasibility matrix for each AP. Classify each as PASS, FAIL, or UNRESOLVED with exact evidence and untested assumptions. Apply the predeclared F **only** to feasible candidates, reporting Pareto tradeoffs and missing measurements. If no candidate is shown feasible, withhold downselection and specify minimum evidence required. Do not change AS or F, invent timing measurements, approve firmware, or promote a mathematical proof into implementation validation. Produce a versioned review and receipt, updating the spine with a review link only when justified.
++Trigger: AP_EVALUATION_REQUESTED. Start at AS spine; read AS, F, candidate APs, staged verification plan VP, outstanding VOs and accepted mathematical evidence. A prior evaluation (AE-001) is immutable history.
++
++For every AP and every AS obligation, assess the **evidence due at AP** and state `SATISFIED`, `CONDITIONALLY_SATISFIED`, `DEFERRED`, `UNRESOLVED`, or `VIOLATED`. A later due date is insufficient for `DEFERRED`: record the credible method, responsible agent, key assumptions, and escalation. If AP-stage evidence is absent, mark `UNRESOLVED`. Do not waive AS or change F. Do not convert accepted abstract mathematical claims into firmware validation.
++
++Apply predeclared F only to stage-admissible proposals. Use the existing Pareto criteria; do not invent measurements or weights. If insufficient comparative evidence remains, return `NO_DOWNSELECTION` and specify the least-cost missing evidence. Otherwise selection is provisional with VOs attached. Never overwrite AE-001. Produce AE-002 and a review receipt. Do not implement firmware or claim final target verification.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/spine.md pc-progressive-verification/knowledge/architecture/AS-001/spine.md
+--- pc-next-gate/knowledge/architecture/AS-001/spine.md	2026-10-13 03:41:44.968470708 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/spine.md	2026-10-13 05:06:20.917752250 +0000
+@@ -11,6 +11,8 @@
+     target: /architecture/AS-001/merit.md
+   - kind: supported_by
+     target: /architecture/AS-001/evidence/spine.md
++  - kind: specifies
++    target: /architecture/AS-001/verification_plan.md
+   - kind: candidate
+     target: /architecture/AS-001/proposals/AP-001.md
+   - kind: candidate
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-001.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-001.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-001.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-001.md	2026-10-13 05:06:20.916994787 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-001
++title: C-001 verification
++status: draft
++requirement: C-001
++first_assessable_at: AS
++verification_due_at: AS
++verification_state: pending
++owner: knowledge-curator
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-001: C-001
++
++**Obligation:** Preserve the binding AS requirement `C-001`.
++
++**Proposed method:** ADC specification and domain checks.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `C-001` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-002.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-002.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-002.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-002.md	2026-10-13 05:06:20.917052850 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-002
++title: C-002 verification
++status: draft
++requirement: C-002
++first_assessable_at: AP
++verification_due_at: IMPLEMENTATION
++verification_state: pending
++owner: implementation-agent
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-002: C-002
++
++**Obligation:** Preserve the binding AS requirement `C-002`.
++
++**Proposed method:** Conservative whole-subsystem memory estimate at AP; map and stack analysis at implementation.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `C-002` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-003.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-003.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-003.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-003.md	2026-10-13 05:06:20.917117226 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-003
++title: C-003 verification
++status: draft
++requirement: C-003
++first_assessable_at: AP
++verification_due_at: IMPLEMENTATION
++verification_state: pending
++owner: implementation-agent
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-003: C-003
++
++**Obligation:** Preserve the binding AS requirement `C-003`.
++
++**Proposed method:** Integer-only architecture; inspect compiled code and toolchain requirements.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `C-003` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-004.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-004.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-004.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-004.md	2026-10-13 05:06:20.917510668 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-004
++title: R-001 verification
++status: draft
++requirement: R-001
++first_assessable_at: AP
++verification_due_at: TARGET_VALIDATION
++verification_state: pending
++owner: verification-agent
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-004: R-001
++
++**Obligation:** Preserve the binding AS requirement `R-001`.
++
++**Proposed method:** Bounded-operation argument at AP; target WCET evidence at validation.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `R-001` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-005.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-005.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-005.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-005.md	2026-10-13 05:06:20.917612055 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-005
++title: R-002 verification
++status: draft
++requirement: R-002
++first_assessable_at: AP
++verification_due_at: IMPLEMENTATION
++verification_state: pending
++owner: verification-agent
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-005: R-002
++
++**Obligation:** Preserve the binding AS requirement `R-002`.
++
++**Proposed method:** Abstract exactness proof; correspondence tests to implementation.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `R-002` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification/VO-006.md pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-006.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification/VO-006.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification/VO-006.md	2026-10-13 05:06:20.917675553 +0000
+@@ -0,0 +1,27 @@
++---
++type: Verification Obligation
++id: VO-006
++title: R-003 verification
++status: draft
++requirement: R-003
++first_assessable_at: AP
++verification_due_at: IMPLEMENTATION
++verification_state: pending
++owner: proof-reviewer
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: derived_from
++    target: /architecture/AS-001/verification_plan.md
++---
++# VO-006: R-003
++
++**Obligation:** Preserve the binding AS requirement `R-003`.
++
++**Proposed method:** Mathematical bound plus C integer-width and promotion review.
++
++**Status:** Pending assessment. This is a tracked obligation, **not** a PASS or accepted deferral.
++
++**Acceptance:** Obtain evidence covering the exact scope of `R-003` with recorded assumptions and source revisions, and an independent reviewer decision.
++
++**Escalation:** If the stage check fails, revisit the smallest applicable implementation/DE/CON/AP decision and invalidate dependent gates. No silent relaxation of AS or F.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/knowledge/architecture/AS-001/verification_plan.md pc-progressive-verification/knowledge/architecture/AS-001/verification_plan.md
+--- pc-next-gate/knowledge/architecture/AS-001/verification_plan.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/knowledge/architecture/AS-001/verification_plan.md	2026-10-13 05:06:20.916700235 +0000
+@@ -0,0 +1,37 @@
++---
++type: Verification Plan
++id: VP-001
++title: AS-001 staged evidence requirements
++status: draft
++relations:
++  - kind: addresses
++    target: /architecture/AS-001/statement.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-001.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-002.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-003.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-004.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-005.md
++  - kind: specifies
++    target: /architecture/AS-001/verification/VO-006.md
++---
++# VP-001: Stage-appropriate evidence
++
++This plan annotates AS-001 without modifying its historical text. All original hard constraints remain binding. `first_assessable_at` and `verification_due_at` are process-specific metadata, not standard OKF fields.
++
++| Requirement | First assessable | Final due | AP-stage evidence | Final evidence |
++|---|---|---|---|---|
++| C-001 | AS | AS | ADC domain from BKP | BKP specification |
++| C-002 | AP | IMPLEMENTATION | Conservative complete-memory budget and margin, with named unknowns | Map/static accounting plus stack and runtime bounds |
++| C-003 | AP | IMPLEMENTATION | Integer-only algorithm | Build/inspection confirms no reliance on FPU |
++| R-001 | AP | TARGET_VALIDATION | Bounded work model and credible 1-ms timing plan | WCET argument or representative target timing with margin |
++| R-002 | AP | IMPLEMENTATION | Abstract correctness proof or explicit AP-stage demonstration | C-to-model correspondence and integration tests |
++| R-003 | AP | IMPLEMENTATION | Universal mathematical bound with assumptions | C expression-type and state-invariant verification |
++
++**C-002 scope to resolve at AP gate:** define which bytes count in the 2048-byte budget, including persistent state, call stack, interrupt context and shared services where charged to the detector. A model that omits an unbounded contributor is `UNRESOLVED`, not `DEFERRED`.
++
++**Gate rule:** AP-stage requirements must have acceptable stage evidence. `DEFERRED` only applies when the due stage is later and a credible method, owner, assumptions, and escalation are recorded. `VIOLATED` never advances. The original F-001 hard conditions and Pareto dimensions do not change.
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/process/views.yaml pc-progressive-verification/process/views.yaml
+--- pc-next-gate/process/views.yaml	2026-10-13 04:56:26.517989717 +0000
++++ pc-progressive-verification/process/views.yaml	2026-10-13 05:06:49.128277599 +0000
+@@ -15,7 +15,7 @@
+     max_depth: 5
+     max_bytes: 42000
+   evaluation-agent:
+-    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by]
++    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
+     max_depth: 5
+     max_bytes: 42000
+   proposal-agent:
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/process/workflow.yaml pc-progressive-verification/process/workflow.yaml
+--- pc-next-gate/process/workflow.yaml	2026-10-13 04:56:26.518062865 +0000
++++ pc-progressive-verification/process/workflow.yaml	2026-10-13 05:06:20.917968631 +0000
+@@ -3,7 +3,7 @@
+ gates:
+   AS_REVIEW: [evidence_traceable, obligations_consistent]
+   PROOF_REVIEW: [assumptions_explicit, valid_argument_or_counterexample]
+-  AP_REVIEW: [hard_obligations_met, f_evaluation_predeclared]
++  AP_REVIEW: [ap_stage_obligations_met, deferred_verification_planned, f_evaluation_predeclared]
+   CONTRACT_REVIEW: [interfaces_complete, obligations_preserved]
+   IMPLEMENTATION_REVIEW: [contract_tests, target_resource_evidence]
+ events:
+diff -ruN '--exclude=theory_of_operation.md' pc-next-gate/prompts/08-ap-evaluation-staged.md pc-progressive-verification/prompts/08-ap-evaluation-staged.md
+--- pc-next-gate/prompts/08-ap-evaluation-staged.md	1970-01-01 00:00:00.000000000 +0000
++++ pc-progressive-verification/prompts/08-ap-evaluation-staged.md	2026-10-13 05:06:20.917901729 +0000
+@@ -0,0 +1,11 @@
++# AE-002: Stage-aware architecture evaluation
++
++Read AGENTS.md, agents/evaluation-agent.md and theory_of_operation.md. Begin at the AS-001 spine; follow the relation to VP-001 and the six VO documents. Read AS-001, unchanged F-001, candidate AP-001/AP-002, and accepted proof scope as available. Review AE-001 only as historical context and **do not modify it**.
++
++1. Check graph links (`python tools/pc.py check --fast`).
++2. Build an AP-stage evidence matrix for every C and R using five states: SATISFIED, CONDITIONALLY_SATISFIED, DEFERRED, UNRESOLVED, VIOLATED.
++3. For C-002 specifically, establish a conservative whole-subsystem memory model. A 64-byte sample array is not a complete model. Enumerate additional state, stack, alignment, and unknown overhead; mark AP-stage evidence UNRESOLVED if its accounting boundary or credible estimate is missing.
++4. For each DEFERRED item, cite VO id, due stage, method, owner, assumptions, and escalation. A requirement due later is never automatically DEFERRED.
++5. Identify stage-admissible proposals only when all AP-stage obligations are satisfied or conditionally satisfied and all legitimate future obligations are documented. Apply F-001 unchanged to those proposals. If comparative evidence is missing, return NO_DOWNSELECTION and the smallest set of tests/analyses that would enable selection.
++6. Create `knowledge/architecture/AS-001/evaluations/AE-002.md` and `reviews/AE-002.md`, link from spine using `evaluated_by`; no `selected` relation unless earned. Do not overwrite AE-001, AS-001, F-001, or accepted proofs.
++7. Run checks/tests and report explicit gate outcome, conditions, and VOs carried forward.
+Binary files pc-next-gate/tests/__pycache__/test_gate_record.cpython-313.pyc and pc-progressive-verification/tests/__pycache__/test_gate_record.cpython-313.pyc differ
+Binary files pc-next-gate/tests/__pycache__/test_pc.cpython-313.pyc and pc-progressive-verification/tests/__pycache__/test_pc.cpython-313.pyc differ
+Binary files pc-next-gate/tests/__pycache__/test_telemetry.cpython-313.pyc and pc-progressive-verification/tests/__pycache__/test_telemetry.cpython-313.pyc differ
+Binary files pc-next-gate/tools/__pycache__/pc.cpython-313.pyc and pc-progressive-verification/tools/__pycache__/pc.cpython-313.pyc differ
+Binary files pc-next-gate/tools/__pycache__/telemetry.cpython-313.pyc and pc-progressive-verification/tools/__pycache__/telemetry.cpython-313.pyc differ

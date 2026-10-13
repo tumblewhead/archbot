@@ -1,0 +1,46 @@
+version: 1
+# All paths are relative to the knowledge bundle root.
+# "follow" is an allowlist of edge kinds. No arbitrary file glob expansion.
+roles:
+  proof-scout:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, results, evaluated_by, candidate, opportunity, addresses]
+    max_depth: 4
+    max_bytes: 28000
+  proof-engineer:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, results, opportunity, addresses]
+    max_depth: 5
+    max_bytes: 32000
+  proof-reviewer:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by]
+    max_depth: 5
+    max_bytes: 42000
+  evaluation-agent:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
+    max_depth: 5
+    max_bytes: 42000
+  proposal-agent:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, evaluated_by, candidate]
+    max_depth: 3
+    max_bytes: 28000
+  architecture-agent:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, results]
+    max_depth: 3
+    max_bytes: 28000
+  experimental-investigator:
+    follow: [supported_by, results, raw_data, derived_from, defines]
+    max_depth: 4
+    max_bytes: 1800000
+  verification-agent:
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, results, candidate, addresses, evaluated_by]
+    max_depth: 5
+    max_bytes: 35000
+  contract-agent:
+    follow: [defines, selected, candidate, addresses, specifies, constrained_by, decomposes_into, evaluated_by]
+    max_depth: 4
+    max_bytes: 28000
+  implementation-agent:
+    follow: [selected, specifies, decomposes_into, constrained_by, proven_by, assumes, defines]
+    max_depth: 5
+    max_bytes: 28000
+# Required edges of concepts reached by a view are included even if filtered.
+mandatory_closure: [assumes, constrained_by]

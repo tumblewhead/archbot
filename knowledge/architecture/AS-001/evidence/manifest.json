@@ -1,0 +1,8 @@
+{
+  "dataset": "raw/samples.csv",
+  "description": "Synthetic bounded 12-bit samples, not experimental observations",
+  "sample_count": 65000,
+  "byte_count": 686319,
+  "sha256": "839f1102199c2b29f5839d5c5ce4578ae4b8e0c7a670166bc2055bc8b6fc8eaf",
+  "generator": "build-time pseudorandom.Random(seed=20261012), randrange(4096)"
+}

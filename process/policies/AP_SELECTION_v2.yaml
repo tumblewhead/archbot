@@ -1,0 +1,73 @@
+version: 2
+id: AP-SELECT-002
+status: approved_for_trial
+authority: user_agreement_to_progressive_verification_and_provisional_commitment
+original_f: F-001
+selection_kind: PROVISIONAL_COMMITMENT
+stages:
+- AS
+- AP
+- CON
+- DE
+- IMPLEMENTATION
+- TARGET_VALIDATION
+requirements:
+- C-001
+- C-002
+- C-003
+- R-001
+- R-002
+- R-003
+ap_due_requirements:
+- C-001
+- C-002
+- C-003
+- R-001
+- R-002
+- R-003
+allowed_stage_states:
+- SATISFIED
+- CONDITIONALLY_SATISFIED
+- DEFERRED
+future_evidence_required:
+- owner
+- method
+- due_stage
+- acceptance
+- assumptions
+- escalation
+protected_scope_decisions:
+- C-002
+f_dimensions:
+- state_sram_bytes
+- worst_case_cycles_per_update
+- flash_bytes
+selection_rules:
+- All AP-due assessments must have admissible evidence and required assumptions.
+- Deferred final checks must remain open VOs with complete plans.
+- No known hard violation or unresolved AP-due evidence can be ignored.
+- A stakeholder-authorized provisional commitment may resolve an incomplete projected
+  F comparison, but may not claim a Pareto winner.
+- Final acceptance requires every binding VO to be discharged with accepted evidence.
+- Revisions to AS or F require separate authorized versioned decisions.
+approved_scope_refs:
+  C-002: C-002-SCOPE-001
+ap_memory_envelope:
+  boundary: detector_charged_sram
+  limit_bytes: 2048
+  coverage: All detector-attributable SRAM categories, without double counting, at
+    peak simultaneous use.
+  categories:
+  - persistent_state
+  - temporary_or_scratch
+  - detector_stack
+  - detector_attributable_interrupt_context
+  - detector_attributable_shared_allocations
+  - detector_attributable_dynamic_allocations
+  - other_detector_attributable
+  positive_margin_required: true
+  evidence_maturity: AP-stage justified allocation and enforcement plan, not measured
+    firmware
+  final_due_stage: IMPLEMENTATION
+  protected_f_metric: F-001 state_sram_bytes is distinct from detector-charged total
+    for C-002
