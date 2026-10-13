@@ -43,9 +43,10 @@ roles:
     max_depth: 5
     max_bytes: 35000
   contract-agent:
-    follow: [defines, selected, candidate, addresses, specifies, constrained_by, decomposes_into, evaluated_by]
-    max_depth: 4
-    max_bytes: 28000
+    include_nonconcept: false
+    follow: [defines, selected, candidate, addresses, specifies, constrained_by, decomposes_into, evaluated_by, assumes, supported_by, proven_by, verifies]
+    max_depth: 5
+    max_bytes: 42000
   implementation-agent:
     follow: [selected, specifies, decomposes_into, constrained_by, proven_by, assumes, defines]
     max_depth: 5

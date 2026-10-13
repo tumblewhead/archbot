@@ -1,0 +1,27 @@
+schema: pc-staged-figure-of-merit/v1
+id: F-STAGES-001
+status: proposed_for_review
+protected_original_figure: F-001
+stages:
+  symbolic:
+    id: F_s
+    due_stage: AP
+    allowed_evidence: [exact_symbolic_expression, conditional_bound, evidence_based_estimate, unknown]
+    constraints:
+      - preserve_objective_dimensions
+      - preserve_units_and_uncertainty
+      - never_invent_missing_coefficients
+      - never_claim_numeric_pareto_when_comparison_is_partial
+  final:
+    id: F_f
+    due_stage: TARGET_VALIDATION
+    allowed_evidence: [accepted_static_bound, measured_resource_footprint, target_measurement, independently_accepted_verification]
+    constraints:
+      - preserve_original_f_objectives
+      - conservative_wcet_or_validated_bound_for_hard_deadlines
+      - tracked_correspondence_to_F_s
+      - all_due_VOs_must_be_discharged
+correspondence:
+  trace: [objective, symbolic_claim, assumptions, contract, design_element, implementation, final_evidence]
+  discrepancy_action: reopen_affected_architecture_obligations
+protected_change: requires_explicit_authority_to_amend_F_001

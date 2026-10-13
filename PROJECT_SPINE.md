@@ -76,3 +76,26 @@ would recreate our circular dependency. The still-unapproved
 proposes final comparative F evidence due before final acceptance, with
 intermediate CON and implementation checkpoints. Explicit engineering-authority
 approval is required before any selected-AP or accepted-AD state change.
+
+## Controlled decision: AP-002 provisional CON-first selection
+The engineering authority explicitly approved CON-first work after the
+revised v2 AP-002 provisional selection and AD-003 request. Controlled
+records: `process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml` and
+`.md`. AD-003 is accepted in `process/ledgers/ad_ledger.yaml`, with
+final F comparison due before final acceptance; no final F-001 ranking is
+claimed. The architecture spine now references the accepted decision and
+selected AP-002. VO-002 through VO-006 remain open.
+
+**Next execution:** `process/tasks/TOY1-CON001.yaml`, operation
+`DEFINE_CON` using reusable `process/playbooks/DEFINE_CON.md`.
+First run structural validation and the AP-002 v4 policy gate; treat its
+eligibility as a completeness check, not as independent correctness proof.
+The Contract Agent produces drafts for independent review, not firmware.
+
+**Proposed process refinement:** `docs/STAGED_FIGURE_OF_MERIT.md` and
+`process/proposals/F_STAGES_001.yaml` separate symbolic `F_s` at
+architecture stage from evidence-backed final `F_f`. This is a
+reviewable proposal; F-001 was not amended by the authority decision.
+A prior accepted VO-001 receipt hashes the old AS spine; newly added
+navigation edges should be assessed for claim-level relevance without
+silently changing that receipt's recorded hash or C-001 scope.

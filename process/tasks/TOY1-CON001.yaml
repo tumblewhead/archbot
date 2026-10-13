@@ -1,0 +1,46 @@
+# This manifest provides Toy 1 data to the reusable DEFINE_CON playbook.
+schema: pc-task/v1
+id: TOY1-CON001
+role: contract-agent
+operation: DEFINE_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: AP_PROVISIONALLY_SELECTED
+  reference: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+  revision: accepted_authority_record
+playbook: process/playbooks/DEFINE_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    accepted_selection: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    selection_concept: knowledge/architecture/AS-001/decisions/AP-002-SELECTED-001.md
+    selected_ap: knowledge/architecture/AS-001/proposals/AP-002.md
+    accepted_proof: knowledge/architecture/AS-001/proofs/PR-002.md
+    verification_plan: knowledge/architecture/AS-001/verification_plan.md
+    vo_ledger: process/ledgers/vo_ledger.yaml
+    ad_ledger: process/ledgers/ad_ledger.yaml
+    c002_authority: process/decisions/C-002-scope.yaml
+    ap_assessment: knowledge/architecture/AS-001/evaluations/AP-002-assessment-v4.yaml
+outputs:
+  allowed:
+    - draft_versioned_contract_concept
+    - draft_contract_spine
+    - draft_design_element_placeholder
+    - requirement_to_contract_coverage_matrix
+    - additive_spine_link
+    - independent_contract_review_request
+    - review_receipt
+  prohibited:
+    - overwrite_prior_evaluation_or_authority
+    - modify_approved_AS_or_F
+    - implement_firmware
+    - discharge_verification_obligation
+    - accept_new_architectural_debt
+    - approve_contracts
+    - approve_design_elements
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
