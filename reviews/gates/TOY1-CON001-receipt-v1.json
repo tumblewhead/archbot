@@ -1,0 +1,40 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "TOY1-CON001",
+  "gate": "CONTRACT_REVIEW",
+  "status": "CONTRACTS_UNRESOLVED",
+  "input_revision": "3d71ba9b4536ccb9070dee00b4d2281a56cebd9d",
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003.md",
+    "knowledge/architecture/AS-001/contracts/spine.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-TASK.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-IRQ.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-SHARED.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-MEM.md",
+    "knowledge/architecture/AS-001/spine.md",
+    "reviews/gates/TOY1-CON001-coverage-v1.md",
+    "reviews/gates/TOY1-CON001-independent-review-request-v1.md",
+    "reviews/gates/TOY1-CON001-receipt-v1.json"
+  ],
+  "authority": {
+    "selection": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml",
+    "accepted_debt": ["AD-003"],
+    "carried_open_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"]
+  },
+  "structural_checks": {
+    "task_manifest_inspect": "PASS",
+    "pc_check_fast": "PASS: 33 concepts, 128 typed links, zero errors; raw hash skipped"
+  },
+  "acceptance_claims": [],
+  "unresolved": [
+    "No target/RTOS definition for queue capacity, ISR vector/priority/nesting, scheduler response, synchronization primitive, or fault observability.",
+    "Contract review must determine whether the explicit producer continuity precondition and required target evidence are sufficient to proceed to DE decomposition.",
+    "VO-002 through VO-006 remain open; AD-003 remains accepted and due before final acceptance."
+  ],
+  "next_eligible_action": "Independent contract review; reviewer records disposition and findings. DE decomposition requires a separate accepted contract review receipt."
+}
