@@ -82,18 +82,24 @@ def decision(root: Path, ref: str) -> dict:
     contracts = []
     if rule["target"] == "receipt":
         trigger_ref = ref
-    elif rule["target"] == "changed_contract_spine":
+    elif rule["target"] in ("changed_concept", "changed_contract_spine"):
+        # The second spelling preserves existing manifests and historical policies.
+        primary_type = rule.get("concept_type", "Contract Spine")
+        related_type = rule.get("related_concept_type", "Design Contract")
         spines = []
         for filename in receipt.get("changed_artifacts", []):
             if not isinstance(filename, str) or not filename.startswith("knowledge/") or not filename.endswith(".md"):
                 continue
             ctype = concept_type(source(root, filename, "knowledge"))
-            if ctype == "Contract Spine":
+            if ctype == primary_type:
                 spines.append(filename)
-            elif ctype == "Design Contract":
+            elif related_type is not None and ctype == related_type:
                 contracts.append(filename)
-        if len(spines) != 1 or not contracts:
-            raise LoopError("Submission must identify one new Contract Spine and its contracts")
+        if len(spines) != 1 or (related_type is not None and not contracts):
+            raise LoopError(
+                "Submission must identify one new " + str(primary_type) +
+                (" and related " + str(related_type) if related_type is not None else "")
+            )
         trigger_ref = spines[0]
     else:
         raise LoopError("Unknown transition target")
@@ -129,13 +135,22 @@ def decision(root: Path, ref: str) -> dict:
             "finding_ids": [f["id"] for f in receipt.get("findings", [])
                             if isinstance(f, dict) and f.get("severity") in ("blocking", "unresolved")
                             and isinstance(f.get("id"), str)],
-            "prior_task_context": prior.get("context", {}),
+            "source_task_manifest": task_ref,
         }
     else:
-        context["authority_inputs"] = {
-            "contract_spine": trigger_ref, "current_contracts": contracts,
-            "submission_receipt": ref, "prior_task_context": prior.get("context", {}),
+        context["artifact_inputs"] = {
+            "primary_concept": trigger_ref,
+            "related_concepts": contracts,
+            "submission_receipt": ref,
+            "source_task_manifest": task_ref,
         }
+        # Keep the initial CONTRACT_REVIEW consumer compatible with historical
+        # task manifests. This is an alias, not a recursive context copy.
+        if rule["operation"] == "REVIEW_CON":
+            context["authority_inputs"] = {
+                "contract_spine": trigger_ref, "current_contracts": contracts,
+                "submission_receipt": ref, "source_task_manifest": task_ref,
+            }
     manifest = {
         "schema": "pc-task/v1", "id": next_id, "role": op["role"],
         "operation": rule["operation"], "spine": prior["spine"],
