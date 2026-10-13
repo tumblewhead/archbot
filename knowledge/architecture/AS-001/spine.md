@@ -57,6 +57,8 @@ relations:
   target: /architecture/AS-001/contracts/spine-v2.md
 - kind: specifies
   target: /architecture/AS-001/contracts/spine-v3.md
+- kind: specifies
+  target: /architecture/AS-001/contracts/spine-v4.md
 ---
 # AS-001 spine
 

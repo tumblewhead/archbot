@@ -1,0 +1,78 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "REVISE_CON-d811f94c033e",
+  "gate": "CONTRACT_REVIEW",
+  "status": "CONTRACTS_UNRESOLVED",
+  "input_revision": "53ff985b2d3b980f668d9a8bc1c35051d16e02a3",
+  "trigger": {
+    "reference": "reviews/gates/TOY1-CON003-independent-review-v3.json",
+    "input_revision": "bf5e5982d8f7cd6bab5518ebf497e23117f24ee8",
+    "trigger_revision": "d995e15fe45349553c22aee36cc53f4f23000cd7",
+    "finding_ids": ["CON003-F01", "CON003-F02", "CON003-F03", "CON003-F04"],
+    "disposition": "REVISE"
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v4.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v4.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v4.md",
+    "knowledge/architecture/AS-001/contracts/spine-v4.md",
+    "knowledge/architecture/AS-001/spine.md",
+    "reviews/gates/TOY1-CON004-coverage-v4.md",
+    "reviews/gates/TOY1-CON004-independent-review-request-v4.md",
+    "reviews/gates/TOY1-CON004-receipt-v4.json"
+  ],
+  "finding_map": {
+    "CON003-F01": {
+      "correction": "Specify mutually exclusive ordering of producer loss decision/increment, successful handoff, consumer coherent checks and result commit; require atomic reader visibility and explicit session transition ordering.",
+      "evidence": ["knowledge/architecture/AS-001/contracts/CON-AP2-001-v4.md"],
+      "status": "addressed_as_contract_semantics; integration enforceability and independent review remain required"
+    },
+    "CON003-F02": {
+      "correction": "Define successful handoff as watchdog restart event, first session record as start event, B=(2^32-1) ms, conservative conversion, positive margin and task-independent invalidation deadline.",
+      "evidence": ["knowledge/architecture/AS-001/contracts/CON-AP2-001-v4.md"],
+      "status": "addressed_as_checkable_contract_conditions; target timer/range/conversion/response evidence remains open"
+    },
+    "CON003-F03": {
+      "correction": "Enumerate required shared object classes under existing 128-byte ceiling and explicitly leave numerical fit unresolved because capacity and concrete object sizes are absent from accepted evidence.",
+      "evidence": ["knowledge/architecture/AS-001/contracts/CON-AP2-003-v4.md", "reviews/gates/TOY1-CON004-coverage-v4.md"],
+      "status": "unresolved blocker; requires bounded numeric allocation and ownership plan within cap or controlled authority revision"
+    },
+    "CON003-F04": {
+      "correction": "Carry forward the v3 71-byte persistent inventory within 72-byte cap.",
+      "evidence": ["knowledge/architecture/AS-001/contracts/CON-AP2-002-v4.md"],
+      "status": "contract-level closure retained; physical layout remains open under VO-002"
+    }
+  },
+  "authority": {
+    "approved_selection": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml",
+    "accepted_debt": ["AD-003"],
+    "carried_open_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+    "discharged_obligations": ["VO-001: synthetic ADC domain only"],
+    "authority_changes": []
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVISE_CON-d811f94c033e.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, playbook, spine and gate resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "56 concepts, 246 typed links, zero warnings/errors; raw hashes skipped. Structural check only."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    }
+  ],
+  "acceptance_claims": [],
+  "unresolved": [
+    "CON003-F03: no bounded numeric shared-object allocation plan demonstrates fit within the unchanged 128-byte cap.",
+    "Independent review of v4 semantics is required; F01/F02 are contract drafts, not integration evidence.",
+    "VO-002 through VO-006 remain open; AD-003 remains accepted and due before final acceptance.",
+    "No DE refinement, implementation, VO discharge, or authority change is authorized."
+  ],
+  "next_eligible_action": "Provide a bounded numeric shared allocation/ownership plan within 128 bytes (or request controlled authority revision if infeasible), then conduct independent REVIEW_CON of the complete v4 candidate. DE refinement remains blocked."
+}
