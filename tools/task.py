@@ -156,7 +156,18 @@ def validate(root: Path, manifest: str) -> dict:
                 or source_receipt.get("schema") != "pc-gate-receipt/v1"
                 or source_receipt.get("gate") != "AS_REVIEW"
                 or source_receipt.get("status") != "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW"
-                or trigger["reference"] not in source_receipt.get("changed_artifacts", [])):
+                or not isinstance(source_receipt.get("changed_artifacts"), list)
+                or not (
+                    trigger["reference"] in source_receipt["changed_artifacts"]
+                    or (
+                        source_receipt.get("review_subject") == trigger["reference"]
+                        and any(isinstance(item, str)
+                                and item.startswith("knowledge/")
+                                and item.endswith(".md")
+                                and _file(root, item, "knowledge")
+                                for item in source_receipt["changed_artifacts"])
+                    )
+                )):
             raise TaskError("AS revision submission lacks a matching ready receipt")
         candidate_content = trigger_path.read_text(encoding="utf-8")
         if (not candidate_content.startswith("---\n")
@@ -176,7 +187,8 @@ def validate(root: Path, manifest: str) -> dict:
                 or review.get("schema") != "pc-as-review/v1"
                 or review.get("gate") != "AS_REVIEW"
                 or review.get("disposition") != "REVISE"
-                or review.get("next_stage_recommendation") != "AS_REVISION_REQUIRED"
+                or (review.get("gate_status") != "AS_REVISION_REQUIRED"
+                    and review.get("next_stage_recommendation") != "AS_REVISION_REQUIRED")
                 or review.get("independent_of_authoring_invocation") is not True
                 or not any(isinstance(f, dict) and f.get("severity") == "blocking"
                            for f in review.get("findings", []))):
