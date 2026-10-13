@@ -1,0 +1,46 @@
+schema: pc-task/v1
+id: PLAN_EVIDENCE-668abfbc4056
+role: evidence-planning-agent
+operation: PLAN_EVIDENCE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: STAGE_EVIDENCE_REQUIRED
+  reference: reviews/gates/TOY1-CON004-receipt-v4.json
+  revision: 53ff985b2d3b980f668d9a8bc1c35051d16e02a3
+playbook: process/playbooks/PLAN_EVIDENCE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: stage_evidence_gap
+    receipt: reviews/gates/TOY1-CON004-receipt-v4.json
+    source_task_manifest: process/tasks/REVISE_CON-d811f94c033e.yaml
+    source_revision: 53ff985b2d3b980f668d9a8bc1c35051d16e02a3
+  evidence_inputs:
+    blocking_receipt: reviews/gates/TOY1-CON004-receipt-v4.json
+    unresolved:
+    - 'CON003-F03: no bounded numeric shared-object allocation plan demonstrates fit
+      within the unchanged 128-byte cap.'
+    - Independent review of v4 semantics is required; F01/F02 are contract drafts,
+      not integration evidence.
+    - VO-002 through VO-006 remain open; AD-003 remains accepted and due before final
+      acceptance.
+    - No DE refinement, implementation, VO discharge, or authority change is authorized.
+    source_task_manifest: process/tasks/REVISE_CON-d811f94c033e.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: EVIDENCE_PLANNING
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

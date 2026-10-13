@@ -1,0 +1,58 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "PLAN_EVIDENCE-668abfbc4056",
+  "gate": "EVIDENCE_PLANNING",
+  "status": "EVIDENCE_STILL_UNRESOLVED",
+  "input_revision": "afeacd890cfd8a4b7267064721056471d634c485",
+  "trigger": {
+    "reference": "reviews/gates/TOY1-CON004-receipt-v4.json",
+    "trigger_revision": "53ff985b2d3b980f668d9a8bc1c35051d16e02a3",
+    "originating_task": "REVISE_CON-d811f94c033e"
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/evidence/EP-003-CON004-shared-allocation.md",
+    "reviews/gates/PLAN_EVIDENCE-668abfbc4056-receipt.json"
+  ],
+  "finding_resolution": {
+    "CON003-F03": {
+      "status": "unresolved",
+      "reason": "The v4 contracts specify shared object classes but accepted inputs do not bound handoff capacity, object widths/layouts, synchronization footprint, or watchdog representation; numeric fit within 128 bytes cannot be established without inventing implementation facts.",
+      "required_next_evidence": "Nonoverlapping aligned peak inventory with ownership, capacity, representation, padding, concurrency and source for each object; total <=128 bytes with positive headroom, or controlled authority request if infeasible."
+    },
+    "CON003-F01-F02": {
+      "status": "independent_review_still_required",
+      "reason": "The v4 semantics remain draft contract conditions and lack integration evidence."
+    }
+  },
+  "authority": {
+    "approved_selection": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml",
+    "accepted_debt": ["AD-003"],
+    "carried_open_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+    "authority_changes": []
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/PLAN_EVIDENCE-668abfbc4056.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, playbook, spine and gate resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "57 concepts, 248 typed links, zero warnings/errors; raw hashes skipped. Structural validation only, not mathematical or engineering acceptance."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    }
+  ],
+  "acceptance_claims": [],
+  "unresolved": [
+    "No bounded numeric shared allocation/ownership plan demonstrates fit within the unchanged 128-byte cap.",
+    "Independent review of v4 contract semantics and integration preconditions remains required.",
+    "VO-002 through VO-006 remain open; AD-003 remains accepted and due before final acceptance.",
+    "No DE refinement, implementation, VO discharge, or authority change is authorized."
+  ],
+  "next_eligible_action": "Contract author/integration owner supplies a bounded nonoverlapping shared allocation inventory within 128 bytes (or keeps blocker open and requests controlled authority revision if infeasible); then submit the complete v4 candidate for independent REVIEW_CON."
+}
