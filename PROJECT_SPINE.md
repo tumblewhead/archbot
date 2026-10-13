@@ -4,6 +4,29 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Scope audit accepted as findings; authority decision pending
+
+Commit `a03293dcb130` adds
+`reviews/gates/TOY1-SCOPE-AUDIT-002.md`,
+its receipt and candidate AS wording. Audit disposition is
+`SCOPE_REDUCTION_CANDIDATE_WITH_AUTHORITY_CLARIFICATION_REQUIRED`,
+**not engineering approval**. The independent audit concludes the
+1-ms requirement came from synthetic demonstration provenance, while
+the 32-sample recurrence is mathematically sample-indexed. It finds
+the loss-epoch, sequence-wrap watchdog and external-reader protocol
+unsupported as *binding* requirements absent separately approved
+integration semantics. C-002 remains approved, VO-002..VO-006 open,
+and the provisional AP-002 selection/AD-003 unchanged.
+
+Proposed protected decision request:
+`process/decisions/AS-001-SCOPE-CORRECTION-REQUEST-v1.md`.
+It asks human engineering authority to approve sample-indexed accepted-input
+R-001 with timing and overload left for separately approved integration,
+and to preserve 32-sample exact arithmetic and authorized resource scope.
+Do not mutate AS, VO-004, selected AP, F, contract history or protected
+decisions until explicit approval and controlled versioned revision.
+No further CON v4 repair is scheduled while source authority is disputed.
+
 ## Active specification-origin correction (human objection, 2026-10-13)
 The human engineering authority disputes the source and necessity of the
 one-sample-per-millisecond assumption and the security-grade continuity
