@@ -122,9 +122,26 @@ def decision(root: Path, ref: str) -> dict:
     for filename in (root / "process/tasks").glob("*.yaml"):
         item = yaml_doc(filename)
         trigger = item.get("trigger", {})
+        context_saved = item.get("context", {})
+        context_saved = context_saved if isinstance(context_saved, dict) else {}
+        provenance = context_saved.get("workflow_provenance", {})
+        provenance = provenance if isinstance(provenance, dict) else {}
+        artifacts = context_saved.get("artifact_inputs", {})
+        artifacts = artifacts if isinstance(artifacts, dict) else {}
+        authority = context_saved.get("authority_inputs", {})
+        authority = authority if isinstance(authority, dict) else {}
+        # A revised VP may resubmit the *same* AS subject for a fresh
+        # independent review. The subject path alone is not an identity key.
+        # A planning attempt is idempotent only for the same source receipt.
+        origin = (provenance.get("receipt")
+                  or artifacts.get("submission_receipt")
+                  or authority.get("submission_receipt"))
         if (item.get("operation") == rule["operation"] and isinstance(trigger, dict)
                 and trigger.get("kind") == rule["trigger_kind"]
-                and trigger.get("reference") == trigger_ref):
+                and trigger.get("reference") == trigger_ref
+                and (origin == ref or (origin is None
+                                      and rule["target"] == "receipt"
+                                      and trigger_ref == ref))):
             existing.append(filename.relative_to(root).as_posix())
     if len(existing) > 1:
         raise LoopError("Conflicting existing task manifests")
