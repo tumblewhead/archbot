@@ -98,9 +98,20 @@ def decision(root: Path, ref: str) -> dict:
                 spines.append(filename)
             elif related_type is not None and ctype == related_type:
                 contracts.append(filename)
+        if not spines and isinstance(receipt.get("review_subject"), str):
+            # A dependent VP/VO correction may preserve an already submitted
+            # primary AS verbatim. It must still name an exact review subject
+            # and at least one newly versioned knowledge artifact.
+            subject = receipt["review_subject"]
+            if (not any(isinstance(p, str) and p.startswith("knowledge/")
+                        and p.endswith(".md") for p in receipt.get("changed_artifacts", []))):
+                raise LoopError("Re-review without an updated knowledge artifact")
+            if concept_type(source(root, subject, "knowledge")) != primary_type:
+                raise LoopError("Review subject does not match configured concept type")
+            spines.append(subject)
         if len(spines) != 1 or (related_type is not None and not contracts):
             raise LoopError(
-                "Submission must identify one new " + str(primary_type) +
+                "Submission must identify one " + str(primary_type) +
                 (" and related " + str(related_type) if related_type is not None else "")
             )
         trigger_ref = spines[0]
