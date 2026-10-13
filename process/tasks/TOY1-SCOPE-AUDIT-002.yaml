@@ -1,0 +1,54 @@
+# Revised scope audit triggered by verified synthetic-origin requirement defect.
+# Reuses process/playbooks/AUDIT_SCOPE.md unchanged.
+schema: pc-task/v1
+id: TOY1-SCOPE-AUDIT-002
+role: verification-agent
+operation: AUDIT_SCOPE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: SOURCE_AUTHORITY_DISPUTE
+  reference: process/change_requests/CR-001-SYNTHETIC-REQUIREMENT-AUTHORITY.md
+  revision: a210f119fdec00f26bef9773ff2614d925e9ec54
+playbook: process/playbooks/AUDIT_SCOPE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    disputed_source: knowledge/bkp/problem-origin.md
+    synthetic_adc_source: knowledge/bkp/adc.md
+    current_architecture_statement: knowledge/architecture/AS-001/statement.md
+    verification_plan: knowledge/architecture/AS-001/verification_plan.md
+    original_figure_of_merit: knowledge/architecture/AS-001/merit.md
+    selected_ap: knowledge/architecture/AS-001/proposals/AP-002.md
+    current_contract_spine: knowledge/architecture/AS-001/contracts/spine-v4.md
+    last_evidence_plan: knowledge/architecture/AS-001/evidence/EP-003-CON004-shared-allocation.md
+    current_authority: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    current_vo_ledger: process/ledgers/vo_ledger.yaml
+    human_objection: process/change_requests/CR-001-SYNTHETIC-REQUIREMENT-AUTHORITY.md
+    predecessor_scope_audit_manifest: process/tasks/TOY1-SCOPE-AUDIT-001.yaml
+    check:
+      - Distinguish invented 1ms throughput from intrinsic per-sample rolling-sum semantics
+      - Trace each loss-detection and watchdog clause to approved authority or necessary derivation
+      - Identify minimal corrected AS candidate and exact dependent VO/proof/CON impact
+      - Preserve separately approved C-002 accounting and AP-selection history
+      - Avoid claiming that the user has approved a rewritten AS or new application specifications
+outputs:
+  allowed:
+    - independent_scope_audit
+    - source_authority_traceability
+    - minimal_corrected_AS_proposal
+    - bounded_review_receipt
+    - affected_dependency_list
+  prohibited:
+    - edit_current_AS_or_F
+    - amend_accepted_authority
+    - overwrite_existing_contracts_or_proofs
+    - discharge_or_delete_VOs
+    - accept_new_debt
+    - approve_contracts_or_DEs
+    - implement_firmware
+gate:
+  kind: SCOPE_AUDIT
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
