@@ -2,20 +2,30 @@
 
 **Reusable operation:** REVISE_AS  
 **Role:** architecture-agent  
-**Trigger:** A protected, explicit engineering-authority decision authorizes
-a scoped amendment to a previously reviewed architecture statement.
+**Trigger:** Either a protected, explicit engineering-authority decision
+authorizes a scoped amendment, or an independent AS review records actionable
+blocking findings against a previously authorized versioned AS candidate.
+In the latter case, follow the prior authority through the predecessor
+manifest; an independent review cannot expand the authorized scope.
 
 ## Procedure
 
 1. Resolve the versioned authority decision, its source request, independent
    audit, original AS, BKP sources, current verification plan and VO/AD ledgers.
+   When invoked from independent REVIEW_AS, resolve the original authorization
+   and candidate through the source task manifest, and correct each finding by ID.
    Confirm what the authority *actually approved*. Do not treat synthetic
    demonstration assumptions as human-approved requirements.
 2. Separate interface and mathematical algorithm semantics from environment
    and integration assumptions. Explicitly classify each derived claim's
    provenance and authority. Do not assume hardware features are present.
-3. Create an additive, versioned **draft** AS concept; preserve original
-   sources and prior AS versions byte-for-byte. If correcting source provenance,
+3. Create additive, versioned **draft** concepts for each item actually
+   affected. Preserve previously reviewed AS/VP/VO versions byte-for-byte.
+   A VP-only correction must not force an unnecessary rewritten AS: an
+   authoring receipt may name the unchanged draft AS path in `review_subject`,
+   while listing the new versioned VP/VO artifacts under `changed_artifacts`.
+   If the AS wording genuinely changes, issue a new draft AS concept.
+   If correcting source provenance,
    add an annotation or versioned source concept rather than rewriting an
    original accepted or previously reviewed BKP concept in place.
 4. Specify the exact changed C/R/PS clauses and immutable inherited
@@ -31,7 +41,8 @@ a scoped amendment to a previously reviewed architecture statement.
    verification, but that is not a reason to implement a redundant
    internal watchdog or loss-detection protocol.
 7. Produce a bounded coverage/impact matrix, next independent-review
-   request and versioned authoring receipt. Record unverified assumptions
+   request and versioned authoring receipt. Identify `review_subject`
+   explicitly when the revised dependent artifacts keep the AS draft unchanged. Record unverified assumptions
    and what would cause a return to authority for clarification.
 8. Run appropriate structural checks and report which claims remain
    pending verification. Submit for independent AS review.
