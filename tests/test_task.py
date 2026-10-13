@@ -224,6 +224,42 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "independent blocking"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_as_review_allows_versioned_VP_only_resubmission(self):
+        receipt, candidate = self._make_as_review_task()
+        dependent = self.root / "knowledge/architecture/alpha/verification_plan-v3.md"
+        dependent.write_text("# Corrected VP\n", encoding="utf-8")
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+        data["review_subject"] = "knowledge/architecture/alpha/statement-v2.md"
+        data["changed_artifacts"] = [
+            "knowledge/architecture/alpha/verification_plan-v3.md",
+        ]
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"],
+            "REVIEW_AS",
+        )
+        data["review_subject"] = "knowledge/architecture/alpha/other.md"
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "matching ready receipt"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_as_correction_accepts_independent_gate_status(self):
+        self._make_approved_as_scope_task()
+        self.manifest["trigger"] = {
+            "kind": "AS_REVIEW_REVISION_REQUIRED",
+            "reference": "reviews/gates/as-review.json",
+        }
+        receipt = self.root / "reviews/gates/as-review.json"
+        receipt.write_text(json.dumps({
+            "schema": "pc-as-review/v1", "gate": "AS_REVIEW",
+            "disposition": "REVISE", "gate_status": "AS_REVISION_REQUIRED",
+            "independent_of_authoring_invocation": True,
+            "findings": [{"id": "ASR-001", "severity": "blocking"}],
+        }))
+        self.store()
+        self.assertEqual(task.validate(
+            self.root, "process/tasks/task.yaml")["operation"], "REVISE_AS")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
