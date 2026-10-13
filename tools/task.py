@@ -141,6 +141,35 @@ def validate(root: Path, manifest: str) -> dict:
             raise TaskError("Evidence plan is not ready for revision")
         for plan_ref in plan["plan_artifacts"]:
             _file(root, plan_ref)
+    if trigger["kind"] == "AS_SCOPE_CORRECTION_APPROVED":
+        if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
+            raise TaskError("Protected AS revision requires a YAML authority record")
+        accepted = yaml.safe_load(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(accepted, dict)
+                or accepted.get("schema") != "pc-as-authority/v1"
+                or accepted.get("status") != "approved"
+                or accepted.get("decision") != "APPROVE_SCOPED_AS_REVISION"
+                or accepted.get("authorizes") != "VERSIONED_AS_VP_VO_CORRECTION_FOR_INDEPENDENT_REVIEW"
+                or not accepted.get("approved_by")
+                or not accepted.get("source_request")
+                or not accepted.get("independent_scope_review")
+                or not accepted.get("authority_evidence")
+                or not isinstance(accepted.get("accepted_scope"), dict)):
+            raise TaskError("Protected AS revision is missing explicit accepted scope authority")
+        inputs = data.get("context", {}).get("authority_inputs", {})
+        if (not isinstance(inputs, dict)
+                or inputs.get("accepted_scope") != trigger["reference"]):
+            raise TaskError("AS revision manifest must identify exact accepted scope receipt")
+        _file(root, accepted["source_request"], "process/decisions")
+        _file(root, accepted["independent_scope_review"], "reviews")
+        evidence = _file(root, accepted["authority_evidence"], "process/decisions")
+        if evidence.suffix != ".md":
+            raise TaskError("AS scope authority evidence must be Markdown")
+        if (accepted["accepted_scope"].get("fixed_1ms_requirement")
+                != "superseded_subject_to_versioned_AS_review"
+                or accepted["accepted_scope"].get("publisher_responsibility")
+                != "uninterrupted_ordered_sample_delivery"):
+            raise TaskError("AS scope authority does not match approved producer boundary")
     if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AP selection requires a YAML authority record")
