@@ -42,3 +42,14 @@ transitions:
     target: receipt
     trigger_kind: EVIDENCE_PLAN_READY
     gate: CONTRACT_REVIEW
+  - id: as_revision_independent_review
+    receipt_schema: pc-gate-receipt/v1
+    requires:
+      gate: AS_REVIEW
+      status: AS_REVISION_READY_FOR_INDEPENDENT_REVIEW
+    operation: REVIEW_AS
+    target: changed_concept
+    concept_type: Architecture Statement
+    related_concept_type: null
+    trigger_kind: AS_REVISION_SUBMITTED
+    gate: AS_REVIEW
