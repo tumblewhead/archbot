@@ -26,3 +26,6 @@ operations:
   REVISE_AS:
     role: architecture-agent
     playbook: process/playbooks/REVISE_AS.md
+  REVIEW_AS:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_AS.md
