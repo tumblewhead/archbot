@@ -175,3 +175,22 @@ record an unresolved producer/integration requirement. Do not invent physical
 hardware guarantees. Preserve v1/v2, open VO-002 through VO-006, accepted
 AD-003, approved AP-002 and original AS/F. DE refinement and implementation
 remain blocked pending favorable independent contract review.
+
+## Contract revision candidate: CON-003 at d995e15fe453
+The Contract Agent produced CON-AP2-001/002/003-v3 and spine-v3,
+preserving v1/v2 history, the provisional AP-002 selection, accepted
+AD-003, and open VO-002 through VO-006. Its submission receipt reports
+`CONTRACTS_READY_FOR_INDEPENDENT_REVIEW`, not approval.
+
+The revisions replace clearable overrun acknowledgement with a
+producer-owned saturating loss epoch, and propose an independently
+operating watchdog to rule out a full 32-bit sequence-counter period of
+undetected acquisition gaps. The 71-byte persistent inventory remains,
+and additional shared/watchdog state still requires accounting evidence.
+
+**Next:** `process/tasks/TOY1-CON003-REVIEW.yaml` invokes the same
+reusable `REVIEW_CON` playbook. The independent reviewer must evaluate
+correctness, feasible ownership, concurrency, resource attribution, and
+whether the added mechanism has unjustified complexity. Avoid treating
+unverified target capabilities as present. No DE refinement or firmware
+approval follows solely from the author's receipt.
