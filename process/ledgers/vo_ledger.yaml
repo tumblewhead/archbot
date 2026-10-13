@@ -8,10 +8,10 @@ status_note: 'This is a conservative current-state index. VO documents define ob
 obligations:
 - id: VO-001
   requirement: C-001
-  state: open
+  state: discharged
   due_stage: AS
   owner: architecture-agent
-  evidence_receipt: null
+  evidence_receipt: reviews/gates/VO-001-AS-ACCEPTANCE-001.json
 - id: VO-002
   requirement: C-002
   state: open

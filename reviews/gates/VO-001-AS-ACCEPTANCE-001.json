@@ -1,0 +1,95 @@
+{
+  "record_type": "independent_vo_acceptance_receipt",
+  "schema": "pc.vo-acceptance.v1",
+  "id": "VO-001-AS-ACCEPTANCE-001",
+  "version": 1,
+  "status": "ACCEPTED",
+  "reviewer_role": "Independent Verification Agent",
+  "reviewer_identity": "Codex independent verification review, current invocation",
+  "reviewer_independent_of_source_author": true,
+  "claim": {
+    "id": "C-001",
+    "text": "All ADC samples are unsigned 12-bit integers, 0..4095.",
+    "verdict": "ACCEPTED",
+    "scope": "The declared synthetic ADC input-domain assumption for AS-001 only."
+  },
+  "rationale": "BKP-ADC-001 expressly declares the toy-device legal input domain as unsigned integers [0,4095]. C-001 matches that domain exactly. Because AS-001 and VP-001 define C-001 as an explicitly synthetic architectural exercise and make the BKP specification its AS-stage evidence, this declaration is adequate authority for the model assumption. It is not evidence that any physical ADC has this output range or behavior.",
+  "assumptions": [
+    "The exercise is synthetic and the declared BKP-ADC-001 model defines legal inputs to the architecture.",
+    "No claim is made about analog accuracy, distortion, physical ADC behavior, or sample-loss guarantees."
+  ],
+  "checked_evidence": [
+    {
+      "path": "knowledge/architecture/AS-001/spine.md",
+      "sha256": "c18dc80fcba6367952996e162dda68738ebc09a07d3e1d4b374f2954f18378b9"
+    },
+    {
+      "path": "knowledge/architecture/AS-001/statement.md",
+      "sha256": "c8290dc23fb8f48dd87e34923cd7ca4debd4912bc7f72bf10bb30360d55c48b1"
+    },
+    {
+      "path": "knowledge/bkp/adc.md",
+      "sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7"
+    },
+    {
+      "path": "knowledge/architecture/AS-001/verification_plan.md",
+      "sha256": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5"
+    },
+    {
+      "path": "knowledge/architecture/AS-001/verification/VO-001.md",
+      "sha256": "3e07bd181c07294217bb27d0df905bdd44fc9f8681a1afd4a09dd8d027a06ce2"
+    },
+    {
+      "path": "reviews/VO-001-reconciliation-v1.md",
+      "sha256": "afca2caefabe4ab556b409a8ca7abaed7c13e17551671cd37e8e6a28c5e21b76"
+    },
+    {
+      "path": "reviews/gates/VO-001-independent-review-request-v1.json",
+      "sha256": "f4c9b13d80d02dc291dcd4fe1d2358fb0cc5620790c79330422f1e855fb73096"
+    },
+    {
+      "path": "process/policies/AP_SELECTION_v2.yaml",
+      "sha256": "38a530fa2daae9a13122c4627586078c28a57dcfaff52fc8cc5fd7cd5271be12"
+    }
+  ],
+  "stage_gate_consistency": {
+    "requirement_due_stage": "AS",
+    "evidence_due_now": "yes",
+    "resolution": "SATISFIED within the synthetic domain",
+    "provisional_ap_approved": false,
+    "physical_hardware_specification_verified": false
+  },
+  "limitations": [
+    "Does not verify or certify physical hardware.",
+    "Does not approve an AP, alter F-001 or AS-001, or discharge any obligation other than VO-001 within this scope.",
+    "Structural checks and unit tests are not evidence for this acceptance decision."
+  ],
+  "next_gate": "AP-stage assessments may cite this accepted VO-001 receipt; other AP-stage obligations remain subject to their own evidence and policy.",
+  "verification_outcome": {
+    "structural_check": {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "31 concepts, 114 typed links, 0 warnings, 0 errors; raw data excluded from fast check."
+    },
+    "unit_tests": {
+      "command": "python -m unittest discover -s tests -v",
+      "result": "PASS",
+      "tests_run": 27,
+      "failures": 0,
+      "errors": 0
+    },
+    "stage_gate_consistency": {
+      "command": "python tools/stage_gate.py evaluate --assessment <AP-001|AP-002-assessment-v2.yaml>",
+      "result": "NO_DOWNSELECTION for both",
+      "reason": "Both AP assessments remain unchanged and classify C-001 as UNRESOLVED pending an accepted source review; AP-001 also has unresolved R-002/R-003, and neither candidate has a projected comparison or authorized tradeoff. This acceptance receipt does not alter those assessments or approve an AP."
+    }
+  },
+  "source_revision": {
+    "git_head": "ca65eafda715174770c6ddb19121a8b9b81cfcae",
+    "working_tree_note": "Receipt and VO ledger were pre-existing uncommitted worktree changes at review start; source and policy inputs listed below match their recorded SHA-256 values.",
+    "ap_assessments_checked": [
+      "knowledge/architecture/AS-001/evaluations/AP-001-assessment-v2.yaml",
+      "knowledge/architecture/AS-001/evaluations/AP-002-assessment-v2.yaml"
+    ]
+  }
+}
