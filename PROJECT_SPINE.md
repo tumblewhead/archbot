@@ -111,3 +111,18 @@ implementation details or contract semantic blockers. Review also must
 check that the proposed 72-byte persistent state cap accounts for all
 specified state/control fields. No implementation work is authorized by
 this review alone.
+
+## Independent contract review: CON001
+Commit `e60893c25253` added independent CON-001 review `REVISE`, with
+`CON_REVISION_REQUIRED`. Two blocking issues:
+`CON001-F01` discontinuity cannot be detected without sequence/overrun
+information or an independently enforceable producer guarantee;
+`CON001-F02` the 72-byte state cap does not yet account for every named
+control, fault and publication field. CON-AP2-003's overall accounting
+was accepted subject to correcting these issues. Target queue/IRQ/scheduler
+implementation choices may remain deferred if the interfaces are precise.
+
+**Next:** `process/tasks/TOY1-CON002.yaml` invokes generic `REVISE_CON`
+from the independent-review receipt. It must produce versioned corrected
+contracts, preserve v1 and keep VO-002..VO-006 open. A new independent review
+is required before DE refinement. No firmware is authorized by this gate.

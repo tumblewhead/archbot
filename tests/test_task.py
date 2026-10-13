@@ -2,6 +2,7 @@
 from pathlib import Path
 import sys
 import tempfile
+import json
 import unittest
 
 import yaml
@@ -196,6 +197,61 @@ class TaskManifestTests(unittest.TestCase):
             result = task.validate(self.root, "process/tasks/task.yaml")
             self.assertEqual(result["operation"], "REVIEW_CON")
             self.assertEqual(result["spine"], f"/architecture/{name}/spine.md")
+
+    def _make_contract_correction_task(self):
+        self._make_contract_task()
+        review_path = self.root / "reviews/gates/con-review.json"
+        review_path.parent.mkdir(parents=True, exist_ok=True)
+        review_path.write_text(json.dumps({
+            "gate": "CONTRACT_REVIEW", "disposition": "REVISE",
+            "next_stage_recommendation": "CON_REVISION_REQUIRED",
+            "independent_of_authoring_invocation": True,
+            "findings": [{"id": "F-01", "severity": "blocking"}],
+        }))
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text())
+        registry["operations"]["REVISE_CON"] = {
+            "role": "contract-agent",
+            "playbook": "process/playbooks/REVISE_CON.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry))
+        (self.root / "process/playbooks/REVISE_CON.md").write_text("# Revise contracts\n")
+        self.manifest.update(
+            role="contract-agent", operation="REVISE_CON",
+            playbook="process/playbooks/REVISE_CON.md",
+            trigger={"kind": "CONTRACT_REVIEW_REVISION_REQUIRED",
+                     "reference": "reviews/gates/con-review.json"},
+        )
+        self.store()
+        return review_path
+
+    def test_contract_revision_requires_independent_blocking_review(self):
+        review_path = self._make_contract_correction_task()
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"],
+            "REVISE_CON"
+        )
+        review = json.loads(review_path.read_text())
+        review["disposition"] = "ACCEPT"
+        review_path.write_text(json.dumps(review))
+        with self.assertRaisesRegex(task.TaskError, "blocking REVISE"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_contract_revision_cannot_be_triggered_by_self_review(self):
+        review_path = self._make_contract_correction_task()
+        review = json.loads(review_path.read_text())
+        review["independent_of_authoring_invocation"] = False
+        review_path.write_text(json.dumps(review))
+        with self.assertRaisesRegex(task.TaskError, "blocking REVISE"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_contract_revision_without_blocking_findings_is_rejected(self):
+        review_path = self._make_contract_correction_task()
+        review = json.loads(review_path.read_text())
+        review["findings"][0]["severity"] = "nonblocking"
+        review_path.write_text(json.dumps(review))
+        with self.assertRaisesRegex(task.TaskError, "blocking REVISE"):
+            task.validate(self.root, "process/tasks/task.yaml")
 
     def test_missing_evidence_must_not_pass(self):
         self.manifest["gate"]["on_missing_evidence"] = "PASS"

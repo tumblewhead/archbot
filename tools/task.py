@@ -85,6 +85,20 @@ def validate(root: Path, manifest: str) -> dict:
         trigger_path = _file(root, trigger["reference"])
     else:
         trigger_path = None
+    if trigger["kind"] == "CONTRACT_REVIEW_REVISION_REQUIRED":
+        if trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("Contract revision requires a JSON independent-review receipt")
+        try:
+            review = json.loads(trigger_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise TaskError("Contract revision receipt is invalid JSON") from exc
+        if (not isinstance(review, dict) or review.get("gate") != "CONTRACT_REVIEW"
+                or review.get("disposition") != "REVISE"
+                or review.get("next_stage_recommendation") != "CON_REVISION_REQUIRED"
+                or review.get("independent_of_authoring_invocation") is not True
+                or not any(f.get("severity") == "blocking" for f in review.get("findings", [])
+                           if isinstance(f, dict))):
+            raise TaskError("Contract revision trigger lacks an independent blocking REVISE finding")
     if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AP selection requires a YAML authority record")
