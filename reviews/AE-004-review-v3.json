@@ -1,0 +1,126 @@
+{
+  "record_type": "independent_architecture_evaluation_review_receipt",
+  "schema": "pc.architecture-evaluation-review.v1",
+  "id": "AE-004-REVIEW-003",
+  "version": 3,
+  "status": "RECORDED",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Codex independent verification review, current invocation",
+  "reviewer_independent_of_evaluation_author": true,
+  "evaluation": "knowledge/architecture/AS-001/evaluations/AE-004.md",
+  "evaluation_sha256": "42594c10124e36e90ad18523eaddcb7fe4fb4745af030f20626b63ac502cc1ba",
+  "source_revision": {
+    "review_checkout_head": "f3877ab85655689a513b48248cb0ac7d3e1d0af4",
+    "evaluation_source_revision": "ccb514117b1118b90cc33f232595202edde84bf0",
+    "evaluation_commit_author": "easy <easy@SaltyPond.cod>",
+    "working_tree": "Clean before this receipt was created. git fetch origin was attempted but could not update .git/FETCH_HEAD because .git is read-only. The review uses the checked-out commit and verifies the trigger commit is an ancestor of HEAD.",
+    "prior_reviews": [
+      "reviews/AE-004-review-v1.json",
+      "reviews/AE-004-review-v2.json"
+    ]
+  },
+  "examined_inputs": {
+    "AS": "knowledge/architecture/AS-001/statement.md",
+    "F": "knowledge/architecture/AS-001/merit.md",
+    "policy": {
+      "path": "process/policies/AP_SELECTION_v2.yaml",
+      "sha256": "38a530fa2daae9a13122c4627586078c28a57dcfaff52fc8cc5fd7cd5271be12"
+    },
+    "C-002_scope": {
+      "path": "process/decisions/C-002-scope.yaml",
+      "sha256": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+    },
+    "VO_ledger": {
+      "path": "process/ledgers/vo_ledger.yaml",
+      "sha256": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a"
+    },
+    "AD_ledger": {
+      "path": "process/ledgers/ad_ledger.yaml",
+      "sha256": "5e747fd5ae648f23673095b80d744dfa1c014a6da5427df37d231f234bcd206e"
+    },
+    "VO_001_receipt": {
+      "path": "reviews/gates/VO-001-AS-ACCEPTANCE-001.json",
+      "sha256": "e35156f10eaf5cdd58f0b93c8b053b18eb2feaffa67d4096d5823cc27d2c8a64",
+      "scope": "Accepted for the synthetic C-001 input domain only; no physical ADC certification."
+    },
+    "PR_002": {
+      "path": "knowledge/architecture/AS-001/proofs/PR-002.md",
+      "sha256": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+      "receipt": "reviews/gates/proof-PR-002.json",
+      "accepted_scope": "Abstract mathematics only; no concrete C or firmware validation."
+    },
+    "AP_001_assessment": {
+      "path": "knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml",
+      "sha256": "a8457ef81db2006e6d6b4017b77c4578ab56e17eefbf00bb4a82ec278774a67f"
+    },
+    "AP_002_assessment": {
+      "path": "knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml",
+      "sha256": "0121c72de442c2bd1fa6ccf8021ee83c25785efa95c7efd64ce7e8c78f68bb79"
+    },
+    "tradeoff_proposal": "process/decisions/AE-004-AP-TRADEOFF-PROPOSAL.md"
+  },
+  "claim_dispositions": [
+    {
+      "claim": "VO-001 is discharged for C-001 in the synthetic domain.",
+      "disposition": "SATISFIED_WITHIN_SCOPE",
+      "evidence": "Accepted VO-001 receipt; receipt-listed source hashes are described as matching in AE-004. Physical hardware behavior remains unverified."
+    },
+    {
+      "claim": "AP-001 remains ineligible at AP stage.",
+      "disposition": "CONFIRMED",
+      "evidence": "Its v3 assessment marks R-002 and R-003 UNRESOLVED; both are AP-due under AP-SELECT-002."
+    },
+    {
+      "claim": "AP-002 has conditionally satisfied AP-stage obligations C-001 through R-003.",
+      "disposition": "ACCEPT_WITH_SCOPE_CLARIFICATION",
+      "evidence": "The assessment relies on PR-002 for R-002/R-003's abstract recurrence and bound. Its own assumptions correctly leave concrete initialization, source correspondence, C expression widths, input validation, synchronization and implementation mapping open. C-002 remains an allocation proposal under the approved 2048-byte detector-charged-SRAM boundary, with a 1928-byte envelope including reserve. C-003 and R-001 are conditional proposals, not toolchain or target timing evidence."
+    },
+    {
+      "claim": "F-001 comparison is incomplete and no Pareto winner is supported.",
+      "disposition": "CONFIRMED",
+      "evidence": "State SRAM is a conditional 72-byte estimate; target cycles/WCET and compiled flash are unknown. Operation count is not measured cycle performance."
+    },
+    {
+      "claim": "No AP is selected and proposed AD-003 remains unaccepted.",
+      "disposition": "CONFIRMED",
+      "evidence": "AE-004 and the tradeoff proposal both mark the tradeoff as proposed/unapproved; the AD ledger contains no accepted AD-003."
+    }
+  ],
+  "deterministic_checks": {
+    "command": "python tools/pc.py check --fast",
+    "result": "PASS",
+    "summary": "32 concepts, 119 typed links, 0 warnings, 0 errors; raw hash skipped. This is structural validation only.",
+    "stage_gate_AP_001": {
+      "command": "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml",
+      "result": "NO_DOWNSELECTION",
+      "findings": [
+        "R-002 AP-stage evidence UNRESOLVED",
+        "R-003 AP-stage evidence UNRESOLVED",
+        "No projected comparison or authorized tradeoff"
+      ]
+    },
+    "stage_gate_AP_002": {
+      "command": "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml",
+      "result": "NO_DOWNSELECTION",
+      "findings": ["No projected comparison or authorized tradeoff"]
+    },
+    "unit_tests": "Not run; the review playbook requires applicable deterministic structural and stage-gate checks, which were run."
+  },
+  "evaluation_disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "architecture_recommendation": "ELIGIBLE_FOR_AUTHORITY_DECISION",
+  "unresolved_obligations": [
+    "VO-002: implementation verification of charged SRAM and envelope assumptions.",
+    "VO-003: implementation/toolchain confirmation of integer-only operation.",
+    "VO-004: target-specific WCET/timing evidence for the 1 ms requirement.",
+    "VO-005 and VO-006: concrete AP-002 recurrence correspondence and C arithmetic-width mapping.",
+    "AP-001 R-002 and R-003 remain unresolved at AP stage.",
+    "F-001 target cycles and compiled flash comparison remain unknown.",
+    "AD-003 and the proposed AP-002 tradeoff await explicit engineering-authority action."
+  ],
+  "independence_limitations": [
+    "This is an independent review of AE-004, not a new mathematical proof review, firmware review, target measurement, or authority decision.",
+    "No raw data, firmware, target measurements, linker map, SRAM measurement, or flash measurement was examined."
+  ],
+  "changed_artifacts": ["reviews/AE-004-review-v3.json"],
+  "next_eligible_action": "Engineering authority may decide whether to authorize the proposed provisional AP-002 commitment and accept AD-003 with its owner, deadline and fallback. The decision must be recorded separately; if declined, obtain comparable F-001 cycle/WCET and flash evidence before selection."
+}
