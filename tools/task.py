@@ -141,6 +141,46 @@ def validate(root: Path, manifest: str) -> dict:
             raise TaskError("Evidence plan is not ready for revision")
         for plan_ref in plan["plan_artifacts"]:
             _file(root, plan_ref)
+    if trigger["kind"] == "AS_REVISION_SUBMITTED":
+        if operation != "REVIEW_AS" or trigger_path is None or trigger_path.suffix != ".md":
+            raise TaskError("AS submission review requires REVIEW_AS and a candidate Markdown concept")
+        authoring = data.get("context", {}).get("artifact_inputs", {})
+        if (not isinstance(authoring, dict)
+                or authoring.get("primary_concept") != trigger["reference"]
+                or not isinstance(authoring.get("submission_receipt"), str)):
+            raise TaskError("AS review must identify the exact candidate and authoring receipt")
+        source_receipt = json.loads(_file(
+            root, authoring["submission_receipt"], "reviews"
+        ).read_text(encoding="utf-8"))
+        if (not isinstance(source_receipt, dict)
+                or source_receipt.get("schema") != "pc-gate-receipt/v1"
+                or source_receipt.get("gate") != "AS_REVIEW"
+                or source_receipt.get("status") != "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW"
+                or trigger["reference"] not in source_receipt.get("changed_artifacts", [])):
+            raise TaskError("AS revision submission lacks a matching ready receipt")
+        candidate_content = trigger_path.read_text(encoding="utf-8")
+        if (not candidate_content.startswith("---\n")
+                or "\n---\n" not in candidate_content):
+            raise TaskError("AS candidate lacks a versioned concept header")
+        concept = yaml.safe_load(candidate_content.split("\n---\n", 1)[0][4:])
+        if (not isinstance(concept, dict)
+                or concept.get("type") != "Architecture Statement"
+                or concept.get("status") != "draft"
+                or not concept.get("id")):
+            raise TaskError("AS review requires a draft Architecture Statement concept")
+    if trigger["kind"] == "AS_REVIEW_REVISION_REQUIRED":
+        if operation != "REVISE_AS" or trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("AS correction after review requires REVISE_AS and independent JSON review")
+        review = json.loads(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(review, dict)
+                or review.get("schema") != "pc-as-review/v1"
+                or review.get("gate") != "AS_REVIEW"
+                or review.get("disposition") != "REVISE"
+                or review.get("next_stage_recommendation") != "AS_REVISION_REQUIRED"
+                or review.get("independent_of_authoring_invocation") is not True
+                or not any(isinstance(f, dict) and f.get("severity") == "blocking"
+                           for f in review.get("findings", []))):
+            raise TaskError("AS correction lacks independent blocking review finding")
     if trigger["kind"] == "AS_SCOPE_CORRECTION_APPROVED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AS revision requires a YAML authority record")
