@@ -4,6 +4,27 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Active specification-origin correction (human objection, 2026-10-13)
+The human engineering authority disputes the source and necessity of the
+one-sample-per-millisecond assumption and the security-grade continuity
+protocol. The repository's `knowledge/bkp/problem-origin.md` expressly
+calls its 1 ms source **"invented for the demonstration"**, yet
+`AS-001/R-001` treated it as binding. This is an upstream authority
+and provenance defect, not just an unfinished CON resource plan.
+
+Open correction record: `process/change_requests/CR-001-SYNTHETIC-REQUIREMENT-AUTHORITY.md`.
+Use `process/tasks/TOY1-SCOPE-AUDIT-002.yaml`, the revised task
+that covers *both* sample-rate independence and the invented continuity
+constraints; it supersedes `TOY1-SCOPE-AUDIT-001.yaml` for the next run
+without deleting that historical task.
+
+Until the source audit and an authorized revised AS baseline are complete:
+do not launch another repeated CON v4 repair from the old chain.
+Do not silently change R-001, VO-004, selected AP-002, accepted AD-003,
+F-001 or prior proof/contract receipts. Verify the impact graph and
+preserve mathematical claims unaffected by input timing. C-002 Option B
+is independently approved accounting scope and remains binding.
+
 ## Current qualification intervention: Scope audit
 The latest local evidence run was pushed as `cf0ec21f0548`.
 `EP-003-CON004-SHARED-ALLOCATION` and
