@@ -58,7 +58,7 @@ transitions:
     requires:
       gate: AS_REVIEW
       disposition: REVISE
-      next_stage_recommendation: AS_REVISION_REQUIRED
+      gate_status: AS_REVISION_REQUIRED
       independent_of_authoring_invocation: true
     require_blocking_finding: true
     operation: REVISE_AS
