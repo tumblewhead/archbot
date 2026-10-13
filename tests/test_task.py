@@ -308,6 +308,42 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "nonempty unresolved"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_scope_audit_requires_unresolved_evidence_receipt(self):
+        self._make_contract_task()
+        ops = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(ops.read_text(encoding="utf-8"))
+        registry["operations"]["AUDIT_SCOPE"] = {
+            "role": "contract-agent",
+            "playbook": "process/playbooks/AUDIT_SCOPE.md",
+        }
+        ops.write_text(yaml.safe_dump(registry), encoding="utf-8")
+        (self.root / "process/playbooks/AUDIT_SCOPE.md").write_text(
+            "# Scope audit\n", encoding="utf-8")
+        receipt = self.root / "reviews/gates/scope-evidence.json"
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        evidence = {
+            "schema": "pc-gate-receipt/v1",
+            "gate": "EVIDENCE_PLANNING",
+            "status": "EVIDENCE_STILL_UNRESOLVED",
+            "unresolved": ["Missing resource evidence"],
+        }
+        receipt.write_text(json.dumps(evidence), encoding="utf-8")
+        self.manifest.update(
+            operation="AUDIT_SCOPE",
+            playbook="process/playbooks/AUDIT_SCOPE.md",
+            trigger={"kind": "STAGE_EVIDENCE_UNRESOLVED",
+                     "reference": "reviews/gates/scope-evidence.json"},
+        )
+        self.store()
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"],
+            "AUDIT_SCOPE",
+        )
+        evidence["status"] = "EVIDENCE_PLAN_READY_FOR_REVISION"
+        receipt.write_text(json.dumps(evidence), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "unresolved evidence-plan"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_missing_evidence_must_not_pass(self):
         self.manifest["gate"]["on_missing_evidence"] = "PASS"
         self.store()
