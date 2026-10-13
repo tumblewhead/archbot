@@ -1,0 +1,46 @@
+{
+  "schema": "pc-scope-audit-receipt/v1",
+  "task_id": "TOY1-SCOPE-AUDIT-002",
+  "gate": "SCOPE_AUDIT",
+  "reviewer_role": "verification-agent",
+  "input_revision": "883b5aab496ec86b0a28fdd0d54a900c7fa1d65f",
+  "trigger": {
+    "kind": "SOURCE_AUTHORITY_DISPUTE",
+    "reference": "process/change_requests/CR-001-SYNTHETIC-REQUIREMENT-AUTHORITY.md",
+    "manifest_revision": "a210f119fdec00f26bef9773ff2614d925e9ec54"
+  },
+  "disposition": "SCOPE_REDUCTION_CANDIDATE_WITH_AUTHORITY_CLARIFICATION_REQUIRED",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-SCOPE-AUDIT-002.md",
+    "reviews/gates/TOY1-SCOPE-AUDIT-002-AS-CANDIDATE.md",
+    "reviews/gates/TOY1-SCOPE-AUDIT-002-receipt.json"
+  ],
+  "findings": [
+    {"claim": "R-001 fixed 1 ms cadence", "classification": "UNSUPPORTED_SCOPE_EXPANSION", "summary": "Only synthetic/demo provenance identified; requires authority decision before baseline change."},
+    {"claim": "rolling 32-sample recurrence", "classification": "REQUIRED_BY_CURRENT_AS; SAMPLE-INDEX MATHEMATICS TIMING-INDEPENDENT", "summary": "PR-002 remains applicable under its existing input domain, ring and update assumptions."},
+    {"claim": "upstream loss epoch and sequence protocol", "classification": "OPTIONAL_ROBUSTNESS_OR_NEW_REQUIREMENT", "summary": "No loss-detection requirement or acquisition continuity guarantee appears in current AS; physical-acquisition semantics remain for authority clarification."},
+    {"claim": "independent watchdog for counter wrap", "classification": "UNSUPPORTED_SCOPE_EXPANSION", "summary": "Mitigates the added sequence protocol; no independent watchdog or 2^32-period deadline is authorized by inspected AS/proof sources."},
+    {"claim": "atomic external publication", "classification": "UNKNOWN_INTERFACE_DEPENDENT", "summary": "Internal coherent state update is necessary; external reader semantics are not specified by AS."},
+    {"claim": "C-002 2048-byte detector-attributable SRAM scope", "classification": "REQUIRED_BY_APPROVED_AUTHORITY", "summary": "Separately approved and preserved; this audit makes no change."}
+  ],
+  "affected_dependencies": [
+    "AS-001 R-001 and source provenance",
+    "verification plan and VO-004",
+    "CON v1-v4 and future versioned contract correction",
+    "EP-003 shared allocation plan and VO-002 replanning",
+    "DE ingress/shared/IRQ responsibility mappings",
+    "AP-002 and AD-003 impact assessment",
+    "PR-002 retained unless mathematical assumptions change"
+  ],
+  "unresolved": [
+    "Engineering authority must decide input boundary semantics (accepted inputs versus physical acquisitions) and whether to approve candidate R-001.",
+    "Any required loss detection, concurrent-reader atomic publication, or watchdog must receive explicit source authority and a verifiable integration contract.",
+    "VO-004 remains open; VO-002 through VO-006 remain open; AD-003 remains accepted."
+  ],
+  "authority_changes": {"as_changed": false, "f_changed": false, "ap_selection_changed": false, "contracts_approved": false, "vos_discharged": [], "ad_changes": []},
+  "checks": [
+    {"command": "python tools/pc.py check --fast", "result": "PASS", "summary": "After audit artifact creation: structural check only; raw hashes skipped."},
+    {"command": "git diff --check", "result": "PENDING", "summary": "Run after artifact creation."}
+  ],
+  "next_eligible_action": "Engineering-authority decision on the candidate AS semantics; then controlled versioned AS/VP/VO and contract updates followed by independent review."
+}
