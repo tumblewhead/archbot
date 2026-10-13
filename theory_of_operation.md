@@ -97,6 +97,28 @@ F may consider RAM, flash, worst-case execution time, energy, latency, complexit
 
 A proof may establish a bound, invariant, impossibility result, identifiability condition, or composition guarantee. An impossibility theorem can be especially valuable because it can prevent the team from investing in an infeasible AP.
 
+### 4.1 Proposed staged Figures of Merit: `F_s` and `F_f`
+
+A proposed refinement separates **symbolic pre-implementation comparison**
+(`F_s`) from **final target-evidence quantification** (`F_f`). Both
+describe the *same protected optimization objectives* at different evidence
+maturities. The symbolic form retains parameterized resource expressions,
+formal or conditional bounds, and explicit unknowns. The final form uses
+measured footprint, justified worst-case resource bounds, and accepted
+implementation/target evidence.
+
+The transition from `F_s` to `F_f` must be traceable through assumptions,
+CON and DE. Unexpected discrepancies reopen affected decisions rather than
+causing silent adjustment of the figure of merit. An incomplete `F_s`
+comparison can support only a **separately authorized, reversible** AP
+selection with Architectural Debt; it does not establish a final Pareto winner.
+
+**Authority note:** This is a proposed method in
+`docs/STAGED_FIGURE_OF_MERIT.md` and
+`process/proposals/F_STAGES_001.yaml`. It does **not** amend the accepted
+F-001 or change existing architecture approval conditions without a
+separate protected process decision.
+
 ## 5. Proof discovery and Proof Opportunities
 
 Formal proofs should not depend on a gifted contributor happening to volunteer one. A **Proof Scout** examines the BKP, AS, candidate APs, contracts, and designs for high-value mathematical statements worth investigating.
