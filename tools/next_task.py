@@ -70,6 +70,9 @@ def decision(root: Path, ref: str) -> dict:
         and (not t.get("require_blocking_finding")
              or any(isinstance(f, dict) and f.get("severity") == "blocking"
                     for f in receipt.get("findings", [])))
+        and (not t.get("require_unresolved")
+             or (isinstance(receipt.get("unresolved"), list)
+                 and len(receipt["unresolved"]) > 0))
     ]
     if len(matched) != 1:
         raise LoopError("No unique permissible transition for this receipt")
@@ -130,13 +133,26 @@ def decision(root: Path, ref: str) -> dict:
         },
     }
     if rule["target"] == "receipt":
-        context["review_inputs"] = {
-            "independent_review": ref,
-            "finding_ids": [f["id"] for f in receipt.get("findings", [])
-                            if isinstance(f, dict) and f.get("severity") in ("blocking", "unresolved")
-                            and isinstance(f.get("id"), str)],
-            "source_task_manifest": task_ref,
-        }
+        if rule["operation"] == "PLAN_EVIDENCE":
+            context["evidence_inputs"] = {
+                "blocking_receipt": ref,
+                "unresolved": receipt.get("unresolved", []),
+                "source_task_manifest": task_ref,
+            }
+        elif receipt.get("schema") == "pc-evidence-plan/v1":
+            context["evidence_inputs"] = {
+                "resolved_evidence_receipt": ref,
+                "plan_artifacts": receipt.get("plan_artifacts", []),
+                "source_task_manifest": task_ref,
+            }
+        else:
+            context["review_inputs"] = {
+                "independent_review": ref,
+                "finding_ids": [f["id"] for f in receipt.get("findings", [])
+                                if isinstance(f, dict) and f.get("severity") in ("blocking", "unresolved")
+                                and isinstance(f.get("id"), str)],
+                "source_task_manifest": task_ref,
+            }
     else:
         context["artifact_inputs"] = {
             "primary_concept": trigger_ref,
