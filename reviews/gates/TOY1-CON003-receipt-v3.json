@@ -1,0 +1,62 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "TOY1-CON003",
+  "gate": "CONTRACT_REVIEW",
+  "status": "CONTRACTS_READY_FOR_INDEPENDENT_REVIEW",
+  "input_revision": "ef2a5dcae8c31af95e8e63bca5473cfe5f6b32f9",
+  "trigger": {
+    "reference": "reviews/gates/TOY1-CON002-independent-review-v2.json",
+    "revision": "0f9a2921d8f05052d478ea132b121583b4df3e80",
+    "finding_ids": ["CON002-F01"],
+    "resolved_finding_ids": ["CON002-F02"]
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v3.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v3.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v3.md",
+    "knowledge/architecture/AS-001/contracts/spine-v3.md",
+    "knowledge/architecture/AS-001/spine.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS.md",
+    "reviews/gates/TOY1-CON003-coverage-v3.md",
+    "reviews/gates/TOY1-CON003-independent-review-request-v3.md",
+    "reviews/gates/TOY1-CON003-receipt-v3.json"
+  ],
+  "finding_map": {
+    "CON002-F01": {
+      "correction": "Replace clearable overrun flag with producer-owned saturating monotonic 64-bit loss_epoch; detector only reads and latches fault, while session reset requires quiesced producer and drained handoff. Require an independent receiver-side elapsed-time watchdog to fault before a full modulo-counter period can pass without successful handoff.",
+      "evidence": [
+        "knowledge/architecture/AS-001/contracts/CON-AP2-001-v3.md",
+        "knowledge/architecture/AS-001/contracts/CON-AP2-003-v3.md"
+      ],
+      "status": "addressed_in_draft; independent review and target enforceability evidence required"
+    },
+    "CON002-F02": {
+      "correction": "Carry forward v2 71-byte persistent accounting and charge the added shared loss epoch/watchdog state to the existing shared cap.",
+      "evidence": [
+        "knowledge/architecture/AS-001/contracts/CON-AP2-002-v3.md",
+        "knowledge/architecture/AS-001/contracts/CON-AP2-003-v3.md"
+      ],
+      "status": "prior contract-level closure retained; physical layout remains open under VO-002"
+    }
+  },
+  "authority": {
+    "selection": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml",
+    "accepted_debt": ["AD-003"],
+    "carried_open_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+    "discharged_obligations": ["VO-001: synthetic ADC domain only"],
+    "authority_changes": []
+  },
+  "checks": {
+    "task_manifest_inspect": "PASS: role, playbook, spine and gate resolved",
+    "pc_check_fast": "PASS: 52 concepts, 217 typed links, zero warnings/errors; raw hashes skipped; structural check only",
+    "git_diff_check": "PASS: no whitespace errors"
+  },
+  "acceptance_claims": [],
+  "unresolved": [
+    "Independent review of v3 contracts is required before DE refinement.",
+    "Independent watchdog operation and timeout bound require target/integration evidence.",
+    "VO-002 through VO-006 remain open; AD-003 remains accepted and due before final acceptance.",
+    "Loss epoch and watchdog shared-memory fit remains subject to VO-002 target accounting."
+  ],
+  "next_eligible_action": "Independent REVIEW_CON of v3 contracts; no DE refinement or firmware implementation before accepted review."
+}
