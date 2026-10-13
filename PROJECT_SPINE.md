@@ -62,3 +62,17 @@ Next: run `process/tasks/TOY1-AE004-REVIEW.yaml` using the
 reusable `REVIEW_AP_EVALUATION` playbook. An independent positive review
 may bring the provisional AP-002 commitment to engineering authority; the
 reviewing agent cannot select an architecture or accept debt.
+
+## Latest independent review and protected decision gate
+The imported independent receipt `reviews/AE-004-review-v3.json` reports
+`ACCEPT_WITH_CLARIFICATIONS` for AE-004 and
+`ELIGIBLE_FOR_AUTHORITY_DECISION` for AP-002 consideration. It does **not**
+select AP-002, authorize AD-003, or discharge VO-002..VO-006. Its local
+structural validation passed; a full unit-suite run was not part of that review.
+
+The v1 proposed AD-003 deadline requiring F evidence *before CON approval*
+would recreate our circular dependency. The still-unapproved
+`process/decisions/AP-002-PROVISIONAL-AUTHORITY-REQUEST-v2.md` instead
+proposes final comparative F evidence due before final acceptance, with
+intermediate CON and implementation checkpoints. Explicit engineering-authority
+approval is required before any selected-AP or accepted-AD state change.

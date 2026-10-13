@@ -1,0 +1,31 @@
+# Generic template: not an accepted decision.
+schema: pc-authority-decision/v1
+id: UNASSIGNED
+status: PENDING_AUTHORITY
+architecture_spine: /architecture/replace/spine.md
+selected_candidate: null
+decision_kind: PROVISIONAL_AP_COMMITMENT
+authority:
+  identity: null
+  acceptance_source: null
+  acceptance_revision: null
+evaluation:
+  artifact: null
+  independent_review_receipt: null
+  stage_policy: null
+  figure_of_merit: null
+tradeoff:
+  justification: null
+  known_limits: []
+  claims_not_approved: [final_f_rank, final_firmware_validation]
+architectural_debt:
+  id: null
+  owner: null
+  trigger: null
+  consequence: null
+  due_stage: null
+  intermediate_checkpoints: []
+  fallback: null
+carried_verification_obligations: []
+allowed_next_stage: null
+# A template or unaccepted decision cannot authorize downstream work.
