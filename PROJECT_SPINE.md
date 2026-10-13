@@ -33,3 +33,10 @@ Approved authority record: `process/decisions/C-002-scope.yaml` (present in this
 
 ## Source-of-truth rule
 Chat summaries are navigation aids only. Once imported, the live versioned source, spines, authority decisions, and receipts supersede this bootstrap status. Update this file with concise status pointers after each substantive gate. Never duplicate large experimental evidence here.
+
+## Reusable workflow initiative
+The early numbered prompts are experimental task tickets, not the intended
+steady-state interface. See `docs/REUSABLE_WORKFLOWS.md` for the planned
+separation of role, reusable playbook, task manifest, and architecture spine.
+The pilot runner and AP gate still contain AS-001/C-002-specific logic; this
+initiative is documented but not yet an implemented generic dispatcher.
