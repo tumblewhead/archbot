@@ -20,3 +20,6 @@ operations:
   PLAN_EVIDENCE:
     role: evidence-planning-agent
     playbook: process/playbooks/PLAN_EVIDENCE.md
+  AUDIT_SCOPE:
+    role: verification-agent
+    playbook: process/playbooks/AUDIT_SCOPE.md
