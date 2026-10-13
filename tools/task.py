@@ -99,6 +99,20 @@ def validate(root: Path, manifest: str) -> dict:
                 or not any(f.get("severity") == "blocking" for f in review.get("findings", [])
                            if isinstance(f, dict))):
             raise TaskError("Contract revision trigger lacks an independent blocking REVISE finding")
+    if trigger["kind"] == "STAGE_EVIDENCE_UNRESOLVED":
+        if trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("Scope audit requires a versioned evidence-planning receipt")
+        try:
+            evidence = json.loads(trigger_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise TaskError("Invalid scope-audit evidence receipt") from exc
+        if (not isinstance(evidence, dict)
+                or evidence.get("schema") != "pc-gate-receipt/v1"
+                or evidence.get("gate") != "EVIDENCE_PLANNING"
+                or evidence.get("status") != "EVIDENCE_STILL_UNRESOLVED"
+                or not isinstance(evidence.get("unresolved"), list)
+                or not evidence["unresolved"]):
+            raise TaskError("Scope audit requires an unresolved evidence-plan receipt")
     if trigger["kind"] == "STAGE_EVIDENCE_REQUIRED":
         if trigger_path is None or trigger_path.suffix != ".json":
             raise TaskError("Evidence planning requires a versioned JSON blocking receipt")
