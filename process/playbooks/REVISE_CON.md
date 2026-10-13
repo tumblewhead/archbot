@@ -1,8 +1,8 @@
 # REVISE_CON: Correct contracts after independent review
 
-**Reusable operation:** \`REVISE_CON\`  
-**Role:** \`contract-agent\`  
-**Trigger:** A separately recorded, independent contract-review receipt with \`REVISE\`.
+**Reusable operation:** `REVISE_CON`  
+**Role:** `contract-agent`  
+**Trigger:** A separately recorded, independent contract-review receipt with `REVISE`.
 
 ## Responsibilities
 
@@ -29,15 +29,15 @@
 6. Update contract coverage and DE responsibility placeholders only where the
    corrected external obligations change, retaining open VOs and accepted AD.
 7. Request an independent review of the new contract version. Provide an
-   itemized mapping: \`finding_id -> correction -> evidence -> status\`.
+   itemized mapping: `finding_id -> correction -> evidence -> status`.
 8. Run structural and applicable checks and record what was inspected and
    which obligations remain open.
 
 ## Exit
 
-- \`CONTRACTS_READY_FOR_INDEPENDENT_REVIEW\` if all blocking review findings are
+- `CONTRACTS_READY_FOR_INDEPENDENT_REVIEW` if all blocking review findings are
   addressed with independently reviewable contracts, or
-- \`CONTRACTS_UNRESOLVED\` with the minimum unresolved decision/evidence needed.
+- `CONTRACTS_UNRESOLVED` with the minimum unresolved decision/evidence needed.
 
 This playbook **does not specify how to repair any particular detector,
 solver, driver or scheduler**. All problem-specific counterexamples and limits
