@@ -99,6 +99,32 @@ def validate(root: Path, manifest: str) -> dict:
                 or not any(f.get("severity") == "blocking" for f in review.get("findings", [])
                            if isinstance(f, dict))):
             raise TaskError("Contract revision trigger lacks an independent blocking REVISE finding")
+    if trigger["kind"] == "STAGE_EVIDENCE_REQUIRED":
+        if trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("Evidence planning requires a versioned JSON blocking receipt")
+        try:
+            blocked = json.loads(trigger_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise TaskError("Invalid evidence-blocker receipt") from exc
+        if (not isinstance(blocked, dict)
+                or blocked.get("status") != "CONTRACTS_UNRESOLVED"
+                or not isinstance(blocked.get("unresolved"), list)
+                or not blocked["unresolved"]):
+            raise TaskError("Evidence planning requires a nonempty unresolved list")
+    if trigger["kind"] == "EVIDENCE_PLAN_READY":
+        if trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("Revision after evidence planning requires a JSON plan receipt")
+        try:
+            plan = json.loads(trigger_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise TaskError("Invalid evidence-plan receipt") from exc
+        if (not isinstance(plan, dict) or plan.get("schema") != "pc-evidence-plan/v1"
+                or plan.get("status") != "EVIDENCE_PLAN_READY_FOR_REVISION"
+                or not isinstance(plan.get("plan_artifacts"), list)
+                or not plan["plan_artifacts"]):
+            raise TaskError("Evidence plan is not ready for revision")
+        for plan_ref in plan["plan_artifacts"]:
+            _file(root, plan_ref)
     if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AP selection requires a YAML authority record")
