@@ -145,6 +145,85 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "exact accepted scope"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def _make_as_review_task(self):
+        self._make_approved_as_scope_task()
+        reviewer = self.root / "agents/verification-agent.md"
+        reviewer.write_text("# Independent reviewer\n", encoding="utf-8")
+        reviews_playbook = self.root / "process/playbooks/REVIEW_AS.md"
+        reviews_playbook.write_text("# Review AS\n", encoding="utf-8")
+        views_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_path.read_text(encoding="utf-8"))
+        views["roles"]["verification-agent"] = {"follow": []}
+        views_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
+        registry["operations"]["REVIEW_AS"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_AS.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry), encoding="utf-8")
+        candidate_ref = "knowledge/architecture/alpha/statement-v2.md"
+        cand = self.root / candidate_ref
+        cand.write_text(
+            "---\ntype: Architecture Statement\nid: AS-ALPHA-v2\n"
+            "status: draft\n---\n# Candidate\n", encoding="utf-8")
+        receipt_ref = "reviews/gates/as-authoring.json"
+        receipt = self.root / receipt_ref
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        receipt.write_text(json.dumps({
+            "schema": "pc-gate-receipt/v1", "gate": "AS_REVIEW",
+            "status": "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW",
+            "changed_artifacts": [candidate_ref],
+        }), encoding="utf-8")
+        self.manifest.update(
+            role="verification-agent", operation="REVIEW_AS",
+            playbook="process/playbooks/REVIEW_AS.md",
+            trigger={"kind": "AS_REVISION_SUBMITTED", "reference": candidate_ref},
+            context={"artifact_inputs": {
+                "primary_concept": candidate_ref,
+                "submission_receipt": receipt_ref,
+            }},
+        )
+        self.store()
+        return receipt, cand
+
+    def test_as_candidate_ready_requires_matching_authoring_receipt(self):
+        receipt, candidate = self._make_as_review_task()
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"], "REVIEW_AS")
+        body = json.loads(receipt.read_text(encoding="utf-8"))
+        body["status"] = "AS_REVISION_UNRESOLVED"
+        receipt.write_text(json.dumps(body), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "matching ready receipt"):
+            task.validate(self.root, "process/tasks/task.yaml")
+        body["status"] = "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW"
+        receipt.write_text(json.dumps(body), encoding="utf-8")
+        candidate.write_text(candidate.read_text().replace("status: draft", "status: approved"))
+        with self.assertRaisesRegex(task.TaskError, "draft Architecture Statement"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_as_review_revision_requires_independent_blocker(self):
+        self._make_approved_as_scope_task()
+        self.manifest["trigger"] = {
+            "kind": "AS_REVIEW_REVISION_REQUIRED",
+            "reference": "reviews/gates/as-review.json",
+        }
+        receipt = self.root / "reviews/gates/as-review.json"
+        receipt.write_text(json.dumps({
+            "schema": "pc-as-review/v1", "gate": "AS_REVIEW",
+            "disposition": "REVISE",
+            "next_stage_recommendation": "AS_REVISION_REQUIRED",
+            "independent_of_authoring_invocation": True,
+            "findings": [{"id": "AS-F1", "severity": "blocking"}],
+        }))
+        self.store()
+        self.assertEqual(task.validate(self.root, "process/tasks/task.yaml")["operation"], "REVISE_AS")
+        body = json.loads(receipt.read_text(encoding="utf-8"))
+        body["independent_of_authoring_invocation"] = False
+        receipt.write_text(json.dumps(body), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "independent blocking"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
