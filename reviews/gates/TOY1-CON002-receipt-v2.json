@@ -1,0 +1,51 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "TOY1-CON002",
+  "gate": "CONTRACT_REVIEW",
+  "status": "CONTRACTS_READY_FOR_INDEPENDENT_REVIEW",
+  "input_revision": "e60893c2525360833da7493821686b78c572182f",
+  "submission_revision": "c99dbc56fc0baadca03b6489b7a60f0cc2f8a74d",
+  "trigger": "reviews/gates/TOY1-CON001-independent-review-v1.json",
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v2.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v2.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v2.md",
+    "knowledge/architecture/AS-001/contracts/spine-v2.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS.md",
+    "reviews/gates/TOY1-CON002-coverage-v2.md",
+    "reviews/gates/TOY1-CON002-independent-review-request-v2.md",
+    "reviews/gates/TOY1-CON002-receipt-v2.json"
+  ],
+  "authority": {
+    "selection": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml",
+    "accepted_debt": [
+      "AD-003"
+    ],
+    "carried_open_obligations": [
+      "VO-002",
+      "VO-003",
+      "VO-004",
+      "VO-005",
+      "VO-006"
+    ],
+    "discharged_obligations": [
+      "VO-001: synthetic ADC domain only"
+    ],
+    "authority_changes": []
+  },
+  "finding_map": {
+    "CON001-F01": "Addressed in CON-AP2-001-v2 with per-acquisition modulo sequence and persistent acknowledgeable overrun indication; independent review requested.",
+    "CON001-F02": "Addressed in CON-AP2-002-v2 with a 71-byte field inventory under 72-byte cap; publication and synchronization charged to shared cap; concrete layout evidence remains open under VO-002."
+  },
+  "structural_checks": {
+    "task_manifest_inspect": "PASS: TOY1-CON002 role/playbook/spine/gate resolved",
+    "pc_check_fast": "PASS: 48 concepts, 188 typed links, zero warnings/errors; raw hash skipped"
+  },
+  "acceptance_claims": [],
+  "unresolved": [
+    "Independent review of corrected contracts is required before DE refinement.",
+    "VO-002 through VO-006 remain open; AD-003 remains accepted and due before final acceptance.",
+    "Concrete producer/handoff, platform, memory layout and target timing evidence remains due at its assigned later gates."
+  ],
+  "next_eligible_action": "Independent contract review of v2; DE refinement requires its accepted receipt."
+}
