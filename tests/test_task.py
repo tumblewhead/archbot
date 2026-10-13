@@ -94,6 +94,80 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaises(task.TaskError):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def _make_contract_task(self):
+        files = {
+            "agents/contract-agent.md": "# Contract\n",
+            "process/playbooks/DEFINE_CON.md": "# Define contracts\n",
+            "process/decisions/approved.yaml": yaml.safe_dump({
+                "status": "approved", "decision": "PROVISIONALLY_SELECTED",
+                "selected_candidate": "AP-002", "authorizes": "CON_FIRST_DECOMPOSITION",
+                "approved_by": "user:test_authority",
+                "authority_evidence": "process/decisions/approval.md",
+                "accepted_architectural_debt": ["AD-X"],
+                "carried_verification_obligations": ["VO-X"],
+            }),
+            "process/decisions/approval.md": "# Human approval\n",
+            "process/ledgers/ad_ledger.yaml": yaml.safe_dump({"items": [{
+                "id": "AD-X", "state": "accepted",
+                "accepted_decision": "process/decisions/approved.yaml",
+            }]}),
+            "process/ledgers/vo_ledger.yaml": yaml.safe_dump({"obligations": [{
+                "id": "VO-X", "state": "open",
+            }]}),
+        }
+        for name, content in files.items():
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        registry = yaml.safe_load((self.root / "process/operations.yaml").read_text())
+        registry["operations"]["DEFINE_CON"] = {
+            "role": "contract-agent",
+            "playbook": "process/playbooks/DEFINE_CON.md",
+        }
+        (self.root / "process/operations.yaml").write_text(yaml.safe_dump(registry))
+        views = yaml.safe_load((self.root / "process/views.yaml").read_text())
+        views["roles"]["contract-agent"] = {"follow": []}
+        (self.root / "process/views.yaml").write_text(yaml.safe_dump(views))
+        self.manifest.update(role="contract-agent", operation="DEFINE_CON",
+                             playbook="process/playbooks/DEFINE_CON.md",
+                             trigger={"kind": "AP_PROVISIONALLY_SELECTED",
+                                      "reference": "process/decisions/approved.yaml"},
+                             context={"authority_inputs": {
+                                 "accepted_selection": "process/decisions/approved.yaml",
+                                 "ad_ledger": "process/ledgers/ad_ledger.yaml",
+                                 "vo_ledger": "process/ledgers/vo_ledger.yaml",
+                             }})
+        self.store()
+
+    def test_protected_selection_requires_accepted_debt(self):
+        self._make_contract_task()
+        result = task.validate(self.root, "process/tasks/task.yaml")
+        self.assertEqual(result["operation"], "DEFINE_CON")
+        ledger_path = self.root / "process/ledgers/ad_ledger.yaml"
+        ledger = yaml.safe_load(ledger_path.read_text())
+        ledger["items"][0]["state"] = "proposed"
+        ledger_path.write_text(yaml.safe_dump(ledger))
+        with self.assertRaisesRegex(task.TaskError, "unaccepted architectural debt"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_protected_selection_requires_explicit_authority(self):
+        self._make_contract_task()
+        decision_path = self.root / "process/decisions/approved.yaml"
+        decision = yaml.safe_load(decision_path.read_text())
+        decision["status"] = "pending"
+        decision_path.write_text(yaml.safe_dump(decision))
+        with self.assertRaisesRegex(task.TaskError, "missing accepted authority"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_protected_selection_preserves_open_vos(self):
+        self._make_contract_task()
+        ledger_path = self.root / "process/ledgers/vo_ledger.yaml"
+        ledger = yaml.safe_load(ledger_path.read_text())
+        ledger["obligations"][0]["state"] = "discharged"
+        ledger_path.write_text(yaml.safe_dump(ledger))
+        with self.assertRaisesRegex(task.TaskError, "carry an open verification obligation"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_missing_evidence_must_not_pass(self):
         self.manifest["gate"]["on_missing_evidence"] = "PASS"
         self.store()

@@ -82,7 +82,44 @@ def validate(root: Path, manifest: str) -> dict:
     if not isinstance(trigger, dict) or not isinstance(trigger.get("kind"), str):
         raise TaskError("Task trigger.kind required")
     if trigger.get("reference"):
-        _file(root, trigger["reference"])
+        trigger_path = _file(root, trigger["reference"])
+    else:
+        trigger_path = None
+    if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
+        if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
+            raise TaskError("Protected AP selection requires a YAML authority record")
+        authority = yaml.safe_load(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(authority, dict) or authority.get("status") != "approved"
+                or authority.get("decision") != "PROVISIONALLY_SELECTED"
+                or not authority.get("selected_candidate")
+                or authority.get("authorizes") != "CON_FIRST_DECOMPOSITION"
+                or not authority.get("approved_by")
+                or not authority.get("authority_evidence")):
+            raise TaskError("Protected AP selection is missing accepted authority")
+        proof_path = _file(root, authority["authority_evidence"])
+        if proof_path.suffix != ".md":
+            raise TaskError("Authority evidence must be a reviewable Markdown decision")
+        inputs = data.get("context", {}).get("authority_inputs", {})
+        if not isinstance(inputs, dict) or inputs.get("accepted_selection") != trigger["reference"]:
+            raise TaskError("Task authority_inputs must identify the selected AP receipt")
+        debt_record = inputs.get("ad_ledger")
+        if not isinstance(debt_record, str):
+            raise TaskError("Protected selection requires the applicable AD ledger")
+        debts = yaml.safe_load(_file(root, debt_record).read_text(encoding="utf-8"))
+        debt_map = {d.get("id"): d for d in debts.get("items", []) if isinstance(d, dict)} if isinstance(debts, dict) else {}
+        for debt_id in authority.get("accepted_architectural_debt", []):
+            debt = debt_map.get(debt_id)
+            if not debt or debt.get("state") != "accepted" or debt.get("accepted_decision") != trigger["reference"]:
+                raise TaskError("Selection references unaccepted architectural debt: " + str(debt_id))
+        vo_record = inputs.get("vo_ledger")
+        if not isinstance(vo_record, str):
+            raise TaskError("Protected selection requires the applicable VO ledger")
+        vo_doc = yaml.safe_load(_file(root, vo_record).read_text(encoding="utf-8"))
+        vo_map = {v.get("id"): v for v in vo_doc.get("obligations", []) if isinstance(v, dict)} if isinstance(vo_doc, dict) else {}
+        for vo_id in authority.get("carried_verification_obligations", []):
+            vo = vo_map.get(vo_id)
+            if vo is None or vo.get("state") != "open":
+                raise TaskError("Selected AP must carry an open verification obligation: " + str(vo_id))
     outputs = data.get("outputs")
     if not isinstance(outputs, dict) or not isinstance(outputs.get("allowed"), list) or not outputs["allowed"]:
         raise TaskError("Task requires nonempty outputs.allowed")
