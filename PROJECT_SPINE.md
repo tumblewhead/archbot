@@ -4,6 +4,31 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Latest submitted AS correction and independent review (2026-10-13)
+Commit `29d1b8864796` contains a *draft* revised AS,
+`knowledge/architecture/AS-001/statement-v2.md`, new synthetic-BKP
+provenance annotation, versioned VP and VO-004 candidates, and
+`reviews/gates/TOY1-AS002-authoring-receipt.json`. Authoring
+disposition is `AS_REVISION_READY_FOR_INDEPENDENT_REVIEW`, not
+accepted. Original AS, C-002 authority, AP-002 approval and AD-003,
+PR-002, VO ledger and CON v1-v4 history remain unchanged.
+
+The submission matches the approved newest-32 publisher boundary and
+removes invented 1 ms algorithmic rate, loss epochs and watchdogs.
+Independent review must check especially that the new VO-004 due stage
+(`IMPLEMENTATION`) agrees with the VP's conditional
+`INTEGRATION_VALIDATION` wording, and whether prior AP-002's
+protected 1 ms selection premise needs a superseding human decision.
+
+**Next:** from `reviews/gates/TOY1-AS002-authoring-receipt.json`,
+use generic `tools/next_task.py inspect` then `emit`; it routes
+to registered `REVIEW_AS` using
+`process/playbooks/REVIEW_AS.md`. Only a submitted, receipt-backed
+draft AS can enter that review; an independently confirmed blocking
+AS review can route back to `REVISE_AS` without a bespoke prompt.
+No new CON/DE/firmware work before accepted AS and authority/VO
+disposition. These new routes need developer-workstation unit tests.
+
 ## Engineering authority: sample-indexed detector scope approved (2026-10-13)
 
 The human explicitly approved the corrected input boundary with:
