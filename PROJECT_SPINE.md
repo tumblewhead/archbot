@@ -4,6 +4,41 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Independent AS-002 review: REVISE (2026-10-13)
+Commit `59e582c6564f` records
+`reviews/gates/TOY1-AS002-independent-review-e239ff6.json`, disposition
+`REVISE` with `gate_status: AS_REVISION_REQUIRED`, independently reviewed.
+The AS-001 v2 candidate correctly carries the approved newest-32
+sample-indexed publisher boundary, unsigned 12-bit toy input domain,
+2 KiB detector-attributable SRAM, no-FPU, and applicable abstract PR-002.
+
+The actionable blocker `ASR-001` is **only** the mismatch between
+`verification_plan-v2.md` R-001 conditional `INTEGRATION_VALIDATION`
+and `VO-004-v2.md` detector-side `IMPLEMENTATION` due stage.
+The latter must be explicit in the next versioned VP proposal; any future
+throughput/overload/deadline requirement is a **separate** integration
+obligation, not R-001. `ASR-002` is a downstream AP-002 authority condition
+that cannot be silently revised; handle after favorable AS review.
+`ASR-003` remains an external, unverified publisher promise, not an
+algorithmic loss detector.
+
+**Next:** use `tools/next_task.py inspect/emit --receipt
+reviews/gates/TOY1-AS002-independent-review-e239ff6.json` to generate
+the generic `REVISE_AS` task. The controller now matches the reviewer's
+`gate_status` rather than an absent `next_stage_recommendation`.
+The reusable `REVISE_AS` playbook permits a **versioned VP/VO-only
+correction**, preserving the correct AS v2 draft. A new authoring receipt
+should declare `review_subject:
+knowledge/architecture/AS-001/statement-v2.md` and put the newly
+versioned dependent evidence in `changed_artifacts`; generic
+`REVIEW_AS` can then independently re-review that package.
+
+The current AS has NOT been accepted or activated; original
+AP-002 protected timing condition and historical VO-004/AD-003 remain,
+pending controlled independent review and necessary human authority.
+C-002 is still approved and VO-002..VO-006 remain open.
+Tests for the updated generic router must run on the developer workstation.
+
 ## Latest submitted AS correction and independent review (2026-10-13)
 Commit `29d1b8864796` contains a *draft* revised AS,
 `knowledge/architecture/AS-001/statement-v2.md`, new synthetic-BKP
