@@ -58,6 +58,93 @@ class TaskManifestTests(unittest.TestCase):
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(yaml.safe_dump(self.manifest), encoding="utf-8")
 
+    def _make_approved_as_scope_task(self):
+        (self.root / "agents/architecture-agent.md").write_text("# Architecture agent\n")
+        (self.root / "process/playbooks/REVISE_AS.md").write_text("# Revise AS\n")
+        view_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(view_path.read_text(encoding="utf-8"))
+        views["roles"]["architecture-agent"] = {"follow": []}
+        view_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        registry["operations"]["REVISE_AS"] = {
+            "role": "architecture-agent",
+            "playbook": "process/playbooks/REVISE_AS.md",
+        }
+        ops_path.write_text(yaml.safe_dump(registry), encoding="utf-8")
+        for name, body in {
+            "process/decisions/scope-request.md": "# Source request\n",
+            "process/decisions/scope-approval.md": "# Explicit authority\n",
+            "reviews/gates/scope-audit.json": '{"gate":"SCOPE_AUDIT"}\n',
+        }.items():
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(body, encoding="utf-8")
+        decision_path = self.root / "process/decisions/scope-approval.yaml"
+        authority = {
+            "schema": "pc-as-authority/v1",
+            "status": "approved",
+            "decision": "APPROVE_SCOPED_AS_REVISION",
+            "authorizes": "VERSIONED_AS_VP_VO_CORRECTION_FOR_INDEPENDENT_REVIEW",
+            "approved_by": "user:engineering_authority",
+            "source_request": "process/decisions/scope-request.md",
+            "independent_scope_review": "reviews/gates/scope-audit.json",
+            "authority_evidence": "process/decisions/scope-approval.md",
+            "accepted_scope": {
+                "fixed_1ms_requirement": "superseded_subject_to_versioned_AS_review",
+                "publisher_responsibility": "uninterrupted_ordered_sample_delivery",
+            },
+        }
+        decision_path.write_text(yaml.safe_dump(authority), encoding="utf-8")
+        self.manifest.update(
+            role="architecture-agent",
+            operation="REVISE_AS",
+            playbook="process/playbooks/REVISE_AS.md",
+            trigger={"kind": "AS_SCOPE_CORRECTION_APPROVED",
+                     "reference": "process/decisions/scope-approval.yaml"},
+            context={"authority_inputs": {
+                "accepted_scope": "process/decisions/scope-approval.yaml",
+            }},
+            gate={"kind": "AS_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return decision_path
+
+    def test_approved_scope_allows_versioned_as_revision(self):
+        self._make_approved_as_scope_task()
+        result = task.validate(self.root, "process/tasks/task.yaml")
+        self.assertEqual(result["operation"], "REVISE_AS")
+        self.manifest["spine"] = "/architecture/beta/spine.md"
+        self.store()
+        result = task.validate(self.root, "process/tasks/task.yaml")
+        self.assertEqual(result["spine"], "/architecture/beta/spine.md")
+
+    def test_unapproved_scope_blocks_as_revision(self):
+        path = self._make_approved_as_scope_task()
+        authority = yaml.safe_load(path.read_text(encoding="utf-8"))
+        authority["status"] = "proposed"
+        path.write_text(yaml.safe_dump(authority), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "missing explicit accepted scope"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_changed_publisher_boundary_blocks_as_revision(self):
+        path = self._make_approved_as_scope_task()
+        authority = yaml.safe_load(path.read_text(encoding="utf-8"))
+        authority["accepted_scope"]["publisher_responsibility"] = "none"
+        path.write_text(yaml.safe_dump(authority), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "approved producer boundary"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_scope_task_must_match_exact_authority_receipt(self):
+        self._make_approved_as_scope_task()
+        self.manifest["context"]["authority_inputs"]["accepted_scope"] = (
+            "process/decisions/different.yaml"
+        )
+        self.store()
+        with self.assertRaisesRegex(task.TaskError, "exact accepted scope"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
