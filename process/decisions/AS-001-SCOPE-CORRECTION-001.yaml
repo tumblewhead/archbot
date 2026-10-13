@@ -1,0 +1,44 @@
+schema: pc-as-authority/v1
+id: AS-001-SCOPE-CORRECTION-001
+status: approved
+decision: APPROVE_SCOPED_AS_REVISION
+architecture: AS-001
+approved_by: user:engineering_authority
+approved_date_local: "2026-10-13"
+source_request: process/decisions/AS-001-SCOPE-CORRECTION-REQUEST-v1.md
+independent_scope_review: reviews/gates/TOY1-SCOPE-AUDIT-002-receipt.json
+authority_evidence: process/decisions/AS-001-SCOPE-CORRECTION-001.md
+authorizes: VERSIONED_AS_VP_VO_CORRECTION_FOR_INDEPENDENT_REVIEW
+accepted_scope:
+  input_stream: newest_32_samples_from_upstream_publisher_in_publication_order
+  sampling: update_once_for_each_accepted_published_sample_independent_of_elapsed_time
+  publisher_responsibility: uninterrupted_ordered_sample_delivery
+  detector_does_not_own: [source_loss_detection, source_gap_reconstruction, source_sequence_tracking, source_watchdog]
+  fixed_1ms_requirement: superseded_subject_to_versioned_AS_review
+  application_throughput: independent_integration_requirement_if_ever_approved
+  physical_acquisition_history: outside_detector_AS
+preserves:
+  - C-001_synthetic_unsigned_12bit_domain
+  - C-002_approved_detector_charged_2048_byte_SRAM_scope
+  - C-003_no_FPU_reliance
+  - R-002_exact_newest_32_samples_zero_padded
+  - R-003_no_overflow_on_legal_inputs
+  - F-001_original_selection_metrics
+  - PR-002_conditional_abstract_theorem
+  - VO-001_synthetic_scope
+  - VO-002_VO-003_VO-005_VO-006_open
+  - AD-003_accepted_history
+requires:
+  - versioned_AS_and_BKP_provenance_correction
+  - versioned_VP_and_VO-004_rescoping_without_false_discharge
+  - independent_AS_review_before_new_CON_baseline
+  - impact_review_of_AP-002_selection_and_AD-003
+  - new_versioned_CON_after_reviewed_AS
+not_authorized:
+  - overwriting_historical_approved_records
+  - auto_accepting_AS_or_CON
+  - discharging_any_VO
+  - accepting_new_AD
+  - unverified_upstream_guarantees_as_measured_facts
+  - changing_C-002_or_F-001
+  - authorizing_firmware
