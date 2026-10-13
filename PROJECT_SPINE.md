@@ -25,6 +25,23 @@ process/tasks/REVISE_CON-d811f94c033e.yaml` after a fast-forward pull
 and full local validation. Its source remains the independent CON-003
 review `REVISE`; DE and firmware stages remain blocked.
 
+## Live state: CON-004 evidence gap
+Commit `4a426ac06de5` adds active draft contracts v4 and
+`reviews/gates/TOY1-CON004-receipt-v4.json`. Their authoring status
+is `CONTRACTS_UNRESOLVED`: contract semantics for loss and watchdog
+are more specific, but a bounded numeric inventory for the 128-byte
+detector-attributable shared allocation remains missing.
+
+Use the general receipt planner, not another handwritten CON prompt:
+`python tools/next_task.py inspect --receipt
+reviews/gates/TOY1-CON004-receipt-v4.json`. On the current policy,
+this routes to stage-independent `PLAN_EVIDENCE`, rather than
+`REVIEW_CON`. The evidence planner must seek a credible shared
+allocation/ownership envelope under the existing cap, or report the
+minimal blocker without inventing hardware facts. No CON acceptance,
+DE refinement, C implementation or VO discharge is authorized.
+The tests for this new transition still require the user's local run.
+
 ## Current gate and next action (2026-10-13)
 Latest reviewed CON version: v3. Independent CON-003 review at
 `reviews/gates/TOY1-CON003-independent-review-v3.json` records
