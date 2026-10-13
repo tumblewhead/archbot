@@ -21,7 +21,7 @@ context and controlled promotion of answers into knowledge.
 
 ## Conceptual architecture
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     H["Human engineering interface"]
     BUS["Interrogative inbox / event protocol"]
@@ -37,7 +37,7 @@ flowchart TD
     GT -->|"Accepted artifact or recorded unresolved state"| SP
     GT --> TASK
     TASK --> AG
-\`\`\`
+```
 
 No application must present this as a functioning real-time REPL until an
 actual runtime and tests exist. The first implementation should work with
@@ -85,7 +85,7 @@ that can be cheaply and safely recovered from the existing BKP.
 An inquiry is **not** equivalent to a free-form chat transcript. A minimal
 serialized record could be:
 
-\`\`\`yaml
+```yaml
 schema: pc-inquiry/v1
 id: INQ-EXAMPLE-001
 status: OPEN
@@ -122,7 +122,7 @@ resolution:
   classification: UNRESOLVED
   accepted_artifact: null
   authority_receipt: null
-\`\`\`
+```
 
 Identifiers and paths above are illustrative, not established OKF or
 archbot runtime fields. A simple Markdown inquiry concept with YAML
@@ -132,16 +132,16 @@ frontmatter could reference this record through a typed spine edge.
 
 The inquiry has its own lifecycle:
 
-\`\`\`text
+```text
 OPEN -> HUMAN_RESPONDED -> INTERPRETED -> {EVIDENCE_PENDING,
                                            DECISION_PENDING,
                                            RESOLVED,
                                            REJECTED}
-       \-> CANCELLED_WITH_REASON
-\`\`\`
+       -> CANCELLED_WITH_REASON
+```
 
-A **task** independently has \`RUNNING\`, \`BLOCKED_ON_INQUIRY\`,
-\`ELIGIBLE_TO_RESUME\`, and terminal gate outcomes. These should not be
+A **task** independently has `RUNNING`, `BLOCKED_ON_INQUIRY`,
+`ELIGIBLE_TO_RESUME`, and terminal gate outcomes. These should not be
 confused with the inquiry's own state.
 
 Important distinctions:
@@ -190,13 +190,13 @@ that the acquisition itself was contiguous.
 The same protocol could support a terminal REPL, a web interface or a
 Codex-side inbox. Illustrative, **not-yet-implemented** commands:
 
-\`\`\`text
+```text
 pc inquiry inbox --spine /architecture/example/spine.md
 pc inquiry ask --task TASK-ID --kind WHY
 pc inquiry respond INQ-ID --choice sequence_assigned_at_acquisition
 pc inquiry challenge INQ-ID --evidence path/to/source
 pc task resume --inquiry INQ-ID
-\`\`\`
+```
 
 Do not present these as runnable commands before implementing them.
 The simplest initial adapter is a local command that prints pending
