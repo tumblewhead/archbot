@@ -1,6 +1,6 @@
 # archbot: agent operating contract
 
-This repository is the canonical nonvolatile memory for Progressive Concretization. Always fetch the current repository state before changing it. Do not reconstruct the current architecture from a chat transcript.
+This repository is the canonical nonvolatile memory for Progressive Concretization. The human operator pulls the latest Git revision before launching local Codex. Agents inspect the checked-out HEAD and its source evidence; do not reconstruct the current architecture from a chat transcript or assume a failed `git fetch` inside a read-only Codex sandbox implies stale evidence.
 
 ## Startup
 1. Read this file, then `PROJECT_SPINE.md`.

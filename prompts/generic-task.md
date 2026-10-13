@@ -1,6 +1,6 @@
 # Generic Progressive Concretization task
 
-Read `AGENTS.md` and `PROJECT_SPINE.md`.
+Read `AGENTS.md` and `PROJECT_SPINE.md`. Inspect the checkout revision with `git rev-parse HEAD`. The operator is responsible for `git pull` before each run; do not run `git fetch`/`git pull` inside a sandbox with read-only `.git` metadata. If the expected input revision does not match, report it as an explicit gate issue.
 
 Read the **assigned task manifest** at the path provided with this run.
 If the manifest is missing, stop with `TASK_MANIFEST_REQUIRED` and request
