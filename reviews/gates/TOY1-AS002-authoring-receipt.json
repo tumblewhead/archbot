@@ -1,0 +1,58 @@
+{
+  "schema": "pc-gate-receipt/v1",
+  "task_id": "TOY1-AS002",
+  "gate": "AS_REVIEW",
+  "role": "architecture-agent",
+  "status": "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW",
+  "input_revision": "63dd1f7a6fc119022059db761b5d6507a258fcb6",
+  "trigger": {
+    "kind": "AS_SCOPE_CORRECTION_APPROVED",
+    "reference": "process/decisions/AS-001-SCOPE-CORRECTION-001.yaml",
+    "sha256": "d5145dc1449f9f497c6120186cb42eb59f1f68bcff0d9ddab16a95eec9edc814"
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/statement-v2.md",
+    "knowledge/bkp/problem-origin-scope-correction-v2.md",
+    "knowledge/architecture/AS-001/verification_plan-v2.md",
+    "knowledge/architecture/AS-001/verification/VO-004-v2.md",
+    "reviews/gates/TOY1-AS002-impact.md",
+    "reviews/gates/TOY1-AS002-review-request.md",
+    "knowledge/architecture/AS-001/spine.md",
+    "reviews/gates/TOY1-AS002-authoring-receipt.json"
+  ],
+  "authority_and_proof_limits": [
+    "Draft implements approved newest-32 accepted published sample scope and once-per-accepted-sample semantics.",
+    "Uninterrupted ordered delivery is an unverified upstream interface promise; no physical publisher evidence is asserted.",
+    "PR-002 is retained only for its conditional abstract arithmetic and ring claims; no C, timing, publisher, or firmware correctness is inferred.",
+    "Original AS/BKP/VP/VO, AP authority, F, ledgers, and CON history were not overwritten."
+  ],
+  "unresolved_obligations": [
+    "VO-002 remains open: detector-attributable SRAM implementation evidence.",
+    "VO-003 remains open: no-FPU implementation evidence.",
+    "VO-004 remains open in the authoritative ledger pending accepted rescoping; current timing duty cannot be silently discharged.",
+    "VO-005 remains open: newest-32 behavior implementation evidence.",
+    "VO-006 remains open: implementation overflow/type/invariant evidence.",
+    "AP-002 authority explicitly protects one sample per millisecond; independent impact review and any superseding engineering-authority decision are required before relying on AP-002 under corrected AS.",
+    "AD-003 remains accepted history; its applicability under revised R-001 requires review. No new debt accepted.",
+    "Publisher integrity and any throughput/overload/deadline requirement need a separately approved integration scope and evidence owner."
+  ],
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/TOY1-AS002.yaml",
+      "result": "PASS",
+      "summary": "Manifest, operation, role, playbook, trigger authority, and spine resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "61 concepts, 265 typed links, 0 warnings, 0 errors; structural validation only. Raw dataset SHA-256 hashing skipped."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    }
+  ],
+  "acceptance_boundary": "Authoring and structural checks do not constitute independent AS acceptance, mathematical re-review, contract approval, VO discharge, AP reselection, or physical publisher verification.",
+  "next_eligible_action": "Independent AS review using reviews/gates/TOY1-AS002-review-request.md; then resolve AP-002 authority applicability and perform any required controlled authority/ledger update before establishing a new CON baseline."
+}

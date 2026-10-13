@@ -7,6 +7,14 @@ tags:
 - spine
 - architecture
 relations:
+- kind: candidate
+  target: /architecture/AS-001/statement-v2.md
+- kind: supported_by
+  target: /bkp/problem-origin-scope-correction-v2.md
+- kind: specifies
+  target: /architecture/AS-001/verification_plan-v2.md
+- kind: candidate
+  target: /architecture/AS-001/verification/VO-004-v2.md
 - kind: defines
   target: /architecture/AS-001/statement.md
 - kind: evaluated_by
