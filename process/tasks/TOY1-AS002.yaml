@@ -1,0 +1,55 @@
+# One Toy 1 invocation of the generic REVISE_AS playbook.
+# Approved scope authority, not invented hardware/sample-rate properties.
+schema: pc-task/v1
+id: TOY1-AS002
+role: architecture-agent
+operation: REVISE_AS
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: AS_SCOPE_CORRECTION_APPROVED
+  reference: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+playbook: process/playbooks/REVISE_AS.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    accepted_scope: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+    approval_evidence: process/decisions/AS-001-SCOPE-CORRECTION-001.md
+    source_request: process/decisions/AS-001-SCOPE-CORRECTION-REQUEST-v1.md
+    independent_audit: reviews/gates/TOY1-SCOPE-AUDIT-002-receipt.json
+    original_as: knowledge/architecture/AS-001/statement.md
+    source_brief: knowledge/bkp/problem-origin.md
+    source_adc: knowledge/bkp/adc.md
+    original_verification_plan: knowledge/architecture/AS-001/verification_plan.md
+    vo_004: knowledge/architecture/AS-001/verification/VO-004.md
+    vo_ledger: process/ledgers/vo_ledger.yaml
+    ad_ledger: process/ledgers/ad_ledger.yaml
+    original_figure_of_merit: knowledge/architecture/AS-001/merit.md
+    ap_authority: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    accepted_proof: knowledge/architecture/AS-001/proofs/PR-002.md
+    memory_scope: process/decisions/C-002-scope.yaml
+    previous_contract_spine: knowledge/architecture/AS-001/contracts/spine-v4.md
+    boundary: Upstream publisher supplies uninterrupted ordered samples. Detector computes newest 32 received published samples; no invented 1 ms deadline, sequence counter or watchdog.
+outputs:
+  allowed:
+    - versioned_draft_AS
+    - versioned_BKP_provenance_annotation
+    - versioned_verification_plan_candidate
+    - versioned_VO_004_rescoping_candidate
+    - impact_assessment_for_AP_AD_F_and_CON
+    - independent_AS_review_request
+    - authoring_receipt
+    - additive_spine_links
+  prohibited:
+    - overwrite_original_AS_or_BKP
+    - rewrite_existing_AP_authority_or_AD_ledger
+    - edit_or_discharge_current_VO_ledger
+    - amend_F_or_protected_C_002
+    - approve_AS_or_CON
+    - implement_firmware
+    - assert_physical_publisher_guarantee_verified
+gate:
+  kind: AS_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
