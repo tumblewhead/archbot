@@ -128,6 +128,28 @@ This avoids optimizing one contract clause while other interface constraints
 remain unknown, and avoids letting toy experiments accumulate unnecessarily
 complex mechanisms.
 
+## Missing evidence is not a revision verdict
+
+A producer may explicitly report a stage as `UNRESOLVED` even after
+meaningful progress. That outcome does **not** authorize an independent
+acceptance review of a knowingly incomplete artifact. The generic
+controller should route to evidence planning or a scoped human inquiry.
+
+The implemented CON adapter now recognizes:
+- `pc-gate-receipt/v1` with `CONTRACTS_UNRESOLVED` and a nonempty
+  `unresolved` list: send the receipt to `PLAN_EVIDENCE` without
+  mutating the CON baseline.
+- `pc-evidence-plan/v1` with `EVIDENCE_PLAN_READY_FOR_REVISION`:
+  return the actionable plan to the existing `REVISE_CON` operation.
+  The plan is not itself accepted CON evidence or a VO discharge.
+- `EVIDENCE_STILL_UNRESOLVED`: no automatic advancement; clarify the
+  missing evidence or obtain an appropriate authority decision.
+
+The `PLAN_EVIDENCE` playbook is stage-independent. Other stages can add
+a policy row for their own unresolved receipt semantics without rewriting
+the workflow engine. Generated manifests reference predecessor tasks rather
+than embedding entire previous contexts.
+
 ## Software architecture and current implementation boundary
 
 There are **three different layers**:
