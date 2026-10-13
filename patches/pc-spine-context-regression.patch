@@ -1,0 +1,179 @@
+--- a/tools/pc.py
++++ b/tools/pc.py
+@@ -195,7 +195,14 @@
+ 
+ 
+ def traverse(start: Path, allowed: set[str], max_depth: int, mandatory: set[str],
+-             concepts: dict[Path, tuple[dict, str]]) -> list[tuple[Path, int, str]]:
++             concepts: dict[Path, tuple[dict, str]], *,
++             include_nonconcept: bool = False) -> list[tuple[Path, int, str]]:
++    """Traverse typed edges; by default return only OKF concepts.
++
++    Non-concept files remain referenced in source frontmatter and discoverable
++    through explicit opt-in. Mandatory non-concept dependencies are never
++    silently dropped: the caller must opt in or resolve the dependency.
++    """
+     queue = deque([(start, 0, 'root')])
+     visited: set[Path] = set()
+     output: list[tuple[Path, int, str]] = []
+@@ -214,6 +221,14 @@
+                 continue
+             dest = resolve_target(path, edge['target'])
+             if dest is not None and dest.is_file() and dest not in visited:
++                if dest not in concepts and not include_nonconcept:
++                    if kind in mandatory:
++                        raise ValueError(
++                            f'Mandatory non-concept dependency excluded: '
++                            f'{dest.relative_to(KB)} (via {kind}). '
++                            'Review the artifact and opt in to non-concept traversal.'
++                        )
++                    continue
+                 queue.append((dest, depth+1, kind + (' [required]' if kind in mandatory and kind not in allowed else '')))
+     return output
+ 
+@@ -234,7 +249,8 @@
+         if not allowed.issubset(known):
+             raise ValueError(f'Unknown relation kinds: {sorted(allowed-known)}')
+         mandatory = set(views.get('mandatory_closure', []))
+-        nodes = traverse(root, allowed, int(role['max_depth']), mandatory, concepts)
++        nodes = traverse(root, allowed, int(role['max_depth']), mandatory, concepts,
++                         include_nonconcept=bool(role.get('include_nonconcept', False) or args.include_nonconcept))
+     except (ValueError, yaml.YAMLError) as ex:
+         print('ERROR:', ex, file=sys.stderr)
+         return 2
+@@ -306,6 +322,8 @@
+     v.add_argument('--spine', required=True)
+     v.add_argument('--follow', help='Comma-separated relationship allowlist overriding the role view')
+     v.add_argument('--emit', action='store_true', help='Print bounded Markdown contents, never raw files')
++    v.add_argument('--include-nonconcept', action='store_true',
++                   help='List non-OKF file references; never emits their contents')
+     v.add_argument('--max-bytes', type=int, help='Override body byte budget')
+     i = sub.add_parser('impact', help='Conservative reverse-edge impact report')
+     i.add_argument('--changed', required=True)
+--- a/tools/telemetry.py
++++ b/tools/telemetry.py
+@@ -128,7 +128,13 @@
+         start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
+         docs = pc.catalog()
+         nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
+-                            set(cfg.get('mandatory_closure', [])), docs)
++                            set(cfg.get('mandatory_closure', [])), docs,
++                            include_nonconcept=bool(view.get('include_nonconcept', False)))
++        all_refs = pc.traverse(start, set(view['follow']), int(view['max_depth']),
++                               set(cfg.get('mandatory_closure', [])), docs,
++                               include_nonconcept=True)
++        excluded = [path.relative_to(pc.KB).as_posix() for path, _, _ in all_refs
++                    if path not in docs and path not in {node[0] for node in nodes}]
+         limit = int(view['max_bytes'])
+         remaining = limit
+         emit = 0
+@@ -143,7 +149,10 @@
+             else:
+                 omitted += 1
+         return {'available': True, 'eligible_artifacts': len(nodes),
+-                'nonconcept_artifacts': raw, 'over_budget_concepts': omitted,
++                'nonconcept_artifacts': raw,
++                'excluded_nonconcept_references': len(excluded),
++                'excluded_nonconcept_examples': excluded[:8],
++                'over_budget_concepts': omitted,
+                 'eligible_text_bytes_within_budget': emit, 'role_body_budget_bytes': limit,
+                 'note': 'Graph selection estimate, not measured Codex context ingestion'}
+     except (ValueError, OSError, ImportError, KeyError) as exc:
+@@ -498,7 +507,8 @@
+         start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
+         docs = pc.catalog()
+         nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
+-                            set(cfg.get('mandatory_closure', [])), docs)
++                            set(cfg.get('mandatory_closure', [])), docs,
++                            include_nonconcept=bool(view.get('include_nonconcept', False)))
+         return [(path.relative_to(REPO).as_posix(), path) for path, _, _ in nodes if path in docs]
+     except (ImportError, KeyError, ValueError, OSError):
+         return []
+--- a/process/views.yaml
++++ b/process/views.yaml
+@@ -3,6 +3,7 @@
+ # "follow" is an allowlist of edge kinds. No arbitrary file glob expansion.
+ roles:
+   proof-scout:
++    include_nonconcept: false  # concept-only; raw/auxiliary evidence remains linked
+     follow: [defines, constrained_by, motivated_by, supported_by, assumes, results, evaluated_by, candidate, opportunity, addresses]
+     max_depth: 4
+     max_bytes: 28000
+@@ -15,6 +16,7 @@
+     max_depth: 5
+     max_bytes: 42000
+   evaluation-agent:
++    include_nonconcept: true  # assessment YAML may be listed, never emitted as context
+     follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
+     max_depth: 5
+     max_bytes: 42000
+@@ -27,10 +29,12 @@
+     max_depth: 3
+     max_bytes: 28000
+   evidence-planning-agent:
++    include_nonconcept: true  # planning can inspect assessment references on demand
+     follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
+     max_depth: 5
+     max_bytes: 42000
+   experimental-investigator:
++    include_nonconcept: true  # explicitly lists raw dataset and manifest references
+     follow: [supported_by, results, raw_data, derived_from, defines]
+     max_depth: 4
+     max_bytes: 1800000
+--- a/tests/test_pc.py
++++ b/tests/test_pc.py
+@@ -1,5 +1,6 @@
+ import sys
+ import unittest
++from copy import deepcopy
+ from pathlib import Path
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
+@@ -15,7 +16,8 @@
+     def _view(self, role):
+         config = self.views['roles'][role]
+         nodes = pc.traverse(self.spine, set(config['follow']), config['max_depth'],
+-                            set(self.views['mandatory_closure']), self.docs)
++                            set(self.views['mandatory_closure']), self.docs,
++                            include_nonconcept=bool(config.get('include_nonconcept', False)))
+         return {path.relative_to(pc.KB).as_posix() for path, _, _ in nodes}
+ 
+     def test_full_structural_check(self):
+@@ -31,6 +33,37 @@
+         nodes = self._view('experimental-investigator')
+         self.assertIn('architecture/AS-001/evidence/raw/samples.csv', nodes)
+ 
++    def test_optional_nonconcept_is_filtered_from_proof_scout_view(self):
++        docs = dict(self.docs)
++        meta, body = docs[self.spine]
++        meta = deepcopy(meta)
++        meta.setdefault('relations', []).append({
++            'kind': 'supported_by',
++            'target': '/architecture/AS-001/evidence/manifest.json',
++        })
++        docs[self.spine] = (meta, body)
++        raw_path = (pc.KB / 'architecture/AS-001/evidence/manifest.json').resolve()
++        args = (self.spine, set(self.views['roles']['proof-scout']['follow']),
++                4, set(self.views['mandatory_closure']), docs)
++        concept_view = {p for p, _, _ in pc.traverse(*args, include_nonconcept=False)}
++        explicit_view = {p for p, _, _ in pc.traverse(*args, include_nonconcept=True)}
++        self.assertNotIn(raw_path, concept_view)
++        self.assertIn(raw_path, explicit_view)
++
++    def test_mandatory_nonconcept_cannot_be_silently_filtered(self):
++        docs = dict(self.docs)
++        meta, body = docs[self.spine]
++        meta = deepcopy(meta)
++        meta.setdefault('relations', []).append({
++            'kind': 'assumes',
++            'target': '/architecture/AS-001/evidence/manifest.json',
++        })
++        docs[self.spine] = (meta, body)
++        with self.assertRaisesRegex(ValueError, 'Mandatory non-concept dependency excluded'):
++            pc.traverse(self.spine, {'assumes'}, 1,
++                        set(self.views['mandatory_closure']), docs,
++                        include_nonconcept=False)
++
+     def test_boundary_for_accumulator_width(self):
+         bound = 32 * (2**12 - 1)**2
+         self.assertEqual(bound, 536608800)
