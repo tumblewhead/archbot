@@ -128,7 +128,14 @@ def context_profile(role: str) -> dict:
         start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
         docs = pc.catalog()
         nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
-                            set(cfg.get('mandatory_closure', [])), docs)
+                            set(cfg.get('mandatory_closure', [])), docs,
+                            include_nonconcept=bool(view.get('include_nonconcept', False)))
+        all_refs = pc.traverse(start, set(view['follow']), int(view['max_depth']),
+                               set(cfg.get('mandatory_closure', [])), docs,
+                               include_nonconcept=True)
+        selected_paths = {path for path, _, _ in nodes}
+        excluded = [path.relative_to(pc.KB).as_posix() for path, _, _ in all_refs
+                    if path not in docs and path not in selected_paths]
         limit = int(view['max_bytes'])
         remaining = limit
         emit = 0
@@ -143,7 +150,10 @@ def context_profile(role: str) -> dict:
             else:
                 omitted += 1
         return {'available': True, 'eligible_artifacts': len(nodes),
-                'nonconcept_artifacts': raw, 'over_budget_concepts': omitted,
+                'nonconcept_artifacts': raw,
+                'excluded_nonconcept_references': len(excluded),
+                'excluded_nonconcept_examples': excluded[:8],
+                'over_budget_concepts': omitted,
                 'eligible_text_bytes_within_budget': emit, 'role_body_budget_bytes': limit,
                 'note': 'Graph selection estimate, not measured Codex context ingestion'}
     except (ValueError, OSError, ImportError, KeyError) as exc:
@@ -437,7 +447,8 @@ def selected_context(role: str) -> list[tuple[str, Path]]:
         start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
         docs = pc.catalog()
         nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
-                            set(cfg.get('mandatory_closure', [])), docs)
+                            set(cfg.get('mandatory_closure', [])), docs,
+                            include_nonconcept=bool(view.get('include_nonconcept', False)))
         return [(path.relative_to(REPO).as_posix(), path) for path, _, _ in nodes if path in docs]
     except (ImportError, KeyError, ValueError, OSError):
         return []

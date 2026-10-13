@@ -195,7 +195,13 @@ def check(*, hash_raw: bool = True) -> int:
 
 
 def traverse(start: Path, allowed: set[str], max_depth: int, mandatory: set[str],
-             concepts: dict[Path, tuple[dict, str]]) -> list[tuple[Path, int, str]]:
+             concepts: dict[Path, tuple[dict, str]], *,
+             include_nonconcept: bool = False) -> list[tuple[Path, int, str]]:
+    """Traverse typed edges; by default return only OKF concepts.
+
+    Non-concept artifacts remain linked and can be listed by explicit opt-in.
+    Mandatory non-concept dependencies are never silently excluded.
+    """
     queue = deque([(start, 0, 'root')])
     visited: set[Path] = set()
     output: list[tuple[Path, int, str]] = []
@@ -214,6 +220,14 @@ def traverse(start: Path, allowed: set[str], max_depth: int, mandatory: set[str]
                 continue
             dest = resolve_target(path, edge['target'])
             if dest is not None and dest.is_file() and dest not in visited:
+                if dest not in concepts and not include_nonconcept:
+                    if kind in mandatory:
+                        raise ValueError(
+                            f'Mandatory non-concept dependency excluded: '
+                            f'{dest.relative_to(KB)} (via {kind}). '
+                            'Review the dependency and explicitly opt in to non-concept traversal.'
+                        )
+                    continue
                 queue.append((dest, depth+1, kind + (' [required]' if kind in mandatory and kind not in allowed else '')))
     return output
 
@@ -234,7 +248,8 @@ def view(args: argparse.Namespace) -> int:
         if not allowed.issubset(known):
             raise ValueError(f'Unknown relation kinds: {sorted(allowed-known)}')
         mandatory = set(views.get('mandatory_closure', []))
-        nodes = traverse(root, allowed, int(role['max_depth']), mandatory, concepts)
+        nodes = traverse(root, allowed, int(role['max_depth']), mandatory, concepts,
+                         include_nonconcept=bool(role.get('include_nonconcept', False) or args.include_nonconcept))
     except (ValueError, yaml.YAMLError) as ex:
         print('ERROR:', ex, file=sys.stderr)
         return 2
@@ -306,6 +321,8 @@ def main() -> int:
     v.add_argument('--spine', required=True)
     v.add_argument('--follow', help='Comma-separated relationship allowlist overriding the role view')
     v.add_argument('--emit', action='store_true', help='Print bounded Markdown contents, never raw files')
+    v.add_argument('--include-nonconcept', action='store_true',
+                   help='List non-OKF references, without emitting their content')
     v.add_argument('--max-bytes', type=int, help='Override body byte budget')
     i = sub.add_parser('impact', help='Conservative reverse-edge impact report')
     i.add_argument('--changed', required=True)

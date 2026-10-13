@@ -3,6 +3,7 @@ version: 1
 # "follow" is an allowlist of edge kinds. No arbitrary file glob expansion.
 roles:
   proof-scout:
+    include_nonconcept: false  # Concept-only; references remain discoverable
     follow: [defines, constrained_by, motivated_by, supported_by, assumes, results, evaluated_by, candidate, opportunity, addresses]
     max_depth: 4
     max_bytes: 28000
@@ -15,6 +16,7 @@ roles:
     max_depth: 5
     max_bytes: 42000
   evaluation-agent:
+    include_nonconcept: true  # List assessment YAML on demand, never emit its body
     follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
     max_depth: 5
     max_bytes: 42000
@@ -26,7 +28,13 @@ roles:
     follow: [defines, constrained_by, motivated_by, supported_by, assumes, results]
     max_depth: 3
     max_bytes: 28000
+  evidence-planning-agent:
+    include_nonconcept: true
+    follow: [defines, constrained_by, motivated_by, supported_by, assumes, proven_by, opportunity, addresses, verifies, results, candidate, evaluated_by, specifies]
+    max_depth: 5
+    max_bytes: 42000
   experimental-investigator:
+    include_nonconcept: true  # Explicitly list raw dataset references
     follow: [supported_by, results, raw_data, derived_from, defines]
     max_depth: 4
     max_bytes: 1800000
