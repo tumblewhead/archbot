@@ -4,6 +4,31 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current qualification intervention: Scope audit
+The latest local evidence run was pushed as `cf0ec21f0548`.
+`EP-003-CON004-SHARED-ALLOCATION` and
+`reviews/gates/PLAN_EVIDENCE-668abfbc4056-receipt.json`
+report `EVIDENCE_STILL_UNRESOLVED`. They identify a missing
+bounded 128-byte shared-memory allocation; no CON acceptance or DE
+authorization has occurred.
+
+Repeated CON review has generated additional requirements for loss
+epochs, atomic publication and watchdog behavior. The original
+AS-001 explicitly requires 1-ms input acceptance and exact 32-sample
+squared sums but does **not explicitly require comprehensive upstream
+loss detection**. Whether the added fault guarantees are necessary
+derived obligations, integration assumptions or discretionary robustness
+is a scope question requiring independent audit.
+
+Next task: `process/tasks/TOY1-SCOPE-AUDIT-001.yaml`.
+Its role/playbook are reusable `AUDIT_SCOPE`, registered under
+`process/operations.yaml`. The audit compares AS/proof/contract
+provenance and reports recommendations without editing accepted
+authority, contracts or VO/AD state. It is a deliberate escalation,
+**not** a rule routing every unresolved evidence plan to scope
+reduction. If a proposed simplification changes the accepted AS,
+request engineering-authority approval separately.
+
 ## General iteration decision (2026-10-13)
 Human engineering direction: iteration must be available at **any stage**
 producing reviewable or verifiable claims, not only CON. A stage-independent
