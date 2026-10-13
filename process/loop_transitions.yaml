@@ -23,3 +23,22 @@ transitions:
     related_concept_type: Design Contract
     trigger_kind: CONTRACT_DRAFT_SUBMITTED
     gate: CONTRACT_REVIEW
+  - id: stage_evidence_gap
+    receipt_schema: pc-gate-receipt/v1
+    requires:
+      gate: CONTRACT_REVIEW
+      status: CONTRACTS_UNRESOLVED
+    require_unresolved: true
+    operation: PLAN_EVIDENCE
+    target: receipt
+    trigger_kind: STAGE_EVIDENCE_REQUIRED
+    gate: EVIDENCE_PLANNING
+  - id: evidence_plan_back_to_contract_revision
+    receipt_schema: pc-evidence-plan/v1
+    requires:
+      gate: EVIDENCE_PLANNING
+      status: EVIDENCE_PLAN_READY_FOR_REVISION
+    operation: REVISE_CON
+    target: receipt
+    trigger_kind: EVIDENCE_PLAN_READY
+    gate: CONTRACT_REVIEW
