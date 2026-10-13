@@ -1,0 +1,11 @@
+# Private/local-only runtime and generated artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+runs/
+pc-review-*.zip
+.env
+.env.*
+# Local archived transfers
+*.log
