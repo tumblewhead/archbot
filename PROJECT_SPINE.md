@@ -48,3 +48,17 @@ The first reusable dispatcher slice is `tools/task.py` + `process/tasks/TOY1-AE0
 using `process/playbooks/EVALUATE_AP.md`. This does not yet generalize
 AS-001-specific telemetry or C-002-specific stage-gate validators. The user
 runs and pushes local tests, Codex tasks and evidence receipts.
+
+## Latest evaluated gate: AE-004 at ccb514117b11
+The locally run post-VO-001 reevaluation created new AP-001/AP-002 v3
+assessments and AE-004 without changing the v2 history. VO-001 is discharged
+within the synthetic-domain authority. AP-002's AP-due technical obligations
+are conditionally satisfied, but F-001 target-cycle/flash evidence is incomplete.
+AE-004 records `NO_DOWNSELECTION`; the AP-002 tradeoff and AD-003 are
+**proposed, not approved**. The review receipt reports a clean structural
+check; a complete unit-test run was not recorded in the v2 receipt.
+
+Next: run `process/tasks/TOY1-AE004-REVIEW.yaml` using the
+reusable `REVIEW_AP_EVALUATION` playbook. An independent positive review
+may bring the provisional AP-002 commitment to engineering authority; the
+reviewing agent cannot select an architecture or accept debt.

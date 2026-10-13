@@ -5,3 +5,6 @@ operations:
   EVALUATE_AP:
     role: evaluation-agent
     playbook: process/playbooks/EVALUATE_AP.md
+  REVIEW_AP_EVALUATION:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_AP_EVALUATION.md

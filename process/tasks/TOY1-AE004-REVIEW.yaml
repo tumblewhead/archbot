@@ -1,0 +1,31 @@
+# Toy 1 evaluation review. The same operation/playbook is reusable for Toy 2.
+schema: pc-task/v1
+id: TOY1-AE004-REVIEW
+role: verification-agent
+operation: REVIEW_AP_EVALUATION
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: ARCHITECTURE_EVALUATION_SUBMITTED
+  reference: knowledge/architecture/AS-001/evaluations/AE-004.md
+  revision: ccb514117b1118b90cc33f232595202edde84bf0
+playbook: process/playbooks/REVIEW_AP_EVALUATION.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+outputs:
+  allowed:
+    - new_versioned_independent_evaluation_review
+    - review_receipt
+    - review_issue_or_recommendation
+  prohibited:
+    - overwrite_prior_evaluation
+    - edit_approved_AS_or_F
+    - modify_candidate_assessments_under_review
+    - discharge_verification_obligation
+    - accept_architectural_debt
+    - approve_architecture
+gate:
+  kind: AP_EVALUATION_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
