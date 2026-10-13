@@ -1,0 +1,93 @@
+{
+  "schema": "pc-contract-review/v1",
+  "task_id": "TOY1-CON001-REVIEW",
+  "gate": "CONTRACT_REVIEW",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "input_revision": "16507a3d8bbd9ddbb3e24df72669d32fa9492aef",
+  "trigger_revision": "5013f9af7030a0963a63bcc2836693e2361a8adb",
+  "submission_receipt_input_revision": "3d71ba9b4536ccb9070dee00b4d2281a56cebd9d",
+  "disposition": "REVISE",
+  "next_stage_recommendation": "CON_REVISION_REQUIRED",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-CON001-independent-review-v1.md",
+    "reviews/gates/TOY1-CON001-independent-review-v1.json"
+  ],
+  "findings": [
+    {
+      "id": "CON001-F01",
+      "contract": "CON-AP2-001",
+      "severity": "blocking",
+      "summary": "Continuity fault detection lacks an explicit sequence/overrun signal or checkable producer guarantee.",
+      "counterexample": "One sample is silently omitted and the producer resumes without sequence metadata or a reliable overrun indication; the detector cannot distinguish the gap from consecutive valid inputs.",
+      "required_resolution": "Define the continuity evidence at the boundary or specify the required sequence/overrun signal and detection behavior."
+    },
+    {
+      "id": "CON001-F02",
+      "contract": "CON-AP2-002",
+      "severity": "blocking",
+      "summary": "The 72-byte persistent-state cap does not explicitly allocate all named control and result/fault fields.",
+      "counterexample": "Ring and accumulator use 68 bytes; index/control allowance is limited to four more bytes, while validity, continuity-fault, initialization/control and possible published state have no field-by-field accounting.",
+      "required_resolution": "Inventory every persistent field and map it to the 72-byte state cap or a separately identified shared allocation, without double counting."
+    }
+  ],
+  "requirement_vo_ad_coverage": {
+    "coverage_matrix_reviewed": true,
+    "VO-001": "discharged within synthetic ADC domain only",
+    "VO-002": "open",
+    "VO-003": "open",
+    "VO-004": "open",
+    "VO-005": "open",
+    "VO-006": "open",
+    "AD-003": "accepted; due before final acceptance"
+  },
+  "platform_choices": {
+    "queue_capacity_isr_scheduler_sync_primitive": "Deferrable to DE refinement with named ownership and evidence before implementation approval, subject to the CON-AP2-001 continuity semantics being made enforceable.",
+    "de_approval_inferred": false
+  },
+  "authority_changes": {
+    "ap_as_or_f_changed": false,
+    "de_approved": false,
+    "vo_discharged": [] ,
+    "ad_accepted": []
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/TOY1-CON001-REVIEW.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, playbook, spine, and gate controls resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "44 concepts, 163 typed links, zero warnings/errors; raw bytes/hash skipped. Structural check only."
+    }
+  ],
+  "uninspected_material": [
+    "Firmware/source implementation",
+    "Concrete MCU/RTOS configuration and queue implementation",
+    "Compiler output and linker map",
+    "Stack/interrupt measurements and target timing",
+    "Raw data"
+  ],
+  "reviewed_input_sha256": {
+    "process/tasks/TOY1-CON001-REVIEW.yaml": "8f9351bd7c15befe42b9a81b9603d7536ba0b1fb442ae9687adc5207bb334397",
+    "process/playbooks/REVIEW_CON.md": "84d25d327c1aafafb86185c3a0bec86e27b77a0820dbd7eba2f23661ae394c87",
+    "agents/verification-agent.md": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+    "knowledge/architecture/AS-001/spine.md": "a201997bec7b8ba493915fa56f5ef30e0fb15e8c8caec3b3e90d0a59f1fc1d21",
+    "knowledge/architecture/AS-001/contracts/spine.md": "3bbeb770b78ae8f6f93dd584b8fe96b7d0865f9b4c664474b0978cef28986a3c",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001.md": "a286994920a7e2a90e9e3350f1e0bfe66a8e54e6ba921cb63add81d238e251a4",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002.md": "5639018a2755b8983b0c4869caf210c40d00f42defff58659ab94e403c925047",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003.md": "b53b245fd504d620ca7cf47ab90b61d924786b148c7610296269dc0c68fcf86e",
+    "reviews/gates/TOY1-CON001-coverage-v1.md": "ad972e29a1c35da24aa53a4ded844c5cd7ab8123edfdb0069d3ec9dc651c5c75",
+    "reviews/gates/TOY1-CON001-receipt-v1.json": "245f6eed28c70c302576904bb530138961c153d68e31de76ca2aa684cc63fe7b",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "knowledge/architecture/AS-001/proposals/AP-002.md": "413c15c4ab5fca10bb31666ad04173e3204b21313a925c40af2f0096f8e32899",
+    "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml": "4fc72b1d43acb897bf4935bce585fe0713c1a7d95a4d23bd5df771553f230e39",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "process/ledgers/vo_ledger.yaml": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a",
+    "knowledge/architecture/AS-001/verification_plan.md": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5",
+    "knowledge/architecture/AS-001/proposals/envelopes/AP-002-SRAM-ENVELOPE-001.md": "48d11347455d836f339628754a80c4c82ca546fd2af4f38f339bffb3b54f389c"
+  }
+}
