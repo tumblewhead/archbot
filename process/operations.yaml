@@ -17,3 +17,6 @@ operations:
   REVISE_CON:
     role: contract-agent
     playbook: process/playbooks/REVISE_CON.md
+  PLAN_EVIDENCE:
+    role: evidence-planning-agent
+    playbook: process/playbooks/PLAN_EVIDENCE.md
