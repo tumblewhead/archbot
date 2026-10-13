@@ -434,7 +434,7 @@ class LoopTests(unittest.TestCase):
         # A later VP-only correction reuses the AS review subject but must
         # receive a fresh independent review task for its distinct receipt.
         updated_again = "knowledge/architecture/beta/verification_plan-v4.md"
-        self._put(updated_again, "---\\ntype: Verification Plan\\nid: VP-BETA-v4\\nstatus: draft\\n---\\n")
+        self._put(updated_again, "---\ntype: Verification Plan\nid: VP-BETA-v4\nstatus: draft\n---\n")
         self._put("reviews/gates/vp-resubmission-v4.json", json.dumps({
             "schema": "pc-gate-receipt/v1", "task_id": "VP-CORRECTION",
             "gate": "AS_REVIEW",
