@@ -1,0 +1,98 @@
+{
+  "schema": "pc-contract-review/v1",
+  "task_id": "TOY1-CON002-REVIEW",
+  "gate": "CONTRACT_REVIEW",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "input_revision": "e14b2d100eeb8de4fd630e7b58f7bc14ad556a66",
+  "trigger_revision": "edffca69e8e7dc6c10623558f768da72f3246d0c",
+  "submission_revision": "c99dbc56fc0baadca03b6489b7a60f0cc2f8a74d",
+  "disposition": "REVISE",
+  "next_stage_recommendation": "CON_REVISION_REQUIRED",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-CON002-independent-review-v2.md",
+    "reviews/gates/TOY1-CON002-independent-review-v2.json"
+  ],
+  "findings": [
+    {
+      "id": "CON002-F01",
+      "contract": "CON-AP2-001-v2 / CON-AP2-003-v2",
+      "severity": "blocking",
+      "summary": "Overrun acknowledgement can erase a newer overrun, and the full 2^32-gap exclusion lacks a specified enforceable bound or mechanism.",
+      "counterexample": "A second loss sets the overrun flag after detector observation but before a non-atomic acknowledgement clear; the clear erases the second event. A gap of exactly 2^32 acquisitions also aliases to the expected modulo sequence.",
+      "required_resolution": "Specify race-safe consume/acknowledgement semantics and responsible owner; define a checkable bound or equivalent enforcement that prevents a full counter-period gap."
+    },
+    {
+      "id": "CON002-F02",
+      "contract": "CON-AP2-002-v2 / CON-AP2-003-v2",
+      "severity": "resolved",
+      "summary": "Persistent state totals 71 bytes under the 72-byte cap; publication, expected sequence and synchronization are assigned once to the shared cap.",
+      "evidence": "64 + 4 + 1 + 1 + 1 = 71 bytes. Shared layout evidence remains due under VO-002.",
+      "required_resolution": null
+    }
+  ],
+  "requirement_vo_ad_coverage": {
+    "CON001-F01": "not closed; CON002-F01 blocking",
+    "CON001-F02": "closed at contract level; target layout evidence remains under VO-002",
+    "VO-001": "discharged within synthetic ADC domain only",
+    "VO-002": "open",
+    "VO-003": "open",
+    "VO-004": "open",
+    "VO-005": "open",
+    "VO-006": "open",
+    "AD-003": "accepted; due before final acceptance"
+  },
+  "authority_changes": {
+    "ap_as_or_f_changed": false,
+    "de_approved": false,
+    "vo_discharged": [],
+    "ad_accepted": []
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/TOY1-CON002-REVIEW.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, playbook, spine and gate resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "48 concepts, 188 typed links, zero warnings/errors; raw hashes skipped. Structural check only."
+    },
+    {
+      "command": "manual field-width addition",
+      "result": "PASS",
+      "summary": "64 + 4 + 1 + 1 + 1 = 71 bytes, within the 72-byte persistent cap."
+    }
+  ],
+  "uninspected_material": [
+    "Firmware/source implementation",
+    "Concrete MCU/RTOS queue and synchronization configuration",
+    "Compiler output and linker map",
+    "Stack/interrupt measurements and target timing",
+    "Raw data"
+  ],
+  "reviewed_input_sha256": {
+    "process/tasks/TOY1-CON002-REVIEW.yaml": "91db946dc02e86d8a8f77904201576b31de3c212d073432aa706eaa6d5b40c4d",
+    "process/playbooks/REVIEW_CON.md": "84d25d327c1aafafb86185c3a0bec86e27b77a0820dbd7eba2f23661ae394c87",
+    "agents/verification-agent.md": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+    "knowledge/architecture/AS-001/spine.md": "4dd0586ab04535ca7a9d1d0c50bf1ae0312ec92dc5859aae548ce432f4075fc3",
+    "knowledge/architecture/AS-001/contracts/spine-v2.md": "4613554edec2eda3d5e53b2167643d837f0f0b05bfccda3709d4396660807bf9",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v2.md": "6d0f7d844e0409cc24698998a4b1bb4cf9b2633140943ddfb37f21d00bbf6271",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v2.md": "d9427971930e69c21431b221da3a35d68a6f2f0d3f0abe39879a5556393fe9eb",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v2.md": "6a31b3991a8db2be23d744e5134de21afe70e423802972b35b6c06ceb9a9f99d",
+    "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml": "4fc72b1d43acb897bf4935bce585fe0713c1a7d95a4d23bd5df771553f230e39",
+    "knowledge/architecture/AS-001/proposals/AP-002.md": "413c15c4ab5fca10bb31666ad04173e3204b21313a925c40af2f0096f8e32899",
+    "reviews/gates/TOY1-CON001-independent-review-v1.json": "0828077bbe192ee4d73df51e3044c2b2401c494b9536c6614ee2385855c435da",
+    "reviews/gates/TOY1-CON002-coverage-v2.md": "d0aa1045664dc1db75212c314e33493a34035c70aae6e8cfae5f3ee4df060146",
+    "reviews/gates/TOY1-CON002-receipt-v2.json": "11501fd9e2591bed7cd0b596d8b9c7662ac38f4fe3af545363d45fc186b96234",
+    "reviews/gates/TOY1-CON002-independent-review-request-v2.md": "7bdbaa7b8667daa7ef6cca7a887366b430e1c24b99bc11efb8e982c67926717f",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "process/ledgers/vo_ledger.yaml": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "knowledge/architecture/AS-001/verification_plan.md": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+  },
+  "next_eligible_action": "Versioned Contract Agent correction of CON002-F01, followed by a new independent REVIEW_CON; no DE refinement or firmware implementation before accepted review."
+}
