@@ -118,3 +118,17 @@ architecture spine and receipt. Tests already construct distinct spines,
 but a real second toy must confirm domain isolation and measure human
 setup time, manual fixes and bespoke process edits before claiming
 end-to-end genericity.
+
+## Evidence-gap routing (added after CON v4)
+
+When a new contract submission explicitly reports
+`CONTRACTS_UNRESOLVED`, its declared missing evidence routes to the
+stage-independent `PLAN_EVIDENCE` operation. An actionable, versioned
+`pc-evidence-plan/v1` receipt may return to `REVISE_CON` for a new
+contract draft and later independent review. If evidence remains
+unavailable, the planner must stop instead of repeating a speculative
+correction.
+
+For the current v4 shared-memory blocker, use the same `inspect` and
+`emit` commands shown above but supply
+`reviews/gates/TOY1-CON004-receipt-v4.json`.
