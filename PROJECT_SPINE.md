@@ -4,6 +4,39 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Engineering authority: sample-indexed detector scope approved (2026-10-13)
+
+The human explicitly approved the corrected input boundary with:
+"yes, newest 32 samples, it is the responsibility of the upstream sample
+publisher to give uninterrupted samples".
+
+Controlled records:
+- `process/decisions/AS-001-SCOPE-CORRECTION-001.md`
+- `process/decisions/AS-001-SCOPE-CORRECTION-001.yaml`
+- Source request `process/decisions/AS-001-SCOPE-CORRECTION-REQUEST-v1.md`.
+- Independent audit `reviews/gates/TOY1-SCOPE-AUDIT-002-receipt.json`.
+
+The authority permits a versioned AS correction: compute over the newest
+32 delivered/published legal samples, ordered by acceptance; update once
+per received sample irrespective of elapsed interval. Uninterrupted ordered
+sample publication is the **upstream publisher's external responsibility**,
+not a requirement for detector-side reconstruction, sequence counters or
+watchdogs. This does not claim verified physical loss-free transport, nor
+an infinite sampling throughput guarantee.
+
+The original AS/VP, VO-004, AP-002 selection and AD-003 remain historical
+records. The fixed 1 ms algorithmic requirement is **superseded in scope
+by authority**, but no revised AS or VO disposition is independently
+accepted yet. C-002's 2 KiB attribution, 12-bit synthetic domain, no FPU,
+exact 32-sample recurrence and F-001 are retained.
+
+**Next execution:** `process/tasks/TOY1-AS002.yaml` invokes reusable
+`REVISE_AS` using the guarded `AS_SCOPE_CORRECTION_APPROVED` trigger.
+It must produce versioned *draft* AS/BKP-provenance/VP/VO-004 corrections,
+AP/AD impact and independent review request. It cannot silently discharge
+a VO or approve contracts. Do not continue legacy CON v4 repair until
+corrected AS is reviewed and accepted.
+
 ## Scope audit accepted as findings; authority decision pending
 
 Commit `a03293dcb130` adds
