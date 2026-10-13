@@ -4,6 +4,27 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## General iteration decision (2026-10-13)
+Human engineering direction: iteration must be available at **any stage**
+producing reviewable or verifiable claims, not only CON. A stage-independent
+model is documented in `docs/PROGRESSIVE_ITERATION.md`.
+
+The receipt planner now resolves `changed_concept` targets using type
+information from transition policy, retaining compatibility with prior CON
+rules. Generated tasks now reference their predecessor manifest instead of
+recursively copying historical task context. A synthetic proof-package test
+checks cross-artifact routing. Stage-specific operations for proof, DE and
+implementation are *not* automatically deployed; only the existing CON
+transitions are registered for local use. Tests need local confirmation.
+
+Latest pushed human-run commit `4122bc18d638` added only the
+generated `process/tasks/REVISE_CON-d811f94c033e.yaml` manifest.
+**The associated CON correction has not been pushed yet.** The next run is
+`python tools/task.py run --manifest
+process/tasks/REVISE_CON-d811f94c033e.yaml` after a fast-forward pull
+and full local validation. Its source remains the independent CON-003
+review `REVISE`; DE and firmware stages remain blocked.
+
 ## Current gate and next action (2026-10-13)
 Latest reviewed CON version: v3. Independent CON-003 review at
 `reviews/gates/TOY1-CON003-independent-review-v3.json` records
