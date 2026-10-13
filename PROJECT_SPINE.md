@@ -126,3 +126,14 @@ implementation choices may remain deferred if the interfaces are precise.
 from the independent-review receipt. It must produce versioned corrected
 contracts, preserve v1 and keep VO-002..VO-006 open. A new independent review
 is required before DE refinement. No firmware is authorized by this gate.
+
+## Deferred design proposal: human-agent interrogation
+`docs/HUMAN_AGENT_INTERROGATION_PROPOSAL.md` records a proposed,
+**not implemented** bidirectional inquiry protocol. A human or an agent may
+initiate an evidence-traceable question, challenge, what-if exploration,
+or protected decision request; answers are classified and promoted to
+binding knowledge only through existing authority/verification gates.
+This is intentionally deferred until after Toy 1 end-to-end and Toy 2
+retargeting qualification, except for necessary human gate questions.
+It must not interrupt the active `TOY1-CON002` correction cycle or
+be represented as working CLI/REPL functionality.
