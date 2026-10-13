@@ -182,5 +182,89 @@ class LoopTests(unittest.TestCase):
 
 
 
+    def _register_evidence_operation(self):
+        policy_path = self.root / "process/loop_transitions.yaml"
+        policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        policy["transitions"].extend([
+            {
+                "id": "resolve_stage_evidence",
+                "receipt_schema": "pc-gate-receipt/v1",
+                "requires": {"gate": "CONTRACT_REVIEW",
+                             "status": "CONTRACTS_UNRESOLVED"},
+                "require_unresolved": True,
+                "operation": "PLAN_EVIDENCE",
+                "target": "receipt",
+                "trigger_kind": "STAGE_EVIDENCE_REQUIRED",
+                "gate": "EVIDENCE_PLANNING",
+            },
+            {
+                "id": "apply_stage_evidence",
+                "receipt_schema": "pc-evidence-plan/v1",
+                "requires": {"gate": "EVIDENCE_PLANNING",
+                             "status": "EVIDENCE_PLAN_READY_FOR_REVISION"},
+                "operation": "REVISE_CON", "target": "receipt",
+                "trigger_kind": "EVIDENCE_PLAN_READY", "gate": "CONTRACT_REVIEW",
+            },
+        ])
+        policy_path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["PLAN_EVIDENCE"] = {
+            "role": "evidence-planning-agent",
+            "playbook": "process/playbooks/PLAN_EVIDENCE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/PLAN_EVIDENCE.md", "# Evidence plan\n")
+        self._put("process/tasks/EXAMPLE-AUTHOR.yaml", yaml.safe_dump({
+            "id": "EXAMPLE-AUTHOR", "spine": "/architecture/alpha/spine.md",
+        }))
+
+    def test_unresolved_submission_routes_to_evidence_not_review(self):
+        self._register_evidence_operation()
+        self._put("reviews/gates/unresolved.json", json.dumps({
+            "schema": "pc-gate-receipt/v1", "task_id": "EXAMPLE-AUTHOR",
+            "gate": "CONTRACT_REVIEW", "status": "CONTRACTS_UNRESOLVED",
+            "unresolved": ["Bound shared allocation before DE refinement"],
+        }))
+        out = next_task.decision(self.root, "reviews/gates/unresolved.json")
+        self.assertEqual(out["manifest"]["operation"], "PLAN_EVIDENCE")
+        self.assertEqual(out["manifest"]["gate"]["kind"], "EVIDENCE_PLANNING")
+        self.assertEqual(
+            out["manifest"]["context"]["evidence_inputs"]["unresolved"],
+            ["Bound shared allocation before DE refinement"],
+        )
+
+    def test_empty_unresolved_submission_fails_closed(self):
+        self._register_evidence_operation()
+        self._put("reviews/gates/unresolved.json", json.dumps({
+            "schema": "pc-gate-receipt/v1", "task_id": "EXAMPLE-AUTHOR",
+            "gate": "CONTRACT_REVIEW", "status": "CONTRACTS_UNRESOLVED",
+            "unresolved": [],
+        }))
+        with self.assertRaises(next_task.LoopError):
+            next_task.decision(self.root, "reviews/gates/unresolved.json")
+
+    def test_actionable_evidence_plan_routes_back_to_revision(self):
+        self._register_evidence_operation()
+        self._put("process/tasks/EVIDENCE-TASK.yaml", yaml.safe_dump({
+            "id": "EVIDENCE-TASK", "spine": "/architecture/alpha/spine.md",
+        }))
+        self._put("reviews/gates/plan.json", json.dumps({
+            "schema": "pc-evidence-plan/v1",
+            "task_id": "EVIDENCE-TASK",
+            "gate": "EVIDENCE_PLANNING",
+            "status": "EVIDENCE_PLAN_READY_FOR_REVISION",
+            "plan_artifacts": ["reviews/gates/bounded-plan.md"],
+        }))
+        out = next_task.decision(self.root, "reviews/gates/plan.json")
+        self.assertEqual(out["manifest"]["operation"], "REVISE_CON")
+        self.assertEqual(out["manifest"]["trigger"]["kind"], "EVIDENCE_PLAN_READY")
+        self.assertEqual(
+            out["manifest"]["context"]["evidence_inputs"]["plan_artifacts"],
+            ["reviews/gates/bounded-plan.md"],
+        )
+
+
+
 if __name__ == "__main__":
     unittest.main()
