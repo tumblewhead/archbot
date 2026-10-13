@@ -1,0 +1,30 @@
+# Toy 1: same reusable evaluation playbook used by future projects.
+schema: pc-task/v1
+id: TOY1-AE004
+role: evaluation-agent
+operation: EVALUATE_AP
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: VERIFICATION_RECEIPT_ACCEPTED
+  reference: reviews/gates/VO-001-AS-ACCEPTANCE-001.json
+  revision: recorded_in_receipt
+playbook: process/playbooks/EVALUATE_AP.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+outputs:
+  allowed:
+    - new_versioned_candidate_assessment
+    - new_versioned_architecture_evaluation
+    - additive_spine_link
+    - review_receipt
+  prohibited:
+    - overwrite_prior_evaluation
+    - edit_approved_AS_or_F
+    - accept_architectural_debt
+    - approve_architecture
+gate:
+  kind: AP_PROVISIONAL_SELECTION
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

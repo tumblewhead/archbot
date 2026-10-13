@@ -40,3 +40,11 @@ steady-state interface. See `docs/REUSABLE_WORKFLOWS.md` for the planned
 separation of role, reusable playbook, task manifest, and architecture spine.
 The pilot runner and AP gate still contain AS-001/C-002-specific logic; this
 initiative is documented but not yet an implemented generic dispatcher.
+
+## Full-loop and retargeting qualification
+See `docs/QUALIFICATION_CAMPAIGN.md` for Toy 1's remaining AP → CON → DE →
+firmware → final acceptance gates and the planned Toy 2 root-solver retarget.
+The first reusable dispatcher slice is `tools/task.py` + `process/tasks/TOY1-AE004.yaml`
+using `process/playbooks/EVALUATE_AP.md`. This does not yet generalize
+AS-001-specific telemetry or C-002-specific stage-gate validators. The user
+runs and pushes local tests, Codex tasks and evidence receipts.
