@@ -4,6 +4,28 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate and next action (2026-10-13)
+Latest reviewed CON version: v3. Independent CON-003 review at
+`reviews/gates/TOY1-CON003-independent-review-v3.json` records
+`REVISE` / `CON_REVISION_REQUIRED`, with publication linearization,
+watchdog start/response semantics, and bounded shared-memory allocation
+still unresolved. The previously resolved 71-byte persistent-state
+contract claim remains closed; physical layout remains VO-002.
+
+The next cycle must be created from the review receipt, **not from a
+handwritten new prompt**. Use `python tools/next_task.py inspect --receipt
+reviews/gates/TOY1-CON003-independent-review-v3.json`, then `emit`
+and execute the reported task manifest. Source is
+`process/loop_transitions.yaml`; reusable methodology is documented in
+`docs/CONTRACT_LOOP.md`. Tests are authored but not yet executed on
+the developer workstation.
+
+The current process scope is iterative contract closure. Whole-contract
+analysis and optimization follow an independently reviewed baseline.
+No independent CON acceptance, DE refinement, C implementation or final
+target verification has occurred. VO-002..VO-006 remain open; AD-003 remains
+accepted; the original AS/F and provisional AP-002 authority remain binding.
+
 ## Theory
 Progressive Concretization:
 BKP -> AS = (C,R,PS), with independent Proofs (P/T), Proof Opportunities (PO), and Figure of Merit (F) -> competing APs -> provisional selection -> Contracts (CON) -> Design Elements (DE) -> Firmware -> final acceptance.
