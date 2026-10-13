@@ -1,0 +1,72 @@
+{
+  "record_type": "architecture_evaluation_review_receipt",
+  "schema": "pc.architecture-evaluation-review.v1",
+  "id": "AE-004-REVIEW-002",
+  "version": 2,
+  "status": "RECORDED",
+  "evaluation": "knowledge/architecture/AS-001/evaluations/AE-004.md",
+  "source_revision": {
+    "git_head": "ea271f34b48f2307b961ed8af7e294be8c2cad86",
+    "working_tree_note": "Evaluation and assessment artifacts were already present as untracked working-tree files at task start. The repository HEAD could not be fetched or changed because .git/FETCH_HEAD is read-only.",
+    "supersedes_receipt": "reviews/AE-004-review-v1.json",
+    "supersession_reason": "v1 records a different HEAD and spine hash than this checkout. This v2 records the actual checkout; no spine edit was retained because VO-001's accepted receipt hashes the spine and changing it would invalidate that input hash."
+  },
+  "accepted_inputs": {
+    "vo_001": {
+      "receipt": "reviews/gates/VO-001-AS-ACCEPTANCE-001.json",
+      "status": "ACCEPTED",
+      "scope": "C-001 synthetic ADC input domain for AS-001 only",
+      "source_hashes_match": true,
+      "physical_adc_certification": false
+    },
+    "active_policy": "process/policies/AP_SELECTION_v2.yaml",
+    "c_002_authority": "process/decisions/C-002-scope.yaml",
+    "vo_ledger": "process/ledgers/vo_ledger.yaml",
+    "mathematical_review": "knowledge/architecture/AS-001/proofs/PR-002.md"
+  },
+  "assessment_artifacts": {
+    "AP-001": {
+      "path": "knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml",
+      "sha256": "a8457ef81db2006e6d6b4017b77c4578ab56e17eefbf00bb4a82ec278774a67f"
+    },
+    "AP-002": {
+      "path": "knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml",
+      "sha256": "0121c72de442c2bd1fa6ccf8021ee83c25785efa95c7efd64ce7e8c78f68bb79"
+    }
+  },
+  "disposition": "NO_DOWNSELECTION",
+  "unresolved_obligations": [
+    "VO-002: implementation-stage charged-SRAM verification remains open; the AP envelopes are allocation proposals.",
+    "VO-003: implementation/toolchain confirmation of integer-only operation remains open.",
+    "VO-004: target timing/WCET and 1 ms deadline evidence remains open.",
+    "VO-005 and VO-006: AP-002 concrete implementation correspondence and C arithmetic mapping remain open.",
+    "AP-001 R-002 and R-003 are unresolved at AP stage.",
+    "F-001 cycles and flash comparison is unknown; proposed AD-003 and AP-002 tradeoff are not accepted."
+  ],
+  "deterministic_checks": {
+    "command": "python tools/pc.py check --fast",
+    "result": "PASS",
+    "summary": "32 concepts, 119 typed links, 0 warnings, 0 errors; raw data excluded. Structural check is not engineering acceptance.",
+    "stage_gate_AP-001": {
+      "command": "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml",
+      "result": "NO_DOWNSELECTION",
+      "blocking_findings": ["R-002 and R-003 AP-stage evidence UNRESOLVED", "No projected comparison or authorized tradeoff"]
+    },
+    "stage_gate_AP-002": {
+      "command": "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml",
+      "result": "NO_DOWNSELECTION",
+      "blocking_findings": ["No projected comparison or authorized tradeoff"]
+    },
+    "unit_tests": "Not run; outside this evaluation's required deterministic structural and stage-gate checks."
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/evaluations/AE-004.md: corrected source HEAD to task-start checkout",
+    "reviews/AE-004-review-v2.json: this bounded receipt"
+  ],
+  "limitations": [
+    "No raw datasets, firmware, target measurements, linker map, SRAM measurements, or flash measurements were inspected or produced.",
+    "This receipt records evaluation and structural gate results; it is not the required independent review or an authority decision.",
+    "No AP is selected, no AD is accepted, and no CON/DE approval follows."
+  ],
+  "next_eligible_action": "Obtain independent review of AE-004. If accepted, request a separate engineering-authority decision on the proposed provisional AP-002 commitment and AD-003; otherwise obtain the least-cost missing comparative evidence under F-001."
+}

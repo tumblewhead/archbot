@@ -1,0 +1,88 @@
+{
+  "record_type": "architecture_evaluation_review_receipt",
+  "schema": "pc.architecture-evaluation-review.v1",
+  "id": "AE-004-REVIEW-001",
+  "version": 1,
+  "status": "RECORDED",
+  "evaluation": "knowledge/architecture/AS-001/evaluations/AE-004.md",
+  "source_revision": {
+    "git_head": "37c7534335a73fa2602fd88ee5aa192e829687ee",
+    "working_tree_note": "Evaluation artifacts and spine/project-spine updates are uncommitted changes based on this exact fetched HEAD.",
+    "v2_preservation": "Both v2 assessment files are byte-identical to HEAD; verified with git diff --exit-code."
+  },
+  "vo_001_scope_check": {
+    "receipt": "reviews/gates/VO-001-AS-ACCEPTANCE-001.json",
+    "receipt_source_revision": "ca65eafda715174770c6ddb19121a8b9b81cfcae",
+    "receipt_scope": "C-001 synthetic ADC input domain for AS-001 only; no physical ADC certification.",
+    "source_hashes_match_current": true,
+    "checked_source_sha256": {
+      "knowledge/architecture/AS-001/spine.md": "c18dc80fcba6367952996e162dda68738ebc09a07d3e1d4b374f2954f18378b9",
+      "knowledge/architecture/AS-001/statement.md": "c8290dc23fb8f48dd87e34923cd7ca4debd4912bc7f72bf10bb30360d55c48b1",
+      "knowledge/bkp/adc.md": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "knowledge/architecture/AS-001/verification_plan.md": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5",
+      "knowledge/architecture/AS-001/verification/VO-001.md": "3e07bd181c07294217bb27d0df905bdd44fc9f8681a1afd4a09dd8d027a06ce2",
+      "reviews/VO-001-reconciliation-v1.md": "afca2caefabe4ab556b409a8ca7abaed7c13e17551671cd37e8e6a28c5e21b76",
+      "reviews/gates/VO-001-independent-review-request-v1.json": "f4c9b13d80d02dc291dcd4fe1d2358fb0cc5620790c79330422f1e855fb73096",
+      "process/policies/AP_SELECTION_v2.yaml": "38a530fa2daae9a13122c4627586078c28a57dcfaff52fc8cc5fd7cd5271be12"
+    },
+    "current_authority": {
+      "process/ledgers/vo_ledger.yaml": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a",
+      "reviews/gates/VO-001-AS-ACCEPTANCE-001.json": "e35156f10eaf5cdd58f0b93c8b053b18eb2feaffa67d4096d5823cc27d2c8a64"
+    }
+  },
+  "artifacts_sha256": {
+    "knowledge/architecture/AS-001/evaluations/AP-001-assessment-v2.yaml": "e072e0f71b34b9b0197f0263770831d4ea87269d7ce201f86bd2d9ac7c7aff1a",
+    "knowledge/architecture/AS-001/evaluations/AP-002-assessment-v2.yaml": "e05ff0a16b4a43a73df7759252660e202ba299286b50b3dec0984769a3491968",
+    "knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml": "a8457ef81db2006e6d6b4017b77c4578ab56e17eefbf00bb4a82ec278774a67f",
+    "knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml": "0121c72de442c2bd1fa6ccf8021ee83c25785efa95c7efd64ce7e8c78f68bb79",
+    "knowledge/architecture/AS-001/evaluations/AE-004.md": "307fba21bb827240506802528cb10f363a7f62c7af69b8fd64b4883ab0a19f47",
+    "knowledge/architecture/AS-001/spine.md": "fc013be6c479d2702f6d3ac42d320b32d48474711983cad2849518fe9c4ca316",
+    "PROJECT_SPINE.md": "06f4d8f956134ca70804aa6dcc48adca9784374e9b0bb3c03820df55b3538052",
+    "process/decisions/AE-004-AP-TRADEOFF-PROPOSAL.md": "93580bd00c50e435461014d8ae0753671c7adc52434228cdc77f7595cd5a61cc",
+    "process/ledgers/vo_ledger.yaml": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a",
+    "reviews/gates/VO-001-AS-ACCEPTANCE-001.json": "e35156f10eaf5cdd58f0b93c8b053b18eb2feaffa67d4096d5823cc27d2c8a64",
+    "process/policies/AP_SELECTION_v2.yaml": "38a530fa2daae9a13122c4627586078c28a57dcfaff52fc8cc5fd7cd5271be12",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36",
+    "knowledge/architecture/AS-001/merit.md": "e297b59b73dab29102a930a9a5bdbdea3e16abdc5f1c7d830d5e962d70f78c38"
+  },
+  "commands": {
+    "python tools/pc.py check --fast": {
+      "result": "PASS",
+      "summary": "32 concepts, 120 typed links, 0 warnings, 0 errors; raw hash skipped."
+    },
+    "python -m unittest discover -s tests -v": {
+      "result": "PASS",
+      "tests_run": 27,
+      "failures": 0,
+      "errors": 0,
+      "summary": "All 27 tests passed; full structural check in test suite reported 32 concepts, 120 typed links, 0 warnings, 0 errors."
+    },
+    "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-001-assessment-v3.yaml": {
+      "result": "NO_DOWNSELECTION",
+      "errors": [
+        "R-002: AP-stage evidence is 'UNRESOLVED' (not admissible)",
+        "R-003: AP-stage evidence is 'UNRESOLVED' (not admissible)",
+        "Cannot commit an AP without projected comparison or authorized tradeoff"
+      ],
+      "notes": [
+        "C-002 has an identified approved accounting boundary"
+      ]
+    },
+    "python tools/stage_gate.py evaluate --assessment knowledge/architecture/AS-001/evaluations/AP-002-assessment-v3.yaml": {
+      "result": "NO_DOWNSELECTION",
+      "errors": [
+        "Cannot commit an AP without projected comparison or authorized tradeoff"
+      ],
+      "notes": [
+        "C-002 has an identified approved accounting boundary"
+      ]
+    }
+  },
+  "disposition": "NO_DOWNSELECTION",
+  "authority_decision": "None. AP-002 tradeoff proposal is unapproved; no AP selected, no AD accepted, and no CON/DE approval.",
+  "limitations": [
+    "No raw datasets were read.",
+    "No target cycles/WCET, measured SRAM, flash, or firmware evidence was generated or claimed.",
+    "Structural and unit-test PASS results do not select an AP or prove cited engineering claims."
+  ]
+}
