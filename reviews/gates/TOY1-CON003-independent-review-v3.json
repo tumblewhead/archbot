@@ -1,0 +1,119 @@
+{
+  "schema": "pc-contract-review/v1",
+  "task_id": "TOY1-CON003-REVIEW",
+  "gate": "CONTRACT_REVIEW",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "input_revision": "bf5e5982d8f7cd6bab5518ebf497e23117f24ee8",
+  "trigger_revision": "d995e15fe45349553c22aee36cc53f4f23000cd7",
+  "disposition": "REVISE",
+  "next_stage_recommendation": "CON_REVISION_REQUIRED",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-CON003-independent-review-v3.md",
+    "reviews/gates/TOY1-CON003-independent-review-v3.json"
+  ],
+  "findings": [
+    {
+      "id": "CON003-F01",
+      "contract": "CON-AP2-001-v3 / CON-AP2-003-v3",
+      "severity": "blocking",
+      "summary": "The loss epoch avoids clear/acknowledgement loss, but the contract does not define coherent consumer observation or a linearization guarantee spanning the final epoch check and record commit/publication.",
+      "counterexample": "Ingress reads epoch zero; producer records a loss after that read; ingress commits or publishes the in-flight record as valid. The requirement to observe the change before a later record does not invalidate this record before it becomes visible.",
+      "required_resolution": "Specify coherent epoch reads and an ordering/handshake that prevents any record affected by a racing loss from being externally committed or published as valid; define session transition ordering that excludes stale prior-session data."
+    },
+    {
+      "id": "CON003-F02",
+      "contract": "CON-AP2-001-v3 / CON-AP2-003-v3",
+      "severity": "blocking",
+      "summary": "The watchdog is required to act independently of detector-task scheduling and the 2^32-1-period limit is directionally sufficient, but start/restart, time conversion, and invalidation response semantics are not fully checkable.",
+      "counterexample": "Without a specified timer start event and conversion/response bound, a timer may fault after the maximum allowed gap or may be unable to invalidate publication while the task is unscheduled.",
+      "required_resolution": "Define the successful-handoff event that starts/restarts the bound, the conservative elapsed-time conversion and margin, and the maximum time to invalidate externally visible output. Assign integration owners and require target evidence before implementation approval."
+    },
+    {
+      "id": "CON003-F03",
+      "contract": "CON-AP2-003-v3",
+      "severity": "unresolved",
+      "summary": "The added loss epoch and watchdog objects are assigned to the existing 128-byte shared ceiling, but watchdog, synchronization, and handoff allocations are not numerically bounded, so fit is not shown.",
+      "counterexample": null,
+      "required_resolution": "Provide a bounded allocation and nonoverlapping ownership plan within the existing shared cap before DE refinement; retain VO-002 for physical layout and attribution evidence. Do not enlarge any approved cap."
+    },
+    {
+      "id": "CON003-F04",
+      "contract": "CON-AP2-002-v3 / CON-AP2-003-v3",
+      "severity": "resolved_with_continuing_obligation",
+      "summary": "CON002-F02 remains closed at contract level: persistent state totals 71 bytes under the 72-byte cap; physical layout remains open under VO-002.",
+      "counterexample": null,
+      "required_resolution": null
+    }
+  ],
+  "requirement_vo_ad_coverage": {
+    "CON002-F01": "not closed; CON003-F01 and CON003-F02 block contract acceptance",
+    "CON002-F02": "closed at contract level; physical layout remains open under VO-002",
+    "VO-001": "discharged within synthetic ADC domain only",
+    "VO-002": "open; includes bounded shared allocation, physical layout, padding, stack/interrupt and attribution evidence",
+    "VO-003": "open",
+    "VO-004": "open",
+    "VO-005": "open",
+    "VO-006": "open",
+    "AD-003": "accepted; unchanged and due before final acceptance"
+  },
+  "authority_changes": {
+    "ap_as_or_f_changed": false,
+    "de_approved": false,
+    "vo_discharged": [],
+    "ad_accepted": []
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/TOY1-CON003-REVIEW.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, playbook, spine and gate resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "52 concepts, 217 typed links, zero warnings/errors; raw hashes skipped. Structural check only."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    },
+    {
+      "command": "manual field-width addition",
+      "result": "PASS",
+      "summary": "64 + 4 + 1 + 1 + 1 = 71 bytes, within the 72-byte persistent cap."
+    }
+  ],
+  "uninspected_material": [
+    "Firmware/source implementation",
+    "Concrete MCU/RTOS queue, synchronization, and timer configuration",
+    "Compiler output and linker map",
+    "Target WCET, stack, interrupt, and watchdog timing evidence",
+    "Raw data"
+  ],
+  "reviewed_input_sha256": {
+    "process/tasks/TOY1-CON003-REVIEW.yaml": "451e20c1899d79965fb6c9200ff5c05a0f5b2a8b0736bc22e87779dafb8e2147",
+    "process/playbooks/REVIEW_CON.md": "84d25d327c1aafafb86185c3a0bec86e27b77a0820dbd7eba2f23661ae394c87",
+    "agents/verification-agent.md": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+    "knowledge/architecture/AS-001/spine.md": "416179e57ef87e0ff2dbf799e9e74a76861d2fccfb9f6d2cb8a92d24ff85b107",
+    "knowledge/architecture/AS-001/contracts/spine-v3.md": "39dac113dee43a00815052cd58ae111d7e15b063d823d735940314f5c8f035a8",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v3.md": "2ec3e74765424cd319502a0cdf6695b34c97be320ea5cc133865b61d0051f920",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v3.md": "e7d3f5ee5bea5c381f119cbcf64fe7b8a8384ab07370092c7097c20eb815c797",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v3.md": "1d87f4b388c10b564c1a734e0e3200723889a0b23a25219f888dba51bddc3dd2",
+    "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml": "4fc72b1d43acb897bf4935bce585fe0713c1a7d95a4d23bd5df771553f230e39",
+    "knowledge/architecture/AS-001/proposals/AP-002.md": "413c15c4ab5fca10bb31666ad04173e3204b21313a925c40af2f0096f8e32899",
+    "reviews/gates/TOY1-CON001-independent-review-v1.json": "0828077bbe192ee4d73df51e3044c2b2401c494b9536c6614ee2385855c435da",
+    "reviews/gates/TOY1-CON002-independent-review-v2.json": "09a732a16c9daa62b98ca6b63b88249c2129eda065ac311c685f59eee551d342",
+    "reviews/gates/TOY1-CON003-coverage-v3.md": "ea896460ff1edfdd1159fed8427a9a86aef32e089e861eafc48a9332c1b4f1eb",
+    "reviews/gates/TOY1-CON003-receipt-v3.json": "3c5e12dd33a9f8ae862b7c5622c1ddb579d77c886523fc2c97d72a9c33ac71bc",
+    "reviews/gates/TOY1-CON003-independent-review-request-v3.md": "065168c3811f0b1078e084cba5898c288dd6f9c4d4178d38240ccaaf5cfe186f",
+    "process/ledgers/vo_ledger.yaml": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "knowledge/architecture/AS-001/verification_plan.md": "a811ce92c0fd7b9c677e5fa7f784691e272ad63b8259aabfca9aa13512b2e7d5",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+  },
+  "next_eligible_action": "Versioned Contract Agent correction of CON003-F01 and CON003-F02, plus bounded shared-allocation plan; then a fresh independent REVIEW_CON. No DE refinement or firmware implementation before favorable accepted review."
+}
