@@ -266,5 +266,87 @@ class LoopTests(unittest.TestCase):
 
 
 
+    def test_as_review_uses_generic_typed_submission_router(self):
+        policy_path = self.root / "process/loop_transitions.yaml"
+        policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        policy["transitions"].append({
+            "id": "as_review",
+            "receipt_schema": "pc-gate-receipt/v1",
+            "requires": {"gate": "AS_REVIEW",
+                         "status": "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW"},
+            "operation": "REVIEW_AS", "target": "changed_concept",
+            "concept_type": "Architecture Statement",
+            "related_concept_type": None,
+            "trigger_kind": "AS_REVISION_SUBMITTED", "gate": "AS_REVIEW",
+        })
+        policy_path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["REVIEW_AS"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_AS.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/REVIEW_AS.md", "# Generic AS review\n")
+        self._put("process/tasks/AS-AUTHOR.yaml", yaml.safe_dump({
+            "id": "AS-AUTHOR", "spine": "/architecture/beta/spine.md",
+        }))
+        candidate = "knowledge/architecture/beta/statement-v2.md"
+        self._put(candidate,
+                  "---\ntype: Architecture Statement\nid: AS-BETA-v2\n"
+                  "status: draft\n---\n# AS Beta\n")
+        self._put("reviews/gates/as-submission.json", json.dumps({
+            "schema": "pc-gate-receipt/v1", "task_id": "AS-AUTHOR",
+            "gate": "AS_REVIEW",
+            "status": "AS_REVISION_READY_FOR_INDEPENDENT_REVIEW",
+            "changed_artifacts": [candidate],
+        }))
+        result = next_task.decision(self.root, "reviews/gates/as-submission.json")
+        self.assertEqual(result["manifest"]["operation"], "REVIEW_AS")
+        self.assertEqual(result["manifest"]["spine"], "/architecture/beta/spine.md")
+        self.assertEqual(result["manifest"]["trigger"]["reference"], candidate)
+        self.assertEqual(result["manifest"]["context"]["artifact_inputs"]["primary_concept"], candidate)
+
+    def test_as_revise_can_loop_again_without_new_prompt(self):
+        policy_path = self.root / "process/loop_transitions.yaml"
+        policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        policy["transitions"].append({
+            "id": "as_revision",
+            "receipt_schema": "pc-as-review/v1",
+            "requires": {"gate": "AS_REVIEW", "disposition": "REVISE",
+                         "next_stage_recommendation": "AS_REVISION_REQUIRED",
+                         "independent_of_authoring_invocation": True},
+            "require_blocking_finding": True,
+            "operation": "REVISE_AS", "target": "receipt",
+            "trigger_kind": "AS_REVIEW_REVISION_REQUIRED", "gate": "AS_REVIEW",
+        })
+        policy_path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["REVISE_AS"] = {
+            "role": "architecture-agent",
+            "playbook": "process/playbooks/REVISE_AS.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/REVISE_AS.md", "# Generic AS revision\n")
+        self._put("process/tasks/AS-REVIEW.yaml", yaml.safe_dump({
+            "id": "AS-REVIEW", "spine": "/architecture/beta/spine.md",
+        }))
+        self._put("reviews/gates/as-review.json", json.dumps({
+            "schema": "pc-as-review/v1", "task_id": "AS-REVIEW",
+            "gate": "AS_REVIEW", "disposition": "REVISE",
+            "next_stage_recommendation": "AS_REVISION_REQUIRED",
+            "independent_of_authoring_invocation": True,
+            "findings": [{"id": "AS-F1", "severity": "blocking"}],
+        }))
+        result = next_task.decision(self.root, "reviews/gates/as-review.json")
+        self.assertEqual(result["manifest"]["operation"], "REVISE_AS")
+        self.assertEqual(result["manifest"]["context"]["review_inputs"]["finding_ids"], ["AS-F1"])
+        self._put(result["path"], yaml.safe_dump(result["manifest"]))
+        again = next_task.decision(self.root, "reviews/gates/as-review.json")
+        self.assertEqual(again["status"], "ALREADY_PLANNED")
+
+
+
 if __name__ == "__main__":
     unittest.main()
