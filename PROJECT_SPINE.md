@@ -137,3 +137,22 @@ This is intentionally deferred until after Toy 1 end-to-end and Toy 2
 retargeting qualification, except for necessary human gate questions.
 It must not interrupt the active `TOY1-CON002` correction cycle or
 be represented as working CLI/REPL functionality.
+
+## Revised contracts: CON-002 at edffca69e8e7
+The Contract Agent responded to independent CON-001 review `REVISE`
+with additive contracts `CON-AP2-001-v2`, `CON-AP2-002-v2`,
+`CON-AP2-003-v2` and `contracts/spine-v2.md`. It added a per-acquisition
+sequence counter and persistent overrun signal for continuity, and a
+71-byte field inventory within the 72-byte persistent-state allocation.
+Result publication and expected-sequence metadata are allocated to the
+separate shared-memory cap. Original CON v1 files remain history.
+
+The authoring receipt `reviews/gates/TOY1-CON002-receipt-v2.json`
+states `CONTRACTS_READY_FOR_INDEPENDENT_REVIEW`, *not approved*;
+VO-002..VO-006 remain open and AD-003 remains accepted.
+
+**Next:** run `process/tasks/TOY1-CON002-REVIEW.yaml` with unchanged,
+reusable `REVIEW_CON` playbook. Verify F01 closure including counter wrap,
+the 2^32-gap qualification and persistent overrun semantics; verify F02
+with concrete field counts and nonoverlapping shared ownership. No
+DE internals or C implementation may advance before accepted review.

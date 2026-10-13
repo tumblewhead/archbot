@@ -1,0 +1,48 @@
+# Reuse the same REVIEW_CON operation and playbook as CON-001's review.
+# The selected artifacts are versioned; original contracts remain historical.
+schema: pc-task/v1
+id: TOY1-CON002-REVIEW
+role: verification-agent
+operation: REVIEW_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: CONTRACT_DRAFT_SUBMITTED
+  reference: knowledge/architecture/AS-001/contracts/spine-v2.md
+  revision: edffca69e8e7dc6c10623558f768da72f3246d0c
+playbook: process/playbooks/REVIEW_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    approved_ap: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    selected_candidate: knowledge/architecture/AS-001/proposals/AP-002.md
+    contract_spine: knowledge/architecture/AS-001/contracts/spine-v2.md
+    current_contracts:
+      - knowledge/architecture/AS-001/contracts/CON-AP2-001-v2.md
+      - knowledge/architecture/AS-001/contracts/CON-AP2-002-v2.md
+      - knowledge/architecture/AS-001/contracts/CON-AP2-003-v2.md
+    original_review: reviews/gates/TOY1-CON001-independent-review-v1.json
+    original_finding_ids: [CON001-F01, CON001-F02]
+    finding_closure: reviews/gates/TOY1-CON002-coverage-v2.md
+    submission_receipt: reviews/gates/TOY1-CON002-receipt-v2.json
+    revision_request: reviews/gates/TOY1-CON002-independent-review-request-v2.md
+    selection_debt_ledger: process/ledgers/ad_ledger.yaml
+    verification_ledger: process/ledgers/vo_ledger.yaml
+    abstract_proof_review: knowledge/architecture/AS-001/proofs/PR-002.md
+outputs:
+  allowed:
+    - versioned_independent_contract_review
+    - review_receipt
+    - contract_findings
+  prohibited:
+    - overwrite_contracts_under_review
+    - change_authorized_AP_or_AS_or_F
+    - discharge_verification_obligation
+    - accept_new_architectural_debt
+    - approve_design_elements
+    - implement_firmware
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
