@@ -2,7 +2,7 @@
 
 ## Status
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
-The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. Inspect live artifact revisions rather than relying on earlier bootstrap notes. The spine-filter fix is being applied as a follow-up commit; its regression tests still require confirmation on the developer's workstation.
+The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
 ## Theory
 Progressive Concretization:
@@ -22,13 +22,14 @@ Approved authority record: `process/decisions/C-002-scope.yaml` (present in this
 - PE-001-v2 corrected an invalid add-before-subtract overflow counterexample and addressed C integer promotion. PR-002 accepted the *abstract mathematics* with clarifications. Firmware remains unverified.
 - AE-001 / AE-002: no downselection. EP-001 / EP-002: stage-appropriate planning and candidate memory envelopes.
 - AE-003: no downselection; outstanding VO-001 source-adequacy review. C-002 approved scope and candidate-level envelopes now available, not target-verified.
-- The last reported local unit suite had 25 tests with one failure: `test_context_profile_excludes_raw_from_proof_scout`, which found two non-concept auxiliary references. Graph check itself had zero errors (31 concepts, 114 typed links).
-- Fix prepared as `patches/pc-spine-context-regression.patch`. Apply to the imported local working tree *only if applicable* and rerun tests. Do not change a test expectation from zero to two.
+- The spine-filter correction (`ca65eafda715`) makes default Proof Scout context concept-only, with explicit opt-in to auxiliary references. A subsequent VO-001 review receipt reports 27 unit tests passing, and an OKF structural check with 31 concepts, 114 links, and zero errors. These test results are reported by the local agent, not rerun here.
+- VO-001 (C-001, synthetic ADC domain only) has an accepted review receipt `reviews/gates/VO-001-AS-ACCEPTANCE-001.json`; `process/ledgers/vo_ledger.yaml` marks it `discharged`. The acceptance does not verify physical ADC hardware or select an AP. The original AE-003 and candidate v2 assessments still record VO-001 as unresolved and are immutable history.
 
 ## Immediate next steps
-1. Pull this commit and run the full unit suite plus `python tools/pc.py check --fast`. Confirm the Proof Scout context contains no non-concept artifacts.
-2. Independently assess VO-001 using `prompts/16-vo001-authority-review.md`, scoped strictly to the synthetic ADC model. Do not mistake it for certified physical ADC metrology.
-3. Reassess AP-stage eligibility and F-001 once due obligations have accepted receipts. Preserve AE-003's `NO_DOWNSELECTION` as history; carry accepted AD/VO forward if an AP is provisionally selected.
+1. Pull current `main`, run the full unit suite and `python tools/pc.py check --fast` locally.
+2. Run `prompts/17-ae004-post-vo001.md` to create new v3 AP assessment artifacts carrying VO-001's scoped acceptance, then run the AP-stage checker. Preserve AE-003 and v2 assessments unchanged.
+3. If AP-002 meets AP-due obligations, prepare an independently reviewable provisional-selection recommendation. Unknown F-001 target-cycle/flash comparisons require a separate explicit human tradeoff decision and accepted AD; do not auto-select.
+4. Once a provisional AP is authorized, proceed to CON-first decomposition while carrying VO-002 through VO-006 and accepted AD forward.
 
 ## Source-of-truth rule
 Chat summaries are navigation aids only. Once imported, the live versioned source, spines, authority decisions, and receipts supersede this bootstrap status. Update this file with concise status pointers after each substantive gate. Never duplicate large experimental evidence here.
