@@ -4,6 +4,14 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Workflow correction: versioned re-review identity
+The generic task planner now identifies an already-planned transition by
+**source submission receipt**, not solely by target concept path. This
+permits a subsequent independent AS review when a new versioned VP/VO
+proposal leaves the original draft AS unchanged. Re-running the same
+submission remains idempotent. The new tests for the route, receipt
+naming and repeated-subject identity require local execution.
+
 ## Independent AS-002 review: REVISE (2026-10-13)
 Commit `59e582c6564f` records
 `reviews/gates/TOY1-AS002-independent-review-e239ff6.json`, disposition
