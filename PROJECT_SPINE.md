@@ -156,3 +156,22 @@ reusable `REVIEW_CON` playbook. Verify F01 closure including counter wrap,
 the 2^32-gap qualification and persistent overrun semantics; verify F02
 with concrete field counts and nonoverlapping shared ownership. No
 DE internals or C implementation may advance before accepted review.
+
+## Independent CON-002 review: 0f9a2921d8f0
+
+The independent review `reviews/gates/TOY1-CON002-independent-review-v2.json`
+returned `REVISE` / `CON_REVISION_REQUIRED`. Finding `CON002-F02`
+confirmed the 71-byte field accounting closes the original F02 contract-level
+defect; physical layout remains VO-002. `CON002-F01` is **blocking**:
+a non-atomic acknowledgement can erase a newer overrun indication, and the
+32-bit modulo sequence alone cannot reveal a full counter-period gap unless
+the producer/handoff enforces a checkable maximum gap or equivalent evidence.
+
+Next invocation: `process/tasks/TOY1-CON003.yaml` using the unchanged
+`REVISE_CON` playbook, with the independent review as the trigger.
+The agent should produce additive, versioned contract drafts that specify
+race-safe observation/acknowledgement and an enforceable continuity bound, or
+record an unresolved producer/integration requirement. Do not invent physical
+hardware guarantees. Preserve v1/v2, open VO-002 through VO-006, accepted
+AD-003, approved AP-002 and original AS/F. DE refinement and implementation
+remain blocked pending favorable independent contract review.

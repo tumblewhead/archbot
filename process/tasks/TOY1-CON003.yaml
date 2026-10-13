@@ -1,0 +1,56 @@
+# Third contract-revision pass using the same role and REVISE_CON playbook.
+# Domain-specific findings live in the cited independent review, not the playbook.
+schema: pc-task/v1
+id: TOY1-CON003
+role: contract-agent
+operation: REVISE_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: CONTRACT_REVIEW_REVISION_REQUIRED
+  reference: reviews/gates/TOY1-CON002-independent-review-v2.json
+  revision: 0f9a2921d8f05052d478ea132b121583b4df3e80
+playbook: process/playbooks/REVISE_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    current_contract_spine: knowledge/architecture/AS-001/contracts/spine-v2.md
+    current_contracts:
+      - knowledge/architecture/AS-001/contracts/CON-AP2-001-v2.md
+      - knowledge/architecture/AS-001/contracts/CON-AP2-002-v2.md
+      - knowledge/architecture/AS-001/contracts/CON-AP2-003-v2.md
+    review_receipt: reviews/gates/TOY1-CON002-independent-review-v2.json
+    blocking_finding_ids: [CON002-F01]
+    resolved_finding_ids: [CON002-F02]
+    prior_review: reviews/gates/TOY1-CON001-independent-review-v1.json
+    prior_contract_spines:
+      - knowledge/architecture/AS-001/contracts/spine.md
+      - knowledge/architecture/AS-001/contracts/spine-v2.md
+    accepted_ap: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    accepted_theorem_review: knowledge/architecture/AS-001/proofs/PR-002.md
+    coverage: reviews/gates/TOY1-CON002-coverage-v2.md
+    vo_ledger: process/ledgers/vo_ledger.yaml
+    ad_ledger: process/ledgers/ad_ledger.yaml
+outputs:
+  allowed:
+    - new_versioned_contract_concept
+    - new_versioned_contract_spine
+    - new_versioned_requirement_vo_coverage_matrix
+    - adjusted_draft_de_responsibility_placeholder
+    - independent_contract_review_request
+    - review_receipt
+    - additive_spine_link
+  prohibited:
+    - overwrite_prior_contracts_or_reviews
+    - modify_approved_AS_AP_F_or_authority
+    - silently_modify_approved_resource_envelope
+    - implement_firmware
+    - discharge_verification_obligation
+    - accept_architectural_debt
+    - approve_contracts
+    - approve_design_elements
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
