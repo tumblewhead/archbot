@@ -127,5 +127,60 @@ class LoopTests(unittest.TestCase):
         self.assertEqual(out["manifest"]["playbook"], "process/playbooks/REVISE_CON.md")
 
 
+    def test_policy_can_review_a_different_artifact_type(self):
+        policy_path = self.root / "process/loop_transitions.yaml"
+        policy = yaml.safe_load(policy_path.read_text())
+        policy["transitions"].append({
+            "id": "proof_package_review",
+            "receipt_schema": "pc-stage-submission/v1",
+            "requires": {"gate": "PROOF_REVIEW", "status": "READY_FOR_INDEPENDENT_REVIEW"},
+            "operation": "REVIEW_PROOF",
+            "target": "changed_concept",
+            "concept_type": "Proof Package",
+            "related_concept_type": "Proof Claim",
+            "trigger_kind": "PROOF_SUBMITTED",
+            "gate": "PROOF_REVIEW",
+        })
+        policy_path.write_text(yaml.safe_dump(policy))
+        operations_path = self.root / "process/operations.yaml"
+        operations = yaml.safe_load(operations_path.read_text())
+        operations["operations"]["REVIEW_PROOF"] = {
+            "role": "proof-reviewer",
+            "playbook": "process/playbooks/REVIEW_PROOF.md",
+        }
+        operations_path.write_text(yaml.safe_dump(operations))
+        self._put("process/playbooks/REVIEW_PROOF.md", "# Reusable proof review\n")
+        self._put("process/tasks/PROOF-SUB.yaml", yaml.safe_dump({
+            "id": "PROOF-SUB", "spine": "/architecture/newton-raphson/spine.md",
+        }))
+        packet = "knowledge/architecture/newton-raphson/proofs/packet.md"
+        claim = "knowledge/architecture/newton-raphson/proofs/claim.md"
+        self._put(packet, "---\ntype: Proof Package\nid: P-X\n---\n# Package\n")
+        self._put(claim, "---\ntype: Proof Claim\nid: T-X\n---\n# Claim\n")
+        self._put("reviews/gates/proof-sub.json", json.dumps({
+            "schema": "pc-stage-submission/v1", "task_id": "PROOF-SUB",
+            "gate": "PROOF_REVIEW", "status": "READY_FOR_INDEPENDENT_REVIEW",
+            "changed_artifacts": [packet, claim],
+        }))
+        out = next_task.decision(self.root, "reviews/gates/proof-sub.json")
+        self.assertEqual(out["manifest"]["operation"], "REVIEW_PROOF")
+        self.assertEqual(out["manifest"]["trigger"]["reference"], packet)
+        self.assertEqual(out["manifest"]["spine"], "/architecture/newton-raphson/spine.md")
+
+    def test_generated_manifest_context_does_not_grow_recursively(self):
+        self._put("process/tasks/EXAMPLE-REVIEW.yaml", yaml.safe_dump({
+            "id": "EXAMPLE-REVIEW", "spine": "/architecture/alpha/spine.md",
+            "context": {"prior_task_context": {"prior_task_context": {
+                "prior_task_context": {"huge": "historical context"}
+            }}},
+        }))
+        out = next_task.decision(self.root, "reviews/gates/review.json")
+        context = out["manifest"]["context"]["review_inputs"]
+        self.assertEqual(context["source_task_manifest"], "process/tasks/EXAMPLE-REVIEW.yaml")
+        self.assertNotIn("prior_task_context", context)
+        self.assertNotIn("huge", yaml.safe_dump(out["manifest"]))
+
+
+
 if __name__ == "__main__":
     unittest.main()
