@@ -19,6 +19,12 @@ class TaskManifestTests(unittest.TestCase):
         for p, content in {
             "agents/evaluation-agent.md": "# Evaluator\n",
             "process/views.yaml": yaml.safe_dump({"roles": {"evaluation-agent": {"follow": []}}}),
+            "process/operations.yaml": yaml.safe_dump({"operations": {
+                "EVALUATE_AP": {
+                    "role": "evaluation-agent",
+                    "playbook": "process/playbooks/EVALUATE_AP.md",
+                },
+            }}),
             "process/playbooks/EVALUATE_AP.md": "# Reusable playbook\n",
             "prompts/generic-task.md": "Do not approve architecture.\n",
             "knowledge/architecture/alpha/spine.md": "# Alpha\n",
@@ -71,6 +77,19 @@ class TaskManifestTests(unittest.TestCase):
 
     def test_missing_playbook_rejected(self):
         self.manifest["playbook"] = "process/playbooks/MISSING.md"
+        self.store()
+        with self.assertRaises(task.TaskError):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_operation_must_be_registered(self):
+        self.manifest["operation"] = "IMPLEMENT_DE"
+        self.store()
+        with self.assertRaises(task.TaskError):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_role_and_playbook_pairing_must_match_registry(self):
+        self.manifest["playbook"] = "process/playbooks/OTHER.md"
+        (self.root / "process/playbooks/OTHER.md").write_text("# Other\n")
         self.store()
         with self.assertRaises(task.TaskError):
             task.validate(self.root, "process/tasks/task.yaml")

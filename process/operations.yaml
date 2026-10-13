@@ -1,0 +1,7 @@
+# Allowlisted reusable operations. Add new operations only when their playbooks exist.
+# This is an execution-role registry, not an authority or approval record.
+version: 1
+operations:
+  EVALUATE_AP:
+    role: evaluation-agent
+    playbook: process/playbooks/EVALUATE_AP.md

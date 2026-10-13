@@ -55,6 +55,14 @@ def validate(root: Path, manifest: str) -> dict:
     if not isinstance(operation, str) or not OP_PATTERN.fullmatch(operation):
         raise TaskError("Invalid operation")
     _file(root, "agents/" + role + ".md", "agents")
+    registry = yaml.safe_load(_file(root, "process/operations.yaml").read_text(encoding="utf-8"))
+    if not isinstance(registry, dict) or not isinstance(registry.get("operations"), dict):
+        raise TaskError("Operation registry is missing or malformed")
+    op_spec = registry["operations"].get(operation)
+    if not isinstance(op_spec, dict):
+        raise TaskError("Operation is not registered: " + operation)
+    if op_spec.get("role") != role or op_spec.get("playbook") != data.get("playbook"):
+        raise TaskError("Manifest role/playbook conflicts with the registered operation")
     views = yaml.safe_load(_file(root, "process/views.yaml").read_text(encoding="utf-8"))
     if not isinstance(views, dict) or role not in views.get("roles", {}):
         raise TaskError("Role has no context-traversal policy: " + role)
