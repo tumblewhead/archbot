@@ -4,6 +4,40 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## CON v5 sample-indexed drafts submitted; independent stage triage next
+
+Commit `5dcb0ffcf0bf` adds three additive contracts
+`CON-AP2-001-v5` (published-sample ingress/result),
+`CON-AP2-002-v5` (rolling recurrence and C arithmetic obligations),
+and `CON-AP2-003-v5` (C-002 resources and open VOs), with five
+DE responsibility placeholders, a v5 contract spine and coverage matrix.
+The authoring receipt
+`reviews/gates/TOY1-CON005-receipt-v5.json` has schema
+`pc-con-authoring-receipt/v1`, operation `DEFINE_CON`, and
+`gate_status: CONTRACTS_UNRESOLVED`. No CON/DE approval.
+
+The unresolved list includes interface/reporting/reset-reader semantics
+and numerical resource allocations plus implementation/target evidence.
+These must not all automatically become contract-stage blockers:
+C-002 stays binding with charged SRAM <=2048, but physical target
+layout, stack reports and actual measurements are due later under
+VO-002; absent current interface semantics that prevent independent
+implementation may still be CON blockers. No old 1-ms cadence,
+detector loss epoch, watchdog or unapproved ISR topology is binding.
+
+**Next execution:** inspect/emit the authoring receipt via
+`python tools/next_task.py ... --receipt
+reviews/gates/TOY1-CON005-receipt-v5.json`.
+A new generic `contract_unresolved_scope_review` transition routes
+this submission to the existing independent `REVIEW_CON` operation
+(with source receipt and accepted active baseline validation), **not**
+immediately to `PLAN_EVIDENCE`. The reviewer must classify every
+uncertainty against its authorized stage, and either accept the minimal
+contracts with explicit deferred evidence or return minimal concrete
+blocking findings. Historical CON v1-v4 are provenance only.
+Do not launch DE refinement or implementation until independent CON
+acceptance, and do not use a green structural check as such acceptance.
+
 ## Current state: reviewed AS-v2 baseline ACTIVATED, minimal CON next
 
 Commit `00ee962b58bd` records an independent baseline
