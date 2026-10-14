@@ -4,6 +4,44 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current state: reviewed AS-v2 baseline ACTIVATED, minimal CON next
+
+Commit `00ee962b58bd` records an independent baseline
+`ACCEPT_WITH_CLARIFICATIONS` / `BASELINE_PACKAGE_ACCEPTABLE_FOR_CONTROLLED_ACTIVATION`
+in `reviews/gates/TOY1-BASELINE002-independent-review.json`.
+Finding BR-001 was resolved by the reviewed baseline-scoped effective
+relationship AS-v2 -> VP-v3 without rewriting historically reviewed AS
+or its older VP-v2 relation. Review BR-002 leaves publisher continuity
+external and unverified. No VO discharge was authorized.
+
+Active authoritative versions are now indexed by
+`process/baselines/AS-001-v2-active.yaml`. The active VO index is
+`process/ledgers/vo_ledger-AS-001-v2-active.yaml`.
+The historical `process/ledgers/vo_ledger.yaml` and all prior AS/VP/VO,
+AP/AD authority and CON v1-v4 remain immutable. The active ledger
+preserves VO-001's synthetic-domain discharge; VO-002..VO-006 are OPEN.
+VO-004 is OPEN and due at IMPLEMENTATION for exactly one
+sample-indexed update per accepted sample, not 1-ms timing. AP-002
+remains provisional, AD-003/F-001 remains unresolved before final
+acceptance, and C-002's 2048-byte detector-attributable envelope holds.
+
+Read-only verifier: `python tools/active_baseline.py inspect --baseline
+process/baselines/AS-001-v2-active.yaml`. It cross-checks source
+candidate and accepted review hashes, independent review, accepted
+AP/scope, effective scoped relations, active versus reviewed VO rows,
+and explicit due-stage authority. Newly authored negative tests for
+this transition still require the user's local run.
+
+**Next local task:** `process/tasks/TOY1-CON005-MINIMAL.yaml`
+runs the existing reusable `DEFINE_CON` playbook as contract-agent.
+The task's `BASELINE_ACTIVATED` trigger requires successful active
+baseline verification and pins the active AS, VP and VO ledger.
+Write additive, smallest-sufficient sample-indexed CON drafts and DE
+placeholders with clear external publisher responsibility. Do **not**
+reintroduce old CON-v4 source-loss epochs, 1-ms WCET, counter watchdog,
+hardware topology or unapproved external-reader guarantees.
+No contracts/DE/firmware are yet accepted.
+
 ## New baseline finding and scoped resolution (2026-10-13)
 
 Commit `48e40d3023e0` records independent
