@@ -62,7 +62,7 @@ Proposed rung outcomes are SUPPORTED_WITHIN_SCOPE, CONTRADICTED, UNRESOLVED, NOT
 
 ## 5. Sparse interaction matrix and hypergraph
 
-Let parameters `P={p1,...,pn}` have declared type, units, legal range, operating mode, source and owner. The square matrix `M[i,j]` indexes **candidate interactions**, not necessarily statistical covariance. Store it sparsely as typed edges with coupling mechanism, admissibility, risk, uncertainty, test cost and evidence references. Absence of an edge means *not yet modeled*, never proved independent.
+Let parameters `P={p1,...,pn}` have declared type, units, legal range, operating mode, provenance and ownership before interaction evaluation. The square matrix `M[i,j]` indexes **candidate interactions**, not necessarily statistical covariance. Store it sparsely as typed edges with coupling mechanism, admissibility, risk, uncertainty, test cost and evidence references. Absence of an edge means *not yet modeled*, never proved independent.
 
 Promote high-risk pairs into hyperedges `e={pi,pj,...,pk}` when shared state, conservation laws, counterexamples, proof assumptions or human insight suggest a higher-order failure. Search the admissible region, not the full Cartesian product by default. Parameter covariance can inform realistic likelihood; a deterministic failure may still matter even when covariance is zero.
 
@@ -118,3 +118,13 @@ The assurance chain is `accepted claim -> scoped assumptions -> proof/CON/DE -> 
 ## 8. Installation boundary
 
 This document specifies a **future generic process**, not an executed verification ladder. The next development task is to define generic `DERIVE_ERS`, independent ERS review, `DESIGN_VERIFICATION_LADDER`, independent plan review, and eventual rung execution with a sparse symbolic interaction model. Apply to Toy 1 without inheriting battery-specific thresholds from the instructional references. Then test generality in the planned cleanroom Toy 1 and Toy 2 campaigns.
+
+## 9. Worked adversarial design study: VS-001
+
+[VS-001: worked three-stage examples and adversarial findings](VERIFICATION_DESIGN_STUDY_VS001.md) tests the proposal using exact rolling arithmetic, coupled queue demand and statistical calibration. It records seven design/review rounds, explicit counterexamples, bounded mathematical probe results, and an adversarial coverage ledger.
+
+The study proposes sharper semantics before generic implementation: normative ERS extraction separate from code observations; bidirectional source coverage; quantifiers, horizons and nonvacuity; reachable-state and approximation-direction checks; higher-order edges that do not require a failing pair; separate scheduling and proof-premise relationships; statistical sampling/selection identity; and full subject/model/oracle/build fingerprints.
+
+A valid conditional model theorem can be accepted under its stated assumptions even while product correspondence remains open. What must be refused is an unjustified promotion to product safety. These are proposed refinements of v0.1, not changes to product authority or current VOs.
+
+The study recommends one narrow vertical slice across ERS, planning and execution, centered on a small typed evidence checker. It is self-adversarial design work, not an independent verification of Archbot or a completed cleanroom qualification. The live runner and installed operations are unchanged by this documentation update.
