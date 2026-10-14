@@ -85,7 +85,7 @@ class BaselineRelationsTests(unittest.TestCase):
     def test_reject_unaccepted_projection(self):
         self.baseline["status"] = "approved"
         self._save()
-        with self.assertRaisesRegex(baseline_relations.BaselineRelationError, "not an independently"):
+        with self.assertRaisesRegex(baseline_relations.BaselineRelationError, "Not an independently"):
             baseline_relations.resolve(self.root, self.baseline_ref)
 
     def test_reject_unrelated_source_or_target(self):
