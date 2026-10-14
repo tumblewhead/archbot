@@ -196,18 +196,34 @@ def decision(root: Path, ref: str) -> dict:
                 "contract_spine": trigger_ref, "current_contracts": contracts,
                 "submission_receipt": ref, "source_task_manifest": task_ref,
             }
+    # An implementation task is the first operation allowed to author source.
+    # Keep its permission explicit and never inherit the previous generic
+    # authoring prohibition of implement_firmware.
+    if rule["operation"] == "IMPLEMENT_DE":
+        allowed_outputs = [
+            "implementation_source", "implementation_tests",
+            "implementation_evidence", "engineering_briefing",
+            "independent_implementation_review_request", "review_receipt",
+        ]
+        prohibited_outputs = [
+            "overwrite_accepted_artifacts", "approve_own_gate",
+            "modify_approved_AS_AP_F_CON_or_DE", "discharge_VO",
+            "accept_AD", "invent_target_evidence",
+        ]
+    else:
+        allowed_outputs = ["new_versioned_stage_artifact", "review_receipt", "finding_resolution"]
+        prohibited_outputs = [
+            "overwrite_accepted_artifacts", "approve_own_gate",
+            "modify_approved_AS_AP_or_F", "discharge_VO",
+            "accept_AD", "implement_firmware",
+        ]
     manifest = {
         "schema": "pc-task/v1", "id": next_id, "role": op["role"],
         "operation": rule["operation"], "spine": prior["spine"],
         "trigger": {"kind": rule["trigger_kind"], "reference": trigger_ref,
                     "revision": receipt.get("input_revision") or "recorded_in_receipt"},
         "playbook": op["playbook"], "context": context,
-        "outputs": {
-            "allowed": ["new_versioned_stage_artifact", "review_receipt", "finding_resolution"],
-            "prohibited": ["overwrite_accepted_artifacts", "approve_own_gate",
-                           "modify_approved_AS_AP_or_F", "discharge_VO",
-                           "accept_AD", "implement_firmware"],
-        },
+        "outputs": {"allowed": allowed_outputs, "prohibited": prohibited_outputs},
         "gate": {"kind": rule["gate"], "on_missing_evidence": "UNRESOLVED",
                  "require_independent_review": True},
     }
