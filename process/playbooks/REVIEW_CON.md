@@ -58,6 +58,30 @@ do not silently install one merely to fill in a memory table.
    source references to their authority. Run structural/tests applicable to the
    gate. Do not conflate host tests with target evidence.
 
+## Authority-preserving review notes
+
+A `derived_from` edge to an earlier contract spine means historical
+provenance, **not** inheritance of superseded requirements. Read the
+activated baseline for current constraints, and explicitly flag any
+obsolete requirement that appears to leak through historical links.
+
+For unresolved draft submissions, compare:
+- **Contract semantic necessities**, such as what an accepted sample
+  does, whether reset initializes the state, and what result is exposed.
+- **Implementation evidence**, such as exact compiler stack consumption,
+  expression widths and actual SRAM utilization, which remains an open
+  implementation-stage VO unless a binding contract-stage bound is missing.
+- **External integration**, such as publisher continuity, an upstream
+  error-reporting channel, or concurrent external readers, which may be
+  unspecified without implying an MCU topology or detector obligation.
+
+Do not use unresolved counts as a proxy for contract failure. An
+independent acceptance requires sufficient **authorized** interface
+semantics and stage-appropriate evidence, not maximum specification
+volume. If a draft adds an apparently unapproved behavior (for example
+mandatory invalid-input fault reporting), classify its authority rather
+than silently endorsing it.
+
 ## Outcomes and written receipt
 
 Write an additive, versioned independent review with:
