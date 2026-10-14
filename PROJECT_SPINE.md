@@ -4,6 +4,32 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate: AS-v2 and VP-v3 package submitted for review
+Commit `b1206705e12e` added a corrected versioned
+`knowledge/architecture/AS-001/verification_plan-v3.md` and
+`reviews/gates/TOY1-AS002-revision1-authoring-receipt.json`.
+The authoring agent addressed independent finding ASR-001 by aligning
+detector-side once-per-accepted-sample R-001 verification with the
+`IMPLEMENTATION` due stage in VO-004-v2. Any rate, overload or
+deadline requirement remains a separately authorized integration
+obligation. The AS-001-v2 draft, original AS, accepted C-002 scope,
+PR-002, F-001, AP-002 historical approval, AD-003 and open VO ledger
+were preserved.
+
+**Next:** independently review the submitted package with the
+unchanged generic `REVIEW_AS` playbook. Invoke `tools/next_task.py`
+with `reviews/gates/TOY1-AS002-revision1-authoring-receipt.json`;
+the receipt declares `review_subject:
+knowledge/architecture/AS-001/statement-v2.md` because AS wording
+is unchanged. This creates a new review task based on the new receipt,
+not a duplicate of the previous AS-v2 review.
+
+No independent acceptance of the revised package has occurred yet.
+If accepted, resolve the original AP-002 selection's protected 1-ms
+condition through explicit engineering-authority disposition, then
+version/update VO authority before returning to a *minimal* CON.
+Do not reuse obsolete CON v4 loss-epoch/watchdog obligations.
+
 ## Workflow correction: versioned re-review identity
 The generic task planner now identifies an already-planned transition by
 **source submission receipt**, not solely by target concept path. This
