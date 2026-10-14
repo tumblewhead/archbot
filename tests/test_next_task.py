@@ -249,6 +249,48 @@ class LoopTests(unittest.TestCase):
         self._put(out["path"], yaml.safe_dump(out["manifest"]))
         self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
 
+    def test_de_submission_routes_to_independent_design_review(self):
+        rules_path = self.root / "process/loop_transitions.yaml"
+        rules = yaml.safe_load(rules_path.read_text(encoding="utf-8"))
+        rules["transitions"].append({
+            "id": "design_submission_review",
+            "receipt_schema": "pc-de-authoring-receipt/v1",
+            "requires": {"operation": "DECOMPOSE_DE", "gate": "DE_REVIEW",
+                         "gate_status": "DE_READY_FOR_INDEPENDENT_REVIEW"},
+            "operation": "REVIEW_DE", "target": "changed_concept",
+            "concept_type": "Design Element Spine",
+            "related_concept_type": "Design Element",
+            "trigger_kind": "DE_DRAFT_SUBMITTED", "gate": "DE_REVIEW",
+        })
+        rules_path.write_text(yaml.safe_dump(rules), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["REVIEW_DE"] = {
+            "role": "verification-agent", "playbook": "process/playbooks/REVIEW_DE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/REVIEW_DE.md", "# Independent design review\n")
+        self._put("process/tasks/DE-AUTHOR.yaml", yaml.safe_dump({
+            "id": "DE-AUTHOR", "spine": "/architecture/beta/spine.md",
+        }))
+        spine = "knowledge/architecture/beta/design_elements/spine-v7.md"
+        de = "knowledge/architecture/beta/design_elements/DE-001-v7.md"
+        self._put(spine, "---\ntype: Design Element Spine\nid: DE-SPINE-7\n---\n")
+        self._put(de, "---\ntype: Design Element\nid: DE-001-7\n---\n")
+        ref = "reviews/gates/de-authoring.json"
+        self._put(ref, json.dumps({
+            "schema": "pc-de-authoring-receipt/v1", "task_id": "DE-AUTHOR",
+            "operation": "DECOMPOSE_DE", "gate": "DE_REVIEW",
+            "gate_status": "DE_READY_FOR_INDEPENDENT_REVIEW",
+            "changed_artifacts": [spine, de],
+        }))
+        out = next_task.decision(self.root, ref)
+        self.assertEqual(out["manifest"]["operation"], "REVIEW_DE")
+        self.assertEqual(out["manifest"]["trigger"]["reference"], spine)
+        self.assertEqual(out["manifest"]["context"]["artifact_inputs"]["related_concepts"], [de])
+        self._put(out["path"], yaml.safe_dump(out["manifest"]))
+        self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
