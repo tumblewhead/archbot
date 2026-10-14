@@ -1,0 +1,112 @@
+{
+  "schema": "pc-contract-review/v1",
+  "task_id": "REVIEW_CON-52fa928b281a",
+  "gate": "CONTRACT_REVIEW",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "input_revision": "00c3b4c7f8f7b61634c0379d06af350a3a78f36b",
+  "trigger_revision": "c3511e23e78a981f7bb5c5210d7f8bdef2111b90",
+  "revision_relationship": "The authoring input revision and task trigger are ancestors of checked-out HEAD. The v6 candidate, source task manifest, and authoring receipt are present at HEAD; this review used the checked-out descendant revision.",
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "next_stage_recommendation": "CON_ACCEPTABLE_FOR_DE_REFINEMENT",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-CON006-independent-review-v6.json"
+  ],
+  "findings": [
+    {
+      "id": "CON006-C01",
+      "contract": "CON-AP2-003-v6",
+      "severity": "clarification_nonblocking",
+      "summary": "The publisher's uninterrupted ordered delivery remains an external, unverified assumption, as required by the active authority boundary.",
+      "counterexample": null,
+      "authority": "The active baseline and AP-002-AS-V2-RECONFIRMATION-001 assign uninterrupted ordered delivery to the upstream publisher and do not require detector-side loss machinery or physical continuity evidence at CON.",
+      "required_resolution": "Carry this assumption into integration ownership and verification planning if the integration scope requires evidence; do not treat it as discharged by this contract review."
+    },
+    {
+      "id": "CON006-C02",
+      "contract": "CON-AP2-001-v6 / CON-AP2-002-v6 / CON-AP2-003-v6",
+      "severity": "clarification_nonblocking",
+      "summary": "Reset enforcement, legal-domain enforcement, C expression correspondence, resource fit, and concrete result handoff remain implementation obligations; the draft correctly does not claim they are proved or measured.",
+      "counterexample": null,
+      "authority": "The active VO ledger assigns VO-002 through VO-006 to IMPLEMENTATION. PR-002 accepts only the abstract integer recurrence and bounds under its assumptions.",
+      "required_resolution": "Preserve the listed VO owners, due stages, and acceptance evidence in DE refinement and implementation review."
+    }
+  ],
+  "requirement_vo_ad_coverage": {
+    "C-001 / VO-001": "Legal unsigned 12-bit domain is stated as the contract precondition. VO-001 remains discharged only within accepted synthetic-domain scope; out-of-domain response is not added.",
+    "C-002 / VO-002": "The 2,048-byte charged-SRAM cap is partitioned into nonoverlapping category ceilings totaling 1,792 bytes, with a 256-byte reserve. Conditions cover inventory, lifetime, stack/context nesting, shared attribution, and bounded dynamic allocation. These are conditional budget ceilings, not evidence of fit; VO-002 remains open at IMPLEMENTATION.",
+    "C-003 / VO-003": "Integer-only behavior is carried; source/build evidence remains due at IMPLEMENTATION and VO-003 remains open.",
+    "R-001 / VO-004": "Exactly one update per accepted sample and no elapsed-time deadline are stated. VO-004 remains open at IMPLEMENTATION; publisher continuity is not proven.",
+    "R-002 / VO-005": "Latest-32 accepted-sample order and zero-padded startup are precise and align with PR-002. VO-005 remains open for implementation correspondence.",
+    "R-003 / VO-006": "The bounds 32*4095^2 = 536,608,800 and 33*4095^2 = 553,377,825 are correct. Safe C expression widths and legal-domain enforcement are explicitly left to implementation. VO-006 remains open.",
+    "reset and result semantics": "Quiescent reset lifecycle and a coherent full-range result associated with completion of the accepted-sample operation are sufficiently defined at the interface. No separate concurrent-reader guarantee or synchronization mechanism is implied.",
+    "AD-003 / F-001": "AD-003 remains accepted and unchanged; final F-001 comparison remains due before final acceptance. No target ranking is asserted."
+  },
+  "authority_changes": {
+    "ap_as_or_f_changed": false,
+    "de_approved": false,
+    "vo_discharged": [],
+    "ad_accepted": []
+  },
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "result": "PASS",
+      "summary": "Checked-out input revision is 00c3b4c7f8f7b61634c0379d06af350a3a78f36b; pinned authoring input revision c3511e23e78a981f7bb5c5210d7f8bdef2111b90 is an ancestor."
+    },
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_CON-52fa928b281a.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, operation, trigger, playbook, and architecture spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "summary": "Active AS-v2, reviewed VP-v3 relation, AP-002, and open VO states verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "80 concepts, 329 typed links, zero warnings and zero errors; structural validation only, raw SHA-256 skipped."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors before writing this review receipt."
+    },
+    {
+      "command": "manual arithmetic and authority review",
+      "result": "PASS",
+      "summary": "Recomputed resource ceilings (1,792 allocated + 256 reserve = 2,048 bytes), square-sum bounds, and reviewed active baseline, AP-002 authority, C-002 scope, PR-002, active VO and AD ledgers, v6 contracts, DE placeholders, coverage, and authoring receipt."
+    }
+  ],
+  "reviewed_input_sha256": {
+    "reviews/gates/TOY1-CON005-receipt-v6.json": "9cbef78eb939bb86dd8813f3694bb943b15ff6ec251b2d04d7660bb774fb3aed",
+    "knowledge/architecture/AS-001/contracts/spine-v6.md": "ed67b038d22810481e8bee8ff1b96dc1f7302f696c3c1910555a1c7edb446ffb",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v6.md": "73e908295d3344d46fedc1f92a4e1a5a3b0dccf613d3369f96d73add47e819f4",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md": "7d8de1320fe14f0cb0910f259e9acafa6fcac0b5eb645b0dc096922ff4dca853",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md": "50265f1f75e96fb2981349c4706f9032ed91ccc34add7515b62a340871c4116b",
+    "reviews/gates/TOY1-CON005-coverage-v6.md": "741fbe6002de394ab7feb98dad38972accc8336d7e38dd1fd03ff49f776c7aa4",
+    "process/baselines/AS-001-v2-active.yaml": "33d0505dd79f3392a69bb5434f59a5816f1498133932cc97b0b492e16a6486d4",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml": "f2e5fe2d94a596e4fab66a210c13fcd27f749dfb63e63543045034089534c069",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "knowledge/architecture/AS-001/statement-v2.md": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe",
+    "knowledge/architecture/AS-001/verification_plan-v3.md": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+  },
+  "uninspected_material": [
+    "Firmware and C implementation",
+    "Compiler output, linker map, stack/interrupt reports, and target measurements",
+    "Physical publisher continuity evidence",
+    "Raw datasets"
+  ],
+  "review_limits": [
+    "This receipt accepts contract interface definitions for progression to DE refinement only; it does not approve DEs, implementation, or firmware.",
+    "Structural validation and arithmetic review do not establish physical resource fit, C correctness, target behavior, publisher continuity, or stakeholder acceptance.",
+    "No unit suite was run; required deterministic task, active-baseline, and structural checks were run."
+  ],
+  "next_eligible_action": "Proceed to DE refinement under a separately authorized task, preserving VO-002 through VO-006 as open implementation obligations and carrying the publisher continuity assumption explicitly. Firmware implementation and final acceptance remain gated by later evidence and review."
+}
