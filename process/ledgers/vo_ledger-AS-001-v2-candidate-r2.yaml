@@ -1,0 +1,63 @@
+version: 2
+id: VO-LEDGER-001-AS-001-v2-candidate-r2
+status: pending_independent_baseline_review
+base_ledger: process/ledgers/vo_ledger.yaml
+proposed_activation:
+  authority: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+  reviewed_as: reviews/gates/TOY1-AS002-independent-review-v3.json
+  baseline: process/baselines/AS-001-v2-candidate-r2.yaml
+status_note: >
+  Proposed current-state index for corrected AS. No VO is discharged
+  or waived by this proposal. Original VO-004 TARGET_VALIDATION 1 ms
+  premise remains immutable history. The proposed replacement remains
+  OPEN and is due at IMPLEMENTATION. Apply to authoritative ledger only
+  following independent baseline review.
+obligations:
+  - id: VO-001
+    requirement: C-001
+    state: discharged
+    due_stage: AS
+    owner: architecture-agent
+    evidence_receipt: reviews/gates/VO-001-AS-ACCEPTANCE-001.json
+    scope: synthetic_unsigned_12bit_input_domain_only
+  - id: VO-002
+    requirement: C-002
+    state: open
+    due_stage: IMPLEMENTATION
+    owner: implementation-agent
+    evidence_receipt: null
+    accounting_scope: C-002-SCOPE-001
+    ap_stage_requirement: >
+      Credible categorized charged-SRAM envelope, attribution and
+      positive margin; final implementation verification remains due.
+  - id: VO-003
+    requirement: C-003
+    state: open
+    due_stage: IMPLEMENTATION
+    owner: implementation-agent
+    evidence_receipt: null
+  - id: VO-004
+    requirement: R-001
+    state: open
+    due_stage: IMPLEMENTATION
+    owner: verification-agent
+    evidence_receipt: null
+    active_obligation_candidate: knowledge/architecture/AS-001/verification/VO-004-v2.md
+    authority: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+    independently_reviewed_plan: knowledge/architecture/AS-001/verification_plan-v3.md
+    legacy_due_stage: TARGET_VALIDATION
+    legacy_obligation: knowledge/architecture/AS-001/verification/VO-004.md
+    scope: exact_one_update_per_accepted_published_sample_independent_of_time
+    note: No 1ms deadline; publisher continuity remains external and unverified.
+  - id: VO-005
+    requirement: R-002
+    state: open
+    due_stage: IMPLEMENTATION
+    owner: verification-agent
+    evidence_receipt: null
+  - id: VO-006
+    requirement: R-003
+    state: open
+    due_stage: IMPLEMENTATION
+    owner: verification-agent
+    evidence_receipt: null
