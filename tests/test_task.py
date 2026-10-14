@@ -630,6 +630,13 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "matching ready authoring receipt"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_de_review_rejects_malformed_frontmatter(self):
+        self._make_de_review_task()
+        path = self.root / "knowledge/architecture/alpha/design_elements/spine-v7.md"
+        path.write_text("# No OKF header\n", encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "lacks OKF frontmatter"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_de_review_rejects_cross_project_author(self):
         self._make_de_review_task()
         self.manifest["spine"] = "/architecture/beta/spine.md"
