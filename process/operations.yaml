@@ -29,3 +29,6 @@ operations:
   REVIEW_AS:
     role: verification-agent
     playbook: process/playbooks/REVIEW_AS.md
+  REVIEW_BASELINE:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_BASELINE.md
