@@ -299,6 +299,23 @@ def validate(root: Path, manifest: str) -> dict:
                         or change.get("to_due_stage") != new.get("due_stage")
                         or change.get("preserved_state") != new.get("state")):
                     raise TaskError("Baseline changes VO due stage without explicit authority: " + vid)
+    if trigger["kind"] == "BASELINE_ACTIVATED":
+        if operation != "DEFINE_CON" or trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
+            raise TaskError("Active-baseline contract authoring requires DEFINE_CON and a YAML active baseline")
+        inputs = data.get("context", {}).get("authority_inputs", {})
+        if not isinstance(inputs, dict) or inputs.get("active_baseline") != trigger["reference"]:
+            raise TaskError("CON authoring manifest does not identify exact active baseline")
+        from active_baseline import ActiveBaselineError, verify
+        try:
+            active_check = verify(root, trigger["reference"])
+        except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
+            raise TaskError("CON authoring blocked by invalid active baseline: " + str(exc)) from exc
+        if inputs.get("vo_ledger") != active_check["vo_ledger"]:
+            raise TaskError("CON authoring must consume active reviewed VO ledger")
+        if inputs.get("architecture_statement") != active_check["architecture"]:
+            raise TaskError("CON authoring must consume active reviewed AS")
+        if inputs.get("verification_plan") != active_check["verification_plan"]:
+            raise TaskError("CON authoring must consume active reviewed VP")
     if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AP selection requires a YAML authority record")
