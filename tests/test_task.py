@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import tempfile
 import json
+import hashlib
 import unittest
 from unittest.mock import patch
 
@@ -474,6 +475,95 @@ class TaskManifestTests(unittest.TestCase):
         receipt.write_text(json.dumps(data), encoding="utf-8")
         with patch("active_baseline.verify", return_value={}):
             with self.assertRaisesRegex(task.TaskError, "not in submitted receipt"):
+                task.validate(self.root, "process/tasks/task.yaml")
+
+    def _make_accepted_contract_to_design_task(self):
+        (self.root / "agents/design-agent.md").write_text("# Design\n", encoding="utf-8")
+        (self.root / "process/playbooks/DECOMPOSE_DE.md").write_text("# DE\n", encoding="utf-8")
+        views_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_path.read_text(encoding="utf-8"))
+        views["roles"]["design-agent"] = {"follow": []}
+        views_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["DECOMPOSE_DE"] = {
+            "role": "design-agent", "playbook": "process/playbooks/DECOMPOSE_DE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        contract_spine = "knowledge/architecture/alpha/contracts/spine-v6.md"
+        contract = "knowledge/architecture/alpha/contracts/CON-001-v6.md"
+        baseline = "process/baselines/alpha-active.yaml"
+        for ref, content in {
+            contract_spine: "---\ntype: Contract Spine\nid: CS-6\n---\n",
+            contract: "---\ntype: Design Contract\nid: C-6\n---\n",
+            baseline: "status: active\n",
+        }.items():
+            path = self.root / ref
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        prior = "process/tasks/REVIEW-CON.yaml"
+        (self.root / prior).write_text(yaml.safe_dump({
+            "id": "REVIEW-CON", "operation": "REVIEW_CON",
+            "spine": "/architecture/alpha/spine.md",
+            "trigger": {"kind": "CONTRACT_DRAFT_SUBMITTED",
+                        "reference": contract_spine},
+            "context": {"artifact_inputs": {
+                "primary_concept": contract_spine,
+                "related_concepts": [contract],
+            }},
+        }), encoding="utf-8")
+        pins = {ref: hashlib.sha256((self.root / ref).read_bytes()).hexdigest()
+                for ref in (contract_spine, contract, baseline)}
+        receipt_ref = "reviews/gates/contract-accepted.json"
+        receipt = self.root / receipt_ref
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        review = {
+            "schema": "pc-contract-review/v1", "task_id": "REVIEW-CON",
+            "gate": "CONTRACT_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+            "next_stage_recommendation": "CON_ACCEPTABLE_FOR_DE_REFINEMENT",
+            "independent_of_authoring_invocation": True,
+            "reviewed_input_sha256": pins, "findings": [],
+        }
+        receipt.write_text(json.dumps(review), encoding="utf-8")
+        self.manifest.update(
+            role="design-agent", operation="DECOMPOSE_DE",
+            playbook="process/playbooks/DECOMPOSE_DE.md",
+            trigger={"kind": "CONTRACT_ACCEPTED_FOR_DE", "reference": receipt_ref},
+            context={"review_inputs": {"independent_review": receipt_ref}},
+            gate={"kind": "DE_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return receipt, self.root / contract
+
+    def test_accepted_contract_review_permits_design(self):
+        self._make_accepted_contract_to_design_task()
+        with patch("active_baseline.verify", return_value={"status": "ACTIVE_BASELINE_VERIFIED"}):
+            result = task.validate(self.root, "process/tasks/task.yaml")
+        self.assertEqual(result["operation"], "DECOMPOSE_DE")
+
+    def test_design_rejects_stale_contract_hash(self):
+        _, contract = self._make_accepted_contract_to_design_task()
+        contract.write_text(contract.read_text() + "unauthorized change\n", encoding="utf-8")
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "contract bytes changed"):
+                task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_design_rejects_unaccepted_contract_review(self):
+        receipt, _ = self._make_accepted_contract_to_design_task()
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+        data["disposition"] = "REVISE"
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "favorable independent CON acceptance"):
+                task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_design_rejects_cross_project_review(self):
+        self._make_accepted_contract_to_design_task()
+        self.manifest["spine"] = "/architecture/beta/spine.md"
+        self.store()
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "different project spines"):
                 task.validate(self.root, "process/tasks/task.yaml")
 
     def test_first_architecture(self):
