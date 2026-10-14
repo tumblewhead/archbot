@@ -68,6 +68,20 @@ class LoopTests(unittest.TestCase):
         self.assertEqual(out["manifest"]["context"]["review_inputs"]["finding_ids"], ["F1"])
         self.assertEqual(out["manifest"]["spine"], "/architecture/alpha/spine.md")
 
+    def test_contract_revision_carries_unsupported_requirement_findings(self):
+        self.review["findings"].append({
+            "id": "F2", "severity": "unsupported_requirement",
+        })
+        self.review["findings"].append({
+            "id": "F3", "severity": "clarification_nonblocking",
+        })
+        self._put("reviews/gates/review.json", json.dumps(self.review))
+        out = next_task.decision(self.root, "reviews/gates/review.json")
+        self.assertEqual(
+            out["manifest"]["context"]["review_inputs"]["finding_ids"],
+            ["F1", "F2"],
+        )
+
     def test_repeated_receipt_returns_existing_plan(self):
         out = next_task.decision(self.root, "reviews/gates/review.json")
         self._put(out["path"], yaml.safe_dump(out["manifest"]))
