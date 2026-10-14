@@ -4,6 +4,42 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate: independent CON-v5 review REVISE, minimal CON-v6 correction
+
+The latest user push at `7fca06ab5524` added the independent
+`reviews/gates/TOY1-CON005-independent-review-v5.json`, disposition
+`REVISE`, next-stage `CON_REVISION_REQUIRED`, with three blocking
+findings and one unsupported-requirement finding:
+
+- `CON005-F01`: v5 lacks a credible categorized C-002 charged-SRAM
+  budget and positive margin. The old AP envelope has conditional
+  task/IRQ/heap assumptions, **not** automatically binding v5 authority.
+  Supply reviewable category ceilings, attribution and explicit
+  conditions without inventing platform topology or measured usage.
+- `CON005-F02`: define initialization/reset quiescence or ordering at
+  the interface, without requiring an ISR/synchronization mechanism.
+- `CON005-F03`: define a coherent post-update result handoff, of
+  sufficient integer width, without imposing unapproved concurrent
+  external readers.
+- `CON005-F04`: v5 mandatory invalid-input rejection has no source
+  authority; remove it or identify separately approved authority,
+  keeping the legal `[0,4095]` input precondition and safe C typing.
+
+`CON005-F05` confirms the uninterrupted publisher delivery is a
+nonblocking **external assumption**. VO-002..VO-006 remain OPEN;
+AD-003/F-001 remain protected. PR-002 is still abstract and no
+CON/DE/firmware was approved.
+
+**Next:** use the existing generic receipt planner to inspect/emit
+`reviews/gates/TOY1-CON005-independent-review-v5.json`. This
+routes to reusable `REVISE_CON` and its new versioned v6 draft.
+The planner now includes `unsupported_requirement` findings with
+blocking IDs, so `CON005-F04` is not lost. Generic playbook explicitly
+uses the **active baseline and VO ledger**, not superseded timing or
+hardware requirements. After the revision, request independent
+`REVIEW_CON`; only then can DE refinement and C implementation begin.
+Use stage-appropriate conditional budgets, not target claims.
+
 ## CON v5 sample-indexed drafts submitted; independent stage triage next
 
 Commit `5dcb0ffcf0bf` adds three additive contracts
