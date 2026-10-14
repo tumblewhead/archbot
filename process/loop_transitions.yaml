@@ -144,3 +144,13 @@ transitions:
     target: receipt
     trigger_kind: DESIGN_ACCEPTED_FOR_IMPLEMENTATION
     gate: IMPLEMENTATION_REVIEW
+  - id: implementation_submission_review
+    receipt_schema: pc-implementation-authoring-receipt/v1
+    requires:
+      operation: IMPLEMENT_DE
+      gate: IMPLEMENTATION_REVIEW
+      gate_status: IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW
+    operation: REVIEW_IMPLEMENTATION
+    target: receipt
+    trigger_kind: IMPLEMENTATION_DRAFT_SUBMITTED
+    gate: IMPLEMENTATION_REVIEW
