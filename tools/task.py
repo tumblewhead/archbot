@@ -222,6 +222,75 @@ def validate(root: Path, manifest: str) -> dict:
                 or accepted["accepted_scope"].get("publisher_responsibility")
                 != "uninterrupted_ordered_sample_delivery"):
             raise TaskError("AS scope authority does not match approved producer boundary")
+    if trigger["kind"] == "BASELINE_RECONCILIATION_REQUESTED":
+        if operation != "REVIEW_BASELINE" or trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
+            raise TaskError("Baseline review requires REVIEW_BASELINE and a YAML package")
+        candidate = yaml.safe_load(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(candidate, dict)
+                or candidate.get("schema") != "pc-baseline-candidate/v1"
+                or candidate.get("status") != "pending_independent_baseline_review"
+                or candidate.get("review_required_before_activation") is not True):
+            raise TaskError("Baseline candidate is not pending independent review")
+        inputs = data.get("context", {}).get("authority_inputs", {})
+        if (not isinstance(inputs, dict)
+                or inputs.get("baseline_candidate") != trigger["reference"]):
+            raise TaskError("Task and baseline authority references disagree")
+        authority = candidate.get("authority", {})
+        if not isinstance(authority, dict):
+            raise TaskError("Baseline lacks source authority")
+        ap_path = _file(root, authority.get("provisional_ap"), "process/decisions")
+        scope_path = _file(root, authority.get("scope"), "process/decisions")
+        ap = yaml.safe_load(ap_path.read_text(encoding="utf-8"))
+        scope = yaml.safe_load(scope_path.read_text(encoding="utf-8"))
+        if (not isinstance(ap, dict) or ap.get("status") != "approved"
+                or ap.get("decision") != "PROVISIONALLY_SELECTED"
+                or ap.get("authorizes") != "CON_FIRST_DECOMPOSITION_AFTER_BASELINE_RECONCILIATION"
+                or not ap.get("authority_evidence")
+                or not isinstance(scope, dict) or scope.get("status") != "approved"):
+            raise TaskError("Baseline does not have accepted scope and AP authority")
+        _file(root, ap["authority_evidence"], "process/decisions")
+        as_path = candidate.get("candidate_active_as")
+        vp_path = candidate.get("candidate_active_verification_plan")
+        vo_path = candidate.get("candidate_active_vo_004")
+        for candidate_path in (as_path, vp_path, vo_path):
+            _file(root, candidate_path, "knowledge")
+        review_ref = candidate.get("independent_as_review", {}).get("receipt")
+        review = json.loads(_file(root, review_ref, "reviews").read_text(encoding="utf-8"))
+        if (not isinstance(review, dict) or review.get("gate") != "AS_REVIEW"
+                or review.get("independent_of_authoring_invocation") is not True
+                or review.get("disposition") not in ("ACCEPT", "ACCEPT_WITH_CLARIFICATIONS")):
+            raise TaskError("Baseline lacks favorable independent AS review")
+        reviewed = {x.get("path") for x in review.get("candidate_artifacts", [])
+                    if isinstance(x, dict)}
+        if not {as_path, vp_path, vo_path}.issubset(reviewed):
+            raise TaskError("Baseline references artifacts not in independent AS review")
+        ledger_path = candidate.get("candidate_active_vo_ledger")
+        proposed = yaml.safe_load(_file(root, ledger_path, "process/ledgers").read_text(encoding="utf-8"))
+        if (not isinstance(proposed, dict) or proposed.get("status") != "pending_independent_baseline_review"
+                or not isinstance(proposed.get("obligations"), list)):
+            raise TaskError("Baseline VO ledger proposal is missing or not pending")
+        original = yaml.safe_load(_file(root, proposed.get("base_ledger"), "process/ledgers").read_text(encoding="utf-8"))
+        if not isinstance(original, dict) or not isinstance(original.get("obligations"), list):
+            raise TaskError("Original VO ledger is missing")
+        orig = {x["id"]: x for x in original["obligations"] if isinstance(x, dict) and x.get("id")}
+        dest = {x["id"]: x for x in proposed["obligations"] if isinstance(x, dict) and x.get("id")}
+        if len(orig) != len(original["obligations"]) or len(dest) != len(proposed["obligations"]) or set(orig) != set(dest):
+            raise TaskError("Baseline must preserve every VO identity without duplicates")
+        authorized = {x["id"]: x for x in ap.get("authorized_vo_supersessions", [])
+                      if isinstance(x, dict) and x.get("id")}
+        for vid in orig:
+            old, new = orig[vid], dest[vid]
+            if (new.get("state") != old.get("state")
+                    or new.get("evidence_receipt") != old.get("evidence_receipt")
+                    or new.get("requirement") != old.get("requirement")
+                    or new.get("owner") != old.get("owner")):
+                raise TaskError("Baseline attempts to change VO authority or discharge: " + vid)
+            if new.get("due_stage") != old.get("due_stage"):
+                change = authorized.get(vid)
+                if (not change or change.get("from_due_stage") != old.get("due_stage")
+                        or change.get("to_due_stage") != new.get("due_stage")
+                        or change.get("preserved_state") != new.get("state")):
+                    raise TaskError("Baseline changes VO due stage without explicit authority: " + vid)
     if trigger["kind"] == "AP_PROVISIONALLY_SELECTED":
         if trigger_path is None or trigger_path.suffix not in (".yaml", ".yml"):
             raise TaskError("Protected AP selection requires a YAML authority record")
