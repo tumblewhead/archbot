@@ -208,6 +208,47 @@ class LoopTests(unittest.TestCase):
         self._put(out["path"], yaml.safe_dump(out["manifest"]))
         self.assertEqual(next_task.decision(self.root, receipt)["status"], "ALREADY_PLANNED")
 
+    def test_accepted_contract_receipt_routes_to_generic_design(self):
+        rules_path = self.root / "process/loop_transitions.yaml"
+        rules = yaml.safe_load(rules_path.read_text(encoding="utf-8"))
+        rules["transitions"].append({
+            "id": "accepted_contract_to_design",
+            "receipt_schema": "pc-contract-review/v1",
+            "requires": {
+                "gate": "CONTRACT_REVIEW",
+                "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+                "next_stage_recommendation": "CON_ACCEPTABLE_FOR_DE_REFINEMENT",
+                "independent_of_authoring_invocation": True,
+            },
+            "operation": "DECOMPOSE_DE", "target": "receipt",
+            "trigger_kind": "CONTRACT_ACCEPTED_FOR_DE", "gate": "DE_REVIEW",
+        })
+        rules_path.write_text(yaml.safe_dump(rules), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["DECOMPOSE_DE"] = {
+            "role": "design-agent",
+            "playbook": "process/playbooks/DECOMPOSE_DE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/DECOMPOSE_DE.md", "# Reusable DE refinement\n")
+        self._put("process/tasks/CON-REVIEW.yaml", yaml.safe_dump({
+            "id": "CON-REVIEW", "spine": "/architecture/beta/spine.md",
+        }))
+        ref = "reviews/gates/con-accepted.json"
+        self._put(ref, json.dumps({
+            "schema": "pc-contract-review/v1", "task_id": "CON-REVIEW",
+            "gate": "CONTRACT_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+            "next_stage_recommendation": "CON_ACCEPTABLE_FOR_DE_REFINEMENT",
+            "independent_of_authoring_invocation": True,
+        }))
+        out = next_task.decision(self.root, ref)
+        self.assertEqual(out["manifest"]["operation"], "DECOMPOSE_DE")
+        self.assertEqual(out["manifest"]["spine"], "/architecture/beta/spine.md")
+        self.assertEqual(out["manifest"]["context"]["review_inputs"]["independent_review"], ref)
+        self._put(out["path"], yaml.safe_dump(out["manifest"]))
+        self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
