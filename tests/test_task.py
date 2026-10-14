@@ -260,6 +260,127 @@ class TaskManifestTests(unittest.TestCase):
         self.assertEqual(task.validate(
             self.root, "process/tasks/task.yaml")["operation"], "REVISE_AS")
 
+    def _make_baseline_review(self):
+        (self.root / "agents/verification-agent.md").write_text(
+            "# Baseline reviewer\n", encoding="utf-8")
+        (self.root / "process/playbooks/REVIEW_BASELINE.md").write_text(
+            "# REVIEW_BASELINE\n", encoding="utf-8")
+        views_file = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_file.read_text(encoding="utf-8"))
+        views["roles"]["verification-agent"] = {"follow": []}
+        views_file.write_text(yaml.safe_dump(views), encoding="utf-8")
+        ops_file = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_file.read_text(encoding="utf-8"))
+        ops["operations"]["REVIEW_BASELINE"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_BASELINE.md",
+        }
+        ops_file.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        files = {
+            "process/decisions/scope.yaml": yaml.safe_dump({"status": "approved"}),
+            "process/decisions/ap.yaml": yaml.safe_dump({
+                "status": "approved", "decision": "PROVISIONALLY_SELECTED",
+                "authorizes": "CON_FIRST_DECOMPOSITION_AFTER_BASELINE_RECONCILIATION",
+                "authority_evidence": "process/decisions/ap.md",
+                "authorized_vo_supersessions": [{
+                    "id": "VO-X",
+                    "from_due_stage": "TARGET_VALIDATION",
+                    "to_due_stage": "IMPLEMENTATION",
+                    "preserved_state": "open",
+                }],
+            }),
+            "process/decisions/ap.md": "# Explicit authority\n",
+            "knowledge/architecture/alpha/statement-v2.md": "# Sample-indexed AS\n",
+            "knowledge/architecture/alpha/vp-v3.md": "# VP\n",
+            "knowledge/architecture/alpha/vo-v2.md": "# VO\n",
+            "process/ledgers/vo-original.yaml": yaml.safe_dump({
+                "obligations": [{"id": "VO-X", "requirement": "R-X",
+                                 "owner": "verification-agent",
+                                 "state": "open", "due_stage": "TARGET_VALIDATION",
+                                 "evidence_receipt": None}],
+            }),
+            "process/ledgers/vo-candidate.yaml": yaml.safe_dump({
+                "status": "pending_independent_baseline_review",
+                "base_ledger": "process/ledgers/vo-original.yaml",
+                "obligations": [{"id": "VO-X", "requirement": "R-X",
+                                 "owner": "verification-agent",
+                                 "state": "open", "due_stage": "IMPLEMENTATION",
+                                 "evidence_receipt": None}],
+            }),
+            "reviews/gates/as-review.json": json.dumps({
+                "gate": "AS_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+                "independent_of_authoring_invocation": True,
+                "candidate_artifacts": [
+                    {"path": "knowledge/architecture/alpha/statement-v2.md"},
+                    {"path": "knowledge/architecture/alpha/vp-v3.md"},
+                    {"path": "knowledge/architecture/alpha/vo-v2.md"},
+                ],
+            }),
+        }
+        for name, content in files.items():
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        baseline_path = self.root / "process/baselines/alpha-v2.yaml"
+        baseline_path.parent.mkdir(parents=True, exist_ok=True)
+        baseline_path.write_text(yaml.safe_dump({
+            "schema": "pc-baseline-candidate/v1",
+            "status": "pending_independent_baseline_review",
+            "review_required_before_activation": True,
+            "candidate_active_as": "knowledge/architecture/alpha/statement-v2.md",
+            "candidate_active_verification_plan": "knowledge/architecture/alpha/vp-v3.md",
+            "candidate_active_vo_004": "knowledge/architecture/alpha/vo-v2.md",
+            "candidate_active_vo_ledger": "process/ledgers/vo-candidate.yaml",
+            "independent_as_review": {"receipt": "reviews/gates/as-review.json"},
+            "authority": {"provisional_ap": "process/decisions/ap.yaml",
+                          "scope": "process/decisions/scope.yaml"},
+        }), encoding="utf-8")
+        self.manifest.update(
+            role="verification-agent", operation="REVIEW_BASELINE",
+            playbook="process/playbooks/REVIEW_BASELINE.md",
+            trigger={"kind": "BASELINE_RECONCILIATION_REQUESTED",
+                     "reference": "process/baselines/alpha-v2.yaml"},
+            context={"authority_inputs": {
+                "baseline_candidate": "process/baselines/alpha-v2.yaml",
+            }},
+            gate={"kind": "BASELINE_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return baseline_path
+
+    def test_independently_reviewed_baseline_keeps_VO_open(self):
+        self._make_baseline_review()
+        self.assertEqual(task.validate(
+            self.root, "process/tasks/task.yaml")["operation"], "REVIEW_BASELINE")
+
+    def test_baseline_cannot_silently_discharge_VO(self):
+        self._make_baseline_review()
+        path = self.root / "process/ledgers/vo-candidate.yaml"
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        body["obligations"][0]["state"] = "discharged"
+        path.write_text(yaml.safe_dump(body), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "change VO authority or discharge"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_baseline_cannot_steal_unapproved_due_stage(self):
+        self._make_baseline_review()
+        path = self.root / "process/ledgers/vo-candidate.yaml"
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        body["obligations"][0]["due_stage"] = "AS"
+        path.write_text(yaml.safe_dump(body), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "without explicit authority"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_unapproved_AP_cannot_start_baseline_review(self):
+        self._make_baseline_review()
+        path = self.root / "process/decisions/ap.yaml"
+        body = yaml.safe_load(path.read_text(encoding="utf-8"))
+        body["status"] = "proposed"
+        path.write_text(yaml.safe_dump(body), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "accepted scope and AP authority"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
