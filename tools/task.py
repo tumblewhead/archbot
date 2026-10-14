@@ -133,6 +133,65 @@ def validate(root: Path, manifest: str) -> dict:
             verify(root, baseline_ref)
         except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
             raise TaskError("Unresolved contract review lacks verified baseline: " + str(exc)) from exc
+    if trigger["kind"] == "DESIGN_ACCEPTED_FOR_IMPLEMENTATION":
+        if (operation != "IMPLEMENT_DE" or trigger_path is None
+                or trigger_path.suffix != ".json"):
+            raise TaskError("Implementation requires IMPLEMENT_DE and independent DE review")
+        review = json.loads(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(review, dict)
+                or review.get("schema") != "pc-de-review/v1"
+                or review.get("gate") != "DE_REVIEW"
+                or review.get("disposition") not in ("ACCEPT", "ACCEPT_WITH_CLARIFICATIONS")
+                or review.get("next_stage_recommendation")
+                    != "DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK"
+                or review.get("independent_of_authoring_invocation") is not True
+                or any(isinstance(finding, dict) and finding.get("severity") == "blocking"
+                       for finding in review.get("findings", []))):
+            raise TaskError("Implementation lacks favorable independent DE acceptance")
+        context = data.get("context", {})
+        inputs = context.get("review_inputs", {}) if isinstance(context, dict) else {}
+        if (not isinstance(inputs, dict)
+                or inputs.get("independent_review") != trigger["reference"]):
+            raise TaskError("Implementation manifest must reference exact DE review")
+        source_id = review.get("task_id")
+        if not isinstance(source_id, str) or not ID_PATTERN.fullmatch(source_id):
+            raise TaskError("DE review has invalid source task identity")
+        reviewer = yaml.safe_load(_file(
+            root, "process/tasks/" + source_id + ".yaml", "process/tasks"
+        ).read_text(encoding="utf-8"))
+        if (not isinstance(reviewer, dict) or reviewer.get("operation") != "REVIEW_DE"
+                or reviewer.get("spine") != spine_ref
+                or reviewer.get("trigger", {}).get("kind") != "DE_DRAFT_SUBMITTED"):
+            raise TaskError("Implementation DE review belongs to another project or stage")
+        review_context = reviewer.get("context", {}).get("artifact_inputs", {})
+        de_spine = review_context.get("primary_concept") if isinstance(review_context, dict) else None
+        elements = review_context.get("related_concepts") if isinstance(review_context, dict) else None
+        if (not isinstance(de_spine, str) or not isinstance(elements, list)
+                or not elements or reviewer.get("trigger", {}).get("reference") != de_spine):
+            raise TaskError("DE review lacks complete design-element package")
+        pins = review.get("reviewed_input_sha256")
+        if not isinstance(pins, dict):
+            raise TaskError("DE review lacks reviewed source hashes")
+        for ref in [de_spine, *elements]:
+            if hashlib.sha256(_file(root, ref, "knowledge").read_bytes()).hexdigest() != pins.get(ref):
+                raise TaskError("DE artifact changed after independent review: " + ref)
+        active_refs = [ref for ref in pins if isinstance(ref, str)
+                       and ref.startswith("process/baselines/")
+                       and ref.endswith("-active.yaml")]
+        if len(active_refs) != 1:
+            raise TaskError("DE review must pin exactly one active baseline")
+        active_ref = active_refs[0]
+        from active_baseline import ActiveBaselineError, verify
+        try:
+            verify(root, active_ref)
+        except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
+            raise TaskError("Implementation active baseline invalid: " + str(exc)) from exc
+        if hashlib.sha256(_file(root, active_ref, "process/baselines").read_bytes()).hexdigest() != pins[active_ref]:
+            raise TaskError("Active baseline changed after DE review")
+        if (not isinstance(data.get("outputs"), dict)
+                or "implement_firmware" in data["outputs"].get("prohibited", [])
+                or "implementation_source" not in data["outputs"].get("allowed", [])):
+            raise TaskError("Implementation task lacks explicitly permitted source output")
     if trigger["kind"] == "DE_DRAFT_SUBMITTED":
         if operation != "REVIEW_DE" or trigger_path is None or trigger_path.suffix != ".md":
             raise TaskError("DE review requires REVIEW_DE and a versioned DE spine")
