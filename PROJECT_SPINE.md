@@ -4,6 +4,36 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Latest gate: CON-v6 independently accepted for DE refinement (2026-10-14)
+
+Commit `aab8d226468a` adds independent
+`reviews/gates/TOY1-CON006-independent-review-v6.json`,
+`ACCEPT_WITH_CLARIFICATIONS` and
+`CON_ACCEPTABLE_FOR_DE_REFINEMENT`. No blocking findings. The three
+v6 contracts establish accepted-sample interface, exact integer rolling
+state and reset semantics, and a conditional 1,792-byte category budget
+plus 256-byte reserve within C-002's 2,048-byte cap. The publisher's
+uninterrupted ordered delivery remains external and unverified.
+VO-002..VO-006 remain OPEN at IMPLEMENTATION; AD-003/F-001 still
+requires eventual evaluation. No DE or firmware is approved.
+
+**Next:** generic receipt planner on
+`reviews/gates/TOY1-CON006-independent-review-v6.json`
+now routes to `DECOMPOSE_DE` with the reusable `design-agent` and
+`process/playbooks/DECOMPOSE_DE.md`. The task runner checks independent
+CON acceptance, exact reviewed CON hashes, project spine identity and
+the reviewed active AS baseline before permitting DE authoring.
+The DE agent must produce versioned design-element concepts, a DE spine,
+a rationale/traceability matrix and a review request, not C code.
+The subsequent independent `REVIEW_DE` operation is registered,
+but the design is not yet submitted or accepted. All new checks and
+regressions require the user's local test execution.
+
+The project-owned dialogue and inspectable archive proposal remains
+future work for the cleanroom qualification sequence, not a requirement
+for current Toy 1 implementation. Preserve the source event/evidence
+links for eventual timeline/fishbone views without inventing causality.
+
 ## Latest: CON-v6 submitted and project-owned dialogue proposal (2026-10-13)
 
 Human design direction: **all human-agent interaction must belong to the
