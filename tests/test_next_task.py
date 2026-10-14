@@ -133,9 +133,9 @@ class LoopTests(unittest.TestCase):
         spine = "knowledge/architecture/alpha/contracts/spine-v5.md"
         contract = "knowledge/architecture/alpha/contracts/CON-001-v5.md"
         self._put(spine,
-                  "---\\ntype: Contract Spine\\nid: CONTRACT-SPINE-v5\\n---\\n")
+                  "---\ntype: Contract Spine\nid: CONTRACT-SPINE-v5\n---\n")
         self._put(contract,
-                  "---\\ntype: Design Contract\\nid: CONTRACT-001-v5\\n---\\n")
+                  "---\ntype: Design Contract\nid: CONTRACT-001-v5\n---\n")
         payload = {
             "schema": "pc-con-authoring-receipt/v1", "task_id": "CON-AUTHOR",
             "operation": "DEFINE_CON", "gate_status": "CONTRACTS_UNRESOLVED",
