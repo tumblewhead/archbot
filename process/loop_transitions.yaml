@@ -77,3 +77,14 @@ transitions:
     related_concept_type: Design Contract
     trigger_kind: CONTRACT_UNRESOLVED_SUBMITTED
     gate: CONTRACT_REVIEW
+  - id: contract_revised_authoring_review
+    receipt_schema: pc-con-authoring-receipt/v1
+    requires:
+      operation: REVISE_CON
+      gate_status: CONTRACTS_READY_FOR_INDEPENDENT_REVIEW
+    operation: REVIEW_CON
+    target: changed_concept
+    concept_type: Contract Spine
+    related_concept_type: Design Contract
+    trigger_kind: CONTRACT_DRAFT_SUBMITTED
+    gate: CONTRACT_REVIEW
