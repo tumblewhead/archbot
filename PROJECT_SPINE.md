@@ -4,6 +4,47 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current checkpoint: Independent host C review accepted; verification theory drafted (2026-10-14)
+
+The user's latest pushed independent review is
+`reviews/gates/IMPLEMENT_DE-900da7a3ce8c-independent-review.json`
+(commit `ca5dc80e628f`), disposition
+`ACCEPT_WITH_CLARIFICATIONS`. It accepts the examined host C99
+implementation's recurrence and deterministic reference-test evidence.
+It does **not** establish target qualification. VO-002..VO-006
+remain OPEN; VO-002/003 require target/integration memory and
+compiler evidence, while VO-004..006 still need appropriate
+integration/target correspondence. No new requirement, AS/CON/DE
+change, or VO discharge is authorized by this receipt.
+
+The engineering authority has proposed a **verification-facing ERS**
+followed by **runged, evidence-accumulating verification**, using sparse
+pairwise and higher-order interaction hypergraphs. Hyperedges should
+be symbolically screened for dimensions/types, polarity, magnitude,
+temporal/resource coupling and joint feasibility before expensive
+constrained sweeps. The user's UART example demonstrates a legal
+big-message / fast-arrival combination overloading a bounded buffer
+despite passing independent sweeps. Do not confuse deterministic
+interactions with statistical covariance.
+
+Two proposed, **documentation-only** process artifacts are now in
+`docs/THEORY_OF_VERIFICATION.md` and
+`docs/VERIFICATION_FRAMEWORK_REQUIREMENTS.md` (VFR-001 v0.1).
+The root `theory_of_operation.md` links to them. The user supplied
+illustrative battery-capacity ERS and Verification Plan v0.10.0
+attachments as design references; these files are **not** part of
+the current repository and their battery-specific thresholds must
+not become Toy 1 or generic Archbot requirements.
+
+**Next development after review of these documents:** implement
+generic `DERIVE_ERS` and independent `REVIEW_ERS`, then
+`DESIGN_VERIFICATION_LADDER` and independent plan review,
+then rung execution/review with project-spine-linked evidence
+and Engineering Briefings. Keep symbolic findings scoped to
+their assumptions; no automatic VO discharge or invented target
+evidence. These operations are not yet installed. The cleanroom
+Toy 1 and Toy 2 generality campaigns remain planned.
+
 ## Current gate: Toy 1 C prototype authored; independent implementation review next
 
 Commit `fab273e3b576` contains first implementation in
