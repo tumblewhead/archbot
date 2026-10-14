@@ -32,3 +32,9 @@ operations:
   REVIEW_BASELINE:
     role: verification-agent
     playbook: process/playbooks/REVIEW_BASELINE.md
+  DECOMPOSE_DE:
+    role: design-agent
+    playbook: process/playbooks/DECOMPOSE_DE.md
+  REVIEW_DE:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_DE.md
