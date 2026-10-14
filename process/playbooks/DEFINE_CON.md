@@ -16,6 +16,9 @@ and the selected proposal's independently accepted assumptions.
    into explicit testable contracts. Preserve every due-stage obligation.
 4. Follow only task-relevant spine relationships, expanding to required
    assumption and authority inputs, not to irrelevant raw histories.
+   If the manifest names an active baseline, resolve its reviewed effective
+   dependency links and **active VO ledger**, rather than treating an older
+   spine edge or historical VO index as a current requirement.
 
 ## Contract-first construction
 
@@ -25,13 +28,19 @@ Every contract must define, as applicable:
 
 - Stable ID, version, parent AS clauses and selected AP obligations.
 - Producer/consumer and authority for each datum; representation, units,
-  legal domain, rate, timestamps, ordering, and reset/startup behavior.
+  legal domain, ordering and reset/startup behavior. Include rate or
+  timestamps **only when required by the approved AS or integration contract**;
+  otherwise explicitly record that they are unspecified.
 - Functional preconditions, postconditions, invariants and bounded failure
   behavior; never silently accept out-of-domain values.
 - Concurrency, reentrancy, ISR/task ownership, mutation ordering and
   atomicity; any no-heap, non-nesting or single-writer assumptions.
-- Timing budget, execution context, interrupt interference and what evidence
-  will establish deadline compliance at the due stage.
+- Execution-work bounds and any timing budget, execution context or
+  interrupt interference **actually required** by approved authority.
+  Do not manufacture a real-time deadline, ISR topology, independent
+  watchdog, producer-loss protocol or concurrent-reader atomicity merely
+  because those mechanisms appeared in an older draft. Explicitly mark
+  unapproved integration details as unspecified.
 - Resource allocation, category ownership, lifetime, stack/interrupt/shared
   attribution and no-double-counting rules. Treat allocation caps as
   contractual limits, not proven physical usage.
