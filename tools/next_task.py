@@ -177,7 +177,9 @@ def decision(root: Path, ref: str) -> dict:
             context["review_inputs"] = {
                 "independent_review": ref,
                 "finding_ids": [f["id"] for f in receipt.get("findings", [])
-                                if isinstance(f, dict) and f.get("severity") in ("blocking", "unresolved")
+                                if isinstance(f, dict) and f.get("severity") in (
+                                    "blocking", "unresolved", "unsupported_requirement",
+                                    "blocking_for_downstream_authorization")
                                 and isinstance(f.get("id"), str)],
                 "source_task_manifest": task_ref,
             }
