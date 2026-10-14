@@ -1,0 +1,40 @@
+schema: pc-task/v1
+id: REVISE_AS-4f9f5f6ee5b9
+role: architecture-agent
+operation: REVISE_AS
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: AS_REVIEW_REVISION_REQUIRED
+  reference: reviews/gates/TOY1-AS002-independent-review-e239ff6.json
+  revision: e239ff65768e57dfc168bfee35703c863898a496
+playbook: process/playbooks/REVISE_AS.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: as_revision_after_independent_review
+    receipt: reviews/gates/TOY1-AS002-independent-review-e239ff6.json
+    source_task_manifest: process/tasks/REVIEW_AS-3c3962abf1ed.yaml
+    source_revision: e239ff65768e57dfc168bfee35703c863898a496
+  review_inputs:
+    independent_review: reviews/gates/TOY1-AS002-independent-review-e239ff6.json
+    finding_ids:
+    - ASR-001
+    source_task_manifest: process/tasks/REVIEW_AS-3c3962abf1ed.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: AS_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
