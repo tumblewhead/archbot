@@ -1,0 +1,74 @@
+# First contract authoring after controlled AS-v2 activation.
+# Uses generic DEFINE_CON; scenario clauses come only from the reviewed active baseline.
+schema: pc-task/v1
+id: TOY1-CON005-MINIMAL
+role: contract-agent
+operation: DEFINE_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: BASELINE_ACTIVATED
+  reference: process/baselines/AS-001-v2-active.yaml
+playbook: process/playbooks/DEFINE_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    active_baseline: process/baselines/AS-001-v2-active.yaml
+    architecture_statement: knowledge/architecture/AS-001/statement-v2.md
+    verification_plan: knowledge/architecture/AS-001/verification_plan-v3.md
+    vo_ledger: process/ledgers/vo_ledger-AS-001-v2-active.yaml
+    accepted_selection: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+    ad_ledger: process/ledgers/ad_ledger.yaml
+    selected_ap: knowledge/architecture/AS-001/proposals/AP-002.md
+    accepted_abstract_proof: knowledge/architecture/AS-001/proofs/PR-002.md
+    memory_scope: process/decisions/C-002-scope.yaml
+    merit: knowledge/architecture/AS-001/merit.md
+    baseline_review: reviews/gates/TOY1-BASELINE002-independent-review.json
+  authoring_limits:
+    goal: smallest_sufficient_externally_observable_contract_for_rolling_squared_sum
+    mathematical_window: latest_32_accepted_published_samples
+    publisher_owns: uninterrupted_ordered_delivery
+    detector_owns: one_exact_sample_indexed_update_per_accepted_legal_sample
+    no_unsupported_synthetic_requirements:
+      - 1_ms_period_or_real_time_deadline
+      - physical_ADC_loss_or_reconstruction
+      - sequence_counters_or_loss_epochs
+      - source_watchdog_or_counter_wrap
+      - external_atomic_publication_without_concurrent_reader_authority
+      - nonapproved_ISR_task_topology
+    do_not_invent:
+      - sampling_rate
+      - hardware_layout
+      - concurrency_model
+      - throughput
+      - memory_consumption_as_measured_fact
+    required_coverage:
+      - exact_newest_32_and_zero_padding
+      - arithmetic_and_C_expression_bounds
+      - upstream_publisher_vs_detector_ownership
+      - approved_2048_byte_detector_attributable_SRAM_envelope
+      - integer_only_no_FPU
+      - active_VO_002_through_VO_006_open_and_assigned
+    output_policy: additive_versioned_contracts_and_DE_placeholders_only
+outputs:
+  allowed:
+    - versioned_minimal_CON_concepts
+    - versioned_CON_spine
+    - typed_interface_and_responsibility_matrix
+    - stage_appropriate_memory_attribution_plan
+    - evidence_plan_and_open_VO_mapping
+    - minimal_DE_placeholders
+    - independent_CON_review_request
+    - authoring_receipt
+  prohibited:
+    - overwrite_historical_CON_v1_to_v4
+    - activate_unreviewed_contracts
+    - change_active_AS_AP_F_or_VOs
+    - discharge_VOs_or_accept_new_AD
+    - invent_loss_detection_watchdog_or_1ms
+    - implement_firmware
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
