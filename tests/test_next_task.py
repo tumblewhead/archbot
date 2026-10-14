@@ -191,8 +191,8 @@ class LoopTests(unittest.TestCase):
         }))
         spine = "knowledge/architecture/beta/contracts/spine-v6.md"
         contract = "knowledge/architecture/beta/contracts/CON-001-v6.md"
-        self._put(spine, "---\\ntype: Contract Spine\\nid: CON-S6\\n---\\n")
-        self._put(contract, "---\\ntype: Design Contract\\nid: CON-001-v6\\n---\\n")
+        self._put(spine, "---\ntype: Contract Spine\nid: CON-S6\n---\n")
+        self._put(contract, "---\ntype: Design Contract\nid: CON-001-v6\n---\n")
         receipt = "reviews/gates/v6-ready.json"
         self._put(receipt, json.dumps({
             "schema": "pc-con-authoring-receipt/v1", "task_id": "CON-REV",
