@@ -4,6 +4,43 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Latest: CON-v6 submitted and project-owned dialogue proposal (2026-10-13)
+
+Human design direction: **all human-agent interaction must belong to the
+spine of the engineering project in which it occurs; a complete project
+should be easy to archive, inspect and resume**. This broadens our
+previous discussion of proactive engineering questions, educational agent
+explanations, revisiting scoped human commitments, and collaborative
+inconsistency resolution. Proposed requirements and archive approach:
+`docs/PROJECT_INTERACTION_ARCHIVE_PROPOSAL.md`. Human-agent
+interrogation proposal and `docs/QUALIFICATION_CAMPAIGN.md` now carry
+the revised qualification sequence: finish current Toy 1 -> audit/freeze
+generic process -> cleanroom Toy 1 without dialogue -> implement
+project-owned dialogue/consistency/archive -> cleanroom Toy 1 with it ->
+Toy 2 -> higher novelty and scale. The protocol/UI is **not yet
+implemented or qualified**, and this conversation has not been
+automatically archived into the project's OKF event graph.
+
+Latest local result pushed as `d234146c6a3d`: versioned CON-v6
+contracts, DE placeholders, coverage and
+`reviews/gates/TOY1-CON005-receipt-v6.json`, whose authoring status
+is `CONTRACTS_READY_FOR_INDEPENDENT_REVIEW`. The authoring agent
+responded to all `CON005-F01..F04` and preserved external publisher
+ownership, open VOs and AD-003. The new C-002 contract budget has
+1,792 bytes of *conditional category ceilings* plus 256 bytes reserve
+under the existing 2,048-byte cap. This is not physical fit evidence.
+Reset quiescence, coherent completed-operation integer result and
+legal-only input-domain semantics are proposed; no old 1 ms, watchdog
+or source-loss guarantee is revived.
+
+**Next:** independent `REVIEW_CON` of v6 using generic receipt
+routing `contract_revised_authoring_review`. Run
+`tools/next_task.py inspect/emit --receipt
+reviews/gates/TOY1-CON005-receipt-v6.json`, then the generated task.
+No CON/DE/firmware gate approval follows from the authoring receipt.
+If independent review accepts v6, proceed to DE; if not, correct only
+substantiated blockers. The new routing test requires local execution.
+
 ## Current gate: independent CON-v5 review REVISE, minimal CON-v6 correction
 
 The latest user push at `7fca06ab5524` added the independent
