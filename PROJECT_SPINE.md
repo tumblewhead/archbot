@@ -4,6 +4,34 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Latest: DE-v7 submitted for independent review (2026-10-14)
+
+Commit `15525ce2b2d4` contains five draft DEs:
+INGRESS, STATE, UPDATE, RESULT and RESOURCE, with
+`knowledge/architecture/AS-001/design_elements/spine-v7.md`,
+`reviews/gates/TOY1-DECOMPOSE-DE-rationale-v7.md`, and
+`reviews/gates/TOY1-DECOMPOSE-DE-receipt-v7.json`.
+The authoring receipt says `DE_READY_FOR_INDEPENDENT_REVIEW`,
+not independent acceptance. It preserves the sample-indexed newest-32
+recurrence, external publisher responsibility, quiescent reset,
+coherent full-range result, conditional C-002 2,048-byte SRAM cap
+and open VO-002..VO-006. It does not prove target fit or C correctness.
+
+**Next execution:** use `tools/next_task.py inspect/emit --receipt
+reviews/gates/TOY1-DECOMPOSE-DE-receipt-v7.json` to generate a
+`REVIEW_DE` task. The generic transition now matches
+`gate_status: DE_READY_FOR_INDEPENDENT_REVIEW`, as emitted by the
+authoring agent. `tools/task.py` checks typed submitted DE concepts,
+receipt and originating project/task identity. The reviewer should
+challenge composition, state ownership, reset/result interfaces,
+resource attribution, proof scope and unsupported integration details,
+then issue a bounded independent receipt. No C code until a favorable
+independent DE gate and an authorized implementation task.
+
+The revised qualification campaign remains: finish Toy 1, genericity
+audit/freeze, cleanroom Toy 1, project-owned dialogue and archive,
+repeat cleanroom Toy 1, then Toy 2 and scale.
+
 ## Latest gate: CON-v6 independently accepted for DE refinement (2026-10-14)
 
 Commit `aab8d226468a` adds independent
