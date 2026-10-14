@@ -1,6 +1,36 @@
 # Progressive Concretization: two-toy qualification campaign
 
-**Status:** Planned; no end-to-end qualification has yet been demonstrated.
+**Status:** Revised sequence planned; no end-to-end qualification has yet been demonstrated.
+
+## Revised qualification order and conversational research boundary
+
+1. Complete Toy 1 development through contracts, DE, C implementation,
+   appropriate independent verification and the strongest honest end-to-end
+   evidence available for its actual target.
+2. Audit and freeze the **generic** process separately from Toy 1-specific
+   policies and domain validators.
+3. Run a cleanroom Toy 1 qualification using only authorized project inputs,
+   no prior solution artifacts and the frozen process **without** the future
+   dialogue layer.
+4. Implement project-owned human-agent dialogue with proactive engineering
+   interviews, educational explanations, revisited scoped commitments,
+   collaborative inconsistency resolution, and an auditable project-local
+   archive (see `docs/PROJECT_INTERACTION_ARCHIVE_PROPOSAL.md`).
+5. Run another cleanroom Toy 1 using the dialogue layer and compare
+   interventions, source/authority mistakes, review loops, time, opaque
+   decisions, false inconsistency alarms and completeness of project archive.
+6. Run Toy 2 with increased problem novelty, then progressively increase
+   novelty, interaction count, system complexity and scale.
+
+The problem statement and end-to-end acceptance test must not be
+leaked from the previous Toy 1 solution into either cleanroom replay.
+A project-owned conversation record is distinct from verified factual
+evidence and protected human approval. Framework changes between the
+two replays must be isolated or separately controlled to preserve the
+comparison.
+
+This section supersedes historical "next action" text below, whose
+milestone snapshots remain for traceability.
 
 ## Goal
 
