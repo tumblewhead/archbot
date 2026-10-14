@@ -128,3 +128,11 @@ The study proposes sharper semantics before generic implementation: normative ER
 A valid conditional model theorem can be accepted under its stated assumptions even while product correspondence remains open. What must be refused is an unjustified promotion to product safety. These are proposed refinements of v0.1, not changes to product authority or current VOs.
 
 The study recommends one narrow vertical slice across ERS, planning and execution, centered on a small typed evidence checker. It is self-adversarial design work, not an independent verification of Archbot or a completed cleanroom qualification. The live runner and installed operations are unchanged by this documentation update.
+
+## 10. Human-interface adversarial study: VS-002
+
+[VS-002: verification and the human interface](VERIFICATION_UI_STUDY_VS002.md) extends the three-stage study to explanations, scoped human questions, contradictory interpretations, evidence presentation, hypothetical exploration, stale approvals, and project-owned history. It includes a new initial-backlog queue witness, a denominator counterexample, and 37 standalone proposed-contract probes.
+
+The proposed interface keeps conversation, authority and evidence distinct. It must preserve the subject and scope of displayed results, bind consequential actions to exact proposals and relevant snapshots, and distinguish authorized assumptions from physical verification. Mode-specific corrections can change applicability without invalidating the original conditional theorem. Human understanding remains an empirical evaluation question, not something proved by acknowledgment or repeated agreement.
+
+The study is documentation and bounded self-adversarial work only. It does not install an interactive UI, alter production gates, change firmware, or discharge any verification obligation. The existing cleanroom roadmap remains unchanged; verification should emit UI-compatible project records before the later dialogue adapter is built.
