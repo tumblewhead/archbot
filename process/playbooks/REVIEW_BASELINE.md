@@ -29,6 +29,13 @@ must be independent of the baseline package's authoring invocation.
    or implementation obligations.
 6. Check applicability of accepted provisional AP selection, conditions,
    fallback and F ranking uncertainty. Preserve all historical decisions.
+   When a candidate declares `effective_relation_overrides`, verify its
+   deterministic, independently review-backed projection. Distinguish
+   *historical concept links* from relationships selected by the candidate
+   baseline. Review the selected dependency and its provenance rather than
+   requiring an unrelated immutable concept revision. Reject ambiguous
+   overrides, mismatches with reviewed artifacts or any claim that a
+   pending candidate already changes the active graph.
 7. Identify the precise candidate active-AS and VO record that may be
    installed after review, and the smallest remaining approvals or open
    obligations before downstream contracts.
