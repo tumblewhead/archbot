@@ -254,6 +254,14 @@ def validate(root: Path, manifest: str) -> dict:
         vo_path = candidate.get("candidate_active_vo_004")
         for candidate_path in (as_path, vp_path, vo_path):
             _file(root, candidate_path, "knowledge")
+        if candidate.get("effective_relation_overrides"):
+            # Baseline projection must be deterministic and backed by the
+            # accepted review. Do not rewrite historical OKF relations.
+            from baseline_relations import BaselineRelationError, resolve
+            try:
+                resolve(root, trigger["reference"])
+            except BaselineRelationError as exc:
+                raise TaskError("Invalid effective baseline relations: " + str(exc)) from exc
         review_ref = candidate.get("independent_as_review", {}).get("receipt")
         review = json.loads(_file(root, review_ref, "reviews").read_text(encoding="utf-8"))
         if (not isinstance(review, dict) or review.get("gate") != "AS_REVIEW"
