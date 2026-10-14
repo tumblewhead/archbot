@@ -1,0 +1,75 @@
+{
+  "schema": "pc-con-authoring-receipt/v1",
+  "task_id": "TOY1-CON005-MINIMAL",
+  "operation": "DEFINE_CON",
+  "role": "contract-agent",
+  "input_revision": "22c4420eeb45ed8746b23c358a91d5c9bb161c39",
+  "gate_status": "CONTRACTS_UNRESOLVED",
+  "trigger": {
+    "kind": "BASELINE_ACTIVATED",
+    "reference": "process/baselines/AS-001-v2-active.yaml",
+    "verification": "ACTIVE_BASELINE_VERIFIED",
+    "selected_ap": "AP-002",
+    "architecture": "AS-001-v2",
+    "verification_plan": "VP-001-v3-candidate",
+    "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"]
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/spine.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v5.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v5.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v5.md",
+    "knowledge/architecture/AS-001/contracts/spine-v5.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v5.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v5.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v5.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v5.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v5.md",
+    "reviews/gates/TOY1-CON005-coverage-v5.md",
+    "reviews/gates/TOY1-CON005-independent-review-request-v5.md",
+    "reviews/gates/TOY1-CON005-receipt-v5.json"
+  ],
+  "unresolved": [
+    "Publisher uninterrupted ordered delivery is external and unverified; no integration owner/evidence is present.",
+    "Invalid-input reporting and fault recovery policy are unspecified.",
+    "Reset concurrency/lifecycle authority and result representation/reader concurrency are unspecified.",
+    "Numeric category allocations, actual layout, stack, interrupt/shared/dynamic attribution, and positive implementation margin remain open under VO-002.",
+    "Concrete integer promotions, source behavior, build evidence, and target evidence remain open under VO-003 through VO-006.",
+    "AD-003 remains accepted; final F-001 comparison is still due before final acceptance."
+  ],
+  "authority_preserved": {
+    "active_as_ap_f": "unchanged",
+    "vo_002_to_vo_006": "open",
+    "vo_001": "discharged within accepted synthetic-domain scope only",
+    "ad_003": "accepted and unchanged",
+    "contracts_accepted": false,
+    "firmware_implemented": false
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/TOY1-CON005-MINIMAL.yaml",
+      "result": "PASS",
+      "summary": "Task manifest, DEFINE_CON role/playbook, trigger and logical spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "summary": "Active baseline, reviewed effective VP-v3 relation, AP-002 and open VOs verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "71 concepts, 298 typed links, 0 warnings, 0 errors; structural validation only; raw SHA-256 skipped."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    }
+  ],
+  "review_limits": [
+    "Structural checks do not prove mathematical claims, contract correctness, C/firmware correctness, publisher continuity, target behavior, resource fit, or independent approval.",
+    "No raw datasets, firmware, compiler output, linker map, target measurements, or physical publisher evidence were required or inspected."
+  ],
+  "next_eligible_action": "Independent reviewer evaluates whether the explicitly unresolved result/reset semantics and missing numeric categorized SRAM allocation block CON acceptance; revise only if required, then issue an accepted contract review before DE refinement."
+}
