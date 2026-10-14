@@ -65,3 +65,15 @@ transitions:
     target: receipt
     trigger_kind: AS_REVIEW_REVISION_REQUIRED
     gate: AS_REVIEW
+  - id: contract_unresolved_scope_review
+    receipt_schema: pc-con-authoring-receipt/v1
+    requires:
+      operation: DEFINE_CON
+      gate_status: CONTRACTS_UNRESOLVED
+    require_unresolved: true
+    operation: REVIEW_CON
+    target: changed_concept
+    concept_type: Contract Spine
+    related_concept_type: Design Contract
+    trigger_kind: CONTRACT_UNRESOLVED_SUBMITTED
+    gate: CONTRACT_REVIEW
