@@ -167,9 +167,9 @@ def validate(root: Path, manifest: str) -> dict:
             if ref not in receipt["changed_artifacts"]:
                 raise TaskError("Submitted DE concept missing from authoring receipt: " + ref)
             content = _file(root, ref, "knowledge").read_text(encoding="utf-8")
-            if not content.startswith("---\\n") or "\\n---\\n" not in content:
+            if not content.startswith("---\n") or "\n---\n" not in content:
                 raise TaskError("DE submission lacks OKF frontmatter: " + ref)
-            meta = yaml.safe_load(content.split("\\n---\\n", 1)[0][4:])
+            meta = yaml.safe_load(content.split("\n---\n", 1)[0][4:])
             if not isinstance(meta, dict) or meta.get("type") != expected_type:
                 raise TaskError("DE submission concept type mismatch: " + ref)
     if trigger["kind"] == "CONTRACT_ACCEPTED_FOR_DE":
