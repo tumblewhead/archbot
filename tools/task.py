@@ -85,6 +85,53 @@ def validate(root: Path, manifest: str) -> dict:
         trigger_path = _file(root, trigger["reference"])
     else:
         trigger_path = None
+    if trigger["kind"] == "CONTRACT_UNRESOLVED_SUBMITTED":
+        if operation != "REVIEW_CON" or trigger_path is None or trigger_path.suffix != ".md":
+            raise TaskError("Unresolved contract review requires REVIEW_CON and a draft contract spine")
+        inputs = data.get("context", {}).get("artifact_inputs", {})
+        receipt_ref = inputs.get("submission_receipt") if isinstance(inputs, dict) else None
+        if (not isinstance(inputs, dict)
+                or inputs.get("primary_concept") != trigger["reference"]
+                or not isinstance(receipt_ref, str)):
+            raise TaskError("Unresolved contract review must identify exact spine and authoring receipt")
+        receipt = json.loads(_file(root, receipt_ref, "reviews").read_text(encoding="utf-8"))
+        if (not isinstance(receipt, dict)
+                or receipt.get("schema") != "pc-con-authoring-receipt/v1"
+                or receipt.get("operation") != "DEFINE_CON"
+                or receipt.get("gate_status") != "CONTRACTS_UNRESOLVED"
+                or not isinstance(receipt.get("unresolved"), list)
+                or not receipt["unresolved"]
+                or trigger["reference"] not in receipt.get("changed_artifacts", [])):
+            raise TaskError("Unresolved contract submission lacks matching bounded receipt")
+        header = trigger_path.read_text(encoding="utf-8")
+        if not header.startswith("---\n") or "\n---\n" not in header:
+            raise TaskError("Submitted contract spine is not a versioned OKF concept")
+        concept = yaml.safe_load(header.split("\n---\n", 1)[0][4:])
+        if not isinstance(concept, dict) or concept.get("type") != "Contract Spine":
+            raise TaskError("Submitted concept is not a Contract Spine")
+        contracts = inputs.get("related_concepts")
+        if not isinstance(contracts, list) or not contracts:
+            raise TaskError("Unresolved contract review must name draft contracts")
+        for contract in contracts:
+            if contract not in receipt["changed_artifacts"]:
+                raise TaskError("Contract not in submitted receipt: " + str(contract))
+            contract_text = _file(root, contract, "knowledge").read_text(encoding="utf-8")
+            if not contract_text.startswith("---\n") or "\n---\n" not in contract_text:
+                raise TaskError("Submitted contract lacks OKF frontmatter")
+            contract_meta = yaml.safe_load(contract_text.split("\n---\n", 1)[0][4:])
+            if not isinstance(contract_meta, dict) or contract_meta.get("type") != "Design Contract":
+                raise TaskError("Unresolved review includes a noncontract concept")
+        source_task_ref = "process/tasks/" + str(receipt.get("task_id")) + ".yaml"
+        original = yaml.safe_load(_file(root, source_task_ref, "process/tasks").read_text(encoding="utf-8"))
+        if (not isinstance(original, dict) or original.get("operation") != "DEFINE_CON"
+                or original.get("trigger", {}).get("kind") != "BASELINE_ACTIVATED"):
+            raise TaskError("Submitted contracts do not originate from active-baseline authoring")
+        baseline_ref = original["trigger"].get("reference")
+        from active_baseline import ActiveBaselineError, verify
+        try:
+            verify(root, baseline_ref)
+        except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
+            raise TaskError("Unresolved contract review lacks verified baseline: " + str(exc)) from exc
     if trigger["kind"] == "CONTRACT_REVIEW_REVISION_REQUIRED":
         if trigger_path is None or trigger_path.suffix != ".json":
             raise TaskError("Contract revision requires a JSON independent-review receipt")
