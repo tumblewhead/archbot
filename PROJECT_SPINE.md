@@ -4,6 +4,45 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate: Option A approved; baseline reconciliation review pending
+
+The engineering authority explicitly approved Option A on 2026-10-13:
+"Approve Option A (the only option lol)". Immutable superseding decision:
+`process/decisions/AP-002-AS-V2-RECONFIRMATION-001.md` and `.yaml`.
+AP-002 is again *provisionally* selected for CON-first, now grounded in
+sample-indexed `statement-v2.md`. The former 1 ms selection premise is
+superseded in applicability, not edited in historical records. C-002's
+2048-byte detector-attributable SRAM, C-003 no-FPU, R-002 exact newest-32,
+R-003 overflow guarantee, F-001, PR-002 and accepted AD-003 remain.
+Uninterrupted ordered publication remains the publisher's **external
+assumption**, not physically verified input integrity.
+
+The independent AS review
+`reviews/gates/TOY1-AS002-independent-review-v3.json` reports
+`ACCEPT_WITH_CLARIFICATIONS`; the candidate AS/VP/VO package itself is
+correct, but authoritative activation/ledger alignment still needs an
+independent check. Approved VO-004 scope is once per accepted published
+sample, numerical behavior independent of elapsed time, due at
+IMPLEMENTATION. It is still OPEN and not discharged.
+
+I prepared a candidate baseline package and full VO-ledger proposal:
+- `process/baselines/AS-001-v2-candidate.yaml`
+- `process/ledgers/vo_ledger-AS-001-v2-candidate.yaml`
+- `reviews/gates/TOY1-BASELINE001-review-request.md`.
+
+**Next execution:** `process/tasks/TOY1-BASELINE001-REVIEW.yaml`
+with reusable independent `process/playbooks/REVIEW_BASELINE.md`.
+The task validator blocks unapproved AP/scope authority, missing favorable
+AS review, removed VO identities, changed VO states/discharges and
+unauthorized due-stage changes. The author has NOT yet activated AS-v2,
+modified the current authoritative VO ledger or authorized firmware.
+This new gate and tests need the user's local execution.
+
+After favorable baseline review, activate the reviewed AS/VP/VO open
+ledger under the same authority, then create **fresh minimal CON**
+drafts from corrected AS. Do not revive legacy CON v4 loss-epoch,
+watchdog, 1 ms or unapproved concurrent-reader machinery.
+
 ## Latest independent AS-v2 review: favorable, controlled authority pending
 Commit `a41052d6af2b` added
 `reviews/gates/TOY1-AS002-independent-review-v3.json`.
