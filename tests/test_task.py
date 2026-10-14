@@ -566,6 +566,77 @@ class TaskManifestTests(unittest.TestCase):
             with self.assertRaisesRegex(task.TaskError, "different project spines"):
                 task.validate(self.root, "process/tasks/task.yaml")
 
+    def _make_de_review_task(self):
+        (self.root / "agents/verification-agent.md").write_text(
+            "# Reviewer\n", encoding="utf-8")
+        (self.root / "process/playbooks/REVIEW_DE.md").write_text(
+            "# Review DE\n", encoding="utf-8")
+        view_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(view_path.read_text(encoding="utf-8"))
+        views["roles"]["verification-agent"] = {"follow": []}
+        view_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        registry_path = self.root / "process/operations.yaml"
+        registry = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
+        registry["operations"]["REVIEW_DE"] = {
+            "role": "verification-agent", "playbook": "process/playbooks/REVIEW_DE.md",
+        }
+        registry_path.write_text(yaml.safe_dump(registry), encoding="utf-8")
+        spine = "knowledge/architecture/alpha/design_elements/spine-v7.md"
+        element = "knowledge/architecture/alpha/design_elements/DE-001-v7.md"
+        receipt_ref = "reviews/gates/de-authoring.json"
+        for path, content in {
+            spine: "---\ntype: Design Element Spine\nid: DS-7\n---\n",
+            element: "---\ntype: Design Element\nid: DE-7\n---\n",
+            "process/tasks/DE-AUTHOR.yaml": yaml.safe_dump({
+                "id": "DE-AUTHOR", "operation": "DECOMPOSE_DE",
+                "spine": "/architecture/alpha/spine.md",
+                "trigger": {"kind": "CONTRACT_ACCEPTED_FOR_DE",
+                            "reference": "reviews/gates/accepted.json"},
+            }),
+            receipt_ref: json.dumps({
+                "schema": "pc-de-authoring-receipt/v1",
+                "task_id": "DE-AUTHOR", "operation": "DECOMPOSE_DE",
+                "gate": "DE_REVIEW",
+                "gate_status": "DE_READY_FOR_INDEPENDENT_REVIEW",
+                "changed_artifacts": [spine, element],
+            }),
+        }.items():
+            target = self.root / path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(content, encoding="utf-8")
+        self.manifest.update(
+            role="verification-agent", operation="REVIEW_DE",
+            playbook="process/playbooks/REVIEW_DE.md",
+            trigger={"kind": "DE_DRAFT_SUBMITTED", "reference": spine},
+            context={"artifact_inputs": {
+                "primary_concept": spine, "related_concepts": [element],
+                "submission_receipt": receipt_ref,
+            }},
+            gate={"kind": "DE_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return self.root / receipt_ref
+
+    def test_de_review_requires_ready_receipt(self):
+        receipt = self._make_de_review_task()
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"],
+            "REVIEW_DE",
+        )
+        obj = json.loads(receipt.read_text(encoding="utf-8"))
+        obj["gate_status"] = "DE_UNRESOLVED"
+        receipt.write_text(json.dumps(obj), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "matching ready authoring receipt"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_de_review_rejects_cross_project_author(self):
+        self._make_de_review_task()
+        self.manifest["spine"] = "/architecture/beta/spine.md"
+        self.store()
+        with self.assertRaisesRegex(task.TaskError, "not authorized for this project"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
