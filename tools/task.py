@@ -158,6 +158,8 @@ def validate(root: Path, manifest: str) -> dict:
                 or author.get("spine") != spine_ref
                 or author.get("trigger", {}).get("kind") != "CONTRACT_ACCEPTED_FOR_DE"):
             raise TaskError("DE review source task is not authorized for this project")
+        if not isinstance(inputs.get("related_concepts"), list) or not inputs["related_concepts"]:
+            raise TaskError("DE review requires at least one design element")
         for ref, expected_type in [
             (trigger["reference"], "Design Element Spine"),
             *[(ref, "Design Element") for ref in inputs.get("related_concepts", [])],
@@ -170,8 +172,6 @@ def validate(root: Path, manifest: str) -> dict:
             meta = yaml.safe_load(content.split("\\n---\\n", 1)[0][4:])
             if not isinstance(meta, dict) or meta.get("type") != expected_type:
                 raise TaskError("DE submission concept type mismatch: " + ref)
-        if not isinstance(inputs.get("related_concepts"), list) or not inputs["related_concepts"]:
-            raise TaskError("DE review requires at least one design element")
     if trigger["kind"] == "CONTRACT_ACCEPTED_FOR_DE":
         if operation != "DECOMPOSE_DE" or trigger_path is None or trigger_path.suffix != ".json":
             raise TaskError("DE refinement requires DECOMPOSE_DE and an independent CON review")
