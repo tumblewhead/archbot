@@ -115,7 +115,7 @@ transitions:
     requires:
       operation: DECOMPOSE_DE
       gate: DE_REVIEW
-      status: DE_READY_FOR_INDEPENDENT_REVIEW
+      gate_status: DE_READY_FOR_INDEPENDENT_REVIEW
     operation: REVIEW_DE
     target: changed_concept
     concept_type: Design Element Spine
