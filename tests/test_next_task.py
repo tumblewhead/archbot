@@ -114,6 +114,49 @@ class LoopTests(unittest.TestCase):
         self.assertEqual(out["manifest"]["trigger"]["reference"], spine)
         self.assertEqual(out["manifest"]["context"]["authority_inputs"]["current_contracts"], [contract])
 
+    def test_unresolved_contracts_route_to_independent_scope_triage(self):
+        rules_path = self.root / "process/loop_transitions.yaml"
+        rules = yaml.safe_load(rules_path.read_text(encoding="utf-8"))
+        rules["transitions"].append({
+            "id": "contract_unresolved_scope_review",
+            "receipt_schema": "pc-con-authoring-receipt/v1",
+            "requires": {"operation": "DEFINE_CON", "gate_status": "CONTRACTS_UNRESOLVED"},
+            "require_unresolved": True, "operation": "REVIEW_CON",
+            "target": "changed_concept", "concept_type": "Contract Spine",
+            "related_concept_type": "Design Contract",
+            "trigger_kind": "CONTRACT_UNRESOLVED_SUBMITTED", "gate": "CONTRACT_REVIEW",
+        })
+        rules_path.write_text(yaml.safe_dump(rules), encoding="utf-8")
+        self._put("process/tasks/CON-AUTHOR.yaml", yaml.safe_dump({
+            "id": "CON-AUTHOR", "spine": "/architecture/alpha/spine.md",
+        }))
+        spine = "knowledge/architecture/alpha/contracts/spine-v5.md"
+        contract = "knowledge/architecture/alpha/contracts/CON-001-v5.md"
+        self._put(spine,
+                  "---\\ntype: Contract Spine\\nid: CONTRACT-SPINE-v5\\n---\\n")
+        self._put(contract,
+                  "---\\ntype: Design Contract\\nid: CONTRACT-001-v5\\n---\\n")
+        payload = {
+            "schema": "pc-con-authoring-receipt/v1", "task_id": "CON-AUTHOR",
+            "operation": "DEFINE_CON", "gate_status": "CONTRACTS_UNRESOLVED",
+            "unresolved": ["Target-specific stack measurements remain open at implementation"],
+            "changed_artifacts": [spine, contract],
+        }
+        receipt = "reviews/gates/contract-unresolved.json"
+        self._put(receipt, json.dumps(payload))
+        result = next_task.decision(self.root, receipt)
+        self.assertEqual(result["manifest"]["operation"], "REVIEW_CON")
+        self.assertEqual(result["manifest"]["trigger"]["kind"], "CONTRACT_UNRESOLVED_SUBMITTED")
+        self.assertEqual(result["manifest"]["trigger"]["reference"], spine)
+        self.assertEqual(result["manifest"]["context"]["artifact_inputs"]["related_concepts"],
+                         [contract])
+        self._put(result["path"], yaml.safe_dump(result["manifest"]))
+        self.assertEqual(next_task.decision(self.root, receipt)["status"], "ALREADY_PLANNED")
+        payload["unresolved"] = []
+        self._put(receipt, json.dumps(payload))
+        with self.assertRaises(next_task.LoopError):
+            next_task.decision(self.root, receipt)
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
