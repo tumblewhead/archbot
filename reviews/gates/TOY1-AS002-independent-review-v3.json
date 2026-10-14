@@ -1,0 +1,128 @@
+{
+  "schema": "pc-as-review/v1",
+  "task_id": "REVIEW_AS-d15a807ba281",
+  "gate": "AS_REVIEW",
+  "review_role": "verification-agent",
+  "input_revision": "8e161c73b4f282982c66958f0eac718750b4fdee",
+  "submitted_source_revision": "de702e4eb5f09f9b57e5cf01c2e20d0180081abf",
+  "revision_relationship": "The current checkout is a later descendant of the submitted authoring revision. The authoring receipt and its candidate artifacts are present at HEAD with hashes matching the receipt. The task trigger revision identifies the submitted source revision; it is not the current checkout revision.",
+  "manifest": "process/tasks/REVIEW_AS-d15a807ba281.yaml",
+  "authoring_receipt": "reviews/gates/TOY1-AS002-revision1-authoring-receipt.json",
+  "independent_of_authoring_invocation": true,
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "gate_status": "AS_CANDIDATE_ACCEPTABLE_WITH_EXPLICIT_CONDITIONS",
+  "candidate_artifacts": [
+    {
+      "path": "knowledge/architecture/AS-001/statement-v2.md",
+      "sha256": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe"
+    },
+    {
+      "path": "knowledge/architecture/AS-001/verification_plan-v3.md",
+      "sha256": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3"
+    },
+    {
+      "path": "knowledge/architecture/AS-001/verification/VO-004-v2.md",
+      "sha256": "18aa0589513d24f37b336721377345e496678ee1ea1ef0617f3573fb8a3e410a"
+    },
+    {
+      "path": "knowledge/bkp/problem-origin-scope-correction-v2.md",
+      "sha256": "29bc37dfc32fb2cc5cc403ac6799bcec97b71fc8b79670ff7c9c93438749bf87"
+    },
+    {
+      "path": "reviews/gates/TOY1-AS002-impact-v2.md",
+      "sha256": "a7e1004be7e6c6e720fe33d06010547c62dde3700314956f20d3498fddbd9266"
+    }
+  ],
+  "authority_inputs": [
+    {
+      "path": "process/decisions/AS-001-SCOPE-CORRECTION-001.yaml",
+      "finding": "Authorizes a versioned AS/VP/VO correction and review, including newest-32 sample-indexed processing, while preserving the stated synthetic domain, SRAM scope, no-FPU constraint, mathematical proof boundary, open VOs and AD-003. It does not accept the candidate or authorize downstream work before review and authority impact handling."
+    },
+    {
+      "path": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.md",
+      "finding": "The approved AP-002 selection protects the one-sample-per-millisecond premise. The corrected AS scope supersedes that premise, so engineering authority must explicitly dispose of AP-002 applicability before a new CON baseline."
+    },
+    {
+      "path": "process/ledgers/vo_ledger.yaml",
+      "finding": "VO-002 through VO-006 remain open. Authoritative VO-004 still lists TARGET_VALIDATION; proposed VO-004-v2 and VP-v3 assign detector-side accepted-sample processing evidence to IMPLEMENTATION. No ledger change or discharge is made by this review."
+    },
+    {
+      "path": "process/ledgers/ad_ledger.yaml",
+      "finding": "AD-003 remains accepted history with its existing checkpoints and final F-001 disposition. This review neither revises nor discharges it."
+    },
+    {
+      "path": "knowledge/architecture/AS-001/proofs/PR-002.md",
+      "finding": "PR-002 remains limited to the abstract integer/ring recurrence under its assumptions; it does not establish publisher integrity, C correctness, timing, target behavior or firmware correctness."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ASR-004",
+      "severity": "clarification_before_downstream_baseline",
+      "claim": "Protected AP-002 premise and accepted AD-003 applicability",
+      "finding": "The corrected sample-indexed R-001 conflicts with AP-002's approved one-sample-per-millisecond premise. The authoring impact report preserves this conflict and correctly requests an explicit engineering-authority disposition after favorable AS review. AD-003, F-001, and AP records remain unchanged.",
+      "required_resolution": "Obtain explicit engineering-authority disposition of AP-002 applicability and complete any controlled VO/AD updates before establishing a new CON baseline."
+    },
+    {
+      "id": "ASR-005",
+      "severity": "clarification_before_authoritative_vo_update",
+      "claim": "Candidate due stage versus authoritative VO ledger",
+      "finding": "VP-v3 and proposed VO-004-v2 now consistently assign detector-side one-update-per-accepted-sample evidence to IMPLEMENTATION. The authoritative ledger remains open at TARGET_VALIDATION, as required for a proposal. The plan and candidate do not themselves update that binding ledger.",
+      "required_resolution": "After this review, use the controlled authority and ledger route to align authoritative VO-004 with the accepted scope and due stage; leave it open until implementation evidence is independently accepted."
+    },
+    {
+      "id": "ASR-006",
+      "severity": "unresolved_external_evidence",
+      "claim": "Upstream publisher uninterrupted ordered delivery",
+      "finding": "The AS and provenance annotation assign ordered uninterrupted delivery to the upstream publisher and explicitly disclaim physical transport verification. This is a correctly bounded external assumption; no physical publisher evidence or approved integration owner is supplied here.",
+      "required_resolution": "Keep publisher integrity outside detector loss detection. If an integration contract is approved, assign an owner, criterion and evidence stage at that boundary; do not claim the promise is physically verified here."
+    }
+  ],
+  "reviewed_claims": [
+    "AS-v2 is within the approved scope: the newest 32 samples are consumed in accepted order, update occurs once per accepted sample independent of elapsed time, and zero padding applies during startup.",
+    "The unsigned 12-bit synthetic domain, approved 2048-byte detector-attributable SRAM scope, no-FPU constraint and no-overflow requirement remain unchanged.",
+    "No detector-side loss detection, gap reconstruction, sequence tracking, watchdog, fixed 1 ms cadence or unlimited throughput is introduced.",
+    "VP-v3 now gives detector-side R-001 evidence an unambiguous IMPLEMENTATION due stage matching proposed VO-004-v2. Future approved integration rate, overload or deadline criteria remain separate obligations.",
+    "PR-002 remains applicable to its abstract integer/ring recurrence and stated assumptions only; concrete C and firmware obligations remain open.",
+    "The receipt's claimed candidate hash for VP-v3 matches the reviewed file. The AS wording is unchanged from the prior AS-v2 review candidate."
+  ],
+  "unresolved_obligations": [
+    "VO-002, VO-003, VO-004, VO-005 and VO-006 remain open in the authoritative ledger; VO-004's authoritative due stage remains TARGET_VALIDATION pending controlled update.",
+    "Engineering authority must explicitly dispose of AP-002 applicability before a new CON baseline.",
+    "AD-003 remains accepted and subject to its existing checkpoints and final F-001 disposition.",
+    "Publisher delivery integrity remains an unverified external interface assumption.",
+    "No AS activation, CON acceptance, implementation, target evidence or firmware correctness is established by this review."
+  ],
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_AS-d15a807ba281.yaml",
+      "result": "PASS",
+      "summary": "Manifest, role, operation, playbook, trigger and spine resolved."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "62 concepts, 269 typed links, 0 raw bytes hashed, 0 warnings and 0 errors. Structural validation only; raw dataset hash skipped."
+    },
+    {
+      "command": "sha256sum candidate artifacts",
+      "result": "PASS",
+      "summary": "AS-v2, VP-v3, proposed VO-004-v2, BKP provenance and impact report hashes recorded above; VP-v3 hash matches authoring receipt."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors before adding this review receipt."
+    }
+  ],
+  "changed_artifacts": [
+    "reviews/gates/TOY1-AS002-independent-review-v3.json"
+  ],
+  "review_limits": [
+    "This is an independent review of the submitted AS-v2 dependent package, not activation of AS-001-v2.",
+    "This review does not modify AP-002, F-001, AD-003, the authoritative VO ledger, contracts or firmware.",
+    "Structural validation and hash checks do not establish mathematical proof beyond PR-002's accepted scope, stakeholder approval, implementation correctness, target performance or physical publisher evidence.",
+    "Raw datasets, target measurements and firmware were not inspected because they are not required to assess this scope correction."
+  ],
+  "next_eligible_action": "Obtain explicit engineering-authority disposition of AP-002 applicability. Then complete controlled VO-004 authority/ledger alignment while keeping it open, and only after those actions establish a minimal new CON baseline."
+}
