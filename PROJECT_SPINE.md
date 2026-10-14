@@ -4,6 +4,34 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Latest independent AS-v2 review: favorable, controlled authority pending
+Commit `a41052d6af2b` added
+`reviews/gates/TOY1-AS002-independent-review-v3.json`.
+It reports `ACCEPT_WITH_CLARIFICATIONS` and
+`AS_CANDIDATE_ACCEPTABLE_WITH_EXPLICIT_CONDITIONS`.
+The versioned AS-v2 is correct under approved sample-indexed newest-32
+publisher input semantics, and VP-v3 / proposed VO-004-v2 both put
+detector-side R-001 evidence due at IMPLEMENTATION. The independent
+review does **not** activate the new AS, modify the VO ledger, reaffirm
+AP-002 selection or discharge any VO.
+
+The old approved AP-002 selection protects the superseded 1-ms
+cadence. Engineering-authority disposition of its applicability to AS-v2
+is now required before a new CON baseline. The precise, **unapproved**
+request is
+`process/decisions/AP-002-AS-V2-APPLICABILITY-REQUEST-v1.md`.
+Option A would provisionally reaffirm AP-002 only for CON-first under
+the corrected sample-indexed AS, retain AD-003 and C-002/F-001,
+and authorize controlled open VO-004 rescoping. Old selection,
+AS/VP/VO ledgers, proof and CON history remain unchanged.
+
+**Next:** obtain explicit engineering-authority decision for Option A,
+B (reopen AP selection) or revisions. On approval, create a versioned
+superseding decision, align the active AS/VP/VO-004 index and open ledger
+through controlled review, then generate only minimal new CON drafts.
+Never resurrect obsolete loss epochs, sequence watchdogs or invented
+1-ms obligations. No DE/firmware work is authorized yet.
+
 ## Current gate: AS-v2 and VP-v3 package submitted for review
 Commit `b1206705e12e` added a corrected versioned
 `knowledge/architecture/AS-001/verification_plan-v3.md` and
