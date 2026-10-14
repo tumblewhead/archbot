@@ -291,6 +291,50 @@ class LoopTests(unittest.TestCase):
         self._put(out["path"], yaml.safe_dump(out["manifest"]))
         self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
 
+    def test_accepted_design_routes_to_authorized_implementation(self):
+        policy_path = self.root / "process/loop_transitions.yaml"
+        policy = yaml.safe_load(policy_path.read_text(encoding="utf-8"))
+        policy["transitions"].append({
+            "id": "accepted_design_to_implementation",
+            "receipt_schema": "pc-de-review/v1",
+            "requires": {
+                "gate": "DE_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+                "next_stage_recommendation": "DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK",
+                "independent_of_authoring_invocation": True,
+            },
+            "operation": "IMPLEMENT_DE", "target": "receipt",
+            "trigger_kind": "DESIGN_ACCEPTED_FOR_IMPLEMENTATION",
+            "gate": "IMPLEMENTATION_REVIEW",
+        })
+        policy_path.write_text(yaml.safe_dump(policy), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["IMPLEMENT_DE"] = {
+            "role": "implementation-agent",
+            "playbook": "process/playbooks/IMPLEMENT_DE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/IMPLEMENT_DE.md", "# Implement reviewed DE\n")
+        self._put("process/tasks/DE-REVIEW.yaml", yaml.safe_dump({
+            "id": "DE-REVIEW", "spine": "/architecture/beta/spine.md",
+        }))
+        ref = "reviews/gates/de-accepted.json"
+        self._put(ref, json.dumps({
+            "schema": "pc-de-review/v1", "task_id": "DE-REVIEW",
+            "gate": "DE_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+            "next_stage_recommendation": "DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK",
+            "independent_of_authoring_invocation": True,
+            "findings": [{"id": "DE-C01", "severity": "clarification_nonblocking"}],
+        }))
+        out = next_task.decision(self.root, ref)
+        self.assertEqual(out["manifest"]["operation"], "IMPLEMENT_DE")
+        self.assertEqual(out["manifest"]["spine"], "/architecture/beta/spine.md")
+        self.assertIn("implementation_source", out["manifest"]["outputs"]["allowed"])
+        self.assertNotIn("implement_firmware", out["manifest"]["outputs"]["prohibited"])
+        self.assertEqual(out["manifest"]["context"]["review_inputs"]["independent_review"], ref)
+        self._put(out["path"], yaml.safe_dump(out["manifest"]))
+        self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
