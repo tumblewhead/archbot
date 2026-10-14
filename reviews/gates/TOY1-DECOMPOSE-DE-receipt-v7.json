@@ -1,0 +1,134 @@
+{
+  "schema": "pc-de-authoring-receipt/v1",
+  "task_id": "DECOMPOSE_DE-56b5902537c8",
+  "operation": "DECOMPOSE_DE",
+  "role": "design-agent",
+  "input_revision": "812a77da49d21deb3b7e1c46552fb917f8ab3d0a",
+  "trigger_revision": "00c3b4c7f8f7b61634c0379d06af350a3a78f36b",
+  "revision_relationship": "Trigger revision is an ancestor of checked-out HEAD. Trigger receipt, exact reviewed contract inputs, active baseline and ledgers are present at HEAD; reviewed source hashes match.",
+  "gate": "DE_REVIEW",
+  "gate_status": "DE_READY_FOR_INDEPENDENT_REVIEW",
+  "trigger": {
+    "kind": "CONTRACT_ACCEPTED_FOR_DE",
+    "reference": "reviews/gates/TOY1-CON006-independent-review-v6.json",
+    "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+    "next_stage_recommendation": "CON_ACCEPTABLE_FOR_DE_REFINEMENT",
+    "findings_carried": ["CON006-C01", "CON006-C02"]
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v7.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v7.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v7.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v7.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md",
+    "knowledge/architecture/AS-001/design_elements/spine-v7.md",
+    "reviews/gates/TOY1-DECOMPOSE-DE-rationale-v7.md",
+    "reviews/gates/TOY1-DE-independent-review-request-v7.md",
+    "reviews/gates/TOY1-DECOMPOSE-DE-receipt-v7.json"
+  ],
+  "source_artifacts": [
+    "reviews/gates/TOY1-CON006-independent-review-v6.json",
+    "reviews/gates/TOY1-CON005-receipt-v6.json",
+    "knowledge/architecture/AS-001/contracts/spine-v6.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v6.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md",
+    "reviews/gates/TOY1-CON005-coverage-v6.md",
+    "process/baselines/AS-001-v2-active.yaml",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml",
+    "process/ledgers/ad_ledger.yaml",
+    "knowledge/architecture/AS-001/statement-v2.md",
+    "knowledge/architecture/AS-001/verification_plan-v3.md",
+    "knowledge/architecture/AS-001/proofs/PR-002.md",
+    "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml",
+    "process/decisions/C-002-scope.yaml"
+  ],
+  "reviewed_source_sha256": {
+    "reviews/gates/TOY1-CON006-independent-review-v6.json": "e4cab12fb24b04f912955ce9acfb83ba360d9174d6cc6810b9078c8b25c9f446",
+    "reviews/gates/TOY1-CON005-receipt-v6.json": "9cbef78eb939bb86dd8813f3694bb943b15ff6ec251b2d04d7660bb774fb3aed",
+    "knowledge/architecture/AS-001/contracts/spine-v6.md": "ed67b038d22810481e8bee8ff1b96dc1f7302f696c3c1910555a1c7edb446ffb",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v6.md": "73e908295d3344d46fedc1f92a4e1a5a3b0dccf613d3369f96d73add47e819f4",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md": "7d8de1320fe14f0cb0910f259e9acafa6fcac0b5eb645b0dc096922ff4dca853",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md": "50265f1f75e96fb2981349c4706f9032ed91ccc34add7515b62a340871c4116b",
+    "reviews/gates/TOY1-CON005-coverage-v6.md": "741fbe6002de394ab7feb98dad38972accc8336d7e38dd1fd03ff49f776c7aa4",
+    "process/baselines/AS-001-v2-active.yaml": "33d0505dd79f3392a69bb5434f59a5816f1498133932cc97b0b492e16a6486d4",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml": "f2e5fe2d94a596e4fab66a210c13fcd27f749dfb63e63543045034089534c069",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "knowledge/architecture/AS-001/statement-v2.md": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe",
+    "knowledge/architecture/AS-001/verification_plan-v3.md": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+  },
+  "authority_preserved": {
+    "active_architecture": "AS-001-v2",
+    "provisional_ap": "AP-002",
+    "accepted_ad": ["AD-003"],
+    "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+    "vo_001": "discharged within accepted synthetic-domain scope only",
+    "contracts_modified": false,
+    "as_ap_or_f_modified": false,
+    "vo_discharged": [],
+    "ad_accepted": [],
+    "de_approved": false,
+    "firmware_implemented": false
+  },
+  "unresolved_obligations": [
+    "Independent DE review and acceptance remain required; this receipt is authoring evidence only.",
+    "VO-002 remains open: conditional category ceilings do not demonstrate a complete target inventory or physical fit.",
+    "VO-003 remains open pending implementation source/build evidence for integer-only behavior.",
+    "VO-004 remains open pending implementation correspondence for one update per accepted sample; publisher continuity remains an external unverified assumption.",
+    "VO-005 remains open pending implementation correspondence for sample order, startup and exact rolling result.",
+    "VO-006 remains open pending legal-domain protection and safe C expression correspondence.",
+    "Quiescent reset enforcement and concrete result handoff require implementation/integration evidence.",
+    "AD-003 remains accepted; final F-001 comparison is due before final acceptance.",
+    "No C correctness, resource fit, publisher continuity, compiler, target, or firmware evidence is claimed."
+  ],
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "result": "PASS",
+      "summary": "Recorded checked-out input revision; manifest trigger revision is an ancestor."
+    },
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/DECOMPOSE_DE-56b5902537c8.yaml",
+      "result": "PASS",
+      "summary": "Role, operation, trigger, playbook and architecture spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "summary": "Active AS-v2, effective VP-v3 relation, AP-002 and open VO states verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "86 concepts, 350 typed links, zero warnings and zero errors; structural validation only; raw SHA-256 skipped."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors in the tracked diff."
+    },
+    {
+      "command": "trailing whitespace scan on new v7 artifacts",
+      "result": "PASS",
+      "summary": "No trailing whitespace found in the new design concepts, rationale, review request or receipt."
+    },
+    {
+      "command": "reviewed_input_sha256 comparison",
+      "result": "PASS",
+      "summary": "All source hashes recorded in the independent CON-v6 review match current files."
+    },
+    {
+      "command": "DE resource ceiling arithmetic review",
+      "result": "PASS",
+      "summary": "Per-element subceilings sum to the accepted category ceilings: persistent 256 B, scratch 128 B, stack 512 B, interrupt context 256 B, shared 256 B, dynamic 128 B and other 256 B; allocated total 1,792 B plus 256 B reserve equals 2,048 B. This is accounting consistency, not fit evidence."
+    }
+  ],
+  "review_limits": [
+    "Structural validation is not a proof, independent design acceptance, or empirical validation.",
+    "No tests, raw datasets, C source, compiler output, linker map, stack report, target measurement, or physical publisher evidence were inspected or generated."
+  ],
+  "next_eligible_action": "Submit the v7 DE spine, concepts, rationale, and review request for independent REVIEW_DE. Implementation remains gated on accepted DE review and guarded downstream authorization."
+}
