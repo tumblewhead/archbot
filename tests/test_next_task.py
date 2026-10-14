@@ -335,6 +335,47 @@ class LoopTests(unittest.TestCase):
         self._put(out["path"], yaml.safe_dump(out["manifest"]))
         self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
 
+    def test_implementation_authoring_routes_to_independent_review(self):
+        rules_path = self.root / "process/loop_transitions.yaml"
+        rules = yaml.safe_load(rules_path.read_text(encoding="utf-8"))
+        rules["transitions"].append({
+            "id": "implementation_submission_review",
+            "receipt_schema": "pc-implementation-authoring-receipt/v1",
+            "requires": {
+                "operation": "IMPLEMENT_DE", "gate": "IMPLEMENTATION_REVIEW",
+                "gate_status": "IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW",
+            },
+            "operation": "REVIEW_IMPLEMENTATION", "target": "receipt",
+            "trigger_kind": "IMPLEMENTATION_DRAFT_SUBMITTED",
+            "gate": "IMPLEMENTATION_REVIEW",
+        })
+        rules_path.write_text(yaml.safe_dump(rules), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["REVIEW_IMPLEMENTATION"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_IMPLEMENTATION.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        self._put("process/playbooks/REVIEW_IMPLEMENTATION.md", "# Review implementation\n")
+        self._put("process/tasks/IMPLEMENT-AUTHOR.yaml", yaml.safe_dump({
+            "id": "IMPLEMENT-AUTHOR", "spine": "/architecture/beta/spine.md",
+        }))
+        ref = "reviews/gates/implementation-ready.json"
+        self._put(ref, json.dumps({
+            "schema": "pc-implementation-authoring-receipt/v1",
+            "task_id": "IMPLEMENT-AUTHOR", "operation": "IMPLEMENT_DE",
+            "gate": "IMPLEMENTATION_REVIEW",
+            "gate_status": "IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW",
+        }))
+        out = next_task.decision(self.root, ref)
+        self.assertEqual(out["manifest"]["operation"], "REVIEW_IMPLEMENTATION")
+        self.assertEqual(out["manifest"]["spine"], "/architecture/beta/spine.md")
+        self.assertEqual(out["manifest"]["trigger"]["reference"], ref)
+        self.assertEqual(out["manifest"]["context"]["review_inputs"]["independent_review"], ref)
+        self._put(out["path"], yaml.safe_dump(out["manifest"]))
+        self.assertEqual(next_task.decision(self.root, ref)["status"], "ALREADY_PLANNED")
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
