@@ -372,6 +372,38 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "without explicit authority"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_baseline_review_uses_verified_relation_projection(self):
+        self._make_baseline_review()
+        source = self.root / "knowledge/architecture/alpha/statement-v2.md"
+        source.write_text(
+            "---\ntype: Architecture Statement\nid: AS-ALPHA-v2\n"
+            "relations:\n  - kind: specifies\n"
+            "    target: /architecture/alpha/vp-v2.md\n"
+            "---\n# Existing reviewed AS\n", encoding="utf-8")
+        (self.root / "knowledge/architecture/alpha/vp-v2.md").write_text(
+            "# Historical verification plan\n", encoding="utf-8")
+        baseline_path = self.root / "process/baselines/alpha-v2.yaml"
+        baseline = yaml.safe_load(baseline_path.read_text(encoding="utf-8"))
+        baseline["effective_relation_overrides"] = [{
+            "source": "knowledge/architecture/alpha/statement-v2.md",
+            "kind": "specifies",
+            "historical_target": "knowledge/architecture/alpha/vp-v2.md",
+            "active_target": "knowledge/architecture/alpha/vp-v3.md",
+            "scope": "this_baseline_only_after_independent_acceptance",
+            "selection_authority": "reviews/gates/as-review.json",
+        }]
+        baseline_path.write_text(yaml.safe_dump(baseline), encoding="utf-8")
+        self.assertEqual(
+            task.validate(self.root, "process/tasks/task.yaml")["operation"],
+            "REVIEW_BASELINE",
+        )
+        baseline["effective_relation_overrides"][0]["historical_target"] = (
+            "knowledge/architecture/alpha/vo-v2.md"
+        )
+        baseline_path.write_text(yaml.safe_dump(baseline), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "Invalid effective baseline relations"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_unapproved_AP_cannot_start_baseline_review(self):
         self._make_baseline_review()
         path = self.root / "process/decisions/ap.yaml"
