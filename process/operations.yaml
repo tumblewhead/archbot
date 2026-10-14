@@ -38,3 +38,6 @@ operations:
   REVIEW_DE:
     role: verification-agent
     playbook: process/playbooks/REVIEW_DE.md
+  IMPLEMENT_DE:
+    role: implementation-agent
+    playbook: process/playbooks/IMPLEMENT_DE.md
