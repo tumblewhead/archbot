@@ -1,0 +1,44 @@
+schema: pc-baseline-candidate/v1
+id: AS-001-V2-BASELINE-002
+status: pending_independent_baseline_review
+prior_candidate: process/baselines/AS-001-v2-candidate.yaml
+architecture: AS-001
+candidate_active_as: knowledge/architecture/AS-001/statement-v2.md
+candidate_active_verification_plan: knowledge/architecture/AS-001/verification_plan-v3.md
+candidate_active_vo_004: knowledge/architecture/AS-001/verification/VO-004-v2.md
+candidate_active_vo_ledger: process/ledgers/vo_ledger-AS-001-v2-candidate-r2.yaml
+source_provenance: knowledge/bkp/problem-origin-scope-correction-v2.md
+authority:
+  scope: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+  provisional_ap: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+  protected_memory_scope: process/decisions/C-002-scope.yaml
+independent_as_review:
+  receipt: reviews/gates/TOY1-AS002-independent-review-v3.json
+  disposition: ACCEPT_WITH_CLARIFICATIONS
+selected_ap: AP-002
+accepted_architectural_debt: [AD-003]
+open_verification_obligations: [VO-002, VO-003, VO-004, VO-005, VO-006]
+synthetic_domain_only_accepted_verification: [VO-001]
+integration_boundary:
+  publisher_responsibility: uninterrupted_ordered_delivery
+  detector_responsibility: once_per_accepted_sample_exact_newest_32
+  unverified_claim: publisher_physical_delivery_guarantee
+  no_unapproved_throughput_deadline: true
+historical_revisions_remain_authoritative_evidence:
+  - knowledge/architecture/AS-001/statement.md
+  - knowledge/architecture/AS-001/verification_plan.md
+  - knowledge/architecture/AS-001/verification/VO-004.md
+  - process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+  - process/ledgers/vo_ledger.yaml
+review_required_before_activation: true
+no_con_de_implementation_authorization_before_review: true
+# Selected, version-scoped projection. Does not rewrite old concept links.
+# The existing AS-v2 "specifies VP-v2" relation remains historical evidence.
+effective_relation_overrides:
+  - source: knowledge/architecture/AS-001/statement-v2.md
+    kind: specifies
+    historical_target: knowledge/architecture/AS-001/verification_plan-v2.md
+    active_target: knowledge/architecture/AS-001/verification_plan-v3.md
+    scope: this_baseline_only_after_independent_acceptance
+    selection_authority: reviews/gates/TOY1-AS002-independent-review-v3.json
+    rationale: VP-v3 corrects R-001 due-stage defect without changing approved AS semantics.
