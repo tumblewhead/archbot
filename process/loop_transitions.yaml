@@ -122,3 +122,25 @@ transitions:
     related_concept_type: Design Element
     trigger_kind: DE_DRAFT_SUBMITTED
     gate: DE_REVIEW
+  - id: accepted_design_to_implementation
+    receipt_schema: pc-de-review/v1
+    requires:
+      gate: DE_REVIEW
+      disposition: ACCEPT_WITH_CLARIFICATIONS
+      next_stage_recommendation: DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK
+      independent_of_authoring_invocation: true
+    operation: IMPLEMENT_DE
+    target: receipt
+    trigger_kind: DESIGN_ACCEPTED_FOR_IMPLEMENTATION
+    gate: IMPLEMENTATION_REVIEW
+  - id: accepted_design_to_implementation_without_clarifications
+    receipt_schema: pc-de-review/v1
+    requires:
+      gate: DE_REVIEW
+      disposition: ACCEPT
+      next_stage_recommendation: DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK
+      independent_of_authoring_invocation: true
+    operation: IMPLEMENT_DE
+    target: receipt
+    trigger_kind: DESIGN_ACCEPTED_FOR_IMPLEMENTATION
+    gate: IMPLEMENTATION_REVIEW
