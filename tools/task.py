@@ -173,9 +173,16 @@ def validate(root: Path, manifest: str) -> dict:
             source = _file(root, ref, "knowledge")
             if hashlib.sha256(source.read_bytes()).hexdigest() != pins.get(ref):
                 raise TaskError("Reviewed contract bytes changed or are unpinned: " + ref)
-        active_ref = data.get("context", {}).get("authority_inputs", {}).get("active_baseline")
-        if not isinstance(active_ref, str) or active_ref not in pins:
-            raise TaskError("DE refinement must pin the active AS baseline")
+        active_refs = [name for name in pins
+                       if isinstance(name, str) and name.startswith("process/baselines/")
+                       and name.endswith("-active.yaml")]
+        if len(active_refs) != 1:
+            raise TaskError("DE refinement requires exactly one reviewed active baseline")
+        active_ref = active_refs[0]
+        authority_inputs = data.get("context", {}).get("authority_inputs", {})
+        if (isinstance(authority_inputs, dict)
+                and authority_inputs.get("active_baseline") not in (None, active_ref)):
+            raise TaskError("DE refinement manifest conflicts with reviewed active baseline")
         from active_baseline import ActiveBaselineError, verify
         try:
             verify(root, active_ref)
