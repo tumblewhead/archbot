@@ -1,0 +1,74 @@
+{
+  "schema": "pc-baseline-review/v1",
+  "task_id": "TOY1-BASELINE002-REVIEW",
+  "gate": "BASELINE_REVIEW",
+  "review_role": "verification-agent",
+  "input_revision": "7cba7e96409c6440c7be19f21d18766db29aba6e",
+  "independent_of_baseline_authoring_invocation": true,
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "gate_status": "BASELINE_PACKAGE_ACCEPTABLE_FOR_CONTROLLED_ACTIVATION",
+  "candidate": "process/baselines/AS-001-v2-candidate-r2.yaml",
+  "candidate_sha256": "f6eb11bd868ff8c13c727ecf3786cf0f1e5f9e1a7d1ead450c35f82ddaef7d60",
+  "reviewed_artifacts": [
+    {"path": "process/tasks/TOY1-BASELINE002-REVIEW.yaml", "sha256": "1f6a10c19cb150bbbc2688df2d9aedd9c1bc589a94f4d8608954993cf53da0c1"},
+    {"path": "process/ledgers/vo_ledger-AS-001-v2-candidate-r2.yaml", "sha256": "fa7a1cf0c8b5703196c0d1adf283249ebe3562b2c0fdffddd86e8d2d8730c8cd"},
+    {"path": "knowledge/architecture/AS-001/statement-v2.md", "sha256": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe"},
+    {"path": "knowledge/architecture/AS-001/verification_plan-v3.md", "sha256": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3"},
+    {"path": "knowledge/architecture/AS-001/verification/VO-004-v2.md", "sha256": "18aa0589513d24f37b336721377345e496678ee1ea1ef0617f3573fb8a3e410a"},
+    {"path": "process/decisions/AS-001-SCOPE-CORRECTION-001.yaml", "sha256": "d5145dc1449f9f497c6120186cb42eb59f1f68bcff0d9ddab16a95eec9edc814"},
+    {"path": "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml", "sha256": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085"},
+    {"path": "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.md", "sha256": "ca8737857056fa97e7c43e1aa52f027c28a8b3e6b701c85bccf8af409b02ea13"},
+    {"path": "reviews/gates/TOY1-AS002-independent-review-v3.json", "sha256": "fc55d2a361015b9227ea0f1379012905b00daecaaf1239ec4aeb0cacd9318bbc"},
+    {"path": "reviews/gates/TOY1-BASELINE001-independent-review.json", "sha256": "8859d30208b482fad9626da8760afb6050e24eae8727403bd9f8b374de560ba2"},
+    {"path": "process/ledgers/vo_ledger.yaml", "sha256": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a"},
+    {"path": "process/ledgers/ad_ledger.yaml", "sha256": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332"},
+    {"path": "process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml", "sha256": "4fc72b1d43acb897bf4935bce585fe0713c1a7d95a4d23bd5df771553f230e39"},
+    {"path": "process/decisions/C-002-scope.yaml", "sha256": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"},
+    {"path": "knowledge/architecture/AS-001/merit.md", "sha256": "e297b59b73dab29102a930a9bdbdea3e16abdc5f1c7d830d5e962d70f78c38"},
+    {"path": "knowledge/architecture/AS-001/proofs/PR-002.md", "sha256": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321"}
+  ],
+  "findings": [
+    {
+      "id": "BR-001",
+      "severity": "resolved_by_scoped_candidate_projection",
+      "claim": "The exact candidate AS and reviewed VP form a coherent active package",
+      "finding": "The candidate preserves AS-v2 and its historical specifies-to-VP-v2 edge, and declares a baseline-scoped replacement to VP-v3. The independent AS review v3 covers the unchanged AS-v2 hash and VP-v3 hash. The deterministic resolver verifies the original edge and reviewed replacement, and reports the effective relation to VP-v3 while keeping the candidate inactive.",
+      "required_resolution": "None for package admissibility. Preserve the scoped projection in the controlled activation record and effective graph; retain the historical edge as history."
+    },
+    {
+      "id": "BR-002",
+      "severity": "clarification_before_downstream_contracts",
+      "claim": "Open obligations and external publisher assumption remain bounded",
+      "finding": "The proposed ledger preserves VO-001 as synthetic-domain discharged and VO-002 through VO-006 as open. VO-004 remains open, moves from historical TARGET_VALIDATION to IMPLEMENTATION only under the approved authority, and asserts no physical publisher evidence. Publisher uninterrupted ordered delivery remains an external, unverified interface assumption.",
+      "required_resolution": "Controlled activation must align the authoritative AS/VP/effective relation projection and VO ledger without discharging obligations. New minimal CON work follows activation; any publisher integration evidence requires an approved owner and criterion."
+    }
+  ],
+  "reviewed_claims": [
+    "Approved scope authority supports newest-32 accepted-sample semantics, with uninterrupted ordered delivery assigned to the upstream publisher and not claimed as physically verified.",
+    "The approved AP-002 reconfirmation provisionally selects AP-002 for CON-first under corrected AS-v2 and authorizes the VO-004 due-stage supersession while keeping it open.",
+    "C-002 remains a 2048-byte detector-attributable SRAM limit under its approved accounting rules; C-003 remains no-FPU; F-001 remains unchanged with no measured cycle/flash ranking claim.",
+    "AD-003 remains accepted history with its existing checkpoints and final F-001 disposition; no new debt is proposed.",
+    "PR-002 remains an abstract integer/ring recurrence proof under stated assumptions, not evidence of C, firmware, target, or publisher correctness.",
+    "No fixed 1 ms cadence, detector-side loss detection, source sequence/watchdog, throughput guarantee, or concurrent-reader atomicity is introduced."
+  ],
+  "unresolved_obligations": [
+    "VO-002, VO-003, VO-004, VO-005 and VO-006 remain open; VO-004 is not discharged by this package review.",
+    "AD-003 and the final F-001 comparison remain governed by existing authority and deadlines.",
+    "Publisher delivery integrity is an external unverified assumption.",
+    "No CON, DE, implementation, target, or physical publisher acceptance is established."
+  ],
+  "checks": [
+    {"command": "python tools/task.py inspect --manifest process/tasks/TOY1-BASELINE002-REVIEW.yaml", "result": "PASS", "summary": "Manifest, role, operation, playbook, trigger and spine resolved."},
+    {"command": "python tools/baseline_relations.py inspect --baseline process/baselines/AS-001-v2-candidate-r2.yaml", "result": "PASS", "summary": "Effective specifies relation resolves to reviewed VP-v3; status CANDIDATE_NOT_ACTIVE; override provenance shown."},
+    {"command": "python tools/pc.py check --fast", "result": "PASS", "summary": "62 concepts, 269 typed links, 0 raw bytes hashed, 0 warnings, 0 errors. Structural validation only; manifest raw SHA-256 skipped."},
+    {"command": "git diff --check", "result": "PASS", "summary": "No whitespace errors before adding this receipt."},
+    {"command": "sha256sum reviewed source artifacts", "result": "PASS", "summary": "Hashes recorded above; reviewed AS, VP and VO-004 hashes match the independent AS review receipt."}
+  ],
+  "changed_artifacts": ["reviews/gates/TOY1-BASELINE002-independent-review.json"],
+  "review_limits": [
+    "This receipt reviews package admissibility only and does not activate the baseline or mutate the authoritative AS index, VO ledger, or AD ledger.",
+    "Structural checks and relation resolution do not establish mathematical claims beyond accepted PR-002 scope, stakeholder approval beyond the cited records, C/firmware correctness, target behavior, resource fit, or physical publisher integrity.",
+    "Raw datasets, target measurements and firmware were not inspected because they are outside this gate's required evidence."
+  ],
+  "next_eligible_action": "Perform a separate controlled activation of the reviewed AS-v2, VP-v3, scoped effective relation projection and candidate VO ledger, retaining every open VO and preserving historical records; then author a fresh minimal CON baseline."
+}
