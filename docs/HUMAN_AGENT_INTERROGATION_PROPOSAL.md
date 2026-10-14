@@ -1,8 +1,8 @@
 # Bidirectional human-agent interrogation
 
 **Status:** Deferred design proposal, **not implemented**.  
-**Intended qualification:** After Toy 1 end-to-end and Toy 2 retargeting trials.  
-**Scope:** All Progressive Concretization architecture, proof, contract, design, and implementation stages.
+**Intended qualification:** After Toy 1 development, a genericity review and an initial cleanroom Toy 1 replay; **before Toy 2**.  
+**Scope:** All Progressive Concretization architecture, proof, contract, design, and implementation stages. Every human interaction must belong to the developing project's spine; see `docs/PROJECT_INTERACTION_ARCHIVE_PROPOSAL.md`.
 
 ## Purpose
 
@@ -222,8 +222,11 @@ not a prerequisite.
 
 ## Deferred qualification criteria
 
-This feature is **proposed for after Toy 2 retargeting**, unless a genuine
-blocking human clarification exposes a need earlier.
+This feature is **proposed after the first frozen-framework cleanroom Toy 1
+replay**, before repeating Toy 1 with a project-owned conversational layer
+and before introducing Toy 2. See the project interaction archive proposal.
+The entire inquiry/explanation/answer/conflict trail must be attached to
+its project spine and support an inspectable offline project archive.
 
 A minimal qualification should show:
 
@@ -238,6 +241,8 @@ A minimal qualification should show:
 7. The identical protocol works for both a streaming ADC and a
    Newton–Raphson solver with **no new UI protocol semantics**.
 8. Retargeting friction and human interruption costs are measured.
+9. Every dialogue event is rooted in the relevant project spine, with auditable provenance and archive visibility.
+10. Agent explanations and consistency challenges are durable, scoped and inspectable offline, rather than only appearing in transient chat.
 
 **Non-goal now:** implement an interactive event loop, a background
 autonomous worker, or permissions to accept all human statements as
