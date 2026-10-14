@@ -24,6 +24,19 @@ class ActiveBaselineTests(unittest.TestCase):
         self.assertTrue(any(x["active_target"].endswith("verification_plan-v3.md")
                             for x in checked["effective_relations"]))
 
+    def test_generic_contract_task_uses_activated_baseline(self):
+        import task
+        result = task.validate(ROOT, "process/tasks/TOY1-CON005-MINIMAL.yaml")
+        self.assertEqual(result["operation"], "DEFINE_CON")
+        self.assertEqual(result["trigger"], "BASELINE_ACTIVATED")
+
+    def test_contract_task_does_not_ignore_failed_baseline_guard(self):
+        import task
+        with patch.object(active_baseline, "verify",
+                          side_effect=active_baseline.ActiveBaselineError("stale review")):
+            with self.assertRaisesRegex(task.TaskError, "invalid active baseline"):
+                task.validate(ROOT, "process/tasks/TOY1-CON005-MINIMAL.yaml")
+
     def test_nonaccepting_review_blocks_active_baseline(self):
         original = active_baseline._review
         def changed(root, path):
