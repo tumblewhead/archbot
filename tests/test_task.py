@@ -644,6 +644,94 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaisesRegex(task.TaskError, "not authorized for this project"):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def _make_implementation_task(self):
+        (self.root / "agents/implementation-agent.md").write_text(
+            "# Implementation\n", encoding="utf-8")
+        (self.root / "process/playbooks/IMPLEMENT_DE.md").write_text(
+            "# Implement DE\n", encoding="utf-8")
+        views_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_path.read_text(encoding="utf-8"))
+        views["roles"]["implementation-agent"] = {"follow": []}
+        views_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["IMPLEMENT_DE"] = {
+            "role": "implementation-agent",
+            "playbook": "process/playbooks/IMPLEMENT_DE.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        spine = "knowledge/architecture/alpha/design_elements/spine-v7.md"
+        element = "knowledge/architecture/alpha/design_elements/DE-001-v7.md"
+        active = "process/baselines/alpha-active.yaml"
+        for ref, content in {
+            spine: "---\ntype: Design Element Spine\nid: DS-7\n---\n",
+            element: "---\ntype: Design Element\nid: DE-7\n---\n",
+            active: "status: active\n",
+        }.items():
+            path = self.root / ref
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        source_task = "process/tasks/REVIEW-DE.yaml"
+        (self.root / source_task).write_text(yaml.safe_dump({
+            "id": "REVIEW-DE", "operation": "REVIEW_DE",
+            "spine": "/architecture/alpha/spine.md",
+            "trigger": {"kind": "DE_DRAFT_SUBMITTED", "reference": spine},
+            "context": {"artifact_inputs": {
+                "primary_concept": spine, "related_concepts": [element],
+            }},
+        }), encoding="utf-8")
+        pins = {ref: hashlib.sha256((self.root / ref).read_bytes()).hexdigest()
+                for ref in (spine, element, active)}
+        receipt_ref = "reviews/gates/de-accepted.json"
+        path = self.root / receipt_ref
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({
+            "schema": "pc-de-review/v1", "task_id": "REVIEW-DE",
+            "gate": "DE_REVIEW", "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+            "next_stage_recommendation": "DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK",
+            "independent_of_authoring_invocation": True,
+            "reviewed_input_sha256": pins, "findings": [],
+        }), encoding="utf-8")
+        self.manifest.update(
+            role="implementation-agent", operation="IMPLEMENT_DE",
+            playbook="process/playbooks/IMPLEMENT_DE.md",
+            trigger={"kind": "DESIGN_ACCEPTED_FOR_IMPLEMENTATION",
+                     "reference": receipt_ref},
+            context={"review_inputs": {"independent_review": receipt_ref}},
+            outputs={"allowed": ["implementation_source", "implementation_tests",
+                                 "engineering_briefing"],
+                     "prohibited": ["approve_own_gate", "discharge_VO"]},
+            gate={"kind": "IMPLEMENTATION_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return path, self.root / element
+
+    def test_implementation_requires_accepted_de_and_hashes(self):
+        receipt, element = self._make_implementation_task()
+        with patch("active_baseline.verify", return_value={}):
+            self.assertEqual(
+                task.validate(self.root, "process/tasks/task.yaml")["operation"],
+                "IMPLEMENT_DE",
+            )
+        element.write_text(element.read_text() + "changed\n", encoding="utf-8")
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "changed after independent review"):
+                task.validate(self.root, "process/tasks/task.yaml")
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+        data["disposition"] = "REVISE"
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "lacks favorable independent DE acceptance"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_implementation_cannot_inherit_source_prohibition(self):
+        self._make_implementation_task()
+        self.manifest["outputs"]["prohibited"].append("implement_firmware")
+        self.store()
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "explicitly permitted source output"):
+                task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
