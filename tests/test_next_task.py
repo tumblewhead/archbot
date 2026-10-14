@@ -171,6 +171,43 @@ class LoopTests(unittest.TestCase):
         with self.assertRaises(next_task.LoopError):
             next_task.decision(self.root, receipt)
 
+    def test_revised_contract_authoring_receipt_routes_independent_review(self):
+        rules_path = self.root / "process/loop_transitions.yaml"
+        rules = yaml.safe_load(rules_path.read_text(encoding="utf-8"))
+        rules["transitions"].append({
+            "id": "contract_revised_authoring_review",
+            "receipt_schema": "pc-con-authoring-receipt/v1",
+            "requires": {"operation": "REVISE_CON",
+                         "gate_status": "CONTRACTS_READY_FOR_INDEPENDENT_REVIEW"},
+            "operation": "REVIEW_CON",
+            "target": "changed_concept", "concept_type": "Contract Spine",
+            "related_concept_type": "Design Contract",
+            "trigger_kind": "CONTRACT_DRAFT_SUBMITTED",
+            "gate": "CONTRACT_REVIEW",
+        })
+        rules_path.write_text(yaml.safe_dump(rules), encoding="utf-8")
+        self._put("process/tasks/CON-REV.yaml", yaml.safe_dump({
+            "id": "CON-REV", "spine": "/architecture/beta/spine.md",
+        }))
+        spine = "knowledge/architecture/beta/contracts/spine-v6.md"
+        contract = "knowledge/architecture/beta/contracts/CON-001-v6.md"
+        self._put(spine, "---\\ntype: Contract Spine\\nid: CON-S6\\n---\\n")
+        self._put(contract, "---\\ntype: Design Contract\\nid: CON-001-v6\\n---\\n")
+        receipt = "reviews/gates/v6-ready.json"
+        self._put(receipt, json.dumps({
+            "schema": "pc-con-authoring-receipt/v1", "task_id": "CON-REV",
+            "operation": "REVISE_CON",
+            "gate_status": "CONTRACTS_READY_FOR_INDEPENDENT_REVIEW",
+            "changed_artifacts": [spine, contract],
+        }))
+        out = next_task.decision(self.root, receipt)
+        self.assertEqual(out["manifest"]["operation"], "REVIEW_CON")
+        self.assertEqual(out["manifest"]["spine"], "/architecture/beta/spine.md")
+        self.assertEqual(out["manifest"]["trigger"]["reference"], spine)
+        self.assertEqual(out["manifest"]["context"]["artifact_inputs"]["related_concepts"], [contract])
+        self._put(out["path"], yaml.safe_dump(out["manifest"]))
+        self.assertEqual(next_task.decision(self.root, receipt)["status"], "ALREADY_PLANNED")
+
     def test_second_architecture_uses_same_operations(self):
         self._put("process/tasks/SECOND-REVIEW.yaml", yaml.safe_dump({
             "id": "SECOND-REVIEW",
