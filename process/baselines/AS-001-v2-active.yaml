@@ -1,0 +1,31 @@
+schema: pc-active-baseline/v1
+id: AS-001-V2-ACTIVE-001
+status: active
+activation_date_local: "2026-10-13"
+source_candidate: process/baselines/AS-001-v2-candidate-r2.yaml
+source_candidate_sha256: f6eb11bd868ff8c13c727ecf3786cf0f1e5f9e1a7d1ead450c35f82ddaef7d60
+independent_baseline_review: reviews/gates/TOY1-BASELINE002-independent-review.json
+independent_as_review: reviews/gates/TOY1-AS002-independent-review-v3.json
+active_artifacts:
+  architecture_statement: knowledge/architecture/AS-001/statement-v2.md
+  verification_plan: knowledge/architecture/AS-001/verification_plan-v3.md
+  vo_004: knowledge/architecture/AS-001/verification/VO-004-v2.md
+  vo_ledger: process/ledgers/vo_ledger-AS-001-v2-active.yaml
+  vo_ledger_source_candidate: process/ledgers/vo_ledger-AS-001-v2-candidate-r2.yaml
+  vo_ledger_source_sha256: fa7a1cf0c8b5703196c0d1adf283249ebe3562b2c0fdffddd86e8d2d8730c8cd
+accepted_authority:
+  scope: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+  provisional_ap: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+  memory_scope: process/decisions/C-002-scope.yaml
+selected_ap: AP-002
+accepted_architectural_debt: [AD-003]
+effective_relations_from_reviewed_candidate: true
+inherited_external_boundary: upstream_publisher_owns_uninterrupted_ordered_delivery
+open_verification_obligations: [VO-002, VO-003, VO-004, VO-005, VO-006]
+preserve_historical_ledger: process/ledgers/vo_ledger.yaml
+activation_limits:
+  - no_verification_obligation_discharged_by_activation
+  - no_target_or_publisher_evidence_asserted
+  - no_CON_DE_or_firmware_approved
+  - do_not_inherit_obsolete_1ms_loss_epoch_or_watchdog_requirements
+next_stage: DEFINE_CON
