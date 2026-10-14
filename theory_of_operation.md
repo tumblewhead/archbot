@@ -366,3 +366,28 @@ A successful Progressive Concretization project answers these questions through 
 ---
 
 **In one sentence:** Progressive Concretization moves from evidence to increasingly specific firmware commitments, using independent proofs, predeclared evaluation criteria, contracts, agent specialization, and spine-based traceability to preserve the justification for every accepted design decision.
+
+## Proposed extension: verification theory and evidence rungs (2026-10-14)
+
+The proposed post-implementation verification architecture is described in
+[Theory of Verification](docs/THEORY_OF_VERIFICATION.md) and
+[Verification Framework Requirements](docs/VERIFICATION_FRAMEWORK_REQUIREMENTS.md).
+These are **design documents**, not installed process operations or approved
+product requirements. They propose a verification-facing ERS, a
+claim-directed rung dependency graph, sparse parameter-interaction
+hypergraphs, symbolic dimension/polarity/magnitude/temporal screening,
+constrained joint sweeps, ablation and mutation, and independent
+claim-scoped evidence review.
+
+This extends the Progressive Verification Principle without changing its
+authority model: VOs remain binding, the AS/CON/DE remain authoritative,
+and a host test or symbolic model cannot silently discharge a target
+obligation. New observations or hypothesized requirements must return to
+the relevant engineering authority rather than be introduced by the
+verification planner.
+
+The project-owned Engineering Briefings, source-linked human inquiries,
+and future offline archive are described in
+`docs/PROJECT_INTERACTION_ARCHIVE_PROPOSAL.md`. The verification theory
+uses that provenance model but does not require the future conversational
+UI to be implemented before verification can begin.
