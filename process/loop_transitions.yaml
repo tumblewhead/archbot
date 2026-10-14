@@ -88,3 +88,26 @@ transitions:
     related_concept_type: Design Contract
     trigger_kind: CONTRACT_DRAFT_SUBMITTED
     gate: CONTRACT_REVIEW
+  - id: accepted_contract_to_design
+    receipt_schema: pc-contract-review/v1
+    requires:
+      gate: CONTRACT_REVIEW
+      disposition: ACCEPT_WITH_CLARIFICATIONS
+      next_stage_recommendation: CON_ACCEPTABLE_FOR_DE_REFINEMENT
+      independent_of_authoring_invocation: true
+    operation: DECOMPOSE_DE
+    target: receipt
+    trigger_kind: CONTRACT_ACCEPTED_FOR_DE
+    gate: DE_REVIEW
+  - id: design_submission_review
+    receipt_schema: pc-de-authoring-receipt/v1
+    requires:
+      operation: DECOMPOSE_DE
+      gate: DE_REVIEW
+      status: DE_READY_FOR_INDEPENDENT_REVIEW
+    operation: REVIEW_DE
+    target: changed_concept
+    concept_type: Design Element Spine
+    related_concept_type: Design Element
+    trigger_kind: DE_DRAFT_SUBMITTED
+    gate: DE_REVIEW
