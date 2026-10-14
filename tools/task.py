@@ -171,10 +171,10 @@ def validate(root: Path, manifest: str) -> dict:
             actual = hashlib.sha256(_file(root, ref, "implementation").read_bytes()).hexdigest()
             if actual != digest:
                 raise TaskError("Implementation source changed after authoring: " + ref)
-        for required in ("implementation/toy1/ENGINEERING-BRIEFING.md",
-                         "implementation/toy1/INDEPENDENT-REVIEW-REQUEST.md"):
-            if required in changed:
-                _file(root, required, "implementation")
+        for ref in changed:
+            if (isinstance(ref, str) and ref.startswith("implementation/")
+                    and ref.endswith(".md")):
+                _file(root, ref, "implementation")
         if not any(isinstance(ref, str) and ref.endswith(".md")
                    and "BRIEFING" in ref.upper() for ref in changed):
             raise TaskError("Implementation review lacks an Engineering Briefing")
