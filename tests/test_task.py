@@ -732,6 +732,87 @@ class TaskManifestTests(unittest.TestCase):
             with self.assertRaisesRegex(task.TaskError, "explicitly permitted source output"):
                 task.validate(self.root, "process/tasks/task.yaml")
 
+    def _make_implementation_review_task(self):
+        (self.root / "agents/verification-agent.md").write_text(
+            "# Reviewer\n", encoding="utf-8")
+        (self.root / "process/playbooks/REVIEW_IMPLEMENTATION.md").write_text(
+            "# Review implementation\n", encoding="utf-8")
+        views_path = self.root / "process/views.yaml"
+        views = yaml.safe_load(views_path.read_text(encoding="utf-8"))
+        views["roles"]["verification-agent"] = {"follow": []}
+        views_path.write_text(yaml.safe_dump(views), encoding="utf-8")
+        ops_path = self.root / "process/operations.yaml"
+        ops = yaml.safe_load(ops_path.read_text(encoding="utf-8"))
+        ops["operations"]["REVIEW_IMPLEMENTATION"] = {
+            "role": "verification-agent",
+            "playbook": "process/playbooks/REVIEW_IMPLEMENTATION.md",
+        }
+        ops_path.write_text(yaml.safe_dump(ops), encoding="utf-8")
+        receipt_ref = "reviews/gates/implementation-authoring.json"
+        author_ref = "process/tasks/IMPLEMENT-AUTHOR.yaml"
+        sources = {
+            "implementation/beta/detector.c": "int detector(void) { return 1; }\n",
+            "implementation/beta/ENGINEERING-BRIEFING.md": "# Briefing\n",
+            "implementation/beta/INDEPENDENT-REVIEW-REQUEST.md": "# Review request\n",
+        }
+        for ref, content in sources.items():
+            path = self.root / ref
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        (self.root / author_ref).write_text(yaml.safe_dump({
+            "id": "IMPLEMENT-AUTHOR", "operation": "IMPLEMENT_DE",
+            "spine": "/architecture/alpha/spine.md",
+            "trigger": {"kind": "DESIGN_ACCEPTED_FOR_IMPLEMENTATION",
+                        "reference": "reviews/gates/de-accepted.json"},
+        }), encoding="utf-8")
+        receipt = {
+            "schema": "pc-implementation-authoring-receipt/v1",
+            "task_id": "IMPLEMENT-AUTHOR", "operation": "IMPLEMENT_DE",
+            "gate": "IMPLEMENTATION_REVIEW",
+            "gate_status": "IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW",
+            "trigger": "reviews/gates/de-accepted.json",
+            "changed_artifacts": list(sources),
+            "source_sha256": {
+                "implementation/beta/detector.c": hashlib.sha256(
+                    (self.root / "implementation/beta/detector.c").read_bytes()
+                ).hexdigest(),
+            },
+        }
+        receipt_path = self.root / receipt_ref
+        receipt_path.parent.mkdir(parents=True, exist_ok=True)
+        receipt_path.write_text(json.dumps(receipt), encoding="utf-8")
+        self.manifest.update(
+            role="verification-agent", operation="REVIEW_IMPLEMENTATION",
+            playbook="process/playbooks/REVIEW_IMPLEMENTATION.md",
+            trigger={"kind": "IMPLEMENTATION_DRAFT_SUBMITTED",
+                     "reference": receipt_ref},
+            context={"review_inputs": {"independent_review": receipt_ref}},
+            gate={"kind": "IMPLEMENTATION_REVIEW", "on_missing_evidence": "UNRESOLVED",
+                  "require_independent_review": True},
+        )
+        self.store()
+        return receipt_path, self.root / "implementation/beta/detector.c"
+
+    def test_implementation_review_requires_matching_authoring_and_hashes(self):
+        receipt, source = self._make_implementation_review_task()
+        self.assertEqual(task.validate(
+            self.root, "process/tasks/task.yaml")["operation"], "REVIEW_IMPLEMENTATION")
+        source.write_text("changed\n", encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "changed after authoring"):
+            task.validate(self.root, "process/tasks/task.yaml")
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+        data["gate_status"] = "IMPLEMENTATION_UNRESOLVED"
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        with self.assertRaisesRegex(task.TaskError, "ready authoring receipt"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_implementation_review_rejects_wrong_project_spine(self):
+        self._make_implementation_review_task()
+        self.manifest["spine"] = "/architecture/beta/spine.md"
+        self.store()
+        with self.assertRaisesRegex(task.TaskError, "does not belong to this reviewed project"):
+            task.validate(self.root, "process/tasks/task.yaml")
+
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
         self.assertEqual(selected["spine"], "/architecture/alpha/spine.md")
