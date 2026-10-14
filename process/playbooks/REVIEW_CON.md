@@ -15,6 +15,20 @@ an architecture, settle an unapproved tradeoff, discharge a VO, or implement cod
 
 ## Review questions
 
+When the submitted authoring receipt is `CONTRACTS_UNRESOLVED`,
+**review the draft rather than assuming that every listed uncertainty
+is a blocker**. Classify each unresolved item as (a) a present contract
+semantic blocker, (b) an external interface assumption with a separately
+assigned integration owner, (c) an implementation- or target-stage VO,
+or (d) an unsupported new requirement. Cite exactly which AS/authority
+clause makes an item binding *at this gate*. A missing final linker map
+cannot by itself block CON approval when implementation evidence is not
+due, but a missing credible resource-category envelope or a contradictory
+interface precondition may. If a target execution topology is unspecified,
+do not silently install one merely to fill in a memory table.
+
+
+
 1. **Complete boundary:** For each contract, are producers, consumers, legal input
    and output ranges, units, ownership, reset behavior, timing, fault/error
    semantics and publication ordering precise enough to implement independently?
@@ -28,11 +42,15 @@ an architecture, settle an unapproved tradeoff, discharge a VO, or implement cod
    physical target choices. If the latter are deferred, require a named owner,
    verifiable acceptance condition, and due stage. **Never defer a semantic
    ambiguity that could change an approved requirement or interface behavior.**
-5. **Resource contracts:** Verify the applicable declared memory/timing model,
-   all charged categories, mutually simultaneous peaks, overlap/attribution rules,
-   zero-heap claims, declared margins, stack/ISR behavior, and that all relevant
-   state/control fields fit the proposed allocation caps. A budget is not a
-   measured or proven physical upper bound.
+5. **Resource contracts:** Verify the **authorized** memory/timing model,
+   charged categories, simultaneous peaks, overlap/attribution rules,
+   declared margins and demonstrable bounded assumptions. Evaluate the
+   maturity of numeric allocations against the actual gate and VO due stages.
+   Treat zero-heap, stack/ISR topology, atomic publication and watchdog
+   claims as conditions **only when expressly adopted by an approved
+   integration contract**. A projected allocation is not a measured
+   physical upper bound. Do not confuse state SRAM under F with the
+   total detector-attributable C-002 accounting boundary.
 6. **Obligation coverage:** Map every AS constraint/requirement, outstanding VO
    and accepted AD to a contract or explicitly controlled external integration
    obligation, a DE responsibility, verification owner, method and due stage.
