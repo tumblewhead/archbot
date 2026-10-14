@@ -133,6 +133,54 @@ def validate(root: Path, manifest: str) -> dict:
             verify(root, baseline_ref)
         except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
             raise TaskError("Unresolved contract review lacks verified baseline: " + str(exc)) from exc
+    if trigger["kind"] == "IMPLEMENTATION_DRAFT_SUBMITTED":
+        if operation != "REVIEW_IMPLEMENTATION" or trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("Implementation review requires a versioned authoring receipt")
+        receipt = json.loads(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(receipt, dict)
+                or receipt.get("schema") != "pc-implementation-authoring-receipt/v1"
+                or receipt.get("operation") != "IMPLEMENT_DE"
+                or receipt.get("gate") != "IMPLEMENTATION_REVIEW"
+                or receipt.get("gate_status") != "IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW"):
+            raise TaskError("Implementation review lacks ready authoring receipt")
+        source_id = receipt.get("task_id")
+        if not isinstance(source_id, str) or not ID_PATTERN.fullmatch(source_id):
+            raise TaskError("Implementation receipt lacks valid source task")
+        original = yaml.safe_load(_file(
+            root, "process/tasks/" + source_id + ".yaml", "process/tasks"
+        ).read_text(encoding="utf-8"))
+        if (not isinstance(original, dict) or original.get("operation") != "IMPLEMENT_DE"
+                or original.get("spine") != spine_ref
+                or original.get("trigger", {}).get("kind") != "DESIGN_ACCEPTED_FOR_IMPLEMENTATION"
+                or original.get("trigger", {}).get("reference") != receipt.get("trigger")):
+            raise TaskError("Implementation authoring does not belong to this reviewed project")
+        context = data.get("context", {})
+        review_inputs = context.get("review_inputs", {}) if isinstance(context, dict) else {}
+        if (not isinstance(review_inputs, dict)
+                or review_inputs.get("independent_review") != trigger["reference"]):
+            raise TaskError("Implementation review task does not bind its authoring receipt")
+        pins = receipt.get("source_sha256")
+        if not isinstance(pins, dict) or not pins:
+            raise TaskError("Implementation receipt lacks source hashes")
+        changed = receipt.get("changed_artifacts")
+        if not isinstance(changed, list):
+            raise TaskError("Implementation receipt lacks changed artifact list")
+        for ref, digest in pins.items():
+            if ref not in changed or not isinstance(digest, str):
+                raise TaskError("Implementation source hash not declared in changed artifacts")
+            actual = hashlib.sha256(_file(root, ref, "implementation").read_bytes()).hexdigest()
+            if actual != digest:
+                raise TaskError("Implementation source changed after authoring: " + ref)
+        for required in ("implementation/toy1/ENGINEERING-BRIEFING.md",
+                         "implementation/toy1/INDEPENDENT-REVIEW-REQUEST.md"):
+            if required in changed:
+                _file(root, required, "implementation")
+        if not any(isinstance(ref, str) and ref.endswith(".md")
+                   and "BRIEFING" in ref.upper() for ref in changed):
+            raise TaskError("Implementation review lacks an Engineering Briefing")
+        if not any(isinstance(ref, str) and ref.endswith(".md")
+                   and "REVIEW" in ref.upper() for ref in changed):
+            raise TaskError("Implementation review lacks independent review request")
     if trigger["kind"] == "DESIGN_ACCEPTED_FOR_IMPLEMENTATION":
         if (operation != "IMPLEMENT_DE" or trigger_path is None
                 or trigger_path.suffix != ".json"):
