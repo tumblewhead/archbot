@@ -133,6 +133,45 @@ def validate(root: Path, manifest: str) -> dict:
             verify(root, baseline_ref)
         except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
             raise TaskError("Unresolved contract review lacks verified baseline: " + str(exc)) from exc
+    if trigger["kind"] == "DE_DRAFT_SUBMITTED":
+        if operation != "REVIEW_DE" or trigger_path is None or trigger_path.suffix != ".md":
+            raise TaskError("DE review requires REVIEW_DE and a versioned DE spine")
+        inputs = data.get("context", {}).get("artifact_inputs", {})
+        if not isinstance(inputs, dict) or inputs.get("primary_concept") != trigger["reference"]:
+            raise TaskError("DE review must identify its exact submitted spine")
+        receipt_ref = inputs.get("submission_receipt")
+        receipt = json.loads(_file(root, receipt_ref, "reviews").read_text(encoding="utf-8"))
+        if (not isinstance(receipt, dict)
+                or receipt.get("schema") != "pc-de-authoring-receipt/v1"
+                or receipt.get("operation") != "DECOMPOSE_DE"
+                or receipt.get("gate") != "DE_REVIEW"
+                or receipt.get("gate_status") != "DE_READY_FOR_INDEPENDENT_REVIEW"
+                or trigger["reference"] not in receipt.get("changed_artifacts", [])):
+            raise TaskError("DE review lacks matching ready authoring receipt")
+        source_task = receipt.get("task_id")
+        if not isinstance(source_task, str) or not ID_PATTERN.fullmatch(source_task):
+            raise TaskError("DE receipt has invalid source task identity")
+        author = yaml.safe_load(_file(
+            root, "process/tasks/" + source_task + ".yaml", "process/tasks"
+        ).read_text(encoding="utf-8"))
+        if (not isinstance(author, dict) or author.get("operation") != "DECOMPOSE_DE"
+                or author.get("spine") != spine_ref
+                or author.get("trigger", {}).get("kind") != "CONTRACT_ACCEPTED_FOR_DE"):
+            raise TaskError("DE review source task is not authorized for this project")
+        for ref, expected_type in [
+            (trigger["reference"], "Design Element Spine"),
+            *[(ref, "Design Element") for ref in inputs.get("related_concepts", [])],
+        ]:
+            if ref not in receipt["changed_artifacts"]:
+                raise TaskError("Submitted DE concept missing from authoring receipt: " + ref)
+            content = _file(root, ref, "knowledge").read_text(encoding="utf-8")
+            if not content.startswith("---\\n") or "\\n---\\n" not in content:
+                raise TaskError("DE submission lacks OKF frontmatter: " + ref)
+            meta = yaml.safe_load(content.split("\\n---\\n", 1)[0][4:])
+            if not isinstance(meta, dict) or meta.get("type") != expected_type:
+                raise TaskError("DE submission concept type mismatch: " + ref)
+        if not isinstance(inputs.get("related_concepts"), list) or not inputs["related_concepts"]:
+            raise TaskError("DE review requires at least one design element")
     if trigger["kind"] == "CONTRACT_ACCEPTED_FOR_DE":
         if operation != "DECOMPOSE_DE" or trigger_path is None or trigger_path.suffix != ".json":
             raise TaskError("DE refinement requires DECOMPOSE_DE and an independent CON review")
