@@ -7,6 +7,7 @@ architecture, discharge obligations, or validate mathematics.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -132,6 +133,56 @@ def validate(root: Path, manifest: str) -> dict:
             verify(root, baseline_ref)
         except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
             raise TaskError("Unresolved contract review lacks verified baseline: " + str(exc)) from exc
+    if trigger["kind"] == "CONTRACT_ACCEPTED_FOR_DE":
+        if operation != "DECOMPOSE_DE" or trigger_path is None or trigger_path.suffix != ".json":
+            raise TaskError("DE refinement requires DECOMPOSE_DE and an independent CON review")
+        review = json.loads(trigger_path.read_text(encoding="utf-8"))
+        if (not isinstance(review, dict)
+                or review.get("schema") != "pc-contract-review/v1"
+                or review.get("gate") != "CONTRACT_REVIEW"
+                or review.get("disposition") not in ("ACCEPT", "ACCEPT_WITH_CLARIFICATIONS")
+                or review.get("next_stage_recommendation") != "CON_ACCEPTABLE_FOR_DE_REFINEMENT"
+                or review.get("independent_of_authoring_invocation") is not True
+                or any(isinstance(item, dict) and item.get("severity") == "blocking"
+                       for item in review.get("findings", []))):
+            raise TaskError("DE refinement lacks favorable independent CON acceptance")
+        inputs = data.get("context", {}).get("review_inputs", {})
+        if not isinstance(inputs, dict) or inputs.get("independent_review") != trigger["reference"]:
+            raise TaskError("DE refinement manifest must bind the exact independent CON review")
+        source_id = review.get("task_id")
+        if not isinstance(source_id, str) or not ID_PATTERN.fullmatch(source_id):
+            raise TaskError("CON review has no valid source task ID")
+        reviewed_task = yaml.safe_load(_file(
+            root, "process/tasks/" + source_id + ".yaml", "process/tasks"
+        ).read_text(encoding="utf-8"))
+        if not isinstance(reviewed_task, dict) or reviewed_task.get("operation") != "REVIEW_CON":
+            raise TaskError("Accepted CON review has no independent REVIEW_CON task")
+        if reviewed_task.get("spine") != spine_ref:
+            raise TaskError("DE task and reviewed contract belong to different project spines")
+        reviewed_context = reviewed_task.get("context", {}).get("artifact_inputs", {})
+        contract_spine = reviewed_context.get("primary_concept") if isinstance(reviewed_context, dict) else None
+        contracts = reviewed_context.get("related_concepts") if isinstance(reviewed_context, dict) else None
+        if (not isinstance(contract_spine, str)
+                or reviewed_task.get("trigger", {}).get("reference") != contract_spine
+                or not isinstance(contracts, list) or not contracts):
+            raise TaskError("Accepted CON review does not identify a complete contract package")
+        pins = review.get("reviewed_input_sha256")
+        if not isinstance(pins, dict):
+            raise TaskError("Accepted CON review has no source hash evidence")
+        for ref in [contract_spine, *contracts]:
+            source = _file(root, ref, "knowledge")
+            if hashlib.sha256(source.read_bytes()).hexdigest() != pins.get(ref):
+                raise TaskError("Reviewed contract bytes changed or are unpinned: " + ref)
+        active_ref = data.get("context", {}).get("authority_inputs", {}).get("active_baseline")
+        if not isinstance(active_ref, str) or active_ref not in pins:
+            raise TaskError("DE refinement must pin the active AS baseline")
+        from active_baseline import ActiveBaselineError, verify
+        try:
+            verify(root, active_ref)
+        except (ActiveBaselineError, OSError, ValueError, KeyError) as exc:
+            raise TaskError("DE refinement lacks verified active baseline: " + str(exc)) from exc
+        if hashlib.sha256(_file(root, active_ref, "process/baselines").read_bytes()).hexdigest() != pins[active_ref]:
+            raise TaskError("Active baseline changed since independent CON review")
     if trigger["kind"] == "CONTRACT_REVIEW_REVISION_REQUIRED":
         if trigger_path is None or trigger_path.suffix != ".json":
             raise TaskError("Contract revision requires a JSON independent-review receipt")
