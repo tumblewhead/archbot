@@ -1,0 +1,139 @@
+{
+  "schema": "pc-contract-review/v1",
+  "task_id": "REVIEW_CON-fff3ee9ea31b",
+  "gate": "CONTRACT_REVIEW",
+  "reviewer_role": "verification-agent",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "input_revision": "113882d44181b3243788828324d64edf86aae676",
+  "trigger_revision": "22c4420eeb45ed8746b23c358a91d5c9bb161c39",
+  "revision_relationship": "The trigger revision is an ancestor of the current checkout. The submitted authoring receipt and v5 candidate artifacts are present at HEAD; this review used the checked-out descendant revision.",
+  "disposition": "REVISE",
+  "next_stage_recommendation": "CON_REVISION_REQUIRED",
+  "changed_artifacts": [
+    "reviews/gates/TOY1-CON005-independent-review-v5.json"
+  ],
+  "findings": [
+    {
+      "id": "CON005-F01",
+      "contract": "CON-AP2-003-v5",
+      "severity": "blocking",
+      "summary": "The submission omits the categorized charged-SRAM caps and positive margin required by the active AP-stage VO-002 evidence plan.",
+      "counterexample": "A contract decomposition can proceed with only the aggregate 2048-byte ceiling while persistent state, stack, shared memory, or other simultaneously live categories have no bounded allocation. The ceiling alone does not establish a credible envelope.",
+      "authority": "process/ledgers/vo_ledger-AS-001-v2-active.yaml requires a credible categorized charged-SRAM envelope, attribution, and positive margin at AP stage; knowledge/architecture/AS-001/verification_plan-v3.md assigns this evidence to AP. C-002-SCOPE-001 requires allocations for every charged category with margin and explicit assumptions.",
+      "required_resolution": "Supply a credible nonoverlapping category budget and positive reserve with explicit assumptions, or use an independently authorized revised evidence path. The old AP-002 draft envelope does not automatically close this finding: it is conditional and assumes a specific task/IRQ topology, heap prohibition, and category ownership not adopted by v5. Keep physical layout and implementation measurements under VO-002."
+    },
+    {
+      "id": "CON005-F02",
+      "contract": "CON-AP2-001-v5 / DE-AP2-STATE-v5",
+      "severity": "blocking",
+      "summary": "Reset outcome is stated, but the reset operation's lifecycle precondition is not; concurrent reset and accepted-sample behavior can change the required window result.",
+      "counterexample": "A legal sample is accepted while reset clears the ring and accumulator. One implementation may include that sample in the new window, another may erase it, and another may leave a mixed state; all can follow the text because reset coordination and concurrency are explicitly unspecified.",
+      "required_resolution": "Define an interface-level reset lifecycle/ordering rule sufficient to preserve exactly one update per accepted sample across reset, or state a justified quiescent precondition. This need not select an ISR/task topology or synchronization primitive."
+    },
+    {
+      "id": "CON005-F03",
+      "contract": "CON-AP2-001-v5 / DE-AP2-RESULT-v5",
+      "severity": "blocking",
+      "summary": "The result's mathematical range is defined, but no externally usable result operation or coherent visibility point is defined.",
+      "counterexample": "A consumer reads while the accumulator changes and observes an intermediate value, or has no specified operation by which to obtain the post-update result. The drafts explicitly leave visibility during update and publication unspecified, so the externally observable-value claim has no implementable interface behavior to check.",
+      "required_resolution": "Define an abstract result handoff, such as the value associated with a completed accepted-sample operation or a coherent result-read operation, including a representation capable of the full stated range. Leave concurrent-reader guarantees conditional on authorized integration semantics; do not invent atomic primitives or platform topology."
+    },
+    {
+      "id": "CON005-F04",
+      "contract": "CON-AP2-001-v5",
+      "severity": "unsupported_requirement",
+      "summary": "The draft adds mandatory invalid-input rejection without identifying authority for invalid-input behavior, while its reporting and recovery semantics remain unresolved.",
+      "counterexample": null,
+      "required_resolution": "Either cite approved authority for rejection and define the acceptance indication needed by the caller, or keep the contract boundary limited to legal inputs and remove this additional behavior. Range checking needed to protect legal-input arithmetic remains an implementation obligation under VO-006."
+    },
+    {
+      "id": "CON005-F05",
+      "contract": "CON-AP2-001-v5 / DE-AP2-INGRESS-v5",
+      "severity": "clarification_nonblocking",
+      "summary": "Publisher continuity has no named integration owner or evidence, but v5 correctly states it as the upstream publisher's external, unverified responsibility and assigns no detector-side loss protocol.",
+      "counterexample": null,
+      "required_resolution": "Preserve this as an explicit external assumption under the approved baseline. If a separately approved integration contract is introduced, assign its owner, criterion, and evidence stage there; no physical continuity evidence is required to accept the detector-side contract under the current scope."
+    }
+  ],
+  "requirement_vo_ad_coverage": {
+    "C-001": "Legal synthetic unsigned 12-bit domain is carried; VO-001 remains discharged only within its accepted synthetic scope.",
+    "C-002 / VO-002": "2048-byte charged-SRAM boundary is correctly stated, but required AP-stage categorized caps and positive margin are absent; VO-002 remains open and blocks this gate.",
+    "C-003 / VO-003": "No-FPU requirement is carried; source/build evidence remains due at IMPLEMENTATION and VO-003 remains open.",
+    "R-001 / VO-004": "One update per accepted published sample, independent of elapsed time, is stated. No cadence or throughput claim is added; VO-004 remains open at IMPLEMENTATION.",
+    "R-002 / VO-005": "Newest-32 accepted-sample semantics and zero-padded startup are stated and consistent with PR-002; VO-005 remains open for implementation correspondence.",
+    "R-003 / VO-006": "The bound 32*4095^2 = 536608800 and add-before-subtract transient 33*4095^2 = 553377825 are arithmetically correct. C expression safety remains an implementation obligation; VO-006 remains open.",
+    "publisher continuity": "External, unverified assumption as authorized; no detector-side loss detection, sequence tracking, watchdog, or physical publisher evidence is asserted.",
+    "AD-003 / F-001": "AD-003 remains accepted and unchanged; final F-001 comparison remains due before final acceptance."
+  },
+  "authority_changes": {
+    "ap_as_or_f_changed": false,
+    "de_approved": false,
+    "vo_discharged": [],
+    "ad_accepted": []
+  },
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "result": "PASS",
+      "summary": "Current input revision recorded as 113882d44181b3243788828324d64edf86aae676; trigger revision is its ancestor."
+    },
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_CON-fff3ee9ea31b.yaml",
+      "result": "PASS",
+      "summary": "Manifest role, operation, playbook, trigger and spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "summary": "Active AS-v2, reviewed VP-v3 relation, AP-002 and open VO states verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "71 concepts, 298 typed links, zero warnings and zero errors; structural validation only, raw SHA-256 skipped."
+    },
+    {
+      "command": "manual arithmetic check",
+      "result": "PASS",
+      "summary": "4095^2=16769025; 32*4095^2=536608800; 33*4095^2=553377825."
+    },
+    {
+      "command": "source and authority review",
+      "result": "PASS",
+      "summary": "Reviewed active AS-v2, VP-v3, AP-002 authority, C-002 scope, PR-002, active VO ledger, AD ledger, v5 contracts, DE placeholders, authoring receipt and coverage matrix."
+    }
+  ],
+  "uninspected_material": [
+    "Firmware or C implementation",
+    "Compiler output, linker map, stack/interrupt reports, and target measurements",
+    "Physical publisher continuity evidence",
+    "Raw datasets"
+  ],
+  "reviewed_input_sha256": {
+    "reviews/gates/TOY1-CON005-receipt-v5.json": "1cdb82fed135c40e2c80664c4ff660731b2e45451676582d12aacecc01ccc603",
+    "knowledge/architecture/AS-001/contracts/spine-v5.md": "6641a55098fdc5fc9dce32ba1ba89988c6ca062771aca4e0ffa59b8a2cd52397",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v5.md": "50b1ed08910bafceb0188335f3bd9310b3c29ab642556258580e11fd58bd43d8",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v5.md": "22c8e5a4d25b8d3c71768ec8220a2f84d183d716e93d9eb721b8587ffbbb85ec",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v5.md": "45bd37cccba85ae1caac5a755659a80233e0139275092a0c31456ae5cf3339c9",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v5.md": "398c00374ae0be4a5912ddf8c6cfe687e9d2eedaced6e5b580610fbec95bfe42",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v5.md": "73f78dd339e15cde9e5a6f616469a100ef2b53a52998989bfde2891a483f9410",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v5.md": "d90cc8c6dffcbb74206e472fc467bdc0ef31c8140584dd62d14a066920e364a0",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v5.md": "94a05ae43618b9f7390a390ed430d32ff6362741eebd3404b192682d7451b354",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v5.md": "ae350e7396ca9ed414f5ca7d39e4830d9ba7cdb60c59cd1c8553cc1930aabc1d",
+    "reviews/gates/TOY1-CON005-coverage-v5.md": "7c2a85a7972cb56c361bfb6ada10c32111694a74f1f0a9729975ce0318f9efcc",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml": "f2e5fe2d94a596e4fab66a210c13fcd27f749dfb63e63543045034089534c069",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "knowledge/architecture/AS-001/statement-v2.md": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe",
+    "knowledge/architecture/AS-001/verification_plan-v3.md": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"
+  },
+  "review_limits": [
+    "This review does not approve contracts or DEs, change authority, discharge VOs, accept new debt, or authorize implementation.",
+    "Structural checks and arithmetic review do not establish C/firmware correctness, resource fit, target behavior, physical publisher continuity, or implementation acceptance.",
+    "No unit suite was run; the applicable task and active-baseline gate checks plus the structural check were run."
+  ],
+  "next_eligible_action": "Use the generic receipt-driven workflow to create a versioned minimal CON correction for CON005-F01 through CON005-F04, then submit that correction for a fresh independent REVIEW_CON. No DE refinement or firmware implementation is authorized before favorable accepted contract review."
+}

@@ -1,0 +1,48 @@
+schema: pc-task/v1
+id: REVIEW_CON-fff3ee9ea31b
+role: verification-agent
+operation: REVIEW_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: CONTRACT_UNRESOLVED_SUBMITTED
+  reference: knowledge/architecture/AS-001/contracts/spine-v5.md
+  revision: 22c4420eeb45ed8746b23c358a91d5c9bb161c39
+playbook: process/playbooks/REVIEW_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: contract_unresolved_scope_review
+    receipt: reviews/gates/TOY1-CON005-receipt-v5.json
+    source_task_manifest: process/tasks/TOY1-CON005-MINIMAL.yaml
+    source_revision: 22c4420eeb45ed8746b23c358a91d5c9bb161c39
+  artifact_inputs:
+    primary_concept: knowledge/architecture/AS-001/contracts/spine-v5.md
+    related_concepts: &id001
+    - knowledge/architecture/AS-001/contracts/CON-AP2-001-v5.md
+    - knowledge/architecture/AS-001/contracts/CON-AP2-002-v5.md
+    - knowledge/architecture/AS-001/contracts/CON-AP2-003-v5.md
+    submission_receipt: reviews/gates/TOY1-CON005-receipt-v5.json
+    source_task_manifest: process/tasks/TOY1-CON005-MINIMAL.yaml
+  authority_inputs:
+    contract_spine: knowledge/architecture/AS-001/contracts/spine-v5.md
+    current_contracts: *id001
+    submission_receipt: reviews/gates/TOY1-CON005-receipt-v5.json
+    source_task_manifest: process/tasks/TOY1-CON005-MINIMAL.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
