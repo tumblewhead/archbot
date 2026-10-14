@@ -4,6 +4,7 @@ import sys
 import tempfile
 import json
 import unittest
+from unittest.mock import patch
 
 import yaml
 
@@ -412,6 +413,68 @@ class TaskManifestTests(unittest.TestCase):
         path.write_text(yaml.safe_dump(body), encoding="utf-8")
         with self.assertRaisesRegex(task.TaskError, "accepted scope and AP authority"):
             task.validate(self.root, "process/tasks/task.yaml")
+
+    def test_unresolved_contract_review_requires_exact_receipt_and_active_baseline(self):
+        role = self.root / "agents/verification-agent.md"
+        role.write_text("# Independent reviewer\n", encoding="utf-8")
+        playbook = self.root / "process/playbooks/REVIEW_CON.md"
+        playbook.write_text("# REVIEW_CON\n", encoding="utf-8")
+        views = self.root / "process/views.yaml"
+        view_data = yaml.safe_load(views.read_text(encoding="utf-8"))
+        view_data["roles"]["verification-agent"] = {"follow": []}
+        views.write_text(yaml.safe_dump(view_data), encoding="utf-8")
+        registry = self.root / "process/operations.yaml"
+        registry_data = yaml.safe_load(registry.read_text(encoding="utf-8"))
+        registry_data["operations"]["REVIEW_CON"] = {
+            "role": "verification-agent", "playbook": "process/playbooks/REVIEW_CON.md",
+        }
+        registry.write_text(yaml.safe_dump(registry_data), encoding="utf-8")
+        spine = "knowledge/architecture/alpha/contracts/spine-v5.md"
+        contract = "knowledge/architecture/alpha/contracts/CON-01-v5.md"
+        receipt_ref = "reviews/gates/contract-authoring.json"
+        for name, content in {
+            spine: "---\ntype: Contract Spine\nid: CON-S5\n---\n",
+            contract: "---\ntype: Design Contract\nid: CON-01-v5\n---\n",
+            "process/tasks/CON-AUTHOR.yaml": yaml.safe_dump({
+                "id": "CON-AUTHOR", "operation": "DEFINE_CON",
+                "trigger": {"kind": "BASELINE_ACTIVATED",
+                            "reference": "process/baselines/active.yaml"}}),
+            "process/baselines/active.yaml": "status: active\n",
+            receipt_ref: json.dumps({
+                "schema": "pc-con-authoring-receipt/v1",
+                "task_id": "CON-AUTHOR", "operation": "DEFINE_CON",
+                "gate_status": "CONTRACTS_UNRESOLVED",
+                "unresolved": ["Stack layout due at implementation"],
+                "changed_artifacts": [spine, contract]}),
+        }.items():
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content, encoding="utf-8")
+        self.manifest.update(
+            role="verification-agent", operation="REVIEW_CON",
+            playbook="process/playbooks/REVIEW_CON.md",
+            trigger={"kind": "CONTRACT_UNRESOLVED_SUBMITTED",
+                     "reference": spine},
+            context={"artifact_inputs": {
+                "primary_concept": spine,
+                "related_concepts": [contract],
+                "submission_receipt": receipt_ref,
+            }},
+        )
+        self.store()
+        with patch("active_baseline.verify", return_value={"status": "ACTIVE_BASELINE_VERIFIED"}):
+            self.assertEqual(task.validate(self.root, "process/tasks/task.yaml")["operation"],
+                             "REVIEW_CON")
+        with patch("active_baseline.verify", side_effect=ValueError("invalid baseline")):
+            with self.assertRaisesRegex(task.TaskError, "lacks verified baseline"):
+                task.validate(self.root, "process/tasks/task.yaml")
+        receipt = self.root / receipt_ref
+        data = json.loads(receipt.read_text(encoding="utf-8"))
+        data["changed_artifacts"] = [spine]
+        receipt.write_text(json.dumps(data), encoding="utf-8")
+        with patch("active_baseline.verify", return_value={}):
+            with self.assertRaisesRegex(task.TaskError, "not in submitted receipt"):
+                task.validate(self.root, "process/tasks/task.yaml")
 
     def test_first_architecture(self):
         selected = task.validate(self.root, "process/tasks/task.yaml")
