@@ -9,6 +9,9 @@
 1. Read the task's architecture spine, approved AP selection, original contract
    set, independent review receipt, proof assumptions, VO/AD ledgers and applicable
    resource contract. Ensure the review references the relevant original revision.
+   Where an active baseline exists, use its **reviewed effective AS/VP
+   relationships and active VO ledger**; older contract and resource
+   documents provide provenance, not authority for superseded conditions.
 2. Address **every material finding by ID** with an explicit change, a supported
    justification, or a clearly labelled unresolved blocker. For rejected
    interpretations, preserve a counterexample. Do not declare the reviewer mistaken
@@ -17,15 +20,26 @@
    byte-for-byte as historical evidence. Use explicit version relations or
    a versioned contract spine to identify the active candidate without deleting
    historical edges.
-4. Treat interface semantics as first-class obligations. An assumption that one
-   component always provides information must be independently enforceable or
-   expressible as an explicit precondition with detection and failure behavior.
-   No interface may claim to detect an event for which it receives no evidence.
+4. Treat interface semantics as first-class obligations. An upstream
+   publisher's approved environmental promise may remain an explicit,
+   unverified **external precondition**. Do not translate it into
+   downstream detection, reconstruction, watchdogs, timestamps or fault
+   machinery without separate authority. Define sufficient input/output
+   completion, initialization and legal-domain semantics for independent
+   implementation. Do not invent error handling for values outside an
+   interface's approved input domain.
 5. Enumerate every owned state, control and output field against the approved
    resource accounting boundary. Record byte widths, alignment assumptions,
-   ownership, lifetimes, overlapping allocations and full-system attribution.
-   If the approved cap cannot support required state, propose a controlled
-   resource/architecture revision; **do not enlarge the cap silently**.
+   ownership, lifetimes, overlap and detector-attributable allocations.
+   At a contract/AP budget gate, supply credible **category ceilings,
+   positive reserve and enforceable conditional assumptions**, not
+   invented measurements or mandatory platform topology. Do not copy
+   an old budget's ISR/task/heap assumptions into a new contract
+   without establishing their applicability. Explicitly distinguish
+   charged SRAM from F's state-SRAM metric and implementation-stage
+   stack/linker measurements. If the approved cap cannot support
+   required state, propose a controlled resource/architecture revision;
+   **do not enlarge the cap silently**.
 6. Update contract coverage and DE responsibility placeholders only where the
    corrected external obligations change, retaining open VOs and accepted AD.
 7. Request an independent review of the new contract version. Provide an
