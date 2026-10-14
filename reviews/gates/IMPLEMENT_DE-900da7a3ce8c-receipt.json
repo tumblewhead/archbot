@@ -1,0 +1,102 @@
+{
+  "schema": "pc-implementation-authoring-receipt/v1",
+  "task_id": "IMPLEMENT_DE-900da7a3ce8c",
+  "operation": "IMPLEMENT_DE",
+  "gate": "IMPLEMENTATION_REVIEW",
+  "gate_status": "IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW",
+  "input_revision": "aad9208420dc3962ddc583999b9464e6a9e3a16b",
+  "trigger": "reviews/gates/TOY1-DE-independent-review-v7.json",
+  "trigger_revision": "5a20d0ecd957bdfdcabb89fbd6d1446a3da665fc",
+  "trigger_revision_is_ancestor_of_input": true,
+  "accepted_design_review_disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "accepted_design_review_next_stage": "DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK",
+  "accepted_de_source_hashes_verified": {
+    "knowledge/architecture/AS-001/design_elements/spine-v7.md": "522ee595e784c8c295bf72de86befa2f2e05ca3cf0bb2b917a0973f2fe1865e5",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v7.md": "3e76c17409dbfcc5a309990e49550325bf6e31afef60ce0ef29db9e01f3a572b",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v7.md": "44a65f5769b5ec2f14738a3b9a48bd80523f31e02d72d6bfc23803d5fcf549ad",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v7.md": "3481b559206c696225385640cdba3de1ab9cb7a46ee4edcdfa821deb410401c2",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v7.md": "25ca11d15c6ed366b4565fcf1159835450321f286343e3b36a3bc2a1042e90df",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md": "6395af524a56394142078643dd1206b3312a60a7d9ed2bab582ecb3baabf600c"
+  },
+  "active_baseline": {
+    "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+    "result": "ACTIVE_BASELINE_VERIFIED",
+    "selected_ap": "AP-002",
+    "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"]
+  },
+  "changed_artifacts": [
+    "implementation/toy1/detector.h",
+    "implementation/toy1/detector.c",
+    "implementation/toy1/test_detector.c",
+    "implementation/toy1/ENGINEERING-BRIEFING.md",
+    "implementation/toy1/INDEPENDENT-REVIEW-REQUEST.md",
+    "reviews/gates/IMPLEMENT_DE-900da7a3ce8c-receipt.json"
+  ],
+  "source_sha256": {
+    "implementation/toy1/detector.h": "b7f68b2d81e20f64e62fbd817b31822b80bfb78d5945d4523dc7150a15486d6c",
+    "implementation/toy1/detector.c": "f6ec5917a2daeaf52c41893040b8976abc3ae85fa86227d78609078084887310",
+    "implementation/toy1/test_detector.c": "f1308252cd84888078e98f5e1a82641bbce134f61d8da4c6d9e82daa9a7a5bff"
+  },
+  "toolchain_and_target": {
+    "compiler": "GCC 16.2.1 host compiler (cc)",
+    "target": "host only; intended embedded target/toolchain not supplied",
+    "language_mode": "C99"
+  },
+  "commands_run": [
+    {
+      "command": "python tools/task.py run --manifest process/tasks/IMPLEMENT_DE-900da7a3ce8c.yaml",
+      "result": "FAILED_TO_START_AGENT",
+      "detail": "Codex in-process app-server initialization failed with Read-only file system; zero model turns or source changes occurred during that runner invocation."
+    },
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/IMPLEMENT_DE-900da7a3ce8c.yaml",
+      "result": "PASS",
+      "detail": "Manifest role, operation, trigger, playbook and spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "detail": "Active AS-v2, effective VP-v3 relation, AP-002 and open VO states verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast (run by failed task runner preflight)",
+      "result": "PASS",
+      "detail": "86 concepts, 350 typed links, zero warnings/errors; raw file hashes skipped. Structural validation only."
+    },
+    {
+      "command": "unit test suite (run by failed task runner preflight)",
+      "result": "PASS",
+      "detail": "103 tests passed before implementation artifacts were added; the same suite also passed after the artifacts were added."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "detail": "No whitespace errors."
+    },
+    {
+      "command": "cc -std=c99 -Wall -Wextra -Wconversion -Werror -pedantic -O2 implementation/toy1/detector.c implementation/toy1/test_detector.c -o /tmp/toy1_detector_test && /tmp/toy1_detector_test",
+      "result": "PASS",
+      "detail": "All assertions passed; host sizeof(detector_t)=72 bytes. GCC 16.2.1."
+    }
+  ],
+  "resource_evidence": {
+    "host_sizeof_detector_t_bytes": 72,
+    "target_memory_fit": "NOT_MEASURED",
+    "stack_interrupt_shared_dynamic_and_peak_overlap": "NOT_MEASURED",
+    "floating_point_source_operations": "NONE_IN_IMPLEMENTATION_SOURCE",
+    "target_generated_code_or_fpu_use": "NOT_MEASURED"
+  },
+  "unresolved_obligations": [
+    {"id": "VO-002", "state": "OPEN", "missing": "Target/integration charged-SRAM inventory, stack and relevant nesting/overlap evidence."},
+    {"id": "VO-003", "state": "OPEN", "missing": "Target/compiler build evidence for integer-only behavior and no reliance on floating-point hardware."},
+    {"id": "VO-004", "state": "OPEN", "missing": "Independent implementation correspondence verification of one update per accepted sample."},
+    {"id": "VO-005", "state": "OPEN", "missing": "Independent implementation correspondence verification of accepted-sample order and exact newest-32 result."},
+    {"id": "VO-006", "state": "OPEN", "missing": "Independent C expression, legal-domain, promotion, and overflow review."}
+  ],
+  "authority_changes": {
+    "as_ap_f_con_de_changed": false,
+    "vo_discharged": [],
+    "ad_accepted_or_changed": []
+  },
+  "next_eligible_action": "Independent implementation review using implementation/toy1/INDEPENDENT-REVIEW-REQUEST.md; then collect target/toolchain integration evidence for the open obligations."
+}

@@ -1,0 +1,42 @@
+schema: pc-task/v1
+id: IMPLEMENT_DE-900da7a3ce8c
+role: implementation-agent
+operation: IMPLEMENT_DE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: DESIGN_ACCEPTED_FOR_IMPLEMENTATION
+  reference: reviews/gates/TOY1-DE-independent-review-v7.json
+  revision: 5a20d0ecd957bdfdcabb89fbd6d1446a3da665fc
+playbook: process/playbooks/IMPLEMENT_DE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: accepted_design_to_implementation
+    receipt: reviews/gates/TOY1-DE-independent-review-v7.json
+    source_task_manifest: process/tasks/REVIEW_DE-86a560c34d18.yaml
+    source_revision: 5a20d0ecd957bdfdcabb89fbd6d1446a3da665fc
+  review_inputs:
+    independent_review: reviews/gates/TOY1-DE-independent-review-v7.json
+    finding_ids: []
+    source_task_manifest: process/tasks/REVIEW_DE-86a560c34d18.yaml
+outputs:
+  allowed:
+  - implementation_source
+  - implementation_tests
+  - implementation_evidence
+  - engineering_briefing
+  - independent_implementation_review_request
+  - review_receipt
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_F_CON_or_DE
+  - discharge_VO
+  - accept_AD
+  - invent_target_evidence
+gate:
+  kind: IMPLEMENTATION_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
