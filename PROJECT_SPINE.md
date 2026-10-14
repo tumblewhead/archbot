@@ -4,6 +4,37 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## New baseline finding and scoped resolution (2026-10-13)
+
+Commit `48e40d3023e0` records independent
+`reviews/gates/TOY1-BASELINE001-independent-review.json`:
+`REVISE` with one blocking relationship finding `BR-001`.
+The reviewed AS-v2 still carries a **historical** `specifies` edge
+to VP-v2, while the approved corrected verification plan is VP-v3.
+All other authority, VO-open-state, AD, proof and removal-of-1-ms
+checks passed. No baseline was activated.
+
+Rather than rewrite independently reviewed immutable AS-v2 just to change
+a navigation edge, the revised candidate
+`process/baselines/AS-001-v2-candidate-r2.yaml` declares a **scoped
+effective relation override**: historical AS-v2 `specifies VP-v2`
+remains in history, while AS-v2 `specifies VP-v3` is selected for the
+new candidate baseline if approved. The generic deterministic resolver
+`tools/baseline_relations.py` verifies the original typed edge exists
+and its replacement was independently reviewed. It reports
+`CANDIDATE_NOT_ACTIVE` rather than silently applying an unaccepted
+change. New negative regression tests check that invalid or unreviewed
+overrides fail closed.
+
+**Next execution:** `process/tasks/TOY1-BASELINE002-REVIEW.yaml`
+with the *existing* reusable `REVIEW_BASELINE` operation and
+`reviews/gates/TOY1-BASELINE002-review-request.md`.
+It must review `AS-001-v2-candidate-r2.yaml` and paired
+`vo_ledger-AS-001-v2-candidate-r2.yaml`. These are still proposals.
+After favorable review, perform a separate controlled activation of
+the **selected** AS/VP/VO ledger and effective relationship projection,
+then author fresh minimal CON. Do not reuse the previous CON v4 scope.
+
 ## Current gate: Option A approved; baseline reconciliation review pending
 
 The engineering authority explicitly approved Option A on 2026-10-13:
