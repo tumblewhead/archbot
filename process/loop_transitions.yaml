@@ -99,6 +99,17 @@ transitions:
     target: receipt
     trigger_kind: CONTRACT_ACCEPTED_FOR_DE
     gate: DE_REVIEW
+  - id: accepted_contract_to_design_without_clarifications
+    receipt_schema: pc-contract-review/v1
+    requires:
+      gate: CONTRACT_REVIEW
+      disposition: ACCEPT
+      next_stage_recommendation: CON_ACCEPTABLE_FOR_DE_REFINEMENT
+      independent_of_authoring_invocation: true
+    operation: DECOMPOSE_DE
+    target: receipt
+    trigger_kind: CONTRACT_ACCEPTED_FOR_DE
+    gate: DE_REVIEW
   - id: design_submission_review
     receipt_schema: pc-de-authoring-receipt/v1
     requires:
