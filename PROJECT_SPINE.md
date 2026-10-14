@@ -4,6 +4,47 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate: Toy 1 C prototype authored; independent implementation review next
+
+Commit `fab273e3b576` contains first implementation in
+`implementation/toy1/detector.c`, `.h`, `test_detector.c`,
+`ENGINEERING-BRIEFING.md` and `INDEPENDENT-REVIEW-REQUEST.md`.
+Authoring receipt:
+`reviews/gates/IMPLEMENT_DE-900da7a3ce8c-receipt.json`,
+`IMPLEMENTATION_READY_FOR_INDEPENDENT_REVIEW`. This is **not**
+independent implementation acceptance or target qualification.
+
+The prototype uses 32 `uint16_t` ring samples, a `uint8_t` oldest
+index and `uint32_t` rolling accumulator. Host GCC 16.2.1/C99 test
+claims passed with `sizeof(detector_t)=72` host bytes. Its explicit
+casts before multiplication preserve legal-domain square bounds.
+The maximum 32-sample result is 536,608,800; the add-before-subtract
+intermediate is bounded by 553,377,825, within uint32_t. Independent
+review must check the actual code, assumptions, host test coverage and
+C integer-promotion rules. The host test uses `assert` and must not
+be accidentally compiled with `NDEBUG` during qualification.
+
+**Provenance discrepancy to examine:** the author's receipt reports
+an inner Codex task-runner invocation failed to initialize, while
+the user's outer telemetry reports a completed Codex run. Treat
+these as possibly different execution layers, not as equivalent
+proof of successful implementation or as an automatic failure.
+The reviewer should record which commands/evidence were actually run.
+
+VO-002..VO-006 remain OPEN. Host object size is not a target SRAM,
+stack, ISR/context, or peak-overlap measurement. No compiler target
+code, linker map, physical publisher or integration evidence is claimed.
+AD-003/F-001 remain outstanding before final acceptance.
+
+**Next:** `tools/next_task.py inspect/emit --receipt
+reviews/gates/IMPLEMENT_DE-900da7a3ce8c-receipt.json`
+routes to the reusable `REVIEW_IMPLEMENTATION` playbook.
+The task runner validates the authoring receipt, source hashes,
+project spine and existence of an Engineering Briefing and independent
+review request. Independent review may accept only the evidence
+actually examined, leaving target-stage obligations open.
+Tests for the new generic routing and guard require the user's local run.
+
 ## Current gate: DE-v7 accepted; guarded C implementation next (2026-10-14)
 
 Commit `3ee9b63322e2` adds
