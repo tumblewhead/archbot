@@ -1,0 +1,62 @@
+{
+  "schema": "pc-baseline-review/v1",
+  "task_id": "TOY1-BASELINE001-REVIEW",
+  "gate": "BASELINE_REVIEW",
+  "review_role": "verification-agent",
+  "input_revision": "608c0fc03e4c76ca403808ccd07d20933ecaab98",
+  "independent_of_baseline_authoring_invocation": true,
+  "disposition": "REVISE",
+  "gate_status": "BASELINE_PACKAGE_REVISION_REQUIRED",
+  "candidate": "process/baselines/AS-001-v2-candidate.yaml",
+  "candidate_sha256": "35aa193992e2d414d3d0f947e31d73f58436869cf0af0f5d92ec7d1b154473bb",
+  "reviewed_artifacts": [
+    {"path": "process/ledgers/vo_ledger-AS-001-v2-candidate.yaml", "sha256": "147282a1e78c6476fb44ceb7101591823168604de9d31a7b5d5f386d1bc9797f"},
+    {"path": "knowledge/architecture/AS-001/statement-v2.md", "sha256": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe"},
+    {"path": "knowledge/architecture/AS-001/verification_plan-v3.md", "sha256": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3"},
+    {"path": "knowledge/architecture/AS-001/verification/VO-004-v2.md", "sha256": "18aa0589513d24f37b336721377345e496678ee1ea1ef0617f3573fb8a3e410a"},
+    {"path": "process/decisions/AS-001-SCOPE-CORRECTION-001.yaml", "sha256": "d5145dc1449f9f497c6120186cb42eb59f1f68bcff0d9ddab16a95eec9edc814"},
+    {"path": "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml", "sha256": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085"},
+    {"path": "reviews/gates/TOY1-AS002-independent-review-v3.json", "sha256": "fc55d2a361015b9227ea0f1379012905b00daecaaf1239ec4aeb0cacd9318bbc"},
+    {"path": "process/ledgers/vo_ledger.yaml", "sha256": "bce66057e9b18a6212e32d1f8c257de7316ef12728df15d3d74f43dc194f1e7a"},
+    {"path": "process/ledgers/ad_ledger.yaml", "sha256": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332"},
+    {"path": "process/decisions/C-002-scope.yaml", "sha256": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36"},
+    {"path": "knowledge/architecture/AS-001/merit.md", "sha256": "e297b59b73dab29102a930a9a5bdbdea3e16abdc5f1c7d830d5e962d70f78c38"},
+    {"path": "knowledge/architecture/AS-001/proofs/PR-002.md", "sha256": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321"}
+  ],
+  "findings": [
+    {
+      "id": "BR-001",
+      "severity": "blocking",
+      "claim": "The exact candidate AS and reviewed VP form a coherent active package",
+      "finding": "AS-v2 frontmatter still has a specifies relation to /architecture/AS-001/verification_plan-v2.md, while the baseline candidate activates verification_plan-v3.md and the favorable independent review explicitly reviews VP-v3 as the corrected dependent evidence. This stale relation makes the proposed active AS dependency index contradict the activation set and risks resolving the old R-001 due-stage plan after activation.",
+      "required_resolution": "Create an additive/versioned correction aligning AS-v2's verification-plan relation with VP-v3 (or otherwise make the authoritative dependency explicit), preserve historical evidence, then submit the corrected package for independent baseline review."
+    }
+  ],
+  "reviewed_claims": [
+    "Approved scope authority supports newest-32 accepted-sample semantics and assigns uninterrupted ordered delivery to the upstream publisher as an unverified external responsibility.",
+    "The explicit Option A decision provisionally reaffirms AP-002 for CON-first under corrected AS-v2 and supersedes only the protected 1 ms applicability premise; C-002, C-003, PR-002 and F-001 remain protected.",
+    "The favorable independent AS review is independent and covers AS-v2, VP-v3 and proposed VO-004-v2; it does not activate them.",
+    "Candidate VO identities, states, evidence receipt fields, requirements and owners match the current ledger. VO-004 due-stage change from TARGET_VALIDATION to IMPLEMENTATION is explicitly authorized and remains OPEN.",
+    "AD-003 remains accepted with its original owner, final-acceptance deadline, checkpoints, fallback and F-001 uncertainty. No new debt or Pareto claim is introduced.",
+    "The candidate excludes unsupported detector-side loss epochs, watchdogs, fixed 1 ms cadence, physical publisher verification, and concurrent-reader guarantees. PR-002 remains limited to abstract arithmetic and ring recurrence assumptions."
+  ],
+  "unresolved_obligations": [
+    "VO-002, VO-003, VO-004, VO-005 and VO-006 remain OPEN; VO-001 remains limited to the synthetic input domain.",
+    "Publisher continuity is an external unverified assumption.",
+    "AD-003 and the final F-001 comparison remain open under their existing authority and deadlines.",
+    "No baseline activation, CON/DE approval, implementation, physical publisher evidence or VO discharge is established."
+  ],
+  "checks": [
+    {"command": "python tools/task.py inspect --manifest process/tasks/TOY1-BASELINE001-REVIEW.yaml", "result": "PASS", "summary": "Manifest, role, playbook, trigger and spine resolved."},
+    {"command": "python tools/pc.py check --fast", "result": "PASS", "summary": "62 concepts, 269 typed links, 0 raw bytes hashed, 0 warnings and 0 errors; structural validation only."},
+    {"command": "git diff --check", "result": "PASS", "summary": "No whitespace errors before receipt creation."},
+    {"command": "sha256sum reviewed artifacts", "result": "PASS", "summary": "Hashes recorded above; reviewed AS, VP and VO-004 hashes match the independent AS review receipt."}
+  ],
+  "changed_artifacts": ["reviews/gates/TOY1-BASELINE001-independent-review.json"],
+  "review_limits": [
+    "This is a package-admissibility review, not physical product or firmware acceptance.",
+    "Structural validation does not establish mathematical claims beyond accepted PR-002 scope, implementation correctness, publisher integrity, target behavior or stakeholder approval.",
+    "Raw datasets, target measurements and firmware were not inspected because they are outside this review's required evidence."
+  ],
+  "next_eligible_action": "Correct the AS-v2 dependency relation to the reviewed VP-v3 in a versioned/additive artifact, then request a new independent baseline reconciliation review. Do not activate the baseline or start CON before a favorable review receipt."
+}
