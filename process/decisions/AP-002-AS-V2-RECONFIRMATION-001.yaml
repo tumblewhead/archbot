@@ -42,6 +42,11 @@ vo_004_supersession:
   new_due_stage: IMPLEMENTATION
   state: open
   authoritative_update: pending_controlled_baseline_reconciliation
+authorized_vo_supersessions:
+  - id: VO-004
+    from_due_stage: TARGET_VALIDATION
+    to_due_stage: IMPLEMENTATION
+    preserved_state: open
 conditions:
   - reconcile_active_AS_VP_VO_004_against_review_and_authority
   - independent_review_of_controlled_baseline_and_ledger
