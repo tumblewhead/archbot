@@ -1,0 +1,43 @@
+schema: pc-task/v1
+id: REVISE_CON-9ef7fa04fe77
+role: contract-agent
+operation: REVISE_CON
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: CONTRACT_REVIEW_REVISION_REQUIRED
+  reference: reviews/gates/TOY1-CON005-independent-review-v5.json
+  revision: 113882d44181b3243788828324d64edf86aae676
+playbook: process/playbooks/REVISE_CON.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: contract_revision
+    receipt: reviews/gates/TOY1-CON005-independent-review-v5.json
+    source_task_manifest: process/tasks/REVIEW_CON-fff3ee9ea31b.yaml
+    source_revision: 113882d44181b3243788828324d64edf86aae676
+  review_inputs:
+    independent_review: reviews/gates/TOY1-CON005-independent-review-v5.json
+    finding_ids:
+    - CON005-F01
+    - CON005-F02
+    - CON005-F03
+    - CON005-F04
+    source_task_manifest: process/tasks/REVIEW_CON-fff3ee9ea31b.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: CONTRACT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

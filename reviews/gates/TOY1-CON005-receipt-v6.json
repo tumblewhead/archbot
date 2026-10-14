@@ -1,0 +1,116 @@
+{
+  "schema": "pc-con-authoring-receipt/v1",
+  "task_id": "REVISE_CON-9ef7fa04fe77",
+  "operation": "REVISE_CON",
+  "role": "contract-agent",
+  "input_revision": "c3511e23e78a981f7bb5c5210d7f8bdef2111b90",
+  "trigger_revision": "113882d44181b3243788828324d64edf86aae676",
+  "revision_relationship": "Trigger revision is an ancestor of checked-out HEAD; independent v5 review and source artifacts were present.",
+  "gate_status": "CONTRACTS_READY_FOR_INDEPENDENT_REVIEW",
+  "trigger": {
+    "kind": "CONTRACT_REVIEW_REVISION_REQUIRED",
+    "reference": "reviews/gates/TOY1-CON005-independent-review-v5.json",
+    "findings_addressed": ["CON005-F01", "CON005-F02", "CON005-F03", "CON005-F04", "CON005-F05"]
+  },
+  "changed_artifacts": [
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v6.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md",
+    "knowledge/architecture/AS-001/contracts/spine-v6.md",
+    "knowledge/architecture/AS-001/spine.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v6.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v6.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v6.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v6.md",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v6.md",
+    "reviews/gates/TOY1-CON005-coverage-v6.md",
+    "reviews/gates/TOY1-CON006-independent-review-request.md",
+    "reviews/gates/TOY1-CON005-receipt-v6.json"
+  ],
+  "finding_resolution": [
+    {
+      "finding_id": "CON005-F01",
+      "correction": "CON-AP2-003-v6 assigns nonoverlapping ceilings of 256 B persistent, 128 B scratch, 512 B detector stack, 256 B attributable interrupt context, 256 B shared, 128 B dynamic and 256 B other; 1,792 B allocated plus 256 B reserve, totaling the 2,048 B cap.",
+      "evidence": "Explicit attribution, unique-byte accounting, simultaneous-lifetime, stack/context coverage, and bounded dynamic-allocation conditions. No topology or measurements are asserted; implementation feasibility evidence remains due under VO-002.",
+      "status": "ready_for_independent_review"
+    },
+    {
+      "finding_id": "CON005-F02",
+      "correction": "CON-AP2-001-v6 requires acceptance quiescence and no accepted operation in progress through reset completion.",
+      "evidence": "Interface lifecycle orders every accepted operation across reset without requiring ISR/task topology or a synchronization primitive.",
+      "status": "ready_for_independent_review"
+    },
+    {
+      "finding_id": "CON005-F03",
+      "correction": "CON-AP2-001-v6 associates a coherent post-update full-range unsigned result with completion of the accepted-sample operation.",
+      "evidence": "The abstract operation completion is the handoff; no separate concurrent-reader guarantee, atomic mechanism, or topology is claimed.",
+      "status": "ready_for_independent_review"
+    },
+    {
+      "finding_id": "CON005-F04",
+      "correction": "Removed mandatory invalid-input rejection and reporting; legal `[0,4095]` input is the contract precondition.",
+      "evidence": "Safe arithmetic for legal values and operand widening before multiplication remain explicit implementation obligations under VO-006.",
+      "status": "ready_for_independent_review"
+    },
+    {
+      "finding_id": "CON005-F05",
+      "correction": "Preserved uninterrupted ordered delivery as the upstream publisher's external responsibility.",
+      "evidence": "Explicitly unverified; no detector-side sequence, loss, watchdog, or physical continuity claim.",
+      "status": "preserved_clarification"
+    }
+  ],
+  "authority_preserved": {
+    "active_as_ap_f": "unchanged",
+    "vo_002_to_vo_006": "open",
+    "vo_001": "discharged within accepted synthetic-domain scope only",
+    "ad_003": "accepted and unchanged",
+    "contracts_accepted": false,
+    "de_approved": false,
+    "firmware_implemented": false
+  },
+  "checks": [
+    {
+      "command": "git rev-parse HEAD",
+      "result": "PASS",
+      "summary": "Input revision c3511e23e78a981f7bb5c5210d7f8bdef2111b90 recorded; trigger revision is an ancestor."
+    },
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVISE_CON-9ef7fa04fe77.yaml",
+      "result": "PASS",
+      "summary": "Task role, operation, trigger, playbook, and spine resolved."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "summary": "Active AS-v2, reviewed VP-v3 relationship, AP-002 and active open VO states verified."
+    },
+    {
+      "command": "python tools/pc.py check --fast",
+      "result": "PASS",
+      "summary": "80 concepts, 329 typed links, zero warnings and zero errors; structural validation only; raw SHA-256 skipped."
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "summary": "No whitespace errors."
+    },
+    {
+      "command": "manual arithmetic check",
+      "result": "PASS",
+      "summary": "Category ceilings sum to 1,792 B; reserve is 256 B; total is 2,048 B. PR-002 bounds retained: 536,608,800 and 553,377,825."
+    }
+  ],
+  "unresolved_obligations": [
+    "Independent acceptance of v6 contracts remains required; this authoring receipt is not approval.",
+    "VO-002 through VO-006 remain OPEN; category ceilings do not establish physical resource fit or implementation evidence.",
+    "Publisher continuity remains external and unverified.",
+    "No separate concurrent-reader guarantee is specified; any such integration requirement needs authority.",
+    "AD-003 remains accepted; final F-001 comparison remains due before final acceptance.",
+    "No DE approval, firmware authorization, C correspondence, compiler, target, or physical publisher evidence is claimed."
+  ],
+  "review_limits": [
+    "Structural validation does not prove mathematical or firmware correctness, resource fit, publisher continuity, or stakeholder acceptance.",
+    "No tests, raw data, firmware, compiler output, linker map, stack report, target measurement, or physical publisher evidence were inspected or generated."
+  ],
+  "next_eligible_action": "Submit the v6 candidate and this receipt for a fresh independent REVIEW_CON. DE refinement and firmware remain unauthorized until favorable accepted contract review."
+}
