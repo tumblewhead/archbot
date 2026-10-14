@@ -4,6 +4,39 @@
 Repository: `tumblewhead/archbot`, canonical nonvolatile project memory.
 The locally developed Codex prototype and versioned architecture/evaluation evidence were imported in commit `aa2bbb5ec2e7`. The role-specific spine-filter correction was committed as `ca65eafda715`. Consult current repository artifacts and review receipts rather than treating older status notes as current.
 
+## Current gate: DE-v7 accepted; guarded C implementation next (2026-10-14)
+
+Commit `3ee9b63322e2` adds
+`reviews/gates/TOY1-DE-independent-review-v7.json`, disposition
+`ACCEPT_WITH_CLARIFICATIONS`, recommendation
+`DE_ACCEPTABLE_FOR_GUARDED_IMPLEMENTATION_TASK`, and **no blocking
+findings**. The five DEs (INGRESS, STATE, UPDATE, RESULT, RESOURCE)
+compose under accepted CON-v6 and active AS-v2. The abstract rolling
+proof PR-002 remains applicable, but C correspondence is unproven.
+VO-002..VO-006 remain OPEN. DE007-C01 notes that per-element
+resource subceilings are *proposed accounting allocations*, not
+measured physical fit; any failed subceiling must be reviewed without
+exceeding the authorized C-002 category or 2,048-byte total.
+
+**Next:** `tools/next_task.py inspect/emit --receipt
+reviews/gates/TOY1-DE-independent-review-v7.json` now routes to
+reusable `IMPLEMENT_DE` and `implementation-agent`.
+The task runner checks the accepted independent DE review, exact
+DE-source hashes, source task/project identity and active baseline.
+Unlike earlier authoring tasks, this operation explicitly permits
+implementation source and tests. The agent must provide an
+Engineering Briefing linked to evidence, runnable C and reference
+tests, a resource-attribution plan and independent implementation
+verification request. Do not invent sampling periods, ISR topology,
+publisher continuity detection or unsupported concurrent readers.
+No firmware is yet implemented or independently verified; actual
+target memory/cycle evidence is still due at IMPLEMENTATION.
+
+After implementation, independent review must verify C behavior,
+memory and other VOs. The eventual genericity audit and cleanroom
+replays remain subsequent roadmap milestones, followed by
+project-owned dialogue/consistency/archive and Toy 2.
+
 ## Latest: DE-v7 submitted for independent review (2026-10-14)
 
 Commit `15525ce2b2d4` contains five draft DEs:
