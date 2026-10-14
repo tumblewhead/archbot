@@ -1,0 +1,48 @@
+# Toy 1 inputs only; reusable REVIEW_BASELINE playbook is domain neutral.
+schema: pc-task/v1
+id: TOY1-BASELINE001-REVIEW
+role: verification-agent
+operation: REVIEW_BASELINE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: BASELINE_RECONCILIATION_REQUESTED
+  reference: process/baselines/AS-001-v2-candidate.yaml
+playbook: process/playbooks/REVIEW_BASELINE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  authority_inputs:
+    baseline_candidate: process/baselines/AS-001-v2-candidate.yaml
+    source_approved_scope: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+    approved_ap_reaffirmation: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml
+    human_approval: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.md
+    independent_as_review: reviews/gates/TOY1-AS002-independent-review-v3.json
+    active_as_candidate: knowledge/architecture/AS-001/statement-v2.md
+    active_verification_plan_candidate: knowledge/architecture/AS-001/verification_plan-v3.md
+    proposed_vo_004: knowledge/architecture/AS-001/verification/VO-004-v2.md
+    candidate_vo_ledger: process/ledgers/vo_ledger-AS-001-v2-candidate.yaml
+    current_vo_ledger: process/ledgers/vo_ledger.yaml
+    current_ad_ledger: process/ledgers/ad_ledger.yaml
+    historical_ap_decision: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+    protected_memory_scope: process/decisions/C-002-scope.yaml
+    figure_of_merit: knowledge/architecture/AS-001/merit.md
+    approved_abstract_proof: knowledge/architecture/AS-001/proofs/PR-002.md
+    review_request: reviews/gates/TOY1-BASELINE001-review-request.md
+outputs:
+  allowed:
+    - independent_baseline_review
+    - bounded_review_receipt
+    - findings_and_source_hashes
+  prohibited:
+    - overwrite_original_AS_VP_VO_or_AP_decisions
+    - activate_unreviewed_baseline
+    - edit_current_VO_or_AD_ledger
+    - discharge_verification_obligation
+    - accept_new_architectural_debt
+    - approve_CON_DE_or_implementation
+    - implement_firmware
+gate:
+  kind: BASELINE_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
