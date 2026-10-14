@@ -1,0 +1,45 @@
+schema: pc-task/v1
+id: REVIEW_DE-86a560c34d18
+role: verification-agent
+operation: REVIEW_DE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: DE_DRAFT_SUBMITTED
+  reference: knowledge/architecture/AS-001/design_elements/spine-v7.md
+  revision: 812a77da49d21deb3b7e1c46552fb917f8ab3d0a
+playbook: process/playbooks/REVIEW_DE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: design_submission_review
+    receipt: reviews/gates/TOY1-DECOMPOSE-DE-receipt-v7.json
+    source_task_manifest: process/tasks/DECOMPOSE_DE-56b5902537c8.yaml
+    source_revision: 812a77da49d21deb3b7e1c46552fb917f8ab3d0a
+  artifact_inputs:
+    primary_concept: knowledge/architecture/AS-001/design_elements/spine-v7.md
+    related_concepts:
+    - knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v7.md
+    - knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v7.md
+    - knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v7.md
+    - knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v7.md
+    - knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md
+    submission_receipt: reviews/gates/TOY1-DECOMPOSE-DE-receipt-v7.json
+    source_task_manifest: process/tasks/DECOMPOSE_DE-56b5902537c8.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: DE_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
