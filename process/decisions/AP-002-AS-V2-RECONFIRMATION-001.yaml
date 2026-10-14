@@ -1,0 +1,57 @@
+schema: pc-ap-authority/v1
+id: AP-002-AS-V2-RECONFIRMATION-001
+status: approved
+decision: PROVISIONALLY_SELECTED
+architecture: AS-001-v2
+selected_candidate: AP-002
+stage: AP
+authorizes: CON_FIRST_DECOMPOSITION_AFTER_BASELINE_RECONCILIATION
+approved_by: user:engineering_authority
+approved_date_local: "2026-10-13"
+authority_evidence: process/decisions/AP-002-AS-V2-RECONFIRMATION-001.md
+basis:
+  request: process/decisions/AP-002-AS-V2-APPLICABILITY-REQUEST-v1.md
+  corrected_scope_decision: process/decisions/AS-001-SCOPE-CORRECTION-001.yaml
+  reviewed_architecture: knowledge/architecture/AS-001/statement-v2.md
+  reviewed_verification_plan: knowledge/architecture/AS-001/verification_plan-v3.md
+  proposed_verification_obligation: knowledge/architecture/AS-001/verification/VO-004-v2.md
+  independent_review: reviews/gates/TOY1-AS002-independent-review-v3.json
+  historical_selection: process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+  figure_of_merit: knowledge/architecture/AS-001/merit.md
+  memory_scope: process/decisions/C-002-scope.yaml
+supersedes_applicability_of:
+  - process/decisions/AP-002-PROVISIONAL-SELECTION-001.yaml
+protected_requirements:
+  - C-001_synthetic_unsigned_12bit_sample_domain
+  - C-002_2048_bytes_detector_attributable_sram
+  - C-003_no_floating_point_hardware_reliance
+  - R-001_one_update_per_accepted_published_sample_sample_indexed
+  - R-002_exact_newest_32_zero_padded_squared_sum
+  - R-003_no_overflow_for_legal_inputs
+external_assumptions:
+  - upstream_publisher_responsible_for_uninterrupted_ordered_delivery
+not_required_without_new_integration_authority:
+  - fixed_1ms_sampling_cadence
+  - detector_side_loss_detection
+  - sequence_tracking_and_counter_wrap_watchdog
+  - external_concurrent_reader_atomicity
+accepted_architectural_debt: [AD-003]
+carried_verification_obligations: [VO-002, VO-003, VO-004, VO-005, VO-006]
+vo_004_supersession:
+  old_due_stage: TARGET_VALIDATION
+  new_due_stage: IMPLEMENTATION
+  state: open
+  authoritative_update: pending_controlled_baseline_reconciliation
+conditions:
+  - reconcile_active_AS_VP_VO_004_against_review_and_authority
+  - independent_review_of_controlled_baseline_and_ledger
+  - preserve_original_historical_records
+  - complete_F_001_comparison_and_AD_003_disposition_before_final_acceptance
+  - failed_binding_requirement_reopens_affected_AP_CON_DE
+not_authorized:
+  - auto_accept_CON_or_DE
+  - discharge_VO_002_through_VO_006
+  - amend_F_001_or_C_002_scope
+  - invent_publisher_hardware_evidence
+  - assert_measured_target_cycles_flash_or_resource_fit
+  - implement_firmware_before_contract_gate
