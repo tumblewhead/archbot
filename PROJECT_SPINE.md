@@ -3,46 +3,41 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: host VR-001 review received; prefreeze genericity audit next
+## Current checkpoint: audit candidate committed; independent review next
 
-User push `d0eb059d2d6d` contains the
-[VR-001 independent resource review](reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json).
-The disposition is `ACCEPT_WITH_CLARIFICATIONS` **only for the
-reported 72-byte host C99 ABI layout**: samples 64 B, oldest 1 B,
-sum_squares 4 B and padding/overhead 3 B. The reviewer inspected the
-source, reported layout output and hashes, but did not independently
-recompile the layout probe. Its source commit and hashes were pinned;
-the differing review checkout HEAD is recorded transparently.
+The [prefreeze genericity audit candidate](reviews/qualification/GENERICITY_PREFREEZE_001-report.md)
+and [machine-readable receipt](reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json)
+were authored in connected GitHub inspection and committed as
+`404bef8120dc24782b1c71baffea528ca268b754`.
+They are **not independently reviewed**: five Q1–Q6 areas are author-assessed
+BLOCKED and Q5 is UNRESOLVED. The audit did not execute local Python tests or
+Codex. Its findings are hypotheses and source inspections requiring challenge,
+not approved framework defects or permission for repairs.
 
-**Unresolved process defect:** both
-[VC-001 compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
-and VR-001 record failures of `python tools/task.py run` before any
-registered Codex reviewer turn. Separately authored direct review reports
-are not evidence of a successful nested runner. See
-[review execution modes](docs/REVIEW_EXECUTION_MODES.md) for distinct
-outer-shell launch vs current-agent direct execution; neither route is
-yet qualified for cleanroom reproducibility by this documentation alone.
-Do not conceal the original failures or relax sandbox controls.
+**Next assigned gate:** `REVIEW_GENERICITY_PREFREEZE-001`, operation
+`REVIEW_GENERICITY_AUDIT`, role `verification-agent`, manifest
+`process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`, playbook
+`process/playbooks/REVIEW_GENERICITY_AUDIT.md`. Its inputs are pinned to the
+candidate commit and exact candidate blobs. A separate reviewer must verify
+identities, challenge Q1..Q6 and assess the repair ordering.
 
-The next assigned work is a **bounded prefreeze genericity audit**:
-`process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml`, operation
-`AUDIT_GENERICITY`, role `architecture-agent`, playbook
-`process/playbooks/AUDIT_GENERICITY_PREFREEZE.md`. The audit is
-authorized for *investigation only*, anchored to the latest review,
-and must produce `reviews/qualification/GENERICITY_PREFREEZE_001-report.md`
-and `reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json`.
-It cannot accept Toy 1, freeze the framework or launch a cleanroom.
-Those outputs need a distinct independent review later.
+**Next local action:** pull; run `python -m unittest discover -s tests -p
+'test_genericity_review_route.py' -v`; inspect the review manifest with
+`python tools/task.py inspect --manifest
+process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`.
+From an **outer host shell**, invoke `python tools/task.py run --manifest
+process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`. If the reviewer is already
+inside Codex, instead `render` and perform the task in that **separate existing
+invocation**, without launching nested Codex. Inspect actual report and receipt
+at `reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-{report.md,receipt.json}`
+before selectively staging/pushing. If launch fails before reviewer turns,
+preserve failure evidence and stop; a generated prompt is not a review.
 
-**Next local action:** pull, run
-`python -m unittest discover -s tests -p 'test_genericity_audit_route.py' -v`,
-then `python tools/task.py inspect --manifest
-process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml`. If already inside a
-Codex agent invocation, use `python tools/task.py render --manifest ...`
-and carry out that assigned audit within the **current** invocation.
-Do not recursively invoke `task.py run`. From an outer host shell,
-`run` remains the registered launcher if it actually works. Stage the
-audit report and receipt selectively after inspecting their contents.
+The earlier VC-001 and VR-001 review invocations both record failed registered
+reviewer launches; their separately authored direct reviews do not cure that
+defect. See `docs/REVIEW_EXECUTION_MODES.md`. No framework freeze,
+cleanroom replay, product acceptance, target selection or VO discharge follows
+from the candidate or its subsequent scoped review.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

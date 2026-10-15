@@ -80,3 +80,6 @@ operations:
   AUDIT_GENERICITY:
     role: architecture-agent
     playbook: process/playbooks/AUDIT_GENERICITY_PREFREEZE.md
+  REVIEW_GENERICITY_AUDIT:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_GENERICITY_AUDIT.md

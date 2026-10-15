@@ -1,0 +1,44 @@
+schema: pc-task/v1
+id: REVIEW_GENERICITY_PREFREEZE-001
+role: verification-agent
+operation: REVIEW_GENERICITY_AUDIT
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: GENERICITY_PREFREEZE_AUDIT_SUBMITTED
+  reference: reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json
+  revision: 404bef8120dc24782b1c71baffea528ca268b754
+playbook: process/playbooks/REVIEW_GENERICITY_AUDIT.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    audit_task: process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml
+    candidate_report: reviews/qualification/GENERICITY_PREFREEZE_001-report.md
+    candidate_receipt: reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json
+    candidate_report_blob_sha1: 6e2a2152f590936d9d165b4fc01566ba9f53a1b5
+    candidate_receipt_blob_sha1: 62d75d162c27f78d49409394a253ec93da9d8836
+    candidate_commit: 404bef8120dc24782b1c71baffea528ca268b754
+    source_snapshot: c0b6a5e26cdfb9a4e01ededccea8567aed50f1a7
+    expected_schema: pc-genericity-audit/v1
+    scope: FRAMEWORK_PREFREEZE_AUDIT_ONLY
+    independence: reviewer invocation must be separate from candidate authoring invocation
+outputs:
+  allowed:
+    - independent_audit_review_report
+    - independent_audit_review_receipt
+    - concise_engineering_briefing
+  prohibited:
+    - overwrite_accepted_artifacts
+    - modify_candidate_audit
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - discharge_VO
+    - accept_AD
+    - implement_firmware
+    - freeze_generic_process
+    - authorize_cleanroom
+gate:
+  kind: GENERICITY_PREFREEZE_AUDIT_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
