@@ -46,5 +46,21 @@ stop dependent gates and identify the actual error before rerunning. A response
 of "pushed" means fetch the latest remote HEAD, inspect its artifacts and review
 receipts, and only then choose the next authorized action.
 
+## Review execution without recursive Codex sessions
+
+Follow [review execution modes](docs/REVIEW_EXECUTION_MODES.md). When an
+already-running Codex agent is carrying out its assigned review, use
+`python tools/task.py inspect --manifest ...` and
+`python tools/task.py render --manifest ...` and perform that exact
+task **within the present invocation**. Do not run `task.py run` from
+inside Codex just to spawn a second Codex agent. From an outer host
+shell, `task.py run` remains the registered launcher.
+
+A rendered prompt is not evidence of execution, and a failed registered
+launch is not a completed review. Label any direct review honestly,
+identify its actual invocation and checks, and retain the original
+failed-run record. Do not weaken sandbox permissions to hide a launch
+failure. Preserve independent author/reviewer separation.
+
 ## Safe restart
 A new agent must inspect repository HEAD, open `PROJECT_SPINE.md`, read applicable authority receipts and the live spine, then identify the next unresolved gate. If files described in the project spine have not yet been imported, report that explicitly. Never fabricate missing artifacts.
