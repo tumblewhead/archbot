@@ -45,8 +45,9 @@
 
 ## Outputs and authority
 
-Produce a bounded `reviews/gates/` Markdown report and JSON review receipt,
-using `pc-compiler-evidence-review/v1`, with:
+Produce a bounded Markdown report at `reviews/gates/<task-id>-report.md`
+and JSON receipt at `reviews/gates/<task-id>-receipt.json`, using
+`pc-compiler-evidence-review/v1`, with:
 - review task ID, operation, project ID and spine;
 - submitted evidence path and its exact SHA-256, reviewed source revision,
   reviewer execution identity and independently verified hashes;
