@@ -1,0 +1,206 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "FR-002-GATE-ADAPTER-R1",
+  "source_revision": "4c1810ecf520a7c2741c4a517532d05f1ee595fd",
+  "previous_review": "reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json",
+  "addressed_findings": [
+    "FR002-AUTH-001",
+    "FR002-AUTH-002"
+  ],
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "test_gate_adapter.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_gate_adapter.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "cf3427d2a152c23bac90097c9de938939af22c07d22f3e1be84f613df623d5b4",
+      "log_bytes": 2619
+    },
+    {
+      "name": "test_stage_gate.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_stage_gate.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c715e1002b988b7389deb92619d1f8a3d52b1d650164ec74ab3fdc8612afae61",
+      "log_bytes": 1657
+    },
+    {
+      "name": "test_task.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "012b6e432232ec22b306d37199cf65226b587a0b2d35ea5165cf18a3419696d3",
+      "log_bytes": 6034
+    },
+    {
+      "name": "test_telemetry.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_telemetry.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "eb754a47b17f08e3949e5809d201b6e79f6436260404fe133470f50f5d74f644",
+      "log_bytes": 2652
+    },
+    {
+      "name": "test_fr001_r1_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr001_r1_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fb27dedbe5337ceb9b1ea451b50a304740d42c54c6efa02ebe256d6eb25f3f74",
+      "log_bytes": 546
+    },
+    {
+      "name": "test_fr002_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr002_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ed2387aa6e7fa5c39893729986258e5c290df96e9f3b0b01b4dbc01726c6acec",
+      "log_bytes": 600
+    },
+    {
+      "name": "test_genericity_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a0db73f911d564655ba94077f392cbce3c9654b5df3f5ae5d1883bceb3fbdc9c",
+      "log_bytes": 582
+    },
+    {
+      "name": "test_genericity_audit_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_audit_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fdc0e48fe1c8f4a48332d1f157bcdeb3b0abe335f61ee223f9484700347e1241",
+      "log_bytes": 602
+    },
+    {
+      "name": "bound_inspect",
+      "command": [
+        "/usr/sbin/python",
+        "tools/stage_gate.py",
+        "inspect",
+        "--binding",
+        "process/gate_configs/AS-001-AP-v1.yaml"
+      ],
+      "exit_code": 0,
+      "log_sha256": "52e1f409389678da1fa054c1cefa6266b1e3c434738c3e107b5bf6e8ec8527a5",
+      "log_bytes": 1374
+    },
+    {
+      "name": "legacy_inspect",
+      "command": [
+        "/usr/sbin/python",
+        "tools/stage_gate.py",
+        "inspect",
+        "--legacy-toy1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "31b13f7bd159bbd99f686c1e94f60a294250cb77ab1cd92dc546cbbea3c745fc",
+      "log_bytes": 1256
+    }
+  ],
+  "source_sha256": {
+    "tools/stage_gate.py": "c87b0f570a193a124802d5eca7144b517617a2adecc306107275f30a5d9bf5c9",
+    "tools/gates/__init__.py": "da4ea4e61f4d3d7ffa7a97674894e7f07362590c4d488a5cb7c1ee915b25f0f7",
+    "tools/gates/common.py": "05e7844024dbc94364e7a3c1300ab24381484a2c9455f0996b6cf04232a1a79f",
+    "tools/gates/toy1_c002.py": "0711ae893e6cfc3e9413dd5d1dbe4dbacd0807fb724317cfecf3f50f65491f56",
+    "tools/gates/binding.py": "af31352e13610f97626d5e5d5e3df575f1693cbdd80f9bf398bac6b399b6b6bc",
+    "tools/gates/authority_roots.py": "6995ca7273e1ffcdc63f90e2048274c547d7b7388abef63e1b10c8bf93bc9318",
+    "process/gate_configs/AS-001-AP-v1.yaml": "0995185becf371f268883f4facfe36b1c84f339e0dbb89fceb5f55d3299c2b2d",
+    "tests/test_gate_adapter.py": "01b350766bad2b2e8977bb6be7940ada852b24b5888a4d69b00c105482077402"
+  },
+  "source_git_blob_sha1": {
+    "tools/stage_gate.py": "01b7f6bad2f78aee06cd4fc5664b806fcca1b4a4",
+    "tools/gates/__init__.py": "911db5e8c7f9fb315603bc1ad5ee36f8fb84b82b",
+    "tools/gates/common.py": "86d7016deaefff011a4a9ecd682a8072e302699d",
+    "tools/gates/toy1_c002.py": "18ae2486bc62dca3d6ee9046c602d2ceb859c06c",
+    "tools/gates/binding.py": "80047d755a520b8240f7c4d9f05171a450d69da3",
+    "tools/gates/authority_roots.py": "c0667a9632096f3179e8371cedd39e4d0aaa2a3b",
+    "process/gate_configs/AS-001-AP-v1.yaml": "f60f6840f250a21512b443084c8bcfe9b5afc2f3",
+    "tests/test_gate_adapter.py": "f40ec76bde6bb8ccd78dff8d028f87b31ff1f399"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
