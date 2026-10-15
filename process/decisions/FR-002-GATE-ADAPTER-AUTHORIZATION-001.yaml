@@ -1,0 +1,36 @@
+schema: pc-framework-repair-authorization/v1
+id: FR-002-GATE-ADAPTER-AUTHORIZATION-001
+source_proposal: process/proposals/FR002_GATE_ADAPTER_001.yaml
+source_review: reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json
+decision: AUTHORIZE_BOUNDED_IMPLEMENTATION
+approved_by: user:engineering_authority
+approval_evidence: explicit_user_reply_to_FR002_bounded_scope
+approval_phrase: "approved"
+authorized_scope:
+  - Extract common AP eligibility mechanics from Toy 1 C-002 domain validation.
+  - Provide explicit project-spine baseline policy VO/AD and validator source pins.
+  - Reject missing, wrong-project or altered required validators and authority.
+  - Preserve Toy 1 AP-stage positive and negative controls.
+  - Add synthetic second-project and fail-closed tests.
+allowed_paths:
+  - tools/stage_gate.py
+  - tools/gates/
+  - process/gate_configs/AS-001-AP-v1.yaml
+  - tests/test_gate_adapter.py
+  - tests/test_stage_gate.py
+  - PROJECT_SPINE.md
+  - reviews/qualification/FR002_GATE_ADAPTER-authoring-report.md
+  - process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+prohibited:
+  - Modify accepted AS/AP/F/CON/DE or implementation/toy1
+  - Modify active VO/AD ledgers or accepted independent review receipts
+  - Waive a C-002 rule if its validator or authority is absent
+  - Change F-001 comparison authority
+  - Freeze the framework or launch the cleanroom
+scope_state: SOURCE_CANDIDATE_NOT_INDEPENDENTLY_REVIEWED
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

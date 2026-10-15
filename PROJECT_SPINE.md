@@ -3,35 +3,33 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-001 accepted within scope; FR-002 proposal next
+## Current checkpoint: FR-002 gate adapter candidate authored, local evidence next
 
-The independent [FR-001 R1 reviewer report](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md)
+The independent FR-001 R1 review
+[report](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md)
 and [receipt](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json)
-were pushed in `6718424a4880ac6bba22c279d0a00483f5a8de98`. Disposition: **ACCEPT_WITH_CLARIFICATIONS** for
-`FR001_PROJECT_CONTEXT_R1_IMPLEMENTATION_REVIEW_ONLY`. The reviewer
-reproduced 77 regression tests (five suites), confirmed five source identities,
-and recorded honest limitations: parent-directory symlinks and deeper
-dependency cases were inspected rather than separately reproduced; mandatory
-closure is guarded at **telemetry projection**, not within all `pc.traverse`.
-Original `REVIEW_FR001_PROJECT_CONTEXT_001` remains `REVISE` historically.
-Neither review establishes cleanroom/workspace isolation.
+remain `ACCEPT_WITH_CLARIFICATIONS` for telemetry role-projected context only.
+Its earlier `REVISE` review remains immutable.
 
-The next proposed repair is
-[FR-002 gate adapter](process/proposals/FR002_GATE_ADAPTER_001.yaml)
-with [design rationale](docs/FR002_GATE_ADAPTER_DESIGN_001.md).
-It will separate reusable AP gate mechanics from opt-in Toy 1 C-002
-SRAM accounting and require explicit project policy/active ledger references.
-**FR-002 is a proposal only. No implementation authorization has been given.**
+Engineering authority explicitly approved the bounded
+[FR-002 gate adapter proposal](process/proposals/FR002_GATE_ADAPTER_001.yaml).
+The [FR-002 authorization record](process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml)
+controls implementation scope. The
+[FR-002 authoring report](reviews/qualification/FR002_GATE_ADAPTER-authoring-report.md)
+describes reusable AP mechanics, opt-in Toy 1 C-002 validation, a pinned
+project gate-binding candidate, and new synthetic other-project tests.
 
-**Next eligible human decision:** approve or revise bounded FR-002 scope.
-If approved, assistant authors the narrowly scoped source/tests to remote
-GitHub; human pulls/runs/pushes evidence; different reviewer assesses the
-implementation. Do not run FR-002 tests before source exists, and do not
-confuse a favorable FR-001 review with authority to edit stage gates.
+**Status: source authored, local execution and independent review PENDING.**
+The human's next action is to pull `main`, run the explicitly listed stage
+gate, gate adapter, task and FR-001 regressions, inspect the explicit Toy 1
+binding, and selectively push a versioned bounded test receipt. The assistant
+will review pushed evidence and register a separate independent FR-002
+implementation reviewer.
 
-No framework freeze, cleanroom replay, target selection, final F-001
-comparison, Toy 1 product acceptance, VO discharge, or AD change occurred.
-Earlier VC-001/VR-001 failed registered launches remain historical evidence.
+This change is NOT a freeze or cleanroom launch. The FR-002 code cannot
+accept product evidence, discharge a VO, alter accepted C-002 scope, or
+change the F-001 protected comparison. Keep earlier VC-001/VR-001 registered
+launch failures preserved.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
