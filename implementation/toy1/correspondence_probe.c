@@ -87,7 +87,7 @@ int main(void)
         }
     }
 
-    for (i = 0u; i < CASES; ++i) {
+    for (i = 0u; i < (unsigned)CASES; ++i) {
         uint16_t sample;
         int status;
         /* Reset only between completed accepted calls, matching CON-v6. */
