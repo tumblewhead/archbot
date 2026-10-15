@@ -22,6 +22,13 @@ restricts selected context to the declared project and explicitly linked
 shared BKP, and verifies missing mandatory dependencies fail closed.
 It adds five focused negative/positive regression cases.
 
+The first R1 local run exposed a historical review-route canary bug:
+`tests/test_fr001_review_route.py` compared current R1 source bytes with
+immutable original FR-001 review pins. Its corrected test now resolves the
+original submission and sources at their **recorded Git commits**, retaining
+exact Git blob SHA-1 and SHA-256 verification without rewriting the old
+review. R1 local regression evidence remains pending until the tests rerun.
+
 **Next local action:** pull, run targeted telemetry and task/genericity
 regressions, capture bounded R1 test evidence with pinned source hashes,
 and selectively push that receipt. The assistant must then inspect actual

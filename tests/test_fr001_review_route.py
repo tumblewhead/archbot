@@ -7,6 +7,8 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import re
+import subprocess
 import sys
 import unittest
 
@@ -19,6 +21,25 @@ import task
 
 def git_blob_sha1(data: bytes) -> str:
     return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
+
+
+def bytes_at_pinned_revision(revision: str, path: str) -> bytes:
+    """Read historical evidence from its committed tree, never today's checkout."""
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("Expected a complete pinned commit SHA")
+    if (not isinstance(path, str) or not path or path.startswith("/")
+            or ":" in path or ".." in Path(path).parts):
+        raise ValueError("Unsafe historical evidence path")
+    result = subprocess.run(
+        ["git", "show", f"{revision}:{path}"],
+        cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            f"Pinned historical file unavailable: {revision}:{path}: "
+            + result.stderr.decode("utf-8", errors="replace")
+        )
+    return result.stdout
 
 
 class FrameworkRepairReviewRouteTests(unittest.TestCase):
@@ -41,12 +62,15 @@ class FrameworkRepairReviewRouteTests(unittest.TestCase):
         inputs = m["context"]["review_inputs"]
         self.assertEqual(m["trigger"]["reference"], inputs["submission_path"])
         self.assertEqual(m["trigger"]["revision"], inputs["source_revision"])
-        evidence_path = ROOT / inputs["submission_path"]
-        self.assertEqual(git_blob_sha1(evidence_path.read_bytes()),
+        # A later reviewed revision is allowed to change working-tree source.
+        # Verify the submitted receipt at its submission commit instead.
+        evidence_bytes = bytes_at_pinned_revision(
+            inputs["submission_commit"], inputs["submission_path"])
+        self.assertEqual(git_blob_sha1(evidence_bytes),
                          inputs["submission_blob_sha1"])
-        self.assertNotEqual(git_blob_sha1(evidence_path.read_bytes() + b"!"),
+        self.assertNotEqual(git_blob_sha1(evidence_bytes + b"!"),
                             inputs["submission_blob_sha1"])
-        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        evidence = json.loads(evidence_bytes.decode("utf-8"))
         self.assertEqual(evidence["schema"], inputs["expected_submission_schema"])
         self.assertEqual(evidence["task_id"], inputs["repair_id"])
         self.assertEqual(evidence["source_revision"], inputs["source_revision"])
@@ -65,10 +89,20 @@ class FrameworkRepairReviewRouteTests(unittest.TestCase):
         self.assertEqual(set(inputs["reviewed_source_blob_sha1"]),
                          set(evidence["source_sha256"]))
         for path, blob_id in inputs["reviewed_source_blob_sha1"].items():
-            data = (ROOT / path).read_bytes()
+            # Preserve the original review's pins at its source revision.
+            # Do not rebind history to the currently edited R1 files.
+            data = bytes_at_pinned_revision(inputs["source_revision"], path)
             self.assertEqual(git_blob_sha1(data), blob_id)
             self.assertEqual(hashlib.sha256(data).hexdigest(),
                              evidence["source_sha256"][path])
+
+    def test_historical_lookup_rejects_unsafe_refs(self):
+        with self.assertRaises(ValueError):
+            bytes_at_pinned_revision("main", "tools/telemetry.py")
+        with self.assertRaises(ValueError):
+            bytes_at_pinned_revision("a" * 40, "../tools/telemetry.py")
+        with self.assertRaises(ValueError):
+            bytes_at_pinned_revision("a" * 40, "tools/telemetry.py:main")
 
     def test_scope_rejects_freeze_and_vo_discharge(self):
         m = self.task_manifest()
