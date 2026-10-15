@@ -1,0 +1,33 @@
+schema: pc-task/v1
+id: REVIEW_COMPILER_EVIDENCE-TOY1-VC001
+role: verification-agent
+operation: REVIEW_COMPILER_EVIDENCE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: EXECUTABLE_EVIDENCE_SUBMITTED
+  reference: reviews/verification/TOY1-VO003006-20261015T031625Z.json
+  revision: 6e3a6c330d663081b7e8fad33f17fe731b563569
+playbook: process/playbooks/REVIEW_COMPILER_EVIDENCE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    evidence_summary: reviews/verification/TOY1-VO003006-20261015T031625Z.json
+    evidence_blob_sha1: 899f08ef9793373dc36a98406079e0a4c774d546
+    expected_schema: pc-toy1-c-evidence/v1
+    prior_review: reviews/gates/IMPLEMENT_DE-900da7a3ce8c-independent-review.json
+    source_revision: 6e3a6c330d663081b7e8fad33f17fe731b563569
+outputs:
+  allowed: [review_receipt, independent_evidence_report, engineering_briefing]
+  prohibited:
+    - overwrite_accepted_artifacts
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - discharge_VO
+    - accept_AD
+    - modify_firmware
+gate:
+  kind: COMPILER_EVIDENCE_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
