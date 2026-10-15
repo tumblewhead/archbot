@@ -1,0 +1,322 @@
+{
+  "schema": "pc-toy1-c-evidence/v1",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "stage": "C_SOURCE_AND_COMPILER_CORRESPONDENCE_EVIDENCE",
+  "source_revision": "6e3a6c330d663081b7e8fad33f17fe731b563569",
+  "subject": "implementation/toy1/detector.c and detector.h",
+  "source_sha256": {
+    "implementation/toy1/detector.h": "b7f68b2d81e20f64e62fbd817b31822b80bfb78d5945d4523dc7150a15486d6c",
+    "implementation/toy1/detector.c": "f6ec5917a2daeaf52c41893040b8976abc3ae85fa86227d78609078084887310",
+    "implementation/toy1/correspondence_probe.c": "c8f4dd2b1100ebaeca81d115c7bddd664b07d094d036cea34a4cee1c6da6139d",
+    "implementation/toy1/test_detector.c": "f1308252cd84888078e98f5e1a82641bbce134f61d8da4c6d9e82daa9a7a5bff",
+    "tools/toy1_c_evidence.py": "698d30b1f6a87c28cae3de6663b2480cf6463ec96a5293ba8f7c4680e032c30c"
+  },
+  "prior_independent_review": "reviews/gates/IMPLEMENT_DE-900da7a3ce8c-independent-review.json",
+  "sources_match_prior_review": true,
+  "sources_unchanged_during_collection": true,
+  "host_status": "HOST_PROBE_PASSED",
+  "target_status": "NOT_REQUESTED",
+  "commands": [
+    {
+      "label": "host-version",
+      "argv": [
+        "cc",
+        "--version"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/host-version.stdout.txt",
+        "sha256": "52fa390d1b33ef5e0b20f39de6624190ade494b52dd543bd8121f350ec88e0e5",
+        "bytes_total": 227,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/host-version.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "host-machine",
+      "argv": [
+        "cc",
+        "-dumpmachine"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/host-machine.stdout.txt",
+        "sha256": "1c7da408e283702561a445e700b61c0f55a082230a3cfe323208841221274a6a",
+        "bytes_total": 20,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/host-machine.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "compile-O0",
+      "argv": [
+        "cc",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Wconversion",
+        "-Werror",
+        "-pedantic",
+        "-O0",
+        "implementation/toy1/detector.c",
+        "implementation/toy1/correspondence_probe.c",
+        "-o",
+        "runs/TOY1-VO003006-20261015T031625Z/toy1-O0"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O0.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O0.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "execute-O0",
+      "argv": [
+        "./runs/TOY1-VO003006-20261015T031625Z/toy1-O0"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O0.stdout.txt",
+        "sha256": "3d095447dec8e4030f646c430458bc76ef716bb0ce13c3d6a2c1a0c4c27a05cd",
+        "bytes_total": 95,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O0.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "compile-O2",
+      "argv": [
+        "cc",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Wconversion",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "implementation/toy1/detector.c",
+        "implementation/toy1/correspondence_probe.c",
+        "-o",
+        "runs/TOY1-VO003006-20261015T031625Z/toy1-O2"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O2.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O2.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "execute-O2",
+      "argv": [
+        "./runs/TOY1-VO003006-20261015T031625Z/toy1-O2"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O2.stdout.txt",
+        "sha256": "3d095447dec8e4030f646c430458bc76ef716bb0ce13c3d6a2c1a0c4c27a05cd",
+        "bytes_total": 95,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O2.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "compile-O2-NDEBUG",
+      "argv": [
+        "cc",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Wconversion",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "-DNDEBUG",
+        "implementation/toy1/detector.c",
+        "implementation/toy1/correspondence_probe.c",
+        "-o",
+        "runs/TOY1-VO003006-20261015T031625Z/toy1-O2-NDEBUG"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O2-NDEBUG.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-O2-NDEBUG.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "execute-O2-NDEBUG",
+      "argv": [
+        "./runs/TOY1-VO003006-20261015T031625Z/toy1-O2-NDEBUG"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O2-NDEBUG.stdout.txt",
+        "sha256": "3d095447dec8e4030f646c430458bc76ef716bb0ce13c3d6a2c1a0c4c27a05cd",
+        "bytes_total": 95,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-O2-NDEBUG.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "compile-negative-NDEBUG",
+      "argv": [
+        "cc",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Wconversion",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "-DNDEBUG",
+        "-DTOY1_KNOWN_BAD_CONTROL",
+        "implementation/toy1/detector.c",
+        "implementation/toy1/correspondence_probe.c",
+        "-o",
+        "runs/TOY1-VO003006-20261015T031625Z/toy1-negative-NDEBUG"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-negative-NDEBUG.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/compile-negative-NDEBUG.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "execute-negative-NDEBUG",
+      "argv": [
+        "./runs/TOY1-VO003006-20261015T031625Z/toy1-negative-NDEBUG"
+      ],
+      "cwd": ".",
+      "timeout_s": 90,
+      "returncode": 1,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-negative-NDEBUG.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes_total": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO003006-20261015T031625Z/execute-negative-NDEBUG.stderr.txt",
+        "sha256": "32be58f4b1e2a342f9b109fef80bbf03fea5dce8adf368618354784a167dfd0e",
+        "bytes_total": 62,
+        "truncated": false
+      }
+    }
+  ],
+  "target_outputs": {},
+  "scope": {
+    "host": "Compiled C source tested against an independent shifting queue on the invoking host only.",
+    "target": "If requested: target object/assembly compilation evidence only; no link, run, ABI/instruction certification.",
+    "domain": "Only legal unsigned 12-bit accepted samples; no required out-of-domain behavior.",
+    "execution": "Host is sequential; does not prove external publisher or reset-quiescence enforcement."
+  },
+  "review_state": "PENDING_INDEPENDENT_REVIEW",
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_obligations": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ],
+  "review_questions": [
+    "Does actual C promotion, width and expression order preserve CON-AP2-002-v6 on this compiler?",
+    "Does source/build/object and any linked binary avoid reliance on floating-point hardware?",
+    "Which approved integration layer guarantees legal input and quiescent reset?",
+    "If target compilation was requested, what additional target ABI, linking, disassembly and integration evidence is needed?"
+  ],
+  "notes": [
+    "No source scanner or host executable proves absence of target floating-point hardware reliance.",
+    "No runtime out-of-range behavior, timing, ISR or watchdog obligation was added.",
+    "Host object sizeof, if printed, is NOT a full charged-SRAM or target-stack inventory.",
+    "The negative control mutates only the reference oracle and must fail with a MISMATCH.",
+    "Actual commands, raw output hashes and artifact hashes refer to local runs/ files.",
+    "The identity of an executed tool is not independently authenticated by its string version output."
+  ]
+}
