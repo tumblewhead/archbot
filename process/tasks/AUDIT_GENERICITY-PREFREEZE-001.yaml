@@ -1,0 +1,43 @@
+schema: pc-task/v1
+id: AUDIT_GENERICITY-PREFREEZE-001
+role: architecture-agent
+operation: AUDIT_GENERICITY
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: PREFREEZE_AUDIT_REQUESTED
+  reference: reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json
+  revision: d0eb059d2d6d41a8c587eb748327769c08f07afe
+playbook: process/playbooks/AUDIT_GENERICITY_PREFREEZE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    terminal_model_review: reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-receipt.json
+    host_compiler_review: reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json
+    host_resource_review: reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json
+    qualification_campaign: docs/QUALIFICATION_CAMPAIGN.md
+    review_execution_modes: docs/REVIEW_EXECUTION_MODES.md
+    scope: FRAMEWORK_PREFREEZE_AUDIT_ONLY
+  invocation_policy:
+    outer_shell: task.py run via independently launched Codex when the environment permits
+    already_in_codex: task.py render then follow that prompt within the present invocation
+    do_not_claim_failed_nested_codex_as_success: true
+outputs:
+  allowed:
+    - independent_audit_candidate
+    - concise_engineering_briefing
+    - review_request
+  prohibited:
+    - overwrite_accepted_artifacts
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - discharge_VO
+    - accept_AD
+    - implement_firmware
+    - freeze_generic_process
+    - authorize_cleanroom
+gate:
+  kind: GENERICITY_PREFREEZE_AUDIT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
