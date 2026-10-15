@@ -32,7 +32,7 @@ def validate_compiler_evidence_review(root: Path, data: dict) -> None:
         raise TaskError("Compiler review requires a matching submitted evidence path")
     evidence_path = _file(root, trig["reference"], "reviews/verification")
     raw = evidence_path.read_bytes()
-    blob = hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\\0" + raw).hexdigest()
+    blob = hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw).hexdigest()
     if blob != inputs.get("evidence_blob_sha1"):
         raise TaskError("Submitted compiler evidence identity changed")
     try:
