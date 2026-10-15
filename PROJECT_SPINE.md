@@ -3,44 +3,56 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: VR-001 host observation submitted; independent resource review next
+## Current checkpoint: host VR-001 review received; prefreeze genericity audit next
 
-User commit `96dcb745ae6f` contains the
-[VR-001 host resource evidence](reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json),
-reporting an observed **72-byte host `detector_t`** object: 64 bytes for
-`samples` at offset 0, one byte for `oldest` at offset 64, three bytes
-of padding/overhead, and four bytes for `sum_squares` at offset 68.
-It records successful host compilation and execution with matching
-declared source pins and stable sources. The result is
-`HOST_LAYOUT_RECORDED`; **not target SRAM, stack or product acceptance**.
+User push `d0eb059d2d6d` contains the
+[VR-001 independent resource review](reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json).
+The disposition is `ACCEPT_WITH_CLARIFICATIONS` **only for the
+reported 72-byte host C99 ABI layout**: samples 64 B, oldest 1 B,
+sum_squares 4 B and padding/overhead 3 B. The reviewer inspected the
+source, reported layout output and hashes, but did not independently
+recompile the layout probe. Its source commit and hashes were pinned;
+the differing review checkout HEAD is recorded transparently.
 
-The accepted C-002 charged-SRAM contract remains 2048 unique attributable
-bytes: seven conditional category ceilings totaling 1792 and a 256-byte
-reserve. All seven actual target category peaks remain `null`, the target
-status is `NOT_REQUESTED`, and all VO-002..VO-006 remain OPEN.
+**Unresolved process defect:** both
+[VC-001 compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
+and VR-001 record failures of `python tools/task.py run` before any
+registered Codex reviewer turn. Separately authored direct review reports
+are not evidence of a successful nested runner. See
+[review execution modes](docs/REVIEW_EXECUTION_MODES.md) for distinct
+outer-shell launch vs current-agent direct execution; neither route is
+yet qualified for cleanroom reproducibility by this documentation alone.
+Do not conceal the original failures or relax sandbox controls.
 
-**Next local action:** run
-`process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml` using
-`tools/task.py inspect` and `tools/task.py run`, after running
-`test_toy1_resource_evidence.py`. The registered
-`REVIEW_RESOURCE_EVIDENCE` playbook and task pin the submitted source
-revision and evidence blob. A favorable host-only review can accept only
-that observation; it cannot discharge VO-002 or establish physical fit.
-The [VR-001 guide](docs/TOY1_RESOURCE_EVIDENCE_VR001.md) records the exact
-handoff and target/integration omissions. Do not automatically route to a
-target verification gate without an authorized target configuration.
+The next assigned work is a **bounded prefreeze genericity audit**:
+`process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml`, operation
+`AUDIT_GENERICITY`, role `architecture-agent`, playbook
+`process/playbooks/AUDIT_GENERICITY_PREFREEZE.md`. The audit is
+authorized for *investigation only*, anchored to the latest review,
+and must produce `reviews/qualification/GENERICITY_PREFREEZE_001-report.md`
+and `reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json`.
+It cannot accept Toy 1, freeze the framework or launch a cleanroom.
+Those outputs need a distinct independent review later.
 
-The previous [VC-001 host compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
-reported `ACCEPT_WITH_CLARIFICATIONS` for a host-only finding, while
-also recording a **registered Codex runner launch failure** before any reviewer
-turn. The directly authored review is not proof that the runner succeeded.
-Genericity audit must preserve and address this separate process defect.
+**Next local action:** pull, run
+`python -m unittest discover -s tests -p 'test_genericity_audit_route.py' -v`,
+then `python tools/task.py inspect --manifest
+process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml`. If already inside a
+Codex agent invocation, use `python tools/task.py render --manifest ...`
+and carry out that assigned audit within the **current** invocation.
+Do not recursively invoke `task.py run`. From an outer host shell,
+`run` remains the registered launcher if it actually works. Stage the
+audit report and receipt selectively after inspecting their contents.
 
-The independently accepted [VK-001 model slice](docs/VK001_TERMINAL_CHECKPOINT.md)
-also remains bounded. Twenty other ERS claims are unplanned. The active
-AS/AP/F/CON/DE, detector implementation, VO/AD ledger and final F-001
-comparison are unchanged. A complete target qualification or cleanroom
-process freeze is not yet established.
+The accepted C-002 charged-SRAM envelope is seven conditional category
+ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
+actual target category peaks remain UNKNOWN (`null`), no target
+configuration was selected, and VO-002..VO-006 remain OPEN.
+Twenty other ERS claims remain unplanned; AD-003 and the final F-001
+comparison remain outstanding. No AS/AP/F/CON/DE, implementation source,
+VO/AD ledger, or accepted review artifact has been rewritten.
+Before cleanroom, distinguish host-qualified-only disposition from
+complete target qualification and audit Toy 1 solution leakage.
 
 ## VK-001 implementation and limits
 
