@@ -128,3 +128,55 @@ to launch VC-001 reviewer through the registered runner, role-file
 coverage, integrity of historical pins across changed source versions,
 and current-status overlays versus immutable authoring artifacts.
 Do not promote current Toy 1 solution artifacts into the cleanroom input.
+
+
+## User-submitted VR-001 observation and next independent review
+
+Commit `96dcb745ae6fbcdf5916fc029adc5e118fde4fc2` contains
+`reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json`, which
+reports `HOST_LAYOUT_RECORDED` from a successful host C99 probe:
+
+- `sizeof(detector_t)=72` host bytes;
+- `samples[32]` 64 bytes at offset 0;
+- `oldest` 1 byte at offset 64;
+- `sum_squares` 4 bytes at offset 68;
+- 3 bytes host structure overhead/padding.
+
+This confirms the *reported* host layout, not 72 bytes of target-attributed
+total SRAM. The JSON reports its seven actual target category peaks as
+`null`, target status `NOT_REQUESTED`, source stability true, and
+`product_verified=false`. All VOs remain OPEN.
+
+The next independently reviewed gate is registered as:
+
+`process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml`
+
+The review playbook is `process/playbooks/REVIEW_RESOURCE_EVIDENCE.md`.
+The task pins the submitted Git blob SHA-1, original source SHA-256s,
+project identity, active C-002 scope and conditional budget. The task
+validator rejects a changed blob, changed source, invented target peak, or
+budget disagreement. These are **structural guards**, not proof of resource
+feasibility or automatic review acceptance.
+
+From the repository root, execute the following after pulling:
+
+```bash
+set +e
+git pull --ff-only origin main
+python -m unittest discover -s tests -p 'test_toy1_resource_evidence.py' -v
+python tools/task.py inspect --manifest process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml
+python tools/task.py run --manifest process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml
+```
+
+The independent reviewer must emit
+`reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-report.md` and
+`reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json`.
+A failure to launch a reviewer turn, including the analogous earlier
+VC-001 runner defect, is **not** a successful formal runner gate.
+Inspect the actual raw logs or reproduce the host layout independently.
+Only commit new versioned review artifacts after examining their contents;
+do not change the accepted source or active VO ledger.
+
+The review should conclude no more than bounded host-layout evidence.
+A separately grounded target/integration configuration remains necessary
+before interpreting the 2048-byte C-002 cap as verified real SRAM use.
