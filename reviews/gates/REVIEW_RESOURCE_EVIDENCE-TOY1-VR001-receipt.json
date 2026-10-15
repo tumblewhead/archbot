@@ -1,0 +1,46 @@
+{
+  "schema": "pc-resource-evidence-review/v1",
+  "task_id": "REVIEW_RESOURCE_EVIDENCE-TOY1-VR001",
+  "operation": "REVIEW_RESOURCE_EVIDENCE",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "submitted_evidence": "reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json",
+  "submitted_evidence_git_blob_sha1": "0572374728f1d450ab35bcd1fa3a2bf0524f40c9",
+  "submitted_source_revision": "4b080f79fb066daf28b859f3f92ad2647abdc74b",
+  "reviewer_invocation_id": "direct-review-20261015T0518Z",
+  "independent_of_authoring_invocation": true,
+  "checks": {
+    "reviewer_inspected": [
+      "Evidence schema, source revision, blob identity and all seven SHA-256 source pins match the task manifest.",
+      "The pinned source commit exists locally; checkout HEAD is 3d479d06b2828b3feddbfa90ac735f41491abbce, distinct from the evidence source revision.",
+      "The detector declaration and actual offsetof probe agree with the recorded host layout: field sizes 64, 1, and 4; offsets 0, 64, and 68; object size 72; padding 3.",
+      "Available compiler-version and layout stdout/stderr logs match the submitted SHA-256 values.",
+      "C-002 scope and CON-AP2-003-v6 set ceilings to 256, 128, 512, 256, 256, 128, 256 bytes (1792 total), reserve 256 and cap 2048.",
+      "All seven target category peaks are null; target measurements are unavailable and status is NOT_REQUESTED.",
+      "Active VO ledger keeps VO-002 through VO-006 open."
+    ],
+    "reviewer_reproduced": [],
+    "producer_reported": [
+      "Host compile and execution completed with exit code 0.",
+      "Source files were stable during collection at the pinned source revision."
+    ],
+    "deterministic_checks": {
+      "unit_tests": "PASS: python -m unittest discover -s tests -p 'test_toy1_resource_evidence.py' -v (3 tests)",
+      "task_inspect": "PASS: python tools/task.py inspect --manifest process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml",
+      "registered_runner": "FAILED before reviewer turn; session unavailable, zero completed turns; read-only filesystem prevented in-process app-server initialization"
+    }
+  },
+  "findings": [
+    "Host layout arithmetic and field offsets are consistent with the pinned detector declaration.",
+    "72 bytes is a host-compiler/ABI object size, not target SRAM, full charged-SRAM use, or F-001 state-SRAM evidence.",
+    "The seven target peaks remain unknown; null is not zero. No target map, image, stack/context, shared/dynamic attribution or integration evidence is present.",
+    "Checkout HEAD differs from the pinned source revision, while the source revision exists locally and the pinned source hashes and evidence identity validate.",
+    "Registered Codex runner launch defect remains unresolved; this separately authored direct review does not certify runner success."
+  ],
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "disposition_scope": "Accept only the reported host C99 ABI detector_t layout observation, with the checkout/source revision discrepancy and registered runner launch failure retained as explicit clarifications. No target resource acceptance.",
+  "next_eligible_action": "Preserve the scoped receipt and address the registered runner launch defect through applicable process/genericity work. No automatic target qualification; target configuration is not authorized here.",
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"]
+}
