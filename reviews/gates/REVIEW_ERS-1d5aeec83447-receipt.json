@@ -1,0 +1,40 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "REVIEW",
+  "mode": "PROJECT",
+  "operation": "REVIEW_ERS",
+  "task_id": "REVIEW_ERS-1d5aeec83447",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS projection for Toy 1. No new target, publisher, or product acceptance."
+  },
+  "artifact": {
+    "path": "reviews/verification/TOY1-VERIFY-ERS001/artifact.json",
+    "sha256": "9377f70a55bb02c0e9cd60ceff91573e3c8c8c2bca2248dbc00cbe0d8d46c359"
+  },
+  "reviewed_author_task_id": "TOY1-VERIFY-ERS001",
+  "reviewer_invocation_id": "codex-REVIEW_ERS-1d5aeec83447-ef723329",
+  "independent_of_authoring_invocation": true,
+  "disposition": "REVISE",
+  "findings": [
+    {
+      "id": "F-ERS-001",
+      "severity": "blocking",
+      "summary": "The ERS does not separately represent the CON/DE concrete integer-expression, multiplication-promotion, and legal-domain obligations under VO-006; the model-only bound does not establish these correspondences.",
+      "source": "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md; knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v7.md; knowledge/architecture/AS-001/verification/VO-006.md",
+      "required_resolution": "Add explicit claim/requirement coverage for concrete integer-expression, multiplication-promotion, and legal-domain obligations or show their explicit mapping to R-003/VO-006, with implementation due stage and model-evidence limits."
+    },
+    {
+      "id": "F-ERS-002",
+      "severity": "blocking",
+      "summary": "The ERS includes the aggregate SRAM cap but omits the binding conditional category ceilings, reserve, attribution/lifetime, nesting, dynamic allocation, and infeasibility obligations in CON-AP2-003-v6 and DE-AP2-RESOURCE-v7.",
+      "source": "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md; knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md; process/ledgers/vo_ledger-AS-001-v2-active.yaml (VO-002)",
+      "required_resolution": "Project the conditional budget and attribution requirements; distinguish the contract-stage budget commitment from implementation evidence; keep VO-002 open pending concrete inventory and target review."
+    }
+  ],
+  "vo_discharged": [],
+  "report": "reviews/gates/REVIEW_ERS-1d5aeec83447-report.md"
+}
