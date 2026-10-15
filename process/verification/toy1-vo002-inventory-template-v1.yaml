@@ -1,0 +1,59 @@
+# Template only. Populate from actual target/integration evidence before review.
+# Values under category_ceilings_bytes are accepted conditional limits, NOT usage.
+schema: pc-sram-inventory-candidate/v1
+project_id: AS-001
+spine: /architecture/AS-001/spine.md
+status: UNSUBMITTED_TEMPLATE
+measurement_state: NO_TARGET_MEASUREMENTS
+authority:
+  active_baseline: process/baselines/AS-001-v2-active.yaml
+  scope: process/decisions/C-002-scope.yaml
+  contract: knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md
+  design: knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md
+  open_obligation: VO-002
+approved_limit_bytes: 2048
+allocated_category_ceiling_bytes: 1792
+reserve_bytes: 256
+category_ceilings_bytes:
+  persistent_state: 256
+  temporary_or_scratch: 128
+  detector_stack: 512
+  detector_attributable_interrupt_context: 256
+  detector_attributable_shared_allocations: 256
+  detector_attributable_dynamic_allocations: 128
+  other_detector_attributable: 256
+# Unknown actual use stays null. Do not record zero unless verified as zero.
+actual_category_peaks_bytes:
+  persistent_state: null
+  temporary_or_scratch: null
+  detector_stack: null
+  detector_attributable_interrupt_context: null
+  detector_attributable_shared_allocations: null
+  detector_attributable_dynamic_allocations: null
+  other_detector_attributable: null
+target_configuration:
+  cpu: null
+  compiler: null
+  compiler_version: null
+  compiler_flags: null
+  linker_script: null
+  binary_identity_sha256: null
+  memory_map_sha256: null
+  stack_method: null
+  integration_context: null
+  interrupt_nesting_and_overlap: null
+# One row per allocation or justified exclusion; do not fill with guessed sizes.
+# Expected fields: id, owner, category, bytes, source, lifetime,
+# overlap_or_exclusivity_evidence, address_or_symbol, attribution_rule.
+allocation_inventory: []
+shared_attribution_evidence: []
+dynamic_peak_evidence: []
+stack_and_interrupt_evidence: []
+documented_exclusions: []
+unresolved: 
+  - No target/toolchain or integration execution topology is yet authorized here.
+  - Exact source/build/object/stack/interrupt/shared/dynamic evidence is pending.
+  - Conditional category and DE ownership ceilings are not measured usage.
+proposed_disposition: UNRESOLVED_PENDING_TARGET_AND_INTEGRATION_EVIDENCE
+product_verified: false
+vo_discharged: []
