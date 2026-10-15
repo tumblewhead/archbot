@@ -1,0 +1,50 @@
+schema: pc-task/v1
+id: REVIEW_FR001_PROJECT_CONTEXT-001
+role: verification-agent
+operation: REVIEW_FRAMEWORK_REPAIR
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: FRAMEWORK_REPAIR_LOCAL_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR001_PROJECT_CONTEXT-local-test-receipt.json
+  revision: 42b19e7b64e65e8df34eeabc7b0631e8051f6312
+playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR-001-PROJECT-CONTEXT
+    source_revision: 42b19e7b64e65e8df34eeabc7b0631e8051f6312
+    submission_commit: 4ad7d1cb3121791c6258b90fbe93895a0a689164
+    submission_path: reviews/qualification/FR001_PROJECT_CONTEXT-local-test-receipt.json
+    submission_blob_sha1: 0f5b09af1b9efa549bdfaebcef8fd17cc8d99d3e
+    expected_submission_schema: pc-framework-repair-test-evidence/v1
+    human_authorization: process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml
+    scope_proposal: process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml
+    author_report: reviews/qualification/FR001_PROJECT_CONTEXT-authoring-report.md
+    reviewed_source_blob_sha1:
+      tools/task.py: c05a1a15f7312e8e89fea4a764f4674c5746c19e
+      tools/telemetry.py: 67e6ab93809cdaf22bdd031d96fe9818186c446a
+      tests/test_task.py: 7571ab3eaadb17bc3b90693aea9d62d003b23260
+      tests/test_telemetry.py: 87f0f9fbd68dea6956383c64a6f2a00888107b14
+    scope: FR001_PROJECT_CONTEXT_IMPLEMENTATION_REVIEW_ONLY
+outputs:
+  allowed:
+    - independent_framework_repair_review_report
+    - independent_framework_repair_review_receipt
+    - engineering_briefing
+  prohibited:
+    - overwrite_accepted_artifacts
+    - modify_submitted_evidence
+    - self_approve_authoring
+    - modify_approved_AS_AP_F_CON_or_DE
+    - modify_firmware
+    - discharge_VO
+    - accept_AD
+    - freeze_generic_process
+    - authorize_cleanroom
+    - implement_unreviewed_additional_repair
+gate:
+  kind: FR001_PROJECT_CONTEXT_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

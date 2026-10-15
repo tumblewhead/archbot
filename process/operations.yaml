@@ -83,3 +83,6 @@ operations:
   REVIEW_GENERICITY_AUDIT:
     role: verification-agent
     playbook: process/playbooks/REVIEW_GENERICITY_AUDIT.md
+  REVIEW_FRAMEWORK_REPAIR:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR.md

@@ -3,31 +3,44 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-001 explicit project context candidate, local tests due
+## Current checkpoint: FR-001 local tests pushed, independent review next
 
-The independent genericity audit review at
-[REVIEW_GENERICITY_PREFREEZE_001](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md)
-accepted the audit with clarifications. The human authorized the bounded
-FR-001 project context implementation in
-[FR-001 decision record](process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml).
+The human's [FR-001 local regression receipt](reviews/qualification/FR001_PROJECT_CONTEXT-local-test-receipt.json)
+was pushed at `4ad7d1cb3121791c6258b90fbe93895a0a689164`. It records **six successful local check exit codes**
+and hashes for locally retained logs (not included in this Git commit).
+The candidate source remains at `42b19e7b64e65e8df34eeabc7b0631e8051f6312`.
+These are **reported local tests**, not independent framework qualification.
 
-The [FR-001 author report](reviews/qualification/FR001_PROJECT_CONTEXT-authoring-report.md)
-documents source changes in tools/task.py, tools/telemetry.py,
-tests/test_task.py and tests/test_telemetry.py. Source is **authored only**;
-the human has not yet pushed local test results, and there has not been an
-independent FR-001 implementation review. The accepted AS/AP/F/CON/DE,
-implementation, VO/AD ledgers, and historical review receipts are unchanged.
+**Next assigned task:** independent reviewer `REVIEW_FR001_PROJECT_CONTEXT-001`,
+operation `REVIEW_FRAMEWORK_REPAIR`, role `verification-agent`,
+[manifest](process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml),
+[playbook](process/playbooks/REVIEW_FRAMEWORK_REPAIR.md).
+The task pins the test-evidence receipt by Git blob identity and all four
+source/test files by their reviewed blob hashes. The reviewer must verify
+the source SHA-256 values, inspect actual local logs if accessible or
+independently reproduce checks, investigate cross-project negative controls,
+and assess any manual telemetry/export incompatibility.
 
-**Next local action:** pull main, run the named telemetry/task/genericity
-regressions and inspect review manifest, preserve actual exit statuses,
-then publish a bounded test-evidence receipt. The assistant will inspect the
-pushed evidence before routing the separate independent FR-001 review.
-Do not run a new cleanroom or claim the framework frozen.
+**Next local action:** pull `main`, run `python -m unittest discover -s tests -p
+'test_fr001_review_route.py' -v`, inspect the review manifest, then start a
+separate independent reviewer. From an ordinary **outer host shell**, use
+`python tools/task.py run --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml`.
+If already inside a genuinely separate Codex reviewer invocation, use
+`python tools/task.py render --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml`
+and perform the rendered review in that invocation. Do not claim
+a successful runner or reviewer turn merely because a prompt rendered.
+Check newly created `reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-report.md`
+and `reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-receipt.json`,
+stage only those two outputs, then push.
 
-The proposed [cleanroom isolation boundary](docs/CLN_BOUNDARY_PREFREEZE_001.md)
-is not an implemented physical package. C-002 domain gate separation,
-historical pin auditing, and reviewer launch qualification are later
-separate repairs, not included in FR-001.
+The [human authorization record](process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml)
+covers only the FR-001 source candidate. The earlier
+[genericity independent review](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md)
+accepted the audit only with clarifications. The
+[cleanroom isolation proposal](docs/CLN_BOUNDARY_PREFREEZE_001.md)
+remains unimplemented. No FR-002 source repair, framework freeze,
+cleanroom, Toy 1 product acceptance, target selection, F-001 conclusion or
+VO discharge has been authorized by these reviews.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
