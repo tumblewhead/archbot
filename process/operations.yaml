@@ -74,3 +74,6 @@ operations:
   REVIEW_COMPILER_EVIDENCE:
     role: verification-agent
     playbook: process/playbooks/REVIEW_COMPILER_EVIDENCE.md
+  REVIEW_RESOURCE_EVIDENCE:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_RESOURCE_EVIDENCE.md
