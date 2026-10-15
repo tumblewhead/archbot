@@ -3,39 +3,38 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: bounded plan accepted; model-evidence execution next
+## Current checkpoint: VK-001 bounded path complete; next scope not yet authorized
 
-User commit `cd431e0f7603` contains the plan bundle at
-[DESIGN_VERIFICATION_LADDER-dedd836166b5](reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/receipt.json)
-and its independent
-[REVIEW_VERIFICATION_LADDER-954fe316bda6](reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json).
-Disposition: **ACCEPT_WITH_CLARIFICATIONS**. The
-[plan review report](reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-report.md)
-records matching artifact integrity and 34 source pins, and independently
-recomputes the conditional arithmetic bounds. These are reported reviewer
-checks, not tests or experiments executed by this assistant.
+User push `df1c35e08bb4` contains execution
+[EXECUTE_VERIFICATION_LADDER-956fdb75fa6b](reviews/verification/EXECUTE_VERIFICATION_LADDER-956fdb75fa6b/receipt.json)
+and independent
+[REVIEW_VERIFICATION_RUNG-9de9286189ea](reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-receipt.json).
+Independent disposition: **ACCEPT_WITH_CLARIFICATIONS**. The one approved rung
+`ARITHMETIC-MODEL-BOUND` completed, reporting the conditional model results:
+`4095²=16,769,025`, `32×4095²=536,608,800`,
+`33×4095²=553,377,825`, all fitting modeled unsigned 32-bit arithmetic.
+The reviewer independently checked those values, references and 37 source pins
+at its checkout. This result is **MODEL_ONLY**, not C/target/product acceptance.
 
-The accepted plan contains only `ARITHMETIC-MODEL-BOUND`, targeting
-`ERS-CON-ARITH-BOUNDS` using `window_integer_bound/v1` with window=32,
-max_sample=4095 and bits=32. Its binding is MODEL_ONLY and maximum conclusion
-is MODEL_EVIDENCE. F-PLAN-CLAR-001 explicitly keeps the other 20 ERS claims
-unplanned/open. VO-002 through VO-006 remain OPEN. The plan is not a complete
-verification campaign or evidence of C, target, integration or publisher behavior.
+The earlier ERS002 and bounded plan passed independent review. The other 20
+ERS claims remain unplanned and **VO-002 through VO-006 remain OPEN**.
+No product obligations, design scope, firmware, or authority states changed.
+The terminal rung reviewer explicitly requires a separately authorized scope
+before further verification execution.
 
-**Next local action:** use `tools/next_task.py inspect/emit --receipt
-reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json` to generate
-`EXECUTE_VERIFICATION_LADDER`; inspect/run the deterministic task and read its
-`reviews/verification/<task-id>/briefing.md`. Route the execution submission
-receipt through the existing `REVIEW_VERIFICATION_RUNG` operation for independent
-review. Preserve unplanned claims, model scope and all open VOs. Stop at that
-review for the next decision; it is terminal in the present VK-001 slice.
-No new operation, kernel, model, schema, playbook or routing change is needed.
+Read [VK-001 terminal checkpoint](docs/VK001_TERMINAL_CHECKPOINT.md) for the
+worked gate sequence, a precise next Toy 1 qualification proposal, and UI/archive
+defects found during audit. The generated historical briefing carries a stale
+reference to earlier ERS re-review. Show subsequent acceptance through linked
+review receipts rather than rewriting historical bytes. Current-worktree pin
+checking is not a substitute for historical version-aware archive verification.
 
-The generated PLAN artifact's PENDING field and inherited subject text are
-historical authoring content; the separate review receipt supplies its acceptance
-for this bounded activity. Do not edit accepted bytes to change their status.
-No execution-evidence bundle was included in this push. Running the third stage
-and reviewing its output remains outstanding.
+**Next proposed development after scoped authorization:** finish Toy 1's
+actual source/build arithmetic and resource/integration correspondence rather
+than repeating the model bound; gather VO-002/003 evidence, then VO-004..006 and
+F-001, as the authorized target permits. The documented cleanroom/dialogue/Toy 2
+roadmap remains unchanged. The new UI/data-contract concerns are framework
+qualification work, not new detector requirements.
 
 ## VK-001 implementation and limits
 
