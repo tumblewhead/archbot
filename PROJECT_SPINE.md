@@ -3,41 +3,38 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: audit candidate committed; independent review next
+## Current checkpoint: independent genericity review accepted, scoped repair proposal next
 
-The [prefreeze genericity audit candidate](reviews/qualification/GENERICITY_PREFREEZE_001-report.md)
-and [machine-readable receipt](reviews/qualification/GENERICITY_PREFREEZE_001-receipt.json)
-were authored in connected GitHub inspection and committed as
-`404bef8120dc24782b1c71baffea528ca268b754`.
-They are **not independently reviewed**: five Q1–Q6 areas are author-assessed
-BLOCKED and Q5 is UNRESOLVED. The audit did not execute local Python tests or
-Codex. Its findings are hypotheses and source inspections requiring challenge,
-not approved framework defects or permission for repairs.
+The independent [prefreeze genericity review](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md)
+and its [receipt](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-receipt.json)
+were pushed as `500271becada7924fed665aa62e9d1e55f3df11a`. Its verdict is
+`ACCEPT_WITH_CLARIFICATIONS` **only for audit analysis and traceability**.
+Q2, Q3 and Q5 were confirmed; Q1, Q4 and Q6 were qualified. The review
+reported three successful routing tests and source identity checks in a
+`CURRENT_AGENT_DIRECT` independent Codex invocation, not a registered
+`task.py run`. VC-001 and VR-001 prior failed launches remain failed.
 
-**Next assigned gate:** `REVIEW_GENERICITY_PREFREEZE-001`, operation
-`REVIEW_GENERICITY_AUDIT`, role `verification-agent`, manifest
-`process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`, playbook
-`process/playbooks/REVIEW_GENERICITY_AUDIT.md`. Its inputs are pinned to the
-candidate commit and exact candidate blobs. A separate reviewer must verify
-identities, challenge Q1..Q6 and assess the repair ordering.
+The follow-on proposal is
+[FRAMEWORK-REPAIR-PREFREEZE-001](process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml),
+supported by
+[CLN-BOUNDARY-PREFREEZE-001](docs/CLN_BOUNDARY_PREFREEZE_001.md).
+**Both are proposed only, not implementation authority.** The reviewer
+recommends defining a cleanroom allowlist and threat model first; only later,
+after project context/domain-gate generalization and launcher qualification,
+should a physical package and adversarial sentinel checks be executed.
 
-**Next local action:** pull; run `python -m unittest discover -s tests -p
-'test_genericity_review_route.py' -v`; inspect the review manifest with
-`python tools/task.py inspect --manifest
-process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`.
-From an **outer host shell**, invoke `python tools/task.py run --manifest
-process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml`. If the reviewer is already
-inside Codex, instead `render` and perform the task in that **separate existing
-invocation**, without launching nested Codex. Inspect actual report and receipt
-at `reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-{report.md,receipt.json}`
-before selectively staging/pushing. If launch fails before reviewer turns,
-preserve failure evidence and stop; a generated prompt is not a review.
+**Next eligible human decision:** explicitly authorize the first *bounded*
+framework repair `FR-001-PROJECT-CONTEXT` before source changes. Its
+proposed purpose is project/spine-specific context telemetry without any
+implicit `AS-001` fallback. If authorized, the assistant should author
+only that patch and tests in the connected Git repository, and the human
+should pull, run, inspect and push evidence. No framework freeze or
+cleanroom launch is currently authorized.
 
-The earlier VC-001 and VR-001 review invocations both record failed registered
-reviewer launches; their separately authored direct reviews do not cure that
-defect. See `docs/REVIEW_EXECUTION_MODES.md`. No framework freeze,
-cleanroom replay, product acceptance, target selection or VO discharge follows
-from the candidate or its subsequent scoped review.
+The earlier audit candidate remains at
+[GENERICITY_PREFREEZE_001](reviews/qualification/GENERICITY_PREFREEZE_001-report.md).
+Historical evidence, including initial VC-001/VR-001 failures and reviewed
+Toy 1 work, remains unchanged.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

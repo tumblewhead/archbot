@@ -1,0 +1,62 @@
+schema: pc-framework-repair-proposal/v1
+id: FRAMEWORK-REPAIR-PREFREEZE-001
+status: PROPOSED_NOT_AUTHORIZED
+project: Progressive Concretization
+repository: tumblewhead/archbot
+source_review:
+  commit: 500271becada7924fed665aa62e9d1e55f3df11a
+  report: reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md
+  receipt: reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-receipt.json
+  disposition: ACCEPT_WITH_CLARIFICATIONS
+boundary_specification: docs/CLN_BOUNDARY_PREFREEZE_001.md
+human_authority_required_before_implementation: true
+next_recommended_bounded_repair:
+  id: FR-001-PROJECT-CONTEXT
+  status: PROPOSED_NOT_AUTHORIZED
+  purpose: Remove default AS-001 selection from shared context reporting and telemetry.
+  candidate_files:
+    - tools/telemetry.py
+    - tools/task.py
+    - tests/test_telemetry.py
+    - tests/test_task.py
+  no_accepted_product_files_modified: true
+  preserved_behavior:
+    - Existing Toy 1 task with explicit project spine continues to work.
+    - Role-specific selective context traversal and mandatory closure remain.
+    - Missing project/spine is reported rather than guessed or defaulted to AS-001.
+    - Eligibility estimates are never reported as actually read by Codex.
+    - No authority changes, approval transitions or new domain rules.
+  required_negative_controls:
+    - Independent alpha and beta projects have disjoint context roots.
+    - Beta task never selects AS-001 context or logs as project input.
+    - Missing or unsafe spine fails closed.
+    - Cross-project accepted-review reference fails.
+    - Existing Toy 1 telemetry and role-projection regressions remain valid.
+  prohibited:
+    - Modify accepted AS_AP_F_CON_DE
+    - Modify Toy 1 implementation or active VO_AD ledgers
+    - Freeze framework
+    - Build or launch cleanroom package
+    - Discharge VOs or claim target qualification
+  exit: Versioned code/test candidate, local test evidence and separate independent review before calling repair qualified.
+following_bounded_repairs:
+  - id: FR-002-GATE-ADAPTER
+    purpose: Separate common stage-gate mechanics from opted-in Toy 1 C-002 memory accounting; bind active project ledgers explicitly.
+  - id: FR-003-HISTORICAL-INTEGRITY
+    purpose: Add read-only source-revision historical auditor distinct from present-applicability checker and reviewed-status overlay.
+  - id: FR-004-REVIEWER-EXECUTION
+    purpose: Qualify supported independent launch mode(s); preserve failed session evidence.
+  - id: FR-005-CLEANROOM-PACKAGE
+    purpose: After generic separation, build and adversarially test positive-allowlist package and fresh unsolved-project bootstrap.
+  - id: FR-006-INTEGRATED-FREEZE
+    purpose: Separate independent framework freeze review after all verified blockers.
+authority_state:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
+  accepted_architectural_debt: [AD-003]
+  target_configuration: NOT_SELECTED
+  final_f001_comparison: OUTSTANDING
+next_action: Seek explicit human engineering authorization for bounded FR-001 before modifying tools.
