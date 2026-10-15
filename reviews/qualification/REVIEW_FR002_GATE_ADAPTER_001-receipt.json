@@ -1,0 +1,98 @@
+{
+  "schema": "pc-framework-repair-review/v1",
+  "task_id": "REVIEW_FR002_GATE_ADAPTER-001",
+  "operation": "REVIEW_GATE_ADAPTER",
+  "gate": "FR002_GATE_ADAPTER_INDEPENDENT_REVIEW",
+  "disposition_scope": "FR002_GATE_ADAPTER_IMPLEMENTATION_REVIEW_ONLY",
+  "input_revision": "61bdc411e3cf88396e2489d1111c04ee3f5258a0",
+  "reviewed_source_revision": "3c2fd85cb0bde0c13b7639e24220143e26344536",
+  "implementation_revision": "57f69f5b2d8d69de876aa72649e8aa5f783ef4e9",
+  "submitted_evidence_commit": "c0cc00658c9afdc3eea111905b131a272d87863c",
+  "submitted_evidence_path": "reviews/qualification/FR002_GATE_ADAPTER-local-test-receipt.json",
+  "submitted_evidence_blob_sha1": "531ba3bf4d713a45a2e669e26b2e888da4c3f0a9",
+  "submitted_evidence_schema": "pc-framework-repair-test-evidence/v1",
+  "reviewer_invocation_id": "direct-review-20261015T-current-agent-FR002-GATE-ADAPTER-001",
+  "reviewer_execution_mode": "CURRENT_AGENT_DIRECT",
+  "independent_of_authoring_invocation": true,
+  "independence_basis": "Separate assigned invocation from implementation author and human local test producer; task.py inspect and render followed by direct review; no nested runner.",
+  "task_inspect": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml",
+    "exit_code": 0
+  },
+  "task_render": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py render --manifest process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml",
+    "exit_code": 0,
+    "note": "Rendered task executed in this invocation; render itself is not review evidence."
+  },
+  "verified_source_sha1": {
+    "tools/stage_gate.py": "5de5065616ffca5883eeb3c01aac164c74e49528",
+    "tools/gates/__init__.py": "ab3f9a72bf628b963fa3368319971b275fc03b2a",
+    "tools/gates/common.py": "de48664631ff63d8b7e3ae0d151fabffe3238b7d",
+    "tools/gates/toy1_c002.py": "db257adb3e8bbbd669933f1c8086618f5e002e86",
+    "tools/gates/binding.py": "7e7fffd62d9b2bb7d6cf14ff76fe5edde3fcd1e7",
+    "process/gate_configs/AS-001-AP-v1.yaml": "199573440372da82c2162a9f7299f4342b313e42",
+    "tests/test_gate_adapter.py": "3b39c9e49221114a4d825be822be193faf9d85d0"
+  },
+  "verified_source_sha256": {
+    "tools/stage_gate.py": "c87b0f570a193a124802d5eca7144b517617a2adecc306107275f30a5d9bf5c9",
+    "tools/gates/__init__.py": "da4ea4e61f4d3d7ffa7a97674894e7f07362590c4d488a5cb7c1ee915b25f0f7",
+    "tools/gates/common.py": "05e7844024dbc94364e7a3c1300ab24381484a2c9455f0996b6cf04232a1a79f",
+    "tools/gates/toy1_c002.py": "0711ae893e6cfc3e9413dd5d1dbe4dbacd0807fb724317cfecf3f50f65491f56",
+    "tools/gates/binding.py": "cefad54309b93eeb4cfe681118bfd9dcf98f8aa254523db0840ed932b5f57fbe",
+    "process/gate_configs/AS-001-AP-v1.yaml": "0995185becf371f268883f4facfe36b1c84f339e0dbb89fceb5f55d3299c2b2d",
+    "tests/test_gate_adapter.py": "82a35b30838693fe33046da43ec5ba1b09e1cc3df02f8bfbd69a52af36c6def1"
+  },
+  "submission_identity_match": true,
+  "producer_logs": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "path": "runs/fr002-gate-adapter-r1/ (local ignored logs)",
+    "all_nine_byte_counts_and_sha256_match": true
+  },
+  "checks": [
+    {"id": "test_fr002_review_route", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_fr002_review_route.py' -v", "tests": 3, "exit_code": 0},
+    {"id": "test_gate_adapter", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_gate_adapter.py' -v", "tests": 10, "exit_code": 0},
+    {"id": "test_stage_gate", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_stage_gate.py' -v", "tests": 13, "exit_code": 0},
+    {"id": "test_task", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_task.py' -v", "tests": 44, "exit_code": 0},
+    {"id": "test_fr001_r1_review_route", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v", "tests": 3, "exit_code": 0},
+    {"id": "authority_laundering_policy_repin", "evidence_class": "REVIEWER_REPRODUCED", "result": "FAIL: altered protected_scope_decisions=[] with recomputed policy/binding pins was accepted with zero validators."},
+    {"id": "producer_log_fingerprints", "evidence_class": "REVIEWER_REPRODUCED", "result": "All nine local ignored logs match receipt byte counts and SHA-256 values."},
+    {"id": "protected_authority_inputs_unchanged", "evidence_class": "REVIEWER_INSPECTED", "result": "Active baseline, VO/AD ledgers, accepted authority inputs and historical independent review receipts show no changes from reviewed source revision."}
+  ],
+  "classifications": {
+    "G1_common_domain_and_legacy": "PASS_WITH_SCOPE_LIMIT",
+    "G2_fail_closed_validator_dispatch": "FAIL_AUTHORITY_NOT_ANCHORED",
+    "G3_authority_laundering": "FAIL_REPRODUCED",
+    "G4_fresh_project_and_evidence_boundary": "PASS_SYNTACTIC_ONLY_AUTHORITY_UNPROVEN",
+    "G5_cli_and_compatibility": "PASS_WITH_SCOPE_LIMIT",
+    "G6_evidence_tests_and_history": "PASS"
+  },
+  "findings": [
+    {
+      "id": "FR002-AUTH-001",
+      "severity": "blocking",
+      "summary": "Self-repinned policy can remove protected validators; loader accepts internally consistent altered bytes without an independent authority root.",
+      "reproduction": "Synthetic project copy; set policy protected_scope_decisions to []; recompute its Git blob SHA-1 in binding and omit validator; load_binding returned successfully with zero validators."
+    },
+    {
+      "id": "FR002-AUTH-002",
+      "severity": "major",
+      "summary": "Synthetic baseline review and active authority provenance are self-asserted by candidate files; ROOT-002 is structural routing evidence, not an authorized second project."
+    }
+  ],
+  "disposition": "REVISE",
+  "bounded_next_eligible_action": "Repair authority-root and review-provenance validation; add adversarial tests for re-pinned weakened policy and forged baseline/review/ledger evidence; submit a new versioned candidate and local evidence for independent review.",
+  "changed_artifacts": [
+    "reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-report.md",
+    "reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json"
+  ],
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "target_configuration": "NOT_SELECTED",
+  "final_f001_comparison": "OUTSTANDING",
+  "architectural_debt_changed": false
+}
