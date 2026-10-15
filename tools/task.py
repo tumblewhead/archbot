@@ -91,7 +91,7 @@ def validate_resource_evidence_review(root: Path, data: dict) -> None:
         raise TaskError("Submitted resource evidence is invalid JSON") from exc
     if (not isinstance(record, dict)
             or record.get("schema") != inputs.get("expected_schema")
-            or record.get("project_id") != "AS-001"
+            or record.get("project_id") != inputs.get("project_id")
             or record.get("spine") != data.get("spine")
             or record.get("source_revision") != inputs.get("source_revision")
             or trigger.get("revision") != inputs.get("source_revision")
