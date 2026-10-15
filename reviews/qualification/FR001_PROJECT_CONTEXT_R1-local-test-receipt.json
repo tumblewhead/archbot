@@ -1,0 +1,149 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "FR-001-PROJECT-CONTEXT-R1",
+  "source_revision": "3dc5f6ec854971243877f5d7357c7ca034880539",
+  "r1_implementation_revision": "e0ef748b70c29b6c802b325aab0afaa4d8b4ecd7",
+  "prior_review": "reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-receipt.json",
+  "addressed_findings": [
+    "FR001-R1",
+    "FR001-R2",
+    "FR001-R3"
+  ],
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "test_telemetry.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_telemetry.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8a44098f8bc6187f38d4767b5e966ac06832993f1d977db96a37519c3f8a9984",
+      "log_bytes": 2652
+    },
+    {
+      "name": "test_task.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "abaf99ece0953db7613aed2394bf096031d3cc301a11b3f4aec67abc29dc3533",
+      "log_bytes": 6034
+    },
+    {
+      "name": "test_genericity_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "02f3bba015ac764002cc6fa4b2150e487d7d15948937850d00a4c4477a9725b3",
+      "log_bytes": 582
+    },
+    {
+      "name": "test_genericity_audit_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_audit_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b22f5b899fd3c6ffc5ef2ead77be8784c7658f63abf11b0ad2ac81c05e3cb47f",
+      "log_bytes": 602
+    },
+    {
+      "name": "test_fr001_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr001_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5940c0594ea184e685ea711c2052fe68f403b2d677809b22b063cc7094a44af2",
+      "log_bytes": 690
+    },
+    {
+      "name": "test_stage_gate.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_stage_gate.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c715e1002b988b7389deb92619d1f8a3d52b1d650164ec74ab3fdc8612afae61",
+      "log_bytes": 1657
+    },
+    {
+      "name": "task_inspect",
+      "command": [
+        "/usr/sbin/python",
+        "tools/task.py",
+        "inspect",
+        "--manifest",
+        "process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bbae74aa8a87c6f352cc506363d94b3aa69936d5231110893ce7ba5fb6127582",
+      "log_bytes": 408
+    }
+  ],
+  "source_sha256": {
+    "tools/task.py": "46942af8bfadad84378ffb2aeaf91924746e1144d23020a8f84366cf416de082",
+    "tools/telemetry.py": "e86854829ca9d0ca1985448795636d9fad678bf492bb7caf547a4c5e70a65760",
+    "tests/test_task.py": "85f7df18f082567037fa65161b0d18c5361bff96dab98dbe8b1412f3e502a070",
+    "tests/test_telemetry.py": "b108d742b9d0476097a42ae693d8e2a6747041451e2fdd71f599114c6b932c63",
+    "tests/test_fr001_review_route.py": "4fb6b47f156e9a6ac8fd5f46d6e9e12b842214aeeff61884b91af3ca7ab4003f"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
