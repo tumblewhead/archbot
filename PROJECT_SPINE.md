@@ -3,45 +3,46 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: VC-001 host C evidence submitted; independent compiler review next
+## Current checkpoint: VC-001 host review recorded; VR-001 resource probe ready
 
-The user pushed `b3205bca0c74` with
-[TOY1-VO003006-20261015T031625Z](reviews/verification/TOY1-VO003006-20261015T031625Z.json)
-(`pc-toy1-c-evidence/v1`). The candidate records `HOST_PROBE_PASSED`,
-successful host C99 `-O0`, `-O2`, and `-O2 -DNDEBUG` compilations
-and executions of `detector.c` with the 8192-case shifted-queue
-correspondence probe. The deliberately wrong `NDEBUG` reference
-exited 1 as expected. All submitted source pins match the reviewed
-implementation; no target compiler was requested (`NOT_REQUESTED`).
-These are **user-local reported executions awaiting independent review**.
-Raw stdout/stderr and binaries are held under ignored `runs/`; the
-committed summary contains their hashes, not the full data.
+User commit `38e90e6dde80` submitted
+[VC-001 independent compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
+with `ACCEPT_WITH_CLARIFICATIONS` **for host source/compiler evidence only**.
+The reviewer checked the user-submitted raw hashes and negative-control
+mismatch, independently reproduced a strict C99 `-O2` 8192-case host
+correspondence run, and found source-level C arithmetic consistent
+with the accepted legal-domain and valid-state assumptions.
 
-The independently reviewed terminal [VK-001](docs/VK001_TERMINAL_CHECKPOINT.md)
-MODEL_ONLY rung remains historical. The user explicitly authorized
-subsequent VO-003/VO-006 source/compiler evidence collection, followed by
-VO-002 resource evidence. The new
-[VC-001 guide](docs/TOY1_C_COMPILER_CORRESPONDENCE_VC001.md)
-describes the scope and source/build evidence boundary.
+**Important unresolved workflow defect:** the same review report records
+that the registered `tools/task.py run` failed before any Codex reviewer turn.
+The independent direct review report/receipt exists, but a formally successful
+registered reviewer run does **not**. Do not claim the task runner passed or
+erase the failure. The genericity audit must address this separately.
 
-**Next local action:** pull and run the registered
-`process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml` using
-`tools/task.py inspect` then `tools/task.py run`, after the new
-`test_toy1_c_evidence.py` regression. The playbook is
-`process/playbooks/REVIEW_COMPILER_EVIDENCE.md`. The review task
-is pinned to the user's source revision and submitted evidence blob.
-Record an independent Markdown report and JSON receipt under
-`reviews/gates/`. Distinguish reviewed host behavior from any
-unexecuted target or linked-build claim. Stop for review before
-extending evidence collection.
+The user previously authorized follow-on source/compiler evidence and then
+VO-002 resource evidence. [VR-001 operating guide](docs/TOY1_RESOURCE_EVIDENCE_VR001.md)
+provides a host-only memory-layout probe, collector and regression test:
+`implementation/toy1/resource_layout_probe.c`,
+`tools/toy1_resource_evidence.py`, and
+`tests/test_toy1_resource_evidence.py`.
 
-VO-002, VO-003, VO-004, VO-005 and VO-006 remain OPEN. The 20 unplanned
-ERS claims remain visible. Host C tests do not prove target/compiler
-instruction behavior, actual SRAM/stack/nesting or publisher
-continuity. The [VO-002 unmeasured inventory template](process/verification/toy1-vo002-inventory-template-v1.yaml)
-is only a preparation for a separately grounded target/integration
-campaign; no hardware values are invented. Existing accepted C/AS/CON/DE,
-VO/AD states and final F-001 comparison are unchanged.
+**Next local action:** pull, run the regression, then the VR-001 collector
+to record a host C99 `sizeof(detector_t)`/field-offset observation with a
+versioned candidate JSON under `reviews/verification/`. Stage that
+candidate selectively and push it. The accepted 7 charged-SRAM category
+ceilings (1792 bytes total) and 256-byte reserve remain budget
+commitments, **not measured target use**. The collector leaves all 7
+measured target category peaks null and `target_status=NOT_REQUESTED`.
+No target compiler/ABI, linker, task/ISR nesting or shared allocations
+may be invented. A host object size does not close VO-002.
+
+The earlier independently accepted [VK-001 MODEL_ONLY slice](docs/VK001_TERMINAL_CHECKPOINT.md)
+remains unchanged. VO-002..VO-006 are OPEN, the 20 unplanned ERS claims
+remain visible, and AD-003/final F-001 comparison are outstanding.
+No AS/AP/F/CON/DE, selected firmware, accepted receipts or VOs were
+modified. Once host resource evidence is available, choose actual
+target/integration evidence or an explicit host-only qualification
+limit, then genericity audit/freeze before a cleanroom Toy 1 replay.
 
 ## VK-001 implementation and limits
 
