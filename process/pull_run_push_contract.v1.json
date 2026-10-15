@@ -1,0 +1,207 @@
+{
+  "schema": "pc-pull-run-push-collaboration/v1",
+  "status": "proposed workflow contract; documentation, not an executable scheduler",
+  "owner": "tumblewhead/archbot",
+  "purpose": "Require explicit remote-author / local-operator / remote-review handoffs with reproducible commands and no implicit authority.",
+  "precedence": [
+    "Repository AGENTS.md, PROJECT_SPINE.md, active reviewed artifacts and task-specific playbooks control project scope.",
+    "This contract controls handoff presentation and local operator commands; it does not grant permission to modify product requirements or close gates."
+  ],
+  "parties": {
+    "assistant": {
+      "does": [
+        "Read current canonical Git HEAD, AGENTS.md, PROJECT_SPINE.md and task-specific receipts before writing.",
+        "Author/review changes in the connected remote repository when the GitHub connector is available, checking final remote HEAD.",
+        "Select the smallest next authorized task from the latest review receipt and current spine.",
+        "Give runnable pull, inspect, run, select-stage, commit and push commands using exact paths and names for the CURRENT task.",
+        "When user says pushed, fetch remote HEAD and inspect the new committed artifacts before deciding the next action."
+      ],
+      "never": [
+        "Claim to have run user's local compiler, test suite, Codex or hardware unless actually executed with evidence.",
+        "Claim a green test, a hash match, host success, model theorem or favorable review discharges a VO or proves target qualification.",
+        "Assume user executed tests merely because artifacts were pushed.",
+        "Change accepted AS/AP/F/CON/DE, architecture, VO/AD or problem scope without exact authority.",
+        "Create an invented target, sample rate, watchdog, ISR/RTOS topology or acceptance threshold.",
+        "Offer async future work without a scheduled task.",
+        "Tell user to manually copy assistant-authored source edits if connected GitHub write access already permits committing the changes."
+      ]
+    },
+    "human_operator": {
+      "does": [
+        "Pull assistant-authored repository changes into their local checkout.",
+        "Run local tests, builds, simulations, deterministic tasks and independent Codex reviews.",
+        "Inspect output and stage only relevant versioned reports/manifests/receipts.",
+        "Commit and push reviewed outputs to the canonical repository.",
+        "Report errors, shell exit codes or the word pushed to trigger assistant inspection."
+      ],
+      "does_not_have_to": [
+        "Manually author a patch already committed by the assistant.",
+        "Publish private raw logs, binary artifacts, secrets or ignored runs directories to GitHub."
+      ]
+    }
+  },
+  "project_restart": {
+    "remote": "origin",
+    "branch": "main",
+    "read_first": [
+      "AGENTS.md",
+      "PROJECT_SPINE.md",
+      "theory_of_operation.md when architecture or gates change"
+    ],
+    "authorized_work_from": [
+      "active project/authority receipts",
+      "current review disposition",
+      "declared manifest/operation registry"
+    ],
+    "status_sources": [
+      "git rev-parse HEAD",
+      "git status --short",
+      "latest receipt / reviewer report"
+    ],
+    "never_use_as_authority": [
+      "an old chat instruction",
+      "a source filename containing active",
+      "an agent's confident prose"
+    ]
+  },
+  "phases": [
+    {
+      "id": "A",
+      "name": "REMOTE_AUTHOR",
+      "actor": "assistant",
+      "steps": [
+        "Inspect current remote HEAD and the exact next gate.",
+        "Author and commit narrowly scoped code/docs/manifests to canonical GitHub, or report that no remote write tool is available.",
+        "Verify resulting remote commit SHA and relevant paths.",
+        "Issue an exact local pull-and-run handoff. If only documentation was committed, say no run/commit/push is necessary."
+      ]
+    },
+    {
+      "id": "B",
+      "name": "LOCAL_PULL_INSPECT",
+      "actor": "human",
+      "steps": [
+        "Check local branch and git status before pulling; never silently stash, reset or force-push unrelated work.",
+        "Pull only with git pull --ff-only origin main.",
+        "If divergent history or local tracked changes prevent the pull, STOP and report git status/branch; do not discard changes.",
+        "Validate the task manifest using tools/task.py inspect BEFORE tools/task.py run.",
+        "Capture Python exit codes without auto-closing the interactive shell."
+      ]
+    },
+    {
+      "id": "C",
+      "name": "LOCAL_RUN",
+      "actor": "human",
+      "steps": [
+        "Run exactly the current authorized task or collector, using quoted paths.",
+        "Run prescribed unit tests/structural checks and report which were actually executed.",
+        "Inspect stdout/stderr, produced artifacts, receipt and Engineering Briefing; distinguish good negative controls from unexpected failures.",
+        "On a nonzero exit, STOP any automatic next stage or approval and report the exact error; retain relevant diagnostic artifacts locally.",
+        "Independent review runs only after a reviewable submission and correct registered gate. Route receipts with next_task.py only when a unique permissible transition exists."
+      ]
+    },
+    {
+      "id": "D",
+      "name": "LOCAL_STAGE_COMMIT_PUSH",
+      "actor": "human",
+      "steps": [
+        "Stage ONLY the actual output manifest(s), review reports, source evidence summaries or other requested versioned artifacts.",
+        "Never use git add -A or git add . as a default.",
+        "Do not stage runs/, local binaries, private logs, .env, .venv or secrets.",
+        "Show git diff --cached --check, --stat and full git diff --cached for inspection.",
+        "If there are no staged changes, skip commit/push and report the absence of outputs.",
+        "After successful review/inspection, commit with a gate-specific message and git push origin main.",
+        "When done, tell assistant pushed or send the commit SHA."
+      ]
+    },
+    {
+      "id": "E",
+      "name": "REMOTE_REVIEW_RESUME",
+      "actor": "assistant",
+      "steps": [
+        "Fetch the remote HEAD and inspect EXACT changed files and review outcomes.",
+        "Accept review dispositions as scoped gate results, not product verification.",
+        "For REVISE/UNRESOLVED, address the precise blocker in a new versioned artifact before re-review.",
+        "For favorable review, route ONLY the next eligible operation permitted by the receipt and current policy.",
+        "Checkpoint project spine when useful; issue the next complete pull-run-push handoff with no placeholders."
+      ]
+    }
+  ],
+  "shell_rules": {
+    "shell": "bash",
+    "command_block_policy": "Provide COMPLETE self-contained runnable blocks for the current task. Define variables in the same block as their use, or explicitly instruct to run all blocks in the same shell.",
+    "avoid": "Do not prepend set -euo pipefail to interactive troubleshooting commands because the shell may exit on normal task validation failure.",
+    "diagnostic_pattern": [
+      "set +e",
+      "python tools/task.py inspect --manifest process/tasks/EXACT-ID.yaml",
+      "rc=$?",
+      "printf 'inspect exit code: %s\\n' \"$rc\"",
+      "if [ \"$rc\" -ne 0 ]; then printf 'STOP: inspect failed; do not run or push a favorable receipt\\n'; fi"
+    ],
+    "standard_pull": [
+      "git status --short",
+      "git branch --show-current",
+      "git pull --ff-only origin main"
+    ],
+    "standard_inspect": [
+      "python tools/task.py inspect --manifest process/tasks/EXACT-ID.yaml"
+    ],
+    "standard_run": [
+      "python tools/task.py run --manifest process/tasks/EXACT-ID.yaml"
+    ],
+    "receipt_routing": [
+      "python tools/next_task.py inspect --receipt reviews/PATH/EXACT-RECEIPT.json",
+      "manifest=\"$(python tools/next_task.py emit --receipt reviews/PATH/EXACT-RECEIPT.json | jq -er '.manifest_path')\"",
+      "printf 'Routed manifest: %s\\n' \"$manifest\"",
+      "python tools/task.py inspect --manifest \"$manifest\"",
+      "python tools/task.py run --manifest \"$manifest\""
+    ],
+    "stage_and_publish_example": [
+      "git status --short",
+      "git add -- reviews/gates/EXACT-REPORT.md reviews/gates/EXACT-RECEIPT.json",
+      "git diff --cached --check",
+      "git diff --cached --stat",
+      "git diff --cached",
+      "if ! git diff --cached --quiet; then git commit -m \"Independently review EXACT gate\"; git push origin main; fi"
+    ],
+    "templates_are_not_ready_to_run": "Tokens such as EXACT-ID/PATH/EXACT-REPORT are INTERNAL protocol illustrations. A live assistant MUST replace them with known paths in the actual response; if paths are not yet known, provide a safe command to discover them and verify first.",
+    "failure_handling": {
+      "validation_or_nonzero": "Stop progression; keep Bash alive with set +e and inspect the actual return code/output.",
+      "already_planned": "Use the existing manifest path and verify its task ID. Do not regenerate a new task unnecessarily.",
+      "already_present": "Inspect its receipt, source fingerprints and exact input before reusing. Do not overwrite accepted versioned output.",
+      "no_valid_transition": "Do not invent a next manifest, operation or acceptance.",
+      "push_conflict": "Fetch current HEAD, inspect competing changes and reconcile without force.",
+      "unavailable_tools": "State limitation and deliver an exact versioned patch or safe alternative; do not claim a remote commit succeeded."
+    }
+  },
+  "response_contract": {
+    "always_include_for_local_handoff": [
+      "Verified remote commit SHA and concise change summary.",
+      "Exactly named, executable git pull command.",
+      "Exact inspect/test/run commands for next authorized operation.",
+      "Output paths and expected artifact classes, explicitly labeling expectations as unverified until run.",
+      "Selective staging, inspect, commit and git push commands when local output is expected.",
+      "Stop criteria and critical remaining VOs/unknowns."
+    ],
+    "after_user_says_pushed": [
+      "Do not ask for logs or SHA if remote commit is accessible.",
+      "Fetch latest remote HEAD and review newly committed evidence; if only summarized evidence is present, say so.",
+      "Follow authorized next gate, never assume cleanroom/product readiness."
+    ],
+    "style": "Concise explanation plus ready-to-paste Bash blocks; no procedural essays replacing commands.",
+    "transparency": "Always distinguish authored, generated, compiled, executed, independently reviewed, accepted scope, and product qualified."
+  },
+  "exact_current_example": {
+    "as_of_commit": "40fd9340c1ab183b52b0e6f7df1a2b1a77adbfbc",
+    "operation": "REVIEW_COMPILER_EVIDENCE",
+    "task_manifest": "process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml",
+    "test_command": "python -m unittest discover -s tests -p 'test_toy1_c_evidence.py' -v",
+    "inspect_command": "python tools/task.py inspect --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml",
+    "run_command": "python tools/task.py run --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml",
+    "output_paths": [
+      "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-report.md",
+      "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json"
+    ],
+    "caveat": "These outputs are not yet verified on remote main as of the referenced commit. Run locally and check actual files before staging."
+  }
+}
