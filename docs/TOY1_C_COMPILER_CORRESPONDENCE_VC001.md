@@ -156,3 +156,53 @@ status, unverified source/build assumptions, and independent review pending.
 It is a candidate event tied to the project spine. The future UI must not
 turn `HOST_PROBE_PASSED` into `PRODUCT_VERIFIED`; historical reviewed results
 remain immutable while current applicability is projected separately.
+
+
+## Recorded host run and independent-review handoff (2026-10-15 UTC)
+
+The user pushed `reviews/verification/TOY1-VO003006-20261015T031625Z.json`
+in commit `b3205bca0c741eccc8ce0ab14ca25a210071ec06`.
+It **reports** `HOST_PROBE_PASSED` with successful C99 `-O0`,
+`-O2`, `-O2 -DNDEBUG` builds/executions, and a deliberate
+reference-only `-DTOY1_KNOWN_BAD_CONTROL -DNDEBUG` run exiting 1
+with a mismatch. `sources_match_prior_review` and
+`sources_unchanged_during_collection` are true. Its
+`target_status` is `NOT_REQUESTED`; no target objects or measurements
+are included. Each normal probe represents 8192 legal calls according
+to the corresponding source code; the summary retains hashes and byte
+counts of raw local outputs, not their full text.
+
+An explicit independent review task is now registered:
+
+`process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml`
+
+The reusable procedure is
+`process/playbooks/REVIEW_COMPILER_EVIDENCE.md`.
+The task manifest binds the reviewed summary's Git blob identity,
+source revision and accepted implementation-review references. The
+controller checks source pins and review state before launch. The
+independent reviewer should verify the negative control's actual
+failure cause and either inspect available local raw logs or rerun
+the prescribed host cases in a new `runs/` directory. Merely viewing
+log hashes without raw data is not an independent execution.
+
+Run locally after pulling:
+
+```bash
+python -m unittest discover -s tests -p 'test_toy1_c_evidence.py' -v
+python tools/task.py inspect --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml
+python tools/task.py run --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml
+```
+
+This independent review uses the registered `REVIEW_COMPILER_EVIDENCE`
+operation. It is **not** the terminal VK-001 MODEL_ONLY reviewer and
+must not reuse its verdict or discharge VOs. The reviewer should
+author a versioned Markdown report and
+`pc-compiler-evidence-review/v1` JSON receipt under `reviews/gates/`,
+then submit them for inspection.
+
+No target compiler or integrated firmware behavior is supplied by this
+host run. If the real target and integration configuration remain
+unspecified, the appropriate result is a favorable **host-only**
+review (if warranted) with an unresolved target claim, not an invented
+target pass.
