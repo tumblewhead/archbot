@@ -1,0 +1,40 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "REVIEW",
+  "mode": "PROJECT",
+  "operation": "REVIEW_VERIFICATION_LADDER",
+  "task_id": "REVIEW_VERIFICATION_LADDER-954fe316bda6",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "artifact": {
+    "path": "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/artifact.json",
+    "sha256": "6d8073cad05f3c35fb5625a5386ca866a65fc577038c0d3284e02d87e459bf26"
+  },
+  "reviewed_author_task_id": "DESIGN_VERIFICATION_LADDER-dedd836166b5",
+  "reviewer_invocation_id": "codex-REVIEW_VERIFICATION_LADDER-954fe316bda6-2431d876",
+  "independent_of_authoring_invocation": true,
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "findings": [
+    {
+      "id": "F-PLAN-CLAR-001",
+      "severity": "clarification",
+      "summary": "The accepted plan covers only the conditional mathematical arithmetic bound; the other 20 claims remain unplanned and require separate evidence design.",
+      "source": "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/artifact.json; process/ledgers/vo_ledger-AS-001-v2-active.yaml",
+      "required_resolution": "Keep this execution limited to ARITHMETIC-MODEL-BOUND and preserve ERS-C-001, ERS-C-002, ERS-C-003, ERS-CON-C-DOMAIN, ERS-CON-C-EXPRESSIONS, ERS-CON-C-MULTIPLICATION, ERS-CON-INIT, ERS-CON-RESULT, ERS-CON-ROLLING-TRANSITION, ERS-CON-SRAM-CATEGORIES, ERS-CON-SRAM-DYNAMIC, ERS-CON-SRAM-EXCLUSIONS, ERS-CON-SRAM-INFEASIBLE, ERS-CON-SRAM-INVENTORY, ERS-CON-SRAM-NESTING, ERS-CON-SRAM-SHARED, ERS-DE-SRAM-PARTITIONS, ERS-R-001, ERS-R-002 and ERS-R-003 as unplanned/open."
+    }
+  ],
+  "vo_discharged": [],
+  "report": "reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-report.md",
+  "input_revision": "2431d876bec64ec270e47973e70d9a894e848045",
+  "changed_artifacts": [
+    "reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-report.md",
+    "reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json"
+  ],
+  "unresolved_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "next_eligible_action": "EXECUTE_VERIFICATION_LADDER"
+}

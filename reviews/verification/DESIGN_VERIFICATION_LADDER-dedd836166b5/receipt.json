@@ -1,0 +1,29 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "SUBMISSION",
+  "mode": "PROJECT",
+  "operation": "DESIGN_VERIFICATION_LADDER",
+  "task_id": "DESIGN_VERIFICATION_LADDER-dedd836166b5",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "gate": "REVIEW_VERIFICATION_LADDER",
+  "gate_status": "DRAFT_READY",
+  "artifact": {
+    "path": "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/artifact.json",
+    "sha256": "6d8073cad05f3c35fb5625a5386ca866a65fc577038c0d3284e02d87e459bf26"
+  },
+  "briefing": "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/briefing.md",
+  "execution_status": "COMPLETED",
+  "review_state": "PENDING",
+  "vo_discharged": [],
+  "changed_artifacts": [
+    "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/artifact.json",
+    "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/briefing.md",
+    "reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/receipt.json"
+  ]
+}

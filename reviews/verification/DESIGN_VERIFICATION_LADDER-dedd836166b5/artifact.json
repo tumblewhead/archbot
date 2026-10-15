@@ -1,0 +1,367 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "PLAN",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "mode": "PROJECT",
+  "task_id": "DESIGN_VERIFICATION_LADDER-dedd836166b5",
+  "source_sha256": {
+    "knowledge/architecture/AS-001/statement-v2.md": "e1bf5b8699578f55a66630401b65b6e69244e52af543ab2df45039b95bf87abe",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-001-v6.md": "73e908295d3344d46fedc1f92a4e1a5a3b0dccf613d3369f96d73add47e819f4",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-002-v6.md": "7d8de1320fe14f0cb0910f259e9acafa6fcac0b5eb645b0dc096922ff4dca853",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md": "50265f1f75e96fb2981349c4706f9032ed91ccc34add7515b62a340871c4116b",
+    "process/baselines/AS-001-v2-active.yaml": "33d0505dd79f3392a69bb5434f59a5816f1498133932cc97b0b492e16a6486d4",
+    "reviews/gates/IMPLEMENT_DE-900da7a3ce8c-independent-review.json": "7699d68898c63bbb11eb2f52ee0e05a4b9f1a3d444dae94a7a1a705097ea2239",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml": "f2e5fe2d94a596e4fab66a210c13fcd27f749dfb63e63543045034089534c069",
+    "process/ledgers/ad_ledger.yaml": "3d85daf64e497b70259d7c649e4f7daef309bb770d918953e64f6048f468f332",
+    "knowledge/architecture/AS-001/verification_plan-v3.md": "92d999f690ca070d6edb61659068b63d128efd4cb2886b8109b2c55fb4a32ba3",
+    "knowledge/architecture/AS-001/proofs/PR-002.md": "e1266f53603ab15a03aa52f6cb24abd53c789cf9dc67c572c1692ff1fbdb3321",
+    "process/decisions/AP-002-AS-V2-RECONFIRMATION-001.yaml": "fb0cfbd97a0fd49d0047428331ad122965f568c05aae5b928fff0acd44208085",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36",
+    "implementation/toy1/detector.h": "b7f68b2d81e20f64e62fbd817b31822b80bfb78d5945d4523dc7150a15486d6c",
+    "implementation/toy1/detector.c": "f6ec5917a2daeaf52c41893040b8976abc3ae85fa86227d78609078084887310",
+    "implementation/toy1/test_detector.c": "f1308252cd84888078e98f5e1a82641bbce134f61d8da4c6d9e82daa9a7a5bff",
+    "knowledge/architecture/AS-001/design_elements/spine-v7.md": "522ee595e784c8c295bf72de86befa2f2e05ca3cf0bb2b917a0973f2fe1865e5",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-INGRESS-v7.md": "3e76c17409dbfcc5a309990e49550325bf6e31afef60ce0ef29db9e01f3a572b",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-STATE-v7.md": "44a65f5769b5ec2f14738a3b9a48bd80523f31e02d72d6bfc23803d5fcf549ad",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-UPDATE-v7.md": "3481b559206c696225385640cdba3de1ab9cb7a46ee4edcdfa821deb410401c2",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESULT-v7.md": "25ca11d15c6ed366b4565fcf1159835450321f286343e3b36a3bc2a1042e90df",
+    "knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md": "6395af524a56394142078643dd1206b3312a60a7d9ed2bab582ecb3baabf600c",
+    "process/verification/toy1-input-v1.json": "4ccb30ab52b3a703a9b6dd72dc8cc4400a24b0b990acedb80feeddcfc9b77620",
+    "reviews/gates/REVIEW_ERS-1d5aeec83447-receipt.json": "31889153e7ff8ce5eefbfc01cc5421733c080e4da6fce05f5a8fab17b03024e9",
+    "process/verification/toy1-input-v2.json": "bcaa0e83ba68addf6169c249ee01e67ce34c7c35c69b24893a661c4980d71d5e",
+    "tools/verification_kernel.py": "475023b2e1a64b5c1c66a73948aed9b0a838a1966344bbe7fbafd8b014988642",
+    "tools/verification_models.py": "be97e205cef593f36e50eaaa6bbfdb98ec75980090152aa9ed579a3b0156146e",
+    "tools/task.py": "4445b9e1a1f37e7e64b35eb99a22d742d9ed9e215491f478f86f5c02b2285257",
+    "process/tasks/TOY1-VERIFY-ERS002.yaml": "2d673c87f996a3a349829677e1868c107271744dda533ffc2d9c0c6ff48e90a3",
+    "process/operations.yaml": "6414308520b0246818a375a011d4c6fdfe9b468a848324c8c54cfde2c5d05b74",
+    "process/loop_transitions.yaml": "c0ed066f42ad2efb0253da8d273134729460f01c6152f0ed0750cc6749ec39c7",
+    "process/playbooks/VERIFICATION_AUTHOR.md": "3d302ebad4a4409d5daec5cb62852eb44595186a2b8ec5dabbd2269e616c2e6c",
+    "reviews/gates/REVIEW_ERS-1a1accbb740a-receipt.json": "46754d1d55d8f7779f9efe8337223ff320599d31f309b5bf376c6b60c3237b29",
+    "reviews/verification/TOY1-VERIFY-ERS002/artifact.json": "2f0cf28f4c85ac60d53f899798cb964fe0ce427eb6e93488c947e4cfb9b6d860",
+    "process/tasks/DESIGN_VERIFICATION_LADDER-dedd836166b5.yaml": "774ced9ee9b42d94d897f4508b11a7369a66599f652161a7f546a84bf3a8d64d"
+  },
+  "review_state": "PENDING",
+  "product_verified": false,
+  "vo_discharged": [],
+  "payload": {
+    "claims": [
+      {
+        "id": "ERS-C-001",
+        "requirement_id": "C-001",
+        "statement": "Each legal detector input is an unsigned 12-bit integer in [0, 4095]. This is the synthetic domain, not a claim about a physical ADC.",
+        "quantifier": "universal",
+        "domain": "Synthetic detector-interface input domain.",
+        "horizon": "Each legal input value.",
+        "assumptions": [],
+        "due_stage": "AS (synthetic domain already accepted); no physical-ADC claim",
+        "owner": "architecture-agent"
+      },
+      {
+        "id": "ERS-C-002",
+        "requirement_id": "C-002",
+        "statement": "Detector-attributable SRAM is limited to 2,048 unique bytes under approved accounting scope C-002-SCOPE-001.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-C-003",
+        "requirement_id": "C-003",
+        "statement": "No reliance on floating-point hardware.",
+        "quantifier": "universal",
+        "domain": "Detector implementation and generated target build; no configuration is invented.",
+        "horizon": "All detector operations in the eventual authorized build.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-R-001",
+        "requirement_id": "R-001",
+        "statement": "For each legal sample accepted at the detector interface, update exactly once. Numerical rolling behavior is determined by accepted-sample order and is independent of elapsed time between invocations. No throughput guarantee is implied.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every legal accepted-input sequence and each completed update.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-R-002",
+        "requirement_id": "R-002",
+        "statement": "Compute the exact sum of squares of the newest 32 samples accepted by the detector, in acceptance order. Until 32 samples have been accepted, absent earlier history is zero-padded.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every legal accepted-input sequence and each completed update.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-R-003",
+        "requirement_id": "R-003",
+        "statement": "No arithmetic overflow for any legal accepted-input sequence.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every legal accepted-input sequence and each completed update.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-INIT",
+        "requirement_id": "CON-INIT",
+        "statement": "Initialization establishes zero history and zero result before the first sample can be accepted. Reset is permitted only while acceptance is quiesced and no accepted-sample operation is in progress. Acceptance remains quiesced through reset completion; after completion, the next accepted sample starts from zero history and zero result.",
+        "quantifier": "universal",
+        "domain": "Writable detector storage; initialization does not assume already-initialized state.",
+        "horizon": "Each initialization, quiescent reset and first subsequent accepted sample.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-RESULT",
+        "requirement_id": "CON-RESULT",
+        "statement": "The result is in [0,536,608,800] and is represented as an unsigned integer capable of that full range (at least 29 value bits). A caller completing an accepted-sample operation can obtain that operation's coherent post-update value; no separate concurrent-reader guarantee is established.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every legal accepted-input sequence and each completed update.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-ARITH-BOUNDS",
+        "requirement_id": "CON-ARITH-BOUNDS",
+        "statement": "For each legal sample, x^2 <= 16,769,025; the resulting sum is at most 536,608,800; an add-before-subtract intermediate from a valid state is at most 553,377,825. These mathematical bounds alone do not establish concrete C expression safety.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Each square, intermediate expression and result. Correspondence remains due under R-003/VO-006.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-C-EXPRESSIONS",
+        "requirement_id": "CON-C-EXPRESSIONS",
+        "statement": "The implementation must use expression types and evaluation order that prevent intermediate C overflow. Concrete widths, conversions, update ordering and generated-code correspondence require implementation evidence; the MODEL_ONLY bound rung does not supply it.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every concrete expression implementing a legal transition; R-003/VO-006.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-C-MULTIPLICATION",
+        "requirement_id": "CON-C-MULTIPLICATION",
+        "statement": "Operand widening must occur before multiplication unless concrete integer promotion rules prove the product safe. The selected language implementation and conversions must be examined; a mathematical square bound does not by itself establish the evaluation type.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Each incoming and outgoing square in the concrete build; R-003/VO-006.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-C-DOMAIN",
+        "requirement_id": "CON-C-DOMAIN",
+        "statement": "Legal-domain enforcement needed to protect squaring is an implementation obligation under VO-006. Establish the legal-input and representation correspondence used by the arithmetic argument; out-of-domain behavior remains unspecified, with no new mandatory rejection, clamping or recovery behavior.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every accepted legal input and stored value used for squaring; R-003/VO-006.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-ROLLING-TRANSITION",
+        "requirement_id": "CON-ROLLING-TRANSITION",
+        "statement": "Preserve the exact initialized rolling state: select the oldest slot, replace one value and advance one index modulo 32 per accepted sample, including startup and wrap. Concrete layout and update ordering must correspond to this contract; reset obeys CON-AP2-001-v6.",
+        "quantifier": "universal",
+        "domain": "Legal samples in [0,4095], valid initialized rolling state and the accepted call/reset lifecycle; no physical continuity or throughput claim.",
+        "horizon": "Every legal accepted-input sequence and each completed update. Correspondence maps to R-001/R-002/R-003 and VO-004/VO-005/VO-006.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "verification-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-CATEGORIES",
+        "requirement_id": "CON-SRAM-CATEGORIES",
+        "statement": "Contract-stage category ceilings are: persistent state 256 bytes; temporary/scratch 128; detector stack 512; attributable interrupt context 256; shared allocations 256; dynamic allocations 128; other attributable SRAM 256. Allocated ceilings total 1,792 bytes with 256 bytes unallocated reserve under the 2,048-byte cap. These are conditional budget commitments, not measured usage or physical-fit evidence.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "CONTRACT commitment already established; IMPLEMENTATION evidence under VO-002",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-INVENTORY",
+        "requirement_id": "CON-SRAM-INVENTORY",
+        "statement": "The implementation inventory must identify every charged byte, owner and category, establish nonoverlap and lifetime claims, and check category ceilings and the aggregate cap. Simultaneously live bytes are counted once. The charged-SRAM envelope is distinct from the F state-SRAM metric.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-NESTING",
+        "requirement_id": "CON-SRAM-NESTING",
+        "statement": "Stack and interrupt-context ceilings must cover worst-case detector activity and relevant nesting. No particular task, ISR, scheduler or interrupt topology is prescribed; evidence must describe the actual selected integration rather than assume one.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-SHARED",
+        "requirement_id": "CON-SRAM-SHARED",
+        "statement": "Shared storage must have documented conservative detector attribution and be charged once within its category ceiling.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-DYNAMIC",
+        "requirement_id": "CON-SRAM-DYNAMIC",
+        "statement": "Dynamic allocations, if used, must have bounded peak simultaneously-live bytes within the existing category ceiling. The contract does not mandate a heap prohibition.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-EXCLUSIONS",
+        "requirement_id": "CON-SRAM-EXCLUSIONS",
+        "statement": "Exclude unrelated system allocations only when their lack of detector attribution is documented.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-CON-SRAM-INFEASIBLE",
+        "requirement_id": "CON-SRAM-INFEASIBLE",
+        "statement": "An infeasible category ceiling does not permit exceeding that ceiling or the approved total. If selected integration cannot meet the applicable budget, the contract remains unresolved and requires reviewed budget revision before implementation acceptance.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "At each discovered infeasibility and before implementation acceptance; VO-002 remains open.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      },
+      {
+        "id": "ERS-DE-SRAM-PARTITIONS",
+        "requirement_id": "DE-SRAM-PARTITIONS",
+        "statement": "Carry the proposed DE accounting subceilings in bytes, ordered as persistent/scratch/stack/IRQ/shared/dynamic/other: INGRESS [0,16,96,128,0,0,0]; STATE [256,16,96,0,0,0,0]; UPDATE [0,48,192,128,0,0,0]; RESULT [0,16,64,0,0,0,0]; RESOURCE/integration [0,32,64,0,256,128,256]. These are reviewable accounting assignments, not established physical capacities. Inventory must reconcile actual attribution, overlap, nesting and fit; an infeasible subceiling returns to design review without silently exceeding category or total limits.",
+        "quantifier": "universal",
+        "domain": "Unique detector-attributable SRAM under C-002-SCOPE-001 and accepted CON-v6; no target topology is assumed.",
+        "horizon": "Contract-stage budget already committed; concrete peak/lifetime and target evidence remain due at IMPLEMENTATION under VO-002.",
+        "assumptions": [],
+        "due_stage": "IMPLEMENTATION",
+        "owner": "implementation-agent"
+      }
+    ],
+    "rungs": [
+      {
+        "id": "ARITHMETIC-MODEL-BOUND",
+        "claim_id": "ERS-CON-ARITH-BOUNDS",
+        "theme": "boundary",
+        "method": "window_integer_bound/v1",
+        "parameters": {
+          "window": 32,
+          "max_sample": 4095,
+          "bits": 32
+        },
+        "binding": "MODEL_ONLY",
+        "maximum_conclusion": "MODEL_EVIDENCE",
+        "model_scope": "Conditional mathematical sum and add-first bound only; no concrete C-expression, promotion, legal-domain-enforcement or target-memory correspondence.",
+        "reason": "Target the mathematical facet explicitly. Concrete expression, multiplication and domain claims require separate evidence not supplied by this adapter.",
+        "max_cases": 1,
+        "scheduled_after_result": [],
+        "requires_established_claim": [],
+        "hyperedges": [
+          {
+            "parameters": [
+              "window",
+              "max_sample",
+              "bits"
+            ],
+            "formula": "(window+1)*max_sample^2 <= 2^bits-1",
+            "admissibility": "Valid sum-of-squares invariant and legal inputs; representation correspondence remains open.",
+            "origin": "Accepted abstract recurrence and CON-AP2-002-v6 bounds, not a new requirement."
+          }
+        ]
+      }
+    ],
+    "order": [
+      "ARITHMETIC-MODEL-BOUND"
+    ],
+    "unplanned_claim_ids": [
+      "ERS-C-001",
+      "ERS-C-002",
+      "ERS-C-003",
+      "ERS-CON-C-DOMAIN",
+      "ERS-CON-C-EXPRESSIONS",
+      "ERS-CON-C-MULTIPLICATION",
+      "ERS-CON-INIT",
+      "ERS-CON-RESULT",
+      "ERS-CON-ROLLING-TRANSITION",
+      "ERS-CON-SRAM-CATEGORIES",
+      "ERS-CON-SRAM-DYNAMIC",
+      "ERS-CON-SRAM-EXCLUSIONS",
+      "ERS-CON-SRAM-INFEASIBLE",
+      "ERS-CON-SRAM-INVENTORY",
+      "ERS-CON-SRAM-NESTING",
+      "ERS-CON-SRAM-SHARED",
+      "ERS-DE-SRAM-PARTITIONS",
+      "ERS-R-001",
+      "ERS-R-002",
+      "ERS-R-003"
+    ],
+    "open_obligations": [
+      "VO-002",
+      "VO-003",
+      "VO-004",
+      "VO-005",
+      "VO-006"
+    ],
+    "non_claims": [
+      "New projection IDs expose already accepted CON/DE obligations; they do not add product requirements. F-ERS-001 and F-ERS-002 remain review findings until independently re-reviewed.",
+      "No 1-ms cadence, throughput guarantee, loss watchdog, ISR topology, heap prohibition, mandatory out-of-domain response or concurrent-reader behavior is introduced.",
+      "Publisher continuity is external project context, not a blanket premise conditioning unrelated SRAM, initialization or arithmetic obligations. No physical publisher evidence is asserted.",
+      "The seven SRAM category ceilings and 256-byte reserve are conditional contract commitments. DE subceilings are proposed accounting assignments subject to review, not measured capacities.",
+      "Initialization does not assume already-initialized state. Reset retains its accepted quiescent lifecycle precondition.",
+      "The MODEL_ONLY bound checks only a mathematical facet. Concrete C widths, promotions, legal-domain correspondence and target/integration evidence remain open; no VO is discharged.",
+      "Implementation observation gaps identify unconfirmed annotations, not failed requirements. The expanded inventory still needs independent semantic coverage review against accepted source artifacts.",
+      "AD-003/F-001 final comparison remains due before final acceptance. Active AS/AP/F/CON/DE, ledgers, firmware and the prior ERS bundle are unchanged."
+    ],
+    "questions": [
+      "Independent reviewer: does the expanded inventory explicitly cover both review findings, including C evaluation/promotion/domain facets and every conditional SRAM accounting obligation, without adding product behavior?",
+      "Target/compiler and integration evidence remain unspecified. Keep the corresponding claims open; missing measurements do not block review of this ERS projection itself."
+    ],
+    "planning_method": "validated hand-authored candidates; no automatic model discovery"
+  },
+  "content_sha256": "e527ac343f133815d826272ad53a4786cb67c81e123392d2c97c7d681093504b"
+}
