@@ -3,46 +3,44 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: VC-001 host review recorded; VR-001 resource probe ready
+## Current checkpoint: VR-001 host observation submitted; independent resource review next
 
-User commit `38e90e6dde80` submitted
-[VC-001 independent compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
-with `ACCEPT_WITH_CLARIFICATIONS` **for host source/compiler evidence only**.
-The reviewer checked the user-submitted raw hashes and negative-control
-mismatch, independently reproduced a strict C99 `-O2` 8192-case host
-correspondence run, and found source-level C arithmetic consistent
-with the accepted legal-domain and valid-state assumptions.
+User commit `96dcb745ae6f` contains the
+[VR-001 host resource evidence](reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json),
+reporting an observed **72-byte host `detector_t`** object: 64 bytes for
+`samples` at offset 0, one byte for `oldest` at offset 64, three bytes
+of padding/overhead, and four bytes for `sum_squares` at offset 68.
+It records successful host compilation and execution with matching
+declared source pins and stable sources. The result is
+`HOST_LAYOUT_RECORDED`; **not target SRAM, stack or product acceptance**.
 
-**Important unresolved workflow defect:** the same review report records
-that the registered `tools/task.py run` failed before any Codex reviewer turn.
-The independent direct review report/receipt exists, but a formally successful
-registered reviewer run does **not**. Do not claim the task runner passed or
-erase the failure. The genericity audit must address this separately.
+The accepted C-002 charged-SRAM contract remains 2048 unique attributable
+bytes: seven conditional category ceilings totaling 1792 and a 256-byte
+reserve. All seven actual target category peaks remain `null`, the target
+status is `NOT_REQUESTED`, and all VO-002..VO-006 remain OPEN.
 
-The user previously authorized follow-on source/compiler evidence and then
-VO-002 resource evidence. [VR-001 operating guide](docs/TOY1_RESOURCE_EVIDENCE_VR001.md)
-provides a host-only memory-layout probe, collector and regression test:
-`implementation/toy1/resource_layout_probe.c`,
-`tools/toy1_resource_evidence.py`, and
-`tests/test_toy1_resource_evidence.py`.
+**Next local action:** run
+`process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml` using
+`tools/task.py inspect` and `tools/task.py run`, after running
+`test_toy1_resource_evidence.py`. The registered
+`REVIEW_RESOURCE_EVIDENCE` playbook and task pin the submitted source
+revision and evidence blob. A favorable host-only review can accept only
+that observation; it cannot discharge VO-002 or establish physical fit.
+The [VR-001 guide](docs/TOY1_RESOURCE_EVIDENCE_VR001.md) records the exact
+handoff and target/integration omissions. Do not automatically route to a
+target verification gate without an authorized target configuration.
 
-**Next local action:** pull, run the regression, then the VR-001 collector
-to record a host C99 `sizeof(detector_t)`/field-offset observation with a
-versioned candidate JSON under `reviews/verification/`. Stage that
-candidate selectively and push it. The accepted 7 charged-SRAM category
-ceilings (1792 bytes total) and 256-byte reserve remain budget
-commitments, **not measured target use**. The collector leaves all 7
-measured target category peaks null and `target_status=NOT_REQUESTED`.
-No target compiler/ABI, linker, task/ISR nesting or shared allocations
-may be invented. A host object size does not close VO-002.
+The previous [VC-001 host compiler review](reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json)
+reported `ACCEPT_WITH_CLARIFICATIONS` for a host-only finding, while
+also recording a **registered Codex runner launch failure** before any reviewer
+turn. The directly authored review is not proof that the runner succeeded.
+Genericity audit must preserve and address this separate process defect.
 
-The earlier independently accepted [VK-001 MODEL_ONLY slice](docs/VK001_TERMINAL_CHECKPOINT.md)
-remains unchanged. VO-002..VO-006 are OPEN, the 20 unplanned ERS claims
-remain visible, and AD-003/final F-001 comparison are outstanding.
-No AS/AP/F/CON/DE, selected firmware, accepted receipts or VOs were
-modified. Once host resource evidence is available, choose actual
-target/integration evidence or an explicit host-only qualification
-limit, then genericity audit/freeze before a cleanroom Toy 1 replay.
+The independently accepted [VK-001 model slice](docs/VK001_TERMINAL_CHECKPOINT.md)
+also remains bounded. Twenty other ERS claims are unplanned. The active
+AS/AP/F/CON/DE, detector implementation, VO/AD ledger and final F-001
+comparison are unchanged. A complete target qualification or cleanroom
+process freeze is not yet established.
 
 ## VK-001 implementation and limits
 
