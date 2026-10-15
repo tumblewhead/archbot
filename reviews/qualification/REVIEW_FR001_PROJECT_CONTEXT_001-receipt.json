@@ -1,0 +1,81 @@
+{
+  "schema": "pc-framework-repair-review/v1",
+  "task_id": "REVIEW_FR001_PROJECT_CONTEXT-001",
+  "operation": "REVIEW_FRAMEWORK_REPAIR",
+  "gate": "FR001_PROJECT_CONTEXT_INDEPENDENT_REVIEW",
+  "input_revision": "1d37651fd3cb44bf025f6f0be772c0c61f5f463f",
+  "reviewed_source_revision": "42b19e7b64e65e8df34eeabc7b0631e8051f6312",
+  "submission_commit": "4ad7d1cb3121791c6258b90fbe93895a0a689164",
+  "submission_path": "reviews/qualification/FR001_PROJECT_CONTEXT-local-test-receipt.json",
+  "submission_blob_sha1": "0f5b09af1b9efa549bdfaebcef8fd17cc8d99d3e",
+  "submission_blob_verified": true,
+  "reviewed_source_blob_sha1": {
+    "tools/task.py": "c05a1a15f7312e8e89fea4a764f4674c5746c19e",
+    "tools/telemetry.py": "67e6ab93809cdaf22bdd031d96fe9818186c446a",
+    "tests/test_task.py": "7571ab3eaadb17bc3b90693aea9d62d003b23260",
+    "tests/test_telemetry.py": "87f0f9fbd68dea6956383c64a6f2a00888107b14"
+  },
+  "reviewed_source_sha256": {
+    "tools/task.py": "46942af8bfadad84378ffb2aeaf91924746e1144d23020a8f84366cf416de082",
+    "tools/telemetry.py": "89a4a577247979e7a1a72cdddab7238ac85012874692bcfb729ab0ff7178433b",
+    "tests/test_task.py": "85f7df18f082567037fa65161b0d18c5361bff96dab98dbe8b1412f3e502a070",
+    "tests/test_telemetry.py": "ad820d140977a9035544efb21fd6f513403fe985bff35616a70a93b738bcb0a8"
+  },
+  "source_identities_verified_at_pinned_revision": true,
+  "submission_receipt_self_consistent": true,
+  "producer_logs": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "present": true,
+    "all_recorded_byte_counts_and_sha256_match": true,
+    "log_names": ["telemetry", "task", "genericity_review", "genericity_audit", "stage_gate", "task_inspect"]
+  },
+  "reviewer_invocation_id": "direct-review-20261015T064800Z-codex-current-agent",
+  "reviewer_execution_mode": "CURRENT_AGENT_DIRECT",
+  "independent_of_authoring_invocation": true,
+  "independence_basis": "This assigned current agent invocation is separate from the source authoring event and the human local-test submission; review performed here after inspect/render, without nested task.py run.",
+  "checks": [
+    {"id": "task_inspect", "evidence_class": "REVIEWER_REPRODUCED", "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml", "result": "PASS"},
+    {"id": "task_render", "evidence_class": "REVIEWER_REPRODUCED", "command": "python tools/task.py render --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT-001.yaml", "result": "PASS; task then executed directly in this invocation"},
+    {"id": "receipt_and_source_pins", "evidence_class": "REVIEWER_REPRODUCED", "result": "PASS; source commit blobs, SHA-256 values, submission commit receipt blob, and current receipt blob verified"},
+    {"id": "producer_log_integrity", "evidence_class": "REVIEWER_REPRODUCED", "result": "PASS; six logs present and all byte counts/SHA-256 match"},
+    {"id": "cross_project_symlink", "evidence_class": "REVIEWER_REPRODUCED", "result": "FAIL; alpha spine symlink resolved to beta context while telemetry profile retained alpha spine"},
+    {"id": "alternate_collection_boundary", "evidence_class": "REVIEWER_INSPECTED", "result": "FAIL; current cross-project predicate is restricted to the spine collection"},
+    {"id": "mandatory_missing_target", "evidence_class": "REVIEWER_INSPECTED", "result": "PARTIAL; traversal skips nonexistent relationship targets without failing mandatory closure"},
+    {"id": "required_regressions", "evidence_class": "REVIEWER_REPRODUCED", "commands": [
+      "python -m unittest discover -s tests -p 'test_fr001_review_route.py' -v",
+      "python -m unittest discover -s tests -p 'test_telemetry.py' -v",
+      "python -m unittest discover -s tests -p 'test_task.py' -v",
+      "python -m unittest discover -s tests -p 'test_stage_gate.py' -v"
+    ], "results": ["PASS; 3 tests", "PASS; 8 tests", "PASS; 44 tests", "PASS; 13 tests"]},
+    {"id": "compatibility_and_authorized_boundary", "evidence_class": "REVIEWER_INSPECTED", "result": "PASS WITH LIMITS; explicit spine paths supported; no-context export remains opt-in; prohibited product/authority artifacts unchanged"}
+  ],
+  "classifications": {
+    "T1_correct_propagation": "PASS",
+    "T2_fail_closed": "PARTIAL",
+    "T3_isolation_semantics": "PARTIAL",
+    "T4_evidence_integrity_and_regressions": "PASS",
+    "T5_authorized_boundary_and_compatibility": "PASS_WITH_LIMITS",
+    "T6_adequacy_of_claim": "REVISE"
+  },
+  "findings": [
+    {"id": "FR001-R1", "severity": "high", "summary": "A declared alpha spine symlink can select beta context while run/profile state records alpha."},
+    {"id": "FR001-R2", "severity": "high", "summary": "The cross-project predicate is collection-local and does not reject project traversal into another knowledge collection."},
+    {"id": "FR001-R3", "severity": "medium", "summary": "A missing mandatory relationship target can be silently omitted, producing partial context eligibility."}
+  ],
+  "disposition": "REVISE",
+  "disposition_scope": "FR001_PROJECT_CONTEXT_IMPLEMENTATION_REVIEW_ONLY",
+  "scoped_rationale": "The normal declared-spine dispatch and two-project controls pass, but reproduced and inspected counterexamples undermine the central sibling-project selection claim.",
+  "changed_artifacts": [
+    "reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-report.md",
+    "reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-receipt.json"
+  ],
+  "next_eligible_action": "Return findings to the authorized FR-001 source-authoring workflow for versioned corrections, new local test evidence and updated review pins, then obtain a new independent review.",
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "accepted_architectural_debt_unmodified": ["AD-003"],
+  "target_configuration": "NOT_SELECTED",
+  "final_f001_comparison": "OUTSTANDING"
+}
