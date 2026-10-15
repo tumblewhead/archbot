@@ -2,8 +2,48 @@
 
 This repository is the canonical nonvolatile memory for Progressive Concretization. The human operator pulls the latest Git revision before launching local Codex. Agents inspect the checked-out HEAD and its source evidence; do not reconstruct the current architecture from a chat transcript or assume a failed `git fetch` inside a read-only Codex sandbox implies stale evidence.
 
+## Durable program roadmap and restart checkpoint
+
+**Read at every new-agent handoff**, immediately after `PROJECT_SPINE.md`:
+`process/roadmaps/PC_ROADMAP_CURRENT.yaml` (machine-readable milestones,
+status, next eligible action, authority boundaries and full campaign), then
+`docs/QUALIFICATION_CAMPAIGN.md` for detailed long-term objectives.
+This file is the stable operating contract; `PROJECT_SPINE.md` is the
+latest checkpoint and the roadmap YAML is the status index. Check the
+current remote HEAD and later reviews/decisions before trusting any
+checkpoint. Neither roadmap grants source-edit approval.
+
+**Framework path:** genericity audit → FR-001 project context (independently
+accepted with clarifications) → **FR-002 generic gate/project baseline
+continuity (active redesign, NOT accepted)** → FR-003 historical integrity
+→ FR-004 reviewer execution qualification → FR-005 cleanroom input package
+→ FR-006 independent integrated framework-freeze review.
+
+**Whole-program path:** finish Toy 1's end-to-end evidence and honest
+qualification scope → complete and freeze the generic process → cleanroom
+Toy 1 **without** dialogue → implement project-owned human/agent dialogue
+and archive → cleanroom Toy 1 **with** dialogue → distinct Toy 2 and scaling.
+Toy 1 has host-reviewed implementation but open VO-002..VO-006, unsettled
+target evidence and final F-001 comparison. Framework pre-freeze work is
+not Toy 1 product acceptance; no cleanroom or freeze is authorized yet.
+
+**Active checkpoint:** user adopted the cooperative-audience assumption.
+The hardcoded Toy 1 `tools/gates/authority_roots.py` R1 candidate is not
+independently accepted; its hostile-forgery-oriented reviewer task
+`REVIEW_FR002_GATE_ADAPTER_R1-001` is paused. The **next eligible task**
+is a **proposal only** for a project-owned accepted-baseline-continuity
+replacement, followed by explicit approval before further source edits.
+Read `docs/PC_COOPERATIVE_OPERATING_MODEL.md`. Keep prior test and
+review evidence intact.
+
+**Update rule:** on each independently reviewed milestone or authorized
+change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
+together; amend this short section only when the long-term goal, sequence
+or operating contract changes. Do not copy long test logs into any spine
+or infer approval from a test outcome.
+
 ## Startup
-1. Read this file, then `PROJECT_SPINE.md`.
+1. Read this file, then `PROJECT_SPINE.md` and `process/roadmaps/PC_ROADMAP_CURRENT.yaml`.
 2. Read `theory_of_operation.md` when architectural rationale, process modifications, or an unfamiliar gate require it.
 3. Find the current architecture spine in `knowledge/` and follow only task-relevant typed relationships.
 4. Read the assigned role definition in `agents/` and the relevant `process/` policy.

@@ -1,0 +1,144 @@
+schema: pc-program-roadmap/v1
+id: PC-ROADMAP-CURRENT-001
+status: ACTIVE_CHECKPOINT
+repository: tumblewhead/archbot
+branch: main
+checkpoint_basis_revision: 5973030ca5d0995a24da27cb33802da082fdc666
+purpose: "Recover the complete Progressive Concretization goal, current authority and next eligible work without chat context."
+source_of_truth:
+  operating_contract: AGENTS.md
+  current_checkpoint: PROJECT_SPINE.md
+  qualification_campaign: docs/QUALIFICATION_CAMPAIGN.md
+  framework_repair_sequence: process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml
+  cooperative_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+  fr002_replacement_design: docs/PC_COOPERATIVE_OPERATING_MODEL.md
+  human_machine_protocol: process/pull_run_push_contract.v1.json
+precedence:
+  - "Read actual current Git HEAD and current authority receipts before acting."
+  - "AGENTS.md and current PROJECT_SPINE.md govern startup, scope and next eligibility."
+  - "This roadmap is a navigation/status index, not new authority to edit source or close gates."
+  - "An independent review receipt and engineering-authority decision outrank planning text."
+  - "Historical proposals and old roadmaps retain history; do not mistake their old next steps for current instructions."
+north_star:
+  process: "Reusable proof-driven Progressive Concretization from evidence, AS/P/F, AP, CON and DE to implementation, verification and controlled acceptance."
+  generalization: "Run the same generic engine, roles and playbooks on materially different engineering projects, with their own project baselines and validators."
+  evidence: "Preserve provenance, complete obligations, reproducibility and independently reviewed decisions."
+  human_use: "Make engineering work clear, auditable and practically usable by a team."
+  initial_qualification: "Complete Toy 1 evidence and a controlled framework freeze, then independently replay Toy 1 and progress to Toy 2."
+operating_assumption:
+  audience: COOPERATIVE
+  risk_in_scope: "Accidental dropped requirements, stale evidence, incorrect selection, unreviewed transitions and prior-solution leakage."
+  risk_outside_scope: "Deliberate repository forgery, maliciously rewritten policy/history, cryptographic tamper resistance."
+  principle: "Authority continuity through accepted project baselines and controlled changes, not a Toy 1 allowlist in the generic engine."
+human_machine_split:
+  assistant: "Author and review scoped changes through connected GitHub; commit source; inspect human-pushed evidence."
+  human: "Pull, run local tests and separate Codex reviewer sessions, inspect and selectively stage/commit/push evidence."
+  safety: "No invented passing results, self-review acceptance, force push, broad staging or claim that a green test discharges a VO."
+framework:
+  current_milestone: FR-002-GATE-ADAPTER
+  stage_order:
+    - id: GENERICITY_PREFREEZE_AUDIT
+      status: REVIEWED_WITH_CLARIFICATIONS
+      evidence: reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-receipt.json
+      exit: "Reviewed obstacle inventory; source fixes require their own authorization."
+    - id: FR-001-PROJECT-CONTEXT
+      status: INDEPENDENTLY_ACCEPTED_WITH_CLARIFICATIONS
+      evidence: reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json
+      scope: "Declared project spine controls telemetry role-projected context and exported context, not physical workspace isolation."
+      exit: "Scoped context selection independently reviewed."
+    - id: FR-002-GATE-ADAPTER
+      status: REDESIGN_REQUIRED_NOT_ACCEPTED
+      authority: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+      first_independent_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+      first_review_verdict: REVISE
+      historical_r1_source: 4c1810ecf520a7c2741c4a517532d05f1ee595fd
+      historical_r1_local_evidence: reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+      paused_review_task: process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml
+      paused_reason: "Review tests an adversarial trust-root model superseded by the cooperative-audience decision."
+      chosen_direction: "Project-owned accepted-baseline continuity, explicit authority transitions, reusable generic AP mechanics and opt-in project validators."
+      next: "Write a bounded versioned replacement proposal; seek specific source-edit approval; implement, test and obtain a new independent review."
+      exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
+    - id: FR-003-HISTORICAL-INTEGRITY
+      status: NOT_STARTED
+      intent: "Read-only historical source-revision auditor distinct from current-applicability checking and reviewed-status overlay."
+      exit: "Historical acceptance remains verifiable at its original revision without requiring present-worktree hashes to match."
+    - id: FR-004-REVIEWER-EXECUTION
+      status: NOT_STARTED
+      intent: "Qualify the supported independent reviewer invocation mode(s) with real completed turns and accurate launch-failure records."
+      exit: "An independent review can be invoked and evidenced reproducibly; render alone does not count as execution."
+    - id: FR-005-CLEANROOM-PACKAGE
+      status: NOT_STARTED
+      intent: "Positive-allowlist package that excludes prior Toy 1 solutions, logs, hidden evaluation material and accidental historical leakage."
+      design: docs/CLN_BOUNDARY_PREFREEZE_001.md
+      exit: "Fresh agent can receive only permitted source inputs; isolation tested, not merely claimed."
+    - id: FR-006-INTEGRATED-FREEZE
+      status: NOT_STARTED
+      intent: "Separate independent integrated qualification and explicit framework-freeze decision."
+      exit: "Evidence covers all required generic process properties and unresolved limits are explicit."
+toy1:
+  project: AS-001
+  workstream_status: IMPLEMENTED_HOST_REVIEWED_NOT_FINAL_PRODUCT_ACCEPTANCE
+  active_baseline: process/baselines/AS-001-v2-active.yaml
+  active_vo_index: process/ledgers/vo_ledger-AS-001-v2-active.yaml
+  host_implementation: implementation/toy1/
+  implementation_review: reviews/gates/IMPLEMENT_DE-900da7a3ce8c-independent-review.json
+  accepted_scope: "Sample-indexed newest-32, unsigned 12-bit domain, C-002 2048-byte charged SRAM boundary, publisher-owned uninterrupted ordered input."
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
+  accepted_ad_unresolved_for_final_result: [AD-003]
+  final_f001_comparison: OUTSTANDING
+  target_configuration: NOT_SELECTED
+  charged_sram_actual_peaks: UNKNOWN
+  evidence_remaining: "Complete applicable implementation/target verification, obligations and final F-001 decision; host evidence alone does not prove target acceptance."
+  caution: "The older qualification campaign contains historical Toy 1 milestone statuses; use current active baseline, receipts and PROJECT_SPINE.md."
+program_campaign:
+  ordered_milestones:
+    - id: C1_TOY1_END_TO_END
+      status: PARTIAL
+      objective: "Complete Toy 1 controlled AS/P/F, AP, CON, DE, C implementation, independent evidence and honest final acceptance scope."
+    - id: C2_GENERIC_FRAMEWORK_FREEZE
+      status: IN_PROGRESS_NOT_FROZEN
+      objective: "Finish genericity FR-001 through FR-006 independently from Toy 1 domain authority."
+    - id: C3_CLEANROOM_TOY1_NO_DIALOGUE
+      status: NOT_AUTHORIZED
+      objective: "Replay Toy 1 from only permitted unsolved inputs using the frozen framework without the dialogue layer."
+    - id: C4_PROJECT_DIALOGUE
+      status: PLANNED
+      objective: "Add structured human-agent engineering interviews, explanations, revisions and project-local archive."
+    - id: C5_CLEANROOM_TOY1_WITH_DIALOGUE
+      status: PLANNED
+      objective: "Replay Toy 1 with dialogue and compare engineering correctness, intervention, rework and provenance."
+    - id: C6_TOY2_AND_SCALE
+      status: PLANNED
+      objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
+  campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
+next_eligible_action:
+  type: PROPOSAL_ONLY
+  subject: FR-002 accepted-baseline continuity replacement
+  instruction: "Draft a separately versioned bounded replacement plan for FR-002 without modifying stage-gate source yet."
+  required_sources:
+    - docs/PC_COOPERATIVE_OPERATING_MODEL.md
+    - process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+    - reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+    - reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+    - process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+    - process/baselines/AS-001-v2-active.yaml
+  human_approval_before_new_source: true
+  prohibit:
+    - "Do not run paused REVIEW_FR002_GATE_ADAPTER_R1-001 as the active review gate."
+    - "Do not label FR-002 accepted or the framework frozen."
+    - "Do not rewrite historical independent review receipts, accepted AS/AP/F/CON/DE or active VO/AD ledgers."
+    - "Do not run the cleanroom, complete F-001, select target or discharge VOs."
+restart_protocol:
+  - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
+  - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
+  - "Read only the linked task-relevant authority and evidence files, then applicable role/playbook and pull-run-push contract."
+  - "Compare the roadmap's status against newer independent reviews and explicit decisions; if it conflicts, do not invent a reconciliation."
+  - "Identify the next eligible bounded action, specify its exact existing authorization and files, and act only within scope."
+  - "Commit roadmap and PROJECT_SPINE.md updates alongside every meaningful authorized milestone transition; keep accepted old receipts immutable."
+  - "Give exact pull/run/selective-stage/commit/push commands when local work is due."
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

@@ -5,6 +5,10 @@ and linked constituent artifacts. This spine is an index, not the execution log.
 
 ## Current checkpoint: cooperative authority-continuity direction
 
+Canonical complete milestone/status index: [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml).
+The detailed long-range sequence remains [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
+A new agent should reconcile this status index with latest review receipts and decisions before acting.
+
 Human engineering authority has set the default
 [cooperative operating assumption](process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml):
 users and agents follow the documented behavioral bounds; accidental
