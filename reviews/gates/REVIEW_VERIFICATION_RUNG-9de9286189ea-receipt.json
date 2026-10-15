@@ -1,0 +1,40 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "REVIEW",
+  "mode": "PROJECT",
+  "operation": "REVIEW_VERIFICATION_RUNG",
+  "task_id": "REVIEW_VERIFICATION_RUNG-9de9286189ea",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "artifact": {
+    "path": "reviews/verification/EXECUTE_VERIFICATION_LADDER-956fdb75fa6b/artifact.json",
+    "sha256": "f78257b516195f1883131a9bf8758ebba73df0a4dbdc1f8b6fa9b85404183621"
+  },
+  "reviewed_author_task_id": "EXECUTE_VERIFICATION_LADDER-956fdb75fa6b",
+  "reviewer_invocation_id": "codex-REVIEW_VERIFICATION_RUNG-9de9286189ea-60132e25",
+  "independent_of_authoring_invocation": true,
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "findings": [
+    {
+      "id": "F-RUNG-CLAR-001",
+      "severity": "clarification",
+      "summary": "Accept only the conditional mathematical model result; implementation and product correspondence remain unresolved.",
+      "source": "reviews/verification/EXECUTE_VERIFICATION_LADDER-956fdb75fa6b/artifact.json; reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json; process/ledgers/vo_ledger-AS-001-v2-active.yaml",
+      "required_resolution": "Keep the conclusion at MODEL_EVIDENCE for ARITHMETIC-MODEL-BOUND. Preserve VO-002 through VO-006 and all 20 unplanned ERS claims as open; do not infer C, target, integration, publisher, or product acceptance."
+    }
+  ],
+  "vo_discharged": [],
+  "report": "reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-report.md",
+  "input_revision": "60132e257bdd93fcf2a4cfe34828e482b20b7fbd",
+  "changed_artifacts": [
+    "reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-report.md",
+    "reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-receipt.json"
+  ],
+  "unresolved_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "next_eligible_action": "STOP: this rung review is terminal for the current VK-001 slice; obtain a separately authorized scope for any further verification activity."
+}

@@ -1,0 +1,39 @@
+schema: pc-task/v1
+id: EXECUTE_VERIFICATION_LADDER-956fdb75fa6b
+role: experimental-investigator
+operation: EXECUTE_VERIFICATION_LADDER
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: VERIFICATION_INPUT
+  reference: reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json
+  revision: 2431d876bec64ec270e47973e70d9a894e848045
+playbook: process/playbooks/VERIFICATION_AUTHOR.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: vk_advance_review_verification_ladder_accept_with_clarifications
+    receipt: reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json
+    source_task_manifest: process/tasks/REVIEW_VERIFICATION_LADDER-954fe316bda6.yaml
+    source_revision: 2431d876bec64ec270e47973e70d9a894e848045
+  review_inputs:
+    independent_review: reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json
+    finding_ids: []
+    source_task_manifest: process/tasks/REVIEW_VERIFICATION_LADDER-954fe316bda6.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: VERIFICATION_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
