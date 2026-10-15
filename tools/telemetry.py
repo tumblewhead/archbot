@@ -117,30 +117,62 @@ def changes(before: dict, after: dict) -> list[dict]:
     return rows
 
 
-def context_profile(role: str) -> dict:
-    """Estimate *eligible* spine content; never claim it was actually read."""
+def require_spine(spine: str | None) -> Path:
+    """Validate a declared project spine; never select a default project."""
+    if (not isinstance(spine, str) or not spine.startswith('/')
+            or spine.startswith('//') or '?' in spine or '#' in spine):
+        raise ValueError('An explicit project knowledge-root spine is required')
+    parts = Path(spine.lstrip('/')).parts
+    if len(parts) < 3 or any(part in ('.', '..') for part in parts):
+        raise ValueError('Spine must identify a project and a Markdown concept')
+    root = (REPO / 'knowledge').resolve()
+    candidate = (root / Path(*parts)).resolve()
+    if not candidate.is_relative_to(root) or candidate.suffix != '.md' or not candidate.is_file():
+        raise ValueError('Project spine missing, unsafe, or not Markdown')
+    return candidate
+
+
+def context_nodes(role: str, spine: str) -> tuple[dict, dict, dict, list, list]:
+    """Select role context only from an explicit project and shared collections."""
+    import pc
+    start = require_spine(spine)
+    cfg = pc.load_yaml(REPO / 'process/views.yaml')
+    view = cfg.get('roles', {}).get(role)
+    if not isinstance(view, dict):
+        raise ValueError('No context view defined for role: ' + str(role))
+    docs = pc.catalog()
+    allowed = set(view['follow'])
+    required = set(cfg.get('mandatory_closure', []))
+    depth = int(view['max_depth'])
+    nodes = pc.traverse(start, allowed, depth, required, docs,
+                        include_nonconcept=bool(view.get('include_nonconcept', False)))
+    all_refs = pc.traverse(start, allowed, depth, required, docs,
+                           include_nonconcept=True)
+    # Project roots are the first two segments, e.g. architecture/AS-001.
+    # Optional and mandatory edges cannot import an adjacent project.
+    root = (REPO / 'knowledge').resolve()
+    relative = start.relative_to(root)
+    collection = root / relative.parts[0]
+    project = collection / relative.parts[1]
+    for path, _, _ in all_refs:
+        if path.is_relative_to(collection) and not path.is_relative_to(project):
+            raise ValueError('Cross-project context dependency rejected')
+    return cfg, view, docs, nodes, all_refs
+
+
+def context_profile(role: str, spine: str | None = None) -> dict:
+    """Estimate role-eligible content, not what Codex actually read."""
+    if spine is None:
+        return {'available': False, 'reason': 'project_spine_not_declared'}
     try:
+        cfg, view, docs, nodes, all_refs = context_nodes(role, spine)
         import pc
-        cfg = pc.load_yaml(REPO / 'process/views.yaml')
-        view = cfg['roles'].get(role)
-        if not view:
-            return {'available': False, 'reason': 'no role-specific view defined'}
-        start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
-        docs = pc.catalog()
-        nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
-                            set(cfg.get('mandatory_closure', [])), docs,
-                            include_nonconcept=bool(view.get('include_nonconcept', False)))
-        all_refs = pc.traverse(start, set(view['follow']), int(view['max_depth']),
-                               set(cfg.get('mandatory_closure', [])), docs,
-                               include_nonconcept=True)
-        selected_paths = {path for path, _, _ in nodes}
+        selected = {path for path, _, _ in nodes}
         excluded = [path.relative_to(pc.KB).as_posix() for path, _, _ in all_refs
-                    if path not in docs and path not in selected_paths]
+                    if path not in docs and path not in selected]
         limit = int(view['max_bytes'])
         remaining = limit
-        emit = 0
-        omitted = 0
-        raw = 0
+        emit = omitted = raw = 0
         for path, _, _ in nodes:
             if path not in docs:
                 raw += 1
@@ -149,18 +181,23 @@ def context_profile(role: str) -> dict:
                 remaining -= path.stat().st_size
             else:
                 omitted += 1
-        return {'available': True, 'eligible_artifacts': len(nodes),
-                'nonconcept_artifacts': raw,
+        return {'available': True, 'spine': spine,
+                'eligible_artifacts': len(nodes), 'nonconcept_artifacts': raw,
                 'excluded_nonconcept_references': len(excluded),
                 'excluded_nonconcept_examples': excluded[:8],
                 'over_budget_concepts': omitted,
                 'eligible_text_bytes_within_budget': emit, 'role_body_budget_bytes': limit,
                 'note': 'Graph selection estimate, not measured Codex context ingestion'}
-    except (ValueError, OSError, ImportError, KeyError) as exc:
-        return {'available': False, 'reason': type(exc).__name__}
+    except (ValueError, OSError, ImportError, KeyError, TypeError) as exc:
+        return {'available': False, 'spine': spine, 'reason': str(exc)}
 
 
-def initial_state(role: str, prompt: Path | None, label: str, mode: str) -> tuple[str, dict]:
+def initial_state(role: str, prompt: Path | None, label: str, mode: str,
+                  spine: str | None = None) -> tuple[str, dict]:
+    require_spine(spine)
+    eligible = context_profile(role, spine)
+    if not eligible['available']:
+        raise ValueError('Project context unavailable: ' + eligible['reason'])
     RUNS.mkdir(parents=True, exist_ok=True)
     rid = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + uuid.uuid4().hex[:8]
     run_dir = RUNS / rid
@@ -172,11 +209,11 @@ def initial_state(role: str, prompt: Path | None, label: str, mode: str) -> tupl
             raise ValueError(f'Prompt missing: {prompt}')
         pmeta = {'path': source.relative_to(REPO).as_posix() if source.is_relative_to(REPO) else source.name,
                  'sha256': file_hash(source), 'bytes': source.stat().st_size}
-    state = {'schema': SCHEMA, 'run_id': rid, 'role': role, 'label': label,
+    state = {'schema': SCHEMA, 'run_id': rid, 'role': role, 'spine': spine, 'label': label,
              'mode': mode, 'started_at': now_iso(), 'finished_at': None,
              'status': 'in_progress', 'exit_code': None, 'prompt': pmeta,
              'git_before': git('rev-parse', 'HEAD'), 'git_after': None,
-             'context_before': context_profile(role),
+             'context_before': eligible,
              'changed_files': [], 'source': 'local',
              'note': 'This telemetry does not certify architectural gates or proofs.'}
     dump(run_dir / 'run.json', state)
@@ -321,7 +358,7 @@ def finalize(run_dir: Path, *, exit_code: int | None, elapsed: float | None,
     dump(run_dir / 'snapshot_after.json', after)
     state['changed_files'] = changes(load(run_dir / 'snapshot_before.json'), after)
     state['artifact_counts'] = summarize_artifact_changes(state['changed_files'])
-    state['context_after'] = context_profile(state['role'])
+    state['context_after'] = context_profile(state['role'], state.get('spine'))
     state['codex'] = parse_events(run_dir / 'codex.events.jsonl')
     state['validation'] = {}
     if run_checks:
@@ -349,7 +386,7 @@ def review_markdown(data: dict) -> str:
     modified = data.get('changed_files', [])
     artifact_counts = data.get('artifact_counts', {})
     lines = [f'# Run review: {data["run_id"]}', '',
-             f'- Role: `{data["role"]}`; label: {data.get("label", "") or "none"}',
+             f'- Role: `{data["role"]}`; project spine: `{data.get("spine") or "not recorded"}`; label: {data.get("label", "") or "none"}',
              f'- Execution: `{data["mode"]}`; status: `{data["status"]}`; exit code: {format_value(data["exit_code"])}',
              f'- Start (UTC): {data["started_at"]}; duration: {format_value(data.get("wall_seconds"))} s',
              f'- Git HEAD: {format_value(data.get("git_before"))} -> {format_value(data.get("git_after"))}',
@@ -386,7 +423,8 @@ def review_markdown(data: dict) -> str:
 
 
 def task_start(args: argparse.Namespace) -> int:
-    rid, _ = initial_state(args.role, Path(args.prompt) if args.prompt else None, args.label, 'manual')
+    rid, _ = initial_state(args.role, Path(args.prompt) if args.prompt else None,
+                           args.label, 'manual', args.spine)
     print(f'STARTED {rid}')
     print(f'After your interactive Codex session: python tools/telemetry.py finish --run {rid}')
     return 0
@@ -409,7 +447,7 @@ def run_codex(args: argparse.Namespace) -> int:
     executable = shutil.which(args.codex_bin)
     if not executable:
         raise ValueError(f'Codex CLI not found: {args.codex_bin} (use start/finish for interactive sessions)')
-    rid, _ = initial_state(args.role, prompt, args.label, 'codex-exec-jsonl')
+    rid, _ = initial_state(args.role, prompt, args.label, 'codex-exec-jsonl', args.spine)
     rd = RUNS / rid
     cmd = [executable, 'exec', '--json', '--sandbox', args.sandbox,
            '--output-last-message', str(rd / 'last-message.txt')]
@@ -436,22 +474,13 @@ def run_codex(args: argparse.Namespace) -> int:
     return code
 
 
-def selected_context(role: str) -> list[tuple[str, Path]]:
-    """Role-projected OKF concept documents only; no nonconcept or binary payloads."""
-    try:
-        import pc
-        cfg = pc.load_yaml(REPO / 'process/views.yaml')
-        view = cfg['roles'].get(role)
-        if not view:
-            return []
-        start = pc.resolve_target(pc.KB / 'index.md', '/architecture/AS-001/spine.md')
-        docs = pc.catalog()
-        nodes = pc.traverse(start, set(view['follow']), int(view['max_depth']),
-                            set(cfg.get('mandatory_closure', [])), docs,
-                            include_nonconcept=bool(view.get('include_nonconcept', False)))
-        return [(path.relative_to(REPO).as_posix(), path) for path, _, _ in nodes if path in docs]
-    except (ImportError, KeyError, ValueError, OSError):
-        return []
+def selected_context(role: str, spine: str | None) -> list[tuple[str, Path]]:
+    """Export only the role-projected context for the run's recorded spine."""
+    if spine is None:
+        raise ValueError('Cannot export context: no project spine was recorded')
+    _, _, docs, nodes, _ = context_nodes(role, spine)
+    return [(path.relative_to(REPO).as_posix(), path)
+            for path, _, _ in nodes if path in docs]
 
 
 def export(args: argparse.Namespace) -> int:
@@ -492,7 +521,7 @@ def export(args: argparse.Namespace) -> int:
     context_total = 0
     if not args.no_context:
         final_snapshot = load(rd / 'snapshot_after.json')
-        for name, path in selected_context(data['role']):
+        for name, path in selected_context(data['role'], data.get('spine')):
             if path.is_symlink() or not path.is_file():
                 continue
             size = path.stat().st_size
@@ -562,6 +591,7 @@ def main(argv: list[str] | None = None) -> int:
     sp = p.add_subparsers(dest='action', required=True)
     start = sp.add_parser('start', help='Mark start of interactive Codex session')
     start.add_argument('--role', required=True)
+    start.add_argument('--spine', required=True, help='Explicit project knowledge-root spine')
     start.add_argument('--prompt')
     start.add_argument('--label', default='')
     start.set_defaults(fn=task_start)
@@ -573,6 +603,7 @@ def main(argv: list[str] | None = None) -> int:
     finish.set_defaults(fn=task_finish)
     execute = sp.add_parser('run', help='Launch codex exec --json and record locally')
     execute.add_argument('--role', required=True)
+    execute.add_argument('--spine', required=True, help='Explicit project knowledge-root spine')
     execute.add_argument('--prompt', required=True)
     execute.add_argument('--label', default='')
     execute.add_argument('--model', help='Optional Codex model override')

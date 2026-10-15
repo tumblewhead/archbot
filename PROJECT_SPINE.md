@@ -3,38 +3,31 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: independent genericity review accepted, scoped repair proposal next
+## Current checkpoint: FR-001 explicit project context candidate, local tests due
 
-The independent [prefreeze genericity review](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md)
-and its [receipt](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-receipt.json)
-were pushed as `500271becada7924fed665aa62e9d1e55f3df11a`. Its verdict is
-`ACCEPT_WITH_CLARIFICATIONS` **only for audit analysis and traceability**.
-Q2, Q3 and Q5 were confirmed; Q1, Q4 and Q6 were qualified. The review
-reported three successful routing tests and source identity checks in a
-`CURRENT_AGENT_DIRECT` independent Codex invocation, not a registered
-`task.py run`. VC-001 and VR-001 prior failed launches remain failed.
+The independent genericity audit review at
+[REVIEW_GENERICITY_PREFREEZE_001](reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-report.md)
+accepted the audit with clarifications. The human authorized the bounded
+FR-001 project context implementation in
+[FR-001 decision record](process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml).
 
-The follow-on proposal is
-[FRAMEWORK-REPAIR-PREFREEZE-001](process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml),
-supported by
-[CLN-BOUNDARY-PREFREEZE-001](docs/CLN_BOUNDARY_PREFREEZE_001.md).
-**Both are proposed only, not implementation authority.** The reviewer
-recommends defining a cleanroom allowlist and threat model first; only later,
-after project context/domain-gate generalization and launcher qualification,
-should a physical package and adversarial sentinel checks be executed.
+The [FR-001 author report](reviews/qualification/FR001_PROJECT_CONTEXT-authoring-report.md)
+documents source changes in tools/task.py, tools/telemetry.py,
+tests/test_task.py and tests/test_telemetry.py. Source is **authored only**;
+the human has not yet pushed local test results, and there has not been an
+independent FR-001 implementation review. The accepted AS/AP/F/CON/DE,
+implementation, VO/AD ledgers, and historical review receipts are unchanged.
 
-**Next eligible human decision:** explicitly authorize the first *bounded*
-framework repair `FR-001-PROJECT-CONTEXT` before source changes. Its
-proposed purpose is project/spine-specific context telemetry without any
-implicit `AS-001` fallback. If authorized, the assistant should author
-only that patch and tests in the connected Git repository, and the human
-should pull, run, inspect and push evidence. No framework freeze or
-cleanroom launch is currently authorized.
+**Next local action:** pull main, run the named telemetry/task/genericity
+regressions and inspect review manifest, preserve actual exit statuses,
+then publish a bounded test-evidence receipt. The assistant will inspect the
+pushed evidence before routing the separate independent FR-001 review.
+Do not run a new cleanroom or claim the framework frozen.
 
-The earlier audit candidate remains at
-[GENERICITY_PREFREEZE_001](reviews/qualification/GENERICITY_PREFREEZE_001-report.md).
-Historical evidence, including initial VC-001/VR-001 failures and reviewed
-Toy 1 work, remains unchanged.
+The proposed [cleanroom isolation boundary](docs/CLN_BOUNDARY_PREFREEZE_001.md)
+is not an implemented physical package. C-002 domain gate separation,
+historical pin auditing, and reviewer launch qualification are later
+separate repairs, not included in FR-001.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

@@ -204,7 +204,8 @@ def main(argv: list[str] | None = None) -> int:
             task_prompt = Path(handle.name)
         print(f"TASK={selected['id']} MANIFEST={selected['manifest']} ROLE={selected['role']}", flush=True)
         return subprocess.run([sys.executable, str(ROOT / "tools/telemetry.py"), "run",
-                               "--role", selected["role"], "--prompt", str(task_prompt),
+                               "--role", selected["role"], "--spine", selected["spine"],
+                               "--prompt", str(task_prompt),
                                "--label", selected["id"]], cwd=ROOT, check=False).returncode
     except (TaskError, OSError, ValueError, TypeError, KeyError, yaml.YAMLError) as exc:
         print("TASK_INVALID:", exc, file=sys.stderr)

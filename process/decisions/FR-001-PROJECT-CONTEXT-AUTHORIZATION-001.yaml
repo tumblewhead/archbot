@@ -1,0 +1,35 @@
+schema: pc-framework-repair-authorization/v1
+id: FR-001-PROJECT-CONTEXT-AUTHORIZATION-001
+framework: Progressive Concretization
+source_proposal: process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml
+source_review: reviews/qualification/REVIEW_GENERICITY_PREFREEZE_001-receipt.json
+decision: AUTHORIZE_BOUNDED_IMPLEMENTATION
+approved_by: user:engineering_authority
+approval_evidence: explicit_user_consent_in_current_conversation
+approval_phrase: "sounds good lets make it happen"
+authorized_scope:
+  - Forward the selected task manifest project spine into telemetry.
+  - Reject missing, invalid, or sibling-project context selection before launch.
+  - Bind run state and exported role context to the declared project spine.
+  - Add regression tests and preserve explicitly selected Toy 1 behavior.
+allowed_changes:
+  - tools/task.py
+  - tools/telemetry.py
+  - tests/test_task.py
+  - tests/test_telemetry.py
+  - PROJECT_SPINE.md
+  - reviews/qualification/FR001_PROJECT_CONTEXT-authoring-report.md
+  - process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml
+prohibited:
+  - Modify accepted AS/AP/F/CON/DE or implementation/toy1
+  - Modify active VO/AD ledgers
+  - Modify C-002 stage-gate policy
+  - Build or launch cleanroom replay
+  - Freeze framework
+review_requirement: Local test evidence and separate independent review before calling the repair qualified
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

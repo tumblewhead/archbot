@@ -1111,6 +1111,21 @@ class TaskManifestTests(unittest.TestCase):
         with self.assertRaises(task.TaskError):
             task.validate(self.root, "process/tasks/task.yaml")
 
+    def test_task_run_passes_exact_manifest_spine_to_telemetry(self):
+        self.manifest['spine'] = '/architecture/beta/spine.md'
+        self.store()
+        with patch.object(task, 'ROOT', self.root), \
+                patch.object(task.subprocess, 'run') as dispatched:
+            dispatched.return_value.returncode = 0
+            self.assertEqual(task.main(['run', '--manifest', 'process/tasks/task.yaml']), 0)
+        command = dispatched.call_args.args[0]
+        self.assertIn('--spine', command)
+        self.assertEqual(command[command.index('--spine') + 1],
+                         '/architecture/beta/spine.md')
+        self.assertNotIn('/architecture/AS-001/spine.md', command)
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
