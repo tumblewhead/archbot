@@ -1,0 +1,38 @@
+schema: pc-framework-repair-authorization/v1
+id: FR002-BASELINE-CONTINUITY-REPLACEMENT-AUTHORIZATION-001
+source_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
+source_design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+decision: AUTHORIZE_BOUNDED_IMPLEMENTATION
+approved_by: user:engineering_authority
+approval_evidence: "User reply 'lets proceed' to the explicit request to approve bounded FR002-BASELINE-CONTINUITY-REPLACEMENT-001 implementation"
+approved_scope:
+  - Generic project-owned continuity checks against separately supplied baseline projection.
+  - Explicit reviewed transition for a protected obligation change.
+  - Remove generic loader dependency on engine-owned Toy 1 trust list.
+  - Preserve C-002 and original Toy 1 AP gate behavior.
+  - New project binding and synthetic transition regression fixtures.
+permitted_paths:
+  - tools/gates/binding.py
+  - tools/gates/continuity.py
+  - tools/gates/authority_roots.py
+  - tools/stage_gate.py
+  - process/project_authority/
+  - process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml
+  - tests/test_gate_adapter.py
+  - tests/test_baseline_continuity.py
+  - reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
+  - PROJECT_SPINE.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+prohibited:
+  - Rewrite accepted AS/AP/F/CON/DE, C-002 or active VO/AD ledgers.
+  - Modify historical review or producer evidence receipts.
+  - Waive required validator without an accepted explicit transition.
+  - Launch paused FR-002 R1 adversarial review as current acceptance.
+  - Declare final FR-002 review, framework freeze, cleanroom or product verification.
+scope_state: SOURCE_CANDIDATE_NOT_INDEPENDENTLY_REVIEWED
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

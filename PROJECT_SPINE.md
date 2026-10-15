@@ -3,48 +3,45 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: cooperative authority-continuity direction
+## Current checkpoint: FR-002 baseline continuity source candidate; local tests next
 
-Canonical complete milestone/status index: [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml).
-The detailed long-range sequence remains [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
-A new agent should reconcile this status index with latest review receipts and decisions before acting.
+Read the [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
+and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md) for durable
+milestones and scope.
 
-Human engineering authority has set the default
-[cooperative operating assumption](process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml):
-users and agents follow the documented behavioral bounds; accidental
-omissions, source/provenance drift and silent obligation changes remain
-within scope, while deliberate repository forgery does not.
-Read [the FR-002 redirection design](docs/PC_COOPERATIVE_OPERATING_MODEL.md).
+Engineering authority approved [FR002-BASELINE-CONTINUITY-REPLACEMENT-001](process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml)
+by the explicit reply "lets proceed"; the versioned
+[authorization](process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml)
+limits source changes. The
+[authoring report](reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md)
+covers the new generic `tools/gates/continuity.py`, project-owned Toy 1
+candidate projection, new v2 binding, source changes and regression tests.
 
-FR-002's first independent [REVISE review](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json)
-remains unchanged. The R1 source at
-`4c1810ecf520a7c2741c4a517532d05f1ee595fd` and
-[R1 local checks](reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json)
-are retained with their actual successful local receipt and pending
-independent acceptance. That R1 correction used an engine-owned
-Toy 1-specific trust registry. It does not meet the new project-neutral
-design preference and is **not independently accepted**.
+**Status: source candidate authored, NOT YET LOCALLY TESTED, NOT
+INDEPENDENTLY REVIEWED.** The next action is for the human to pull,
+run `test_baseline_continuity.py`, `test_gate_adapter.py`, unchanged
+`test_stage_gate.py`, task/telemetry/FR-001 and prior review-route
+regressions, and explicit v2/legacy inspectors. If any fail, preserve
+logs, stop and report. If all pass, selectively commit/push a fresh
+FR002_BASELINE_CONTINUITY-local-test-receipt.json with checks and source
+hashes. The assistant must inspect pushed evidence before registering a
+new independent review.
 
-The previously authored `REVIEW_FR002_GATE_ADAPTER_R1-001` review task
-is **paused, not the next eligible execution**, because its threat model
-focuses on hostile authority fabrication. Do not run it as though the
-operating assumptions were unchanged. Do not delete or rewrite it.
+The previous FR-002 independent **REVISE** verdict and all earlier
+R1 source/evidence are historical, not overwritten or accepted by this
+replacement. `REVIEW_FR002_GATE_ADAPTER_R1-001` remains paused.
+The new project projection is itself a **candidate**, so it can
+support simulation/inspection only until separately reviewed and
+accepted. The original Toy 1 v1 binding remains historical, and new
+explicit inspection uses the candidate v2 binding; `--legacy-toy1`
+remains available.
 
-**Next eligible decision:** engineering authority may approve or revise
-[the bounded FR-002 replacement proposal](process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml)
-and [design](docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md).
-It preserves Toy 1's accepted C-002 envelope while replacing the
-engine's Toy 1-specific authority registry with project-owned accepted-
-baseline continuity and versioned authority transitions.
-**The proposal is authored, but new source replacement is not authorized.**
-If authorized, implement in scope, collect local test evidence, and obtain
-a new independent review under the cooperative-audience contract.
-The old adversarial R1 review task remains paused as historical evidence.
-
-FR-001 R1 remains `ACCEPT_WITH_CLARIFICATIONS` for role-context
-projection only. No framework freeze, cleanroom, product verification,
-VO discharge, AD change, target configuration, final F-001 result, or
-FR-003 implementation is authorized.
+Cooperative users are assumed; detect accidental missing requirements
+and require versioned reviewed transitions, not hostile forgery
+resistance. FR-001 R1 remains `ACCEPT_WITH_CLARIFICATIONS` for scoped
+role-context projection. No framework freeze, cleanroom, target
+qualification, final F-001, VO discharge, AD change or FR-003 work is
+authorized.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

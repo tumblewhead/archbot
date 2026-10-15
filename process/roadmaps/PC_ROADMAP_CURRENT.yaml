@@ -48,7 +48,7 @@ framework:
       scope: "Declared project spine controls telemetry role-projected context and exported context, not physical workspace isolation."
       exit: "Scoped context selection independently reviewed."
     - id: FR-002-GATE-ADAPTER
-      status: REDESIGN_REQUIRED_NOT_ACCEPTED
+      status: SOURCE_CANDIDATE_AWAITING_LOCAL_TESTS_AND_INDEPENDENT_REVIEW
       authority: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
       first_independent_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
       first_review_verdict: REVISE
@@ -59,8 +59,13 @@ framework:
       chosen_direction: "Project-owned accepted-baseline continuity, explicit authority transitions, reusable generic AP mechanics and opt-in project validators."
       replacement_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
       replacement_design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
-      replacement_status: PROPOSED_NOT_AUTHORIZED
-      next: "Seek explicit human approval or revision of the bounded FR-002 baseline-continuity source replacement; then implement, test and independently review."
+      replacement_status: AUTHORIZED_SOURCE_CANDIDATE_UNTESTED
+      source_authorization: process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml
+      authoring_report: reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
+      new_project_projection: process/project_authority/AS-001-AP-continuity-candidate-v1.yaml
+      new_candidate_binding: process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml
+      new_tests: [tests/test_gate_adapter.py, tests/test_baseline_continuity.py]
+      next: "Human pulls, locally runs bounded tests and explicit v2/legacy inspector checks, then pushes test evidence. Assistant inspects before a new independent review."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
       status: NOT_STARTED
@@ -116,11 +121,13 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: HUMAN_APPROVAL_GATE
-  subject: FR-002 accepted-baseline continuity replacement
+  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
+  subject: FR-002 accepted-baseline continuity source candidate
   proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
-  design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
-  instruction: "Obtain engineering-authority approval or revision of this bounded source-replacement scope before modifying any engine code."
+  authorization: process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml
+  source_report: reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
+  planned_receipt: reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json
+  instruction: "Pull the source candidate, run targeted and historical regressions and explicit binding v2/legacy inspections; report failures or push a bounded receipt if all pass."
   required_sources:
     - docs/PC_COOPERATIVE_OPERATING_MODEL.md
     - docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
@@ -130,7 +137,8 @@ next_eligible_action:
     - reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
     - process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
     - process/baselines/AS-001-v2-active.yaml
-  human_approval_before_new_source: true
+  source_approval_recorded: true
+  independently_reviewed: false
   prohibit:
     - "Do not run paused REVIEW_FR002_GATE_ADAPTER_R1-001 as the active review gate."
     - "Do not label FR-002 accepted or the framework frozen."

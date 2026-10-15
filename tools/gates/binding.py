@@ -1,6 +1,6 @@
-"""Project binding loader for generic AP checks, with pinned authority sources.
+"""Cooperative project-owned AP baseline binding and continuity checks.
 
-Binding data is a candidate review input, never a product authority.
+A project projection is a separate input; hashes identify source bytes, not approval.
 """
 from __future__ import annotations
 import hashlib
@@ -9,9 +9,29 @@ import re
 import yaml
 
 from gates import toy1_c002
-from gates.authority_roots import trusted_root
+from gates import continuity
 
 REGISTRY = {toy1_c002.VALIDATOR_ID: toy1_c002}
+
+
+def register_validator(plugin):
+    """Register an explicitly supplied reviewed project validator.
+
+    The program entrypoint selects the module; YAML does not import code.
+    This is a cooperative extension hook, not an executable-plugin sandbox.
+    """
+    key = getattr(plugin, 'VALIDATOR_ID', None)
+    if (not isinstance(key, str) or not key or
+            not isinstance(getattr(plugin, 'PROJECT_ID', None), str) or
+            not isinstance(getattr(plugin, 'REQUIREMENT', None), str) or
+            not callable(getattr(plugin, 'validate_scope', None)) or
+            not callable(getattr(plugin, 'validate_requirement', None))):
+        raise ValueError('Invalid registered domain validator')
+    if key in REGISTRY and REGISTRY[key] is not plugin:
+        raise ValueError('Validator identity already registered')
+    REGISTRY[key] = plugin
+
+
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -47,6 +67,26 @@ def pinned(root: Path, spec: dict, *, yaml_input=True):
     return obj
 
 
+
+
+def _transition(root, binding, projection):
+    ref = binding.get('transition')
+    if ref is None:
+        return None
+    record = pinned(root, ref)
+    review_spec = record.get('review')
+    if not isinstance(review_spec, dict):
+        raise ValueError('Authority transition missing review')
+    review = pinned(root, review_spec)
+    if (review.get('schema') != 'pc-project-transition-review/v1' or
+            review.get('independent_of_transition_authoring_invocation') is not True or
+            review.get('disposition') not in ('ACCEPT', 'ACCEPT_WITH_CLARIFICATIONS') or
+            review.get('transition') != ref['path'] or
+            review.get('previous_projection_id') != projection.get('id') or
+            record.get('review_path') != review_spec['path']):
+        raise ValueError('Authority transition lacks matching independent review')
+    return record
+
 def load_binding(root: Path, ref: str):
     """Read only explicitly named pinned project evidence and validators."""
     root = root.resolve()
@@ -55,31 +95,35 @@ def load_binding(root: Path, ref: str):
         raise ValueError('Unrecognized gate project binding')
     if binding.get('status') != 'candidate_for_independent_review':
         raise ValueError('Gate binding is not a declared review candidate')
-    project = binding.get('project_id')
-    # Trust is rooted in reviewed engine code, not a candidate binding.
-    anchor = trusted_root(project)
-    spine = binding.get('spine')
-    if spine != anchor['spine'] or binding.get('stage') != anchor['stage']:
-        raise ValueError('Project spine/stage differs from trusted authority root')
-    for key, accepted in anchor['sources'].items():
-        if key in ('approved_ap_authority', 'reviewed_as'):
-            continue
-        spec = binding.get(key)
-        if (not isinstance(spec, dict) or
-                spec.get('path') != accepted['path'] or
-                spec.get('git_blob_sha1') != accepted['git_blob_sha1']):
-            raise ValueError('Untrusted project authority source: ' + key)
-    trusted_validator = anchor['accepted_validator']
-    specs = binding.get('required_validators')
-    if not isinstance(specs, list) or len(specs) != 1:
-        raise ValueError('Untrusted protected domain validator set')
-    declared_validator = specs[0]
-    if (not isinstance(declared_validator, dict) or
-            declared_validator.get('id') != trusted_validator['id'] or
-            declared_validator.get('requirement') != trusted_validator['requirement'] or
-            declared_validator.get('scope') != trusted_validator['scope'] or
-            declared_validator.get('implementation') != trusted_validator['implementation']):
-        raise ValueError('Untrusted protected domain validator authority')
+    if not isinstance(binding.get('accepted_projection'), dict):
+        raise ValueError('Explicit accepted project projection required')
+    projection = pinned(root, binding['accepted_projection'])
+    transition = _transition(root, binding, projection)
+    continuity.compare(projection, binding, transition)
+    # Real (non-simulation) eligibility requires a separately reviewed and
+    # human-approved project projection. Candidate projections remain usable
+    # for inspection and simulation, never as accepted authority.
+    if projection['status'] == 'accepted_for_trial':
+        review_spec = projection.get('activation_review')
+        decision_spec = projection.get('activation_decision')
+        if not isinstance(review_spec, dict) or not isinstance(decision_spec, dict):
+            raise ValueError('Accepted projection lacks review and approval')
+        accepted_review = pinned(root, review_spec)
+        approved = pinned(root, decision_spec)
+        if (accepted_review.get('schema') != 'pc-project-projection-review/v1' or
+                accepted_review.get('independent_of_projection_authoring_invocation') is not True or
+                accepted_review.get('disposition') not in ('ACCEPT', 'ACCEPT_WITH_CLARIFICATIONS') or
+                accepted_review.get('projection_id') != projection['id'] or
+                accepted_review.get('project_id') != projection['project_id'] or
+                approved.get('schema') != 'pc-project-projection-approval/v1' or
+                approved.get('decision') != 'APPROVE_FOR_TRIAL' or
+                approved.get('project_id') != projection['project_id'] or
+                approved.get('projection_id') != projection['id'] or
+                approved.get('review_path') != review_spec['path'] or
+                not approved.get('approved_by')):
+            raise ValueError('Accepted projection lacks matching independent authority')
+    project = binding['project_id']
+    spine = binding['spine']
     if (not isinstance(project, str) or not project or
             spine != '/architecture/' + project + '/spine.md' or
             binding.get('stage') != 'AP'):
@@ -89,10 +133,6 @@ def load_binding(root: Path, ref: str):
         raise ValueError('Spine authority belongs to another project')
     pinned(root, binding['spine_source'], yaml_input=False)
     baseline = pinned(root, binding['active_baseline'])
-    # These accepted provenance files are discovered only through the engine
-    # trust root. Binding metadata cannot replace or re-pin them.
-    authority = pinned(root, anchor['sources']['approved_ap_authority'])
-    as_review = pinned(root, anchor['sources']['reviewed_as'])
     review = pinned(root, binding['baseline_review'])
     policy = pinned(root, binding['policy'])
     vo = pinned(root, binding['vo_ledger'])
@@ -107,19 +147,21 @@ def load_binding(root: Path, ref: str):
             review.get('candidate_sha256') != baseline.get('source_candidate_sha256') or
             vo.get('activation', {}).get('reviewed_baseline') != binding['baseline_review']['path']):
         raise ValueError('Baseline lacks matching independent review authority')
-    if (baseline.get('independent_as_review') != anchor['sources']['reviewed_as']['path'] or
-            authority.get('schema') != 'pc-ap-authority/v1' or
-            authority.get('status') != 'approved' or
-            authority.get('decision') != 'PROVISIONALLY_SELECTED' or
-            authority.get('architecture') != project + '-v2' or
-            authority.get('basis', {}).get('independent_review') != anchor['sources']['reviewed_as']['path'] or
-            authority.get('basis', {}).get('memory_scope') != trusted_validator['scope']['path'] or
-            'C-002_2048_bytes_detector_attributable_sram' not in authority.get('protected_requirements', []) or
-            as_review.get('schema') != 'pc-as-review/v1' or
-            as_review.get('disposition') not in ('ACCEPT', 'ACCEPT_WITH_CLARIFICATIONS') or
-            baseline.get('accepted_authority', {}).get('provisional_ap') != anchor['sources']['approved_ap_authority']['path'] or
-            vo.get('activation', {}).get('authority') != anchor['sources']['approved_ap_authority']['path']):
-        raise ValueError('Active baseline lacks independently anchored AP authority')
+    if 'reviewed_as' in binding:
+        reviewed = pinned(root, binding['reviewed_as'])
+        if (baseline.get('independent_as_review') != binding['reviewed_as']['path'] or
+                reviewed.get('disposition') not in ('ACCEPT', 'ACCEPT_WITH_CLARIFICATIONS')):
+            raise ValueError('Baseline lacks matching AS review authority')
+    if 'approved_ap_authority' in binding:
+        authority = pinned(root, binding['approved_ap_authority'])
+        if (authority.get('schema') != 'pc-ap-authority/v1' or
+                authority.get('status') != 'approved' or
+                authority.get('basis', {}).get('independent_review') !=
+                binding.get('reviewed_as', {}).get('path') or
+                baseline.get('accepted_authority', {}).get('provisional_ap') !=
+                binding['approved_ap_authority']['path'] or
+                vo.get('activation', {}).get('authority') != binding['approved_ap_authority']['path']):
+            raise ValueError('Baseline lacks matching AP authority')
     if baseline.get('id') != binding['active_baseline'].get('id'):
         raise ValueError('Baseline id differs from pinned context')
     artifacts = baseline.get('active_artifacts', {})
@@ -136,10 +178,6 @@ def load_binding(root: Path, ref: str):
             not isinstance(policy.get('requirements'), list) or
             not policy['requirements']):
         raise ValueError('Project AP policy is not eligible for trial')
-    if (policy.get('protected_scope_decisions') != anchor['protected_requirements'] or
-            policy.get('approved_scope_refs', {}).get(trusted_validator['requirement']) !=
-            'C-002-SCOPE-001'):
-        raise ValueError('AP policy conflicts with protected trusted authority root')
     if (not isinstance(vo.get('obligations'), list) or
             not isinstance(ad.get('items'), list)):
         raise ValueError('Malformed authoritative project ledgers')
@@ -159,13 +197,16 @@ def load_binding(root: Path, ref: str):
             raise ValueError('Unknown or wrong-project domain validator')
         scope = pinned(root, item.get('scope'))
         pinned(root, item.get('implementation'), yaml_input=False)
-        if (item['implementation']['path'] != 'tools/gates/toy1_c002.py' or
-                scope.get('requirement') != item['requirement'] or
+        approved_scope_path = baseline.get('accepted_authority', {}).get('memory_scope')
+        if (scope.get('requirement') != item['requirement'] or
                 scope.get('id') != policy.get('approved_scope_refs', {}).get(item['requirement']) or
-                baseline.get('accepted_authority', {}).get('memory_scope') != item['scope']['path']):
+                (approved_scope_path is not None and
+                 item['requirement'] in projection.get('protected_requirements', []) and
+                 approved_scope_path != item['scope']['path'])):
             raise ValueError('Validator scope or accepted authority mismatch')
         active.append({'requirement': item['requirement'], 'scope': scope,
                        'id': key, 'module': plugin})
+    binding['_projection_status'] = projection['status']
     return binding, policy, vo, ad, active
 
 
@@ -174,6 +215,10 @@ def evaluate_bound(root: Path, binding_path: str, assessment: dict):
     binding, policy, vo, ad, validators = load_binding(root, binding_path)
     if not isinstance(assessment, dict):
         raise ValueError('Assessment must be a mapping')
-    return evaluate(assessment, policy, vo, ad, validators,
-                    project_id=binding['project_id'], spine=binding['spine'],
-                    root=root.resolve())
+    result = evaluate(assessment, policy, vo, ad, validators,
+                      project_id=binding['project_id'], spine=binding['spine'],
+                      root=root.resolve())
+    if binding['_projection_status'] != 'accepted_for_trial' and assessment.get('simulation_only') is not True:
+        result['errors'].append('Project continuity projection is not independently accepted')
+        result['decision'] = 'NO_DOWNSELECTION'
+    return result

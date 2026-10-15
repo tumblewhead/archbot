@@ -28,14 +28,16 @@ target evidence and final F-001 comparison. Framework pre-freeze work is
 not Toy 1 product acceptance; no cleanroom or freeze is authorized yet.
 
 **Active checkpoint:** user adopted the cooperative-audience assumption.
-The hardcoded Toy 1 `tools/gates/authority_roots.py` R1 candidate is not
-independently accepted; its hostile-forgery-oriented reviewer task
-`REVIEW_FR002_GATE_ADAPTER_R1-001` is paused. The **next eligible decision**
-is approval or revision of the bounded baseline-continuity proposal
-`process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml`.
-Read `docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md` and
-`docs/PC_COOPERATIVE_OPERATING_MODEL.md`. Do not modify gate source
-before that specific approval. Keep historical test/review evidence intact.
+Human engineering authority approved the bounded baseline-continuity
+replacement `FR002-BASELINE-CONTINUITY-REPLACEMENT-001`; see
+`process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml`.
+**Current task:** source candidate authored but NOT LOCALLY TESTED and
+NOT INDEPENDENTLY REVIEWED. The human pulls, runs focused gate and
+continuity regressions, and pushes a bounded evidence receipt only when
+every check passes. The prior FR-002 `REVISE` review remains historical;
+the hostile-forgery `REVIEW_FR002_GATE_ADAPTER_R1-001` task is paused.
+Next after validated local evidence is a **new**, independent review of
+cooperative project-owned baseline continuity. Do not freeze the engine.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
