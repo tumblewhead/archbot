@@ -118,22 +118,49 @@ def changes(before: dict, after: dict) -> list[dict]:
 
 
 def require_spine(spine: str | None) -> Path:
-    """Validate a declared project spine; never select a default project."""
+    """Reject aliases and identify the exact declared project root."""
     if (not isinstance(spine, str) or not spine.startswith('/')
             or spine.startswith('//') or '?' in spine or '#' in spine):
         raise ValueError('An explicit project knowledge-root spine is required')
-    parts = Path(spine.lstrip('/')).parts
-    if len(parts) < 3 or any(part in ('.', '..') for part in parts):
+    raw_parts = spine.split('/')[1:]
+    if (len(raw_parts) < 3 or
+            any(part in ('', '.', '..') for part in raw_parts)):
         raise ValueError('Spine must identify a project and a Markdown concept')
     root = (REPO / 'knowledge').resolve()
-    candidate = (root / Path(*parts)).resolve()
-    if not candidate.is_relative_to(root) or candidate.suffix != '.md' or not candidate.is_file():
+    lexical = root.joinpath(*raw_parts)
+    resolved = lexical.resolve()
+    if lexical != resolved:
+        raise ValueError('Project spine symlink or path alias rejected')
+    if (not resolved.is_relative_to(root) or resolved.suffix != '.md'
+            or not resolved.is_file()):
         raise ValueError('Project spine missing, unsafe, or not Markdown')
-    return candidate
+    return resolved
+
+
+def _checked_dependency(pc, source: Path, edge: dict, required: bool) -> Path | None:
+    """Validate each traversed dependency before role context is accepted."""
+    import os
+    root = (REPO / 'knowledge').resolve()
+    target = edge['target']
+    dest = pc.resolve_target(source, target)
+    if dest is None:
+        if required:
+            raise ValueError('Mandatory dependency is not a local file: ' + target)
+        return None
+    address = target.split('#', 1)[0].split('?', 1)[0]
+    lexical = root / address.lstrip('/') if address.startswith('/') else source.parent / address
+    lexical = Path(os.path.normpath(lexical))
+    if lexical.resolve() != lexical:
+        raise ValueError('Dependency symlink or path alias rejected: ' + target)
+    if not dest.is_relative_to(root):
+        raise ValueError('Dependency escapes knowledge root: ' + target)
+    if required and not dest.is_file():
+        raise ValueError('Missing mandatory dependency: ' + target)
+    return dest
 
 
 def context_nodes(role: str, spine: str) -> tuple[dict, dict, dict, list, list]:
-    """Select role context only from an explicit project and shared collections."""
+    """Project-owned graph plus explicitly linked shared BKP; fail closed."""
     import pc
     start = require_spine(spine)
     cfg = pc.load_yaml(REPO / 'process/views.yaml')
@@ -141,6 +168,8 @@ def context_nodes(role: str, spine: str) -> tuple[dict, dict, dict, list, list]:
     if not isinstance(view, dict):
         raise ValueError('No context view defined for role: ' + str(role))
     docs = pc.catalog()
+    if start not in docs:
+        raise ValueError('Declared project spine is not an OKF concept')
     allowed = set(view['follow'])
     required = set(cfg.get('mandatory_closure', []))
     depth = int(view['max_depth'])
@@ -148,15 +177,25 @@ def context_nodes(role: str, spine: str) -> tuple[dict, dict, dict, list, list]:
                         include_nonconcept=bool(view.get('include_nonconcept', False)))
     all_refs = pc.traverse(start, allowed, depth, required, docs,
                            include_nonconcept=True)
-    # Project roots are the first two segments, e.g. architecture/AS-001.
-    # Optional and mandatory edges cannot import an adjacent project.
+
     root = (REPO / 'knowledge').resolve()
-    relative = start.relative_to(root)
-    collection = root / relative.parts[0]
-    project = collection / relative.parts[1]
-    for path, _, _ in all_refs:
-        if path.is_relative_to(collection) and not path.is_relative_to(project):
-            raise ValueError('Cross-project context dependency rejected')
+    rel = start.relative_to(root)
+    project = root / rel.parts[0] / rel.parts[1]
+    shared_bkp = root / 'bkp'
+    for path, level, _ in all_refs:
+        # No implicit sibling project can be reached through an unrelated
+        # collection. Shared background knowledge must be explicitly linked.
+        if not (path.is_relative_to(project) or path.is_relative_to(shared_bkp)):
+            raise ValueError('Cross-project context dependency rejected: ' + str(path))
+        if path in docs:
+            for edge in pc.rels(docs[path][0]):
+                kind = edge['kind']
+                if kind not in required and (level >= depth or kind not in allowed):
+                    continue
+                dest = _checked_dependency(pc, path, edge, kind in required)
+                if dest is not None and dest.is_file():
+                    if not (dest.is_relative_to(project) or dest.is_relative_to(shared_bkp)):
+                        raise ValueError('Cross-project context dependency rejected: ' + str(dest))
     return cfg, view, docs, nodes, all_refs
 
 

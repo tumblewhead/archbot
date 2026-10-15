@@ -187,5 +187,107 @@ print(json.dumps({'type':'turn.completed','usage':{'input_tokens':123,'output_to
 
 
 
+    def test_fr001_r1_symlink_spine_does_not_substitute_project(self):
+        import pc
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._setup_two_projects(root)
+            alpha = root / 'knowledge/architecture/alpha/spine.md'
+            beta = root / 'knowledge/architecture/beta/spine.md'
+            alpha.unlink()
+            alpha.symlink_to(beta)
+            with patch.object(tel, 'REPO', root), patch.object(pc, 'KB', root / 'knowledge'), \
+                    patch.object(tel, 'RUNS', root / 'runs'):
+                self.assertFalse(tel.context_profile(
+                    'proof-scout', '/architecture/alpha/spine.md')['available'])
+                with self.assertRaisesRegex(ValueError, 'symlink'):
+                    tel.initial_state('proof-scout', None, 'forbidden', 'manual',
+                                      '/architecture/alpha/spine.md')
+                self.assertFalse((root / 'runs').exists())
+
+    def test_fr001_r1_symlink_dependency_does_not_alias_project(self):
+        import pc
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._setup_two_projects(root)
+            alpha_result = root / 'knowledge/architecture/alpha/result.md'
+            beta_result = root / 'knowledge/architecture/beta/result.md'
+            alpha_result.unlink()
+            alpha_result.symlink_to(beta_result)
+            with patch.object(tel, 'REPO', root), patch.object(pc, 'KB', root / 'knowledge'):
+                profile = tel.context_profile('proof-scout', '/architecture/alpha/spine.md')
+                self.assertFalse(profile['available'], profile)
+                with self.assertRaises(ValueError):
+                    tel.selected_context('proof-scout', '/architecture/alpha/spine.md')
+
+    def test_fr001_r2_other_collection_cannot_supply_project_evidence(self):
+        import pc
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._setup_two_projects(root)
+            foreign = root / 'knowledge/history/beta'
+            foreign.mkdir(parents=True)
+            (foreign / 'result.md').write_text(
+                '---\ntype: Result\nid: BETA-FOREIGN\n---\nnot alpha\n',
+                encoding='utf-8')
+            alpha = root / 'knowledge/architecture/alpha/spine.md'
+            alpha.write_text(alpha.read_text().replace(
+                '/architecture/alpha/result.md', '/history/beta/result.md'),
+                encoding='utf-8')
+            with patch.object(tel, 'REPO', root), patch.object(pc, 'KB', root / 'knowledge'), \
+                    patch.object(tel, 'RUNS', root / 'runs'):
+                self.assertFalse(tel.context_profile(
+                    'proof-scout', '/architecture/alpha/spine.md')['available'])
+                with self.assertRaisesRegex(ValueError, 'Cross-project'):
+                    tel.initial_state('proof-scout', None, 'forbidden', 'manual',
+                                      '/architecture/alpha/spine.md')
+                self.assertFalse((root / 'runs').exists())
+
+    def test_fr001_r3_missing_mandatory_edge_is_not_silently_omitted(self):
+        import pc
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._setup_two_projects(root)
+            alpha = root / 'knowledge/architecture/alpha/spine.md'
+            alpha.write_text(alpha.read_text().replace(
+                '---\nalpha root\n',
+                '  - kind: assumes\n'
+                '    target: /architecture/alpha/missing-assumption.md\n'
+                '---\nalpha root\n'),
+                encoding='utf-8')
+            with patch.object(tel, 'REPO', root), patch.object(pc, 'KB', root / 'knowledge'), \
+                    patch.object(tel, 'RUNS', root / 'runs'):
+                profile = tel.context_profile('proof-scout', '/architecture/alpha/spine.md')
+                self.assertFalse(profile['available'])
+                self.assertIn('Missing mandatory dependency', profile['reason'])
+                with self.assertRaisesRegex(ValueError, 'Missing mandatory'):
+                    tel.initial_state('proof-scout', None, 'forbidden', 'manual',
+                                      '/architecture/alpha/spine.md')
+                self.assertFalse((root / 'runs').exists())
+
+    def test_fr001_explicit_shared_bkp_keeps_mandatory_closure(self):
+        import pc
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self._setup_two_projects(root)
+            shared = root / 'knowledge/bkp'
+            shared.mkdir()
+            (shared / 'assumption.md').write_text(
+                '---\ntype: BackgroundKnowledge\nid: SHARED-ASSUMPTION\n---\ncommon\n',
+                encoding='utf-8')
+            alpha = root / 'knowledge/architecture/alpha/spine.md'
+            alpha.write_text(alpha.read_text().replace(
+                '---\nalpha root\n',
+                '  - kind: assumes\n'
+                '    target: /bkp/assumption.md\n'
+                '---\nalpha root\n'), encoding='utf-8')
+            with patch.object(tel, 'REPO', root), patch.object(pc, 'KB', root / 'knowledge'):
+                selected = {p for p, _ in tel.selected_context(
+                    'proof-scout', '/architecture/alpha/spine.md')}
+                self.assertIn('knowledge/bkp/assumption.md', selected)
+                self.assertNotIn('knowledge/architecture/beta/result.md', selected)
+
+
+
 if __name__ == '__main__':
     unittest.main()
