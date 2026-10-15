@@ -1,0 +1,47 @@
+schema: pc-project-operating-assumption/v1
+id: PC-COOPERATIVE-AUDIENCE-001
+status: ACTIVE_ENGINEERING_DIRECTION
+effective_for:
+  - Progressive Concretization framework design and qualification
+  - FR-002 stage-gate authority and continuity design
+decision_authority: user:engineering_authority
+decision_evidence:
+  source: explicit_user_statement_in_current_conversation
+  wording: "agreed, lets assume the users are a friendly audience who will stay in the behavioral bounds we specify"
+assumption:
+  audience: COOPERATIVE
+  participants_follow_documented_process: true
+  participants_may_make_errors: true
+  agents_may_omit_or_misclassify_requirements_unintentionally: true
+required_properties:
+  - Preserve previously accepted requirements and open VOs through normal project changes.
+  - Require explicit recorded authority for changes to accepted baselines and protected decisions.
+  - Keep review provenance, historical source identity and evidence retrievable.
+  - Fail visibly when a required validator, decision, active ledger or dependency is unintentionally omitted or mismatched.
+  - Keep generic process mechanics independent from project-specific constraints.
+outside_threat_model:
+  - Deliberate forgery of review receipts or repository history.
+  - A hostile participant replacing both the policy and its authority record.
+  - Cryptographic signatures or tamper-proof repository verification.
+  - Malicious re-pinning of all trusted engine and project source simultaneously.
+important_limits:
+  - Cooperation does not waive safety requirements, evaluation obligations or engineering review.
+  - Source-content hashes verify reproducibility, not stakeholder approval.
+  - Project cleanroom qualification still requires accidental solution-leakage prevention.
+  - Target firmware, security or physical-system requirements remain separately binding if part of an approved project.
+fr002_impact:
+  prior_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+  prior_review_disposition: REVISE
+  historical_r1_candidate: 4c1810ecf520a7c2741c4a517532d05f1ee595fd
+  historical_r1_receipt: reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+  pending_review_task: process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml
+  pending_review_status: PAUSED_DUE_TO_CHANGED_ACCEPTANCE_BASIS
+  no_retroactive_review_change: true
+  next_work: Draft and independently evaluate a bounded source revision replacing engine-owned per-project trust registry with project-baseline continuity.
+source_code_change_authorized_by_this_record: false
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

@@ -18,6 +18,24 @@ This repository is the canonical nonvolatile memory for Progressive Concretizati
 - Verification Obligations remain binding; Architectural Debt records uncertainty and the risk of a reversible commitment.
 - Contracts precede DE implementation. Implementation must preserve CON, DE, and AS obligations.
 
+## Cooperative operating assumption
+
+This framework assumes cooperative users and agents who follow the declared
+engineering process. Preserve accepted requirements, review independence,
+source provenance, active baselines and open obligations against accidental
+omission, stale evidence or unintended changes. Do **not** expand a task into
+defending against deliberate repository forgery, malicious self-repinning or
+hostile rewriting of trusted engine files unless a specific project separately
+requires that security property.
+
+Project authority belongs to versioned accepted baselines and controlled
+decisions; Git content hashes show identity, not approval. Generic engine
+source must not accumulate a hardcoded allowlist of Toy 1 project authorities.
+See `process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml` and
+`docs/PC_COOPERATIVE_OPERATING_MODEL.md`. This assumption does not relax
+product safety constraints, required independent reviews, or accidental
+cleanroom solution-isolation obligations.
+
 ## Context and evidence
 Spines are compact relationship indexes, not huge summaries. Exclude raw data and auxiliary artifacts from default agent context unless needed. Preserve access to source data and mandatory dependency closure. Do not equate graph reachability with context inclusion.
 Do not attribute unstated facts to source documents. A structural check or successful test suite is not a proof or stakeholder approval.
