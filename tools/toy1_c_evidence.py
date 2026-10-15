@@ -188,6 +188,15 @@ def main(argv: list[str] | None = None) -> int:
     except OSError:
         git_revision = None
 
+    # Detect a concurrent source edit during collection; never silently bind
+    # measurements from different source revisions to the first hash set.
+    sources_unchanged = all(sha256(ROOT / ref) == expected
+                            for ref, expected in source_pins.items())
+    if not sources_unchanged:
+        host_ok = False
+        if target_cc:
+            target_status = "SOURCE_CHANGED_DURING_COLLECTION"
+
     outputs = {}
     for name in ("detector-target.o", "detector-target.s"):
         artifact = out / name
@@ -204,6 +213,7 @@ def main(argv: list[str] | None = None) -> int:
         "source_sha256": source_pins,
         "prior_independent_review": BASELINE_REVIEW,
         "sources_match_prior_review": source_matches_review,
+        "sources_unchanged_during_collection": sources_unchanged,
         "host_status": ("HOST_PROBE_PASSED" if host_ok else "HOST_PROBE_INCOMPLETE_OR_FAILED"),
         "target_status": target_status,
         "commands": commands,
