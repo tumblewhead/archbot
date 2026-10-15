@@ -70,6 +70,83 @@ def validate_compiler_evidence_review(root: Path, data: dict) -> None:
         raise TaskError("Compiler review cannot alter verification authority")
 
 
+
+def validate_resource_evidence_review(root: Path, data: dict) -> None:
+    """Check submitted resource evidence identity and boundaries, not physical fit."""
+    trigger = data.get("trigger", {})
+    context = data.get("context", {})
+    inputs = context.get("review_inputs", {}) if isinstance(context, dict) else {}
+    if (not isinstance(trigger, dict) or not isinstance(inputs, dict)
+            or trigger.get("kind") != "RESOURCE_EVIDENCE_SUBMITTED"
+            or trigger.get("reference") != inputs.get("evidence_summary")):
+        raise TaskError("Resource review requires matching evidence input")
+    ref = trigger["reference"]
+    raw = _file(root, ref, "reviews/verification").read_bytes()
+    identity = hashlib.sha1(b"blob " + str(len(raw)).encode("ascii") + b"\0" + raw).hexdigest()
+    if identity != inputs.get("evidence_blob_sha1"):
+        raise TaskError("Submitted resource evidence identity changed")
+    try:
+        record = json.loads(raw)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise TaskError("Submitted resource evidence is invalid JSON") from exc
+    if (not isinstance(record, dict)
+            or record.get("schema") != inputs.get("expected_schema")
+            or record.get("project_id") != "AS-001"
+            or record.get("spine") != data.get("spine")
+            or record.get("source_revision") != inputs.get("source_revision")
+            or trigger.get("revision") != inputs.get("source_revision")
+            or record.get("source_stable_during_collection") is not True
+            or record.get("observation_status") != "HOST_LAYOUT_RECORDED"
+            or record.get("review_state") != "PENDING_INDEPENDENT_REVIEW"
+            or record.get("target_status") != "NOT_REQUESTED"
+            or record.get("target_measurements_available") is not False
+            or record.get("product_verified") is not False
+            or record.get("vo_discharged") != []):
+        raise TaskError("Resource evidence context or maturity does not match review")
+    pins = record.get("source_sha256")
+    if not isinstance(pins, dict) or not pins:
+        raise TaskError("Resource evidence has no pinned inputs")
+    for ref, expected in pins.items():
+        if (not isinstance(ref, str) or not isinstance(expected, str)
+                or len(expected) != 64
+                or hashlib.sha256(_file(root, ref).read_bytes()).hexdigest() != expected):
+            raise TaskError("Resource evidence source pin mismatch: " + str(ref))
+    for key in ("accepted_scope", "resource_contract", "resource_template"):
+        if inputs.get(key) not in pins:
+            raise TaskError("Review omits pinned " + key)
+    template = yaml.safe_load(_file(root, inputs["resource_template"]).read_text(encoding="utf-8"))
+    ceilings = template.get("category_ceilings_bytes") if isinstance(template, dict) else None
+    peaks = record.get("measured_target_category_peaks_bytes")
+    if (not isinstance(ceilings, dict) or len(ceilings) != 7
+            or not isinstance(peaks, dict) or set(peaks) != set(ceilings)
+            or any(value is not None for value in peaks.values())
+            or any(value is not None for value in template.get("actual_category_peaks_bytes", {}).values())):
+        raise TaskError("Host-only review requires all target category peaks unknown")
+    envelope = record.get("accepted_conditional_envelope_bytes", {})
+    if (envelope.get("category_ceilings") != ceilings
+            or envelope.get("allocated_category_ceiling") != template.get("allocated_category_ceiling_bytes")
+            or envelope.get("reserve") != template.get("reserve_bytes")
+            or envelope.get("approved_limit") != template.get("approved_limit_bytes")
+            or sum(ceilings.values()) + template.get("reserve_bytes", -1)
+                != template.get("approved_limit_bytes")):
+        raise TaskError("Resource evidence does not match accepted conditional envelope")
+    layout = record.get("host_layout_observation", {})
+    if (not isinstance(layout, dict)
+            or layout.get("schema") != "pc-toy1-layout-observation/v1"
+            or any(type(layout.get(x)) is not int or layout[x] < 0
+                   for x in ("sizeof_detector", "sizeof_samples", "sizeof_oldest",
+                             "sizeof_sum_squares", "field_bytes", "object_overhead_bytes"))
+            or layout["field_bytes"] != sum(layout[x] for x in (
+                   "sizeof_samples", "sizeof_oldest", "sizeof_sum_squares"))
+            or layout["sizeof_detector"] != layout["field_bytes"] +
+                   layout["object_overhead_bytes"]):
+        raise TaskError("Host layout totals inconsistent")
+    if ("discharge_VO" not in data.get("outputs", {}).get("prohibited", [])
+            or not data.get("gate", {}).get("require_independent_review")):
+        raise TaskError("Resource review task must preserve independent authority")
+
+
+
 def validate(root: Path, manifest: str) -> dict:
     result = legacy.validate(root, manifest)
     data = yaml.safe_load(_file(root, manifest, "process/tasks").read_text(encoding="utf-8"))
@@ -92,6 +169,8 @@ def validate(root: Path, manifest: str) -> dict:
         raise TaskError("Unknown verification operation")
     if result["operation"] == "REVIEW_COMPILER_EVIDENCE":
         validate_compiler_evidence_review(root, data)
+    elif result["operation"] == "REVIEW_RESOURCE_EVIDENCE":
+        validate_resource_evidence_review(root, data)
     return result
 
 
