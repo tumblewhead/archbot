@@ -1,0 +1,156 @@
+{
+  "schema": "pc-framework-repair-review/v1",
+  "task_id": "REVIEW_FR001_PROJECT_CONTEXT_R1-001",
+  "operation": "REVIEW_FRAMEWORK_REPAIR_R1",
+  "gate": "FR001_R1_INDEPENDENT_REVIEW",
+  "project": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "input_revision": "7015128a7651e961781ad1f6a25d35eac7a37ba2",
+  "previous_review_id": "REVIEW_FR001_PROJECT_CONTEXT-001",
+  "previous_disposition": "REVISE",
+  "reviewed_source_revision": "3dc5f6ec854971243877f5d7357c7ca034880539",
+  "implementation_revision": "e0ef748b70c29b6c802b325aab0afaa4d8b4ecd7",
+  "submission_commit": "8d06dc3dd87db0c244ed72dc5cc1a69702c573dd",
+  "submission_path": "reviews/qualification/FR001_PROJECT_CONTEXT_R1-local-test-receipt.json",
+  "submission_blob_sha1": "3b575f20b4b6616d27a5f65be312a96e7f57e822",
+  "submission_receipt_self_consistent": true,
+  "reviewed_source_blob_sha1": {
+    "tools/task.py": "c05a1a15f7312e8e89fea4a764f4674c5746c19e",
+    "tools/telemetry.py": "72928cab0dc4b361023d268b8b1e627bf3d5ab46",
+    "tests/test_task.py": "7571ab3eaadb17bc3b90693aea9d62d003b23260",
+    "tests/test_telemetry.py": "0fb4288d7f49ab5d4078e4b6873c8b432d7f7bb5",
+    "tests/test_fr001_review_route.py": "1a34851382d6e5a34fe3a82a063b6fb1d3fe6b71"
+  },
+  "reviewed_source_sha256": {
+    "tools/task.py": "46942af8bfadad84378ffb2aeaf91924746e1144d23020a8f84366cf416de082",
+    "tools/telemetry.py": "e86854829ca9d0ca1985448795636d9fad678bf492bb7caf547a4c5e70a65760",
+    "tests/test_task.py": "85f7df18f082567037fa65161b0d18c5361bff96dab98dbe8b1412f3e502a070",
+    "tests/test_telemetry.py": "b108d742b9d0476097a42ae693d8e2a6747041451e2fdd71f599114c6b932c63",
+    "tests/test_fr001_review_route.py": "4fb6b47f156e9a6ac8fd5f46d6e9e12b842214aeeff61884b91af3ca7ab4003f"
+  },
+  "reviewer_invocation_id": "direct-review-20261015T074000Z-codex-current-agent",
+  "reviewer_execution_mode": "CURRENT_AGENT_DIRECT",
+  "independent_of_authoring_invocation": true,
+  "independence_basis": "This assigned invocation is separate from source authoring and human test production; review performed directly after task inspect/render, without nested task.py run.",
+  "producer_logs": {
+    "evidence_class": "HUMAN_SUBMITTED_DECLARATION",
+    "present": "not independently established",
+    "all_recorded_byte_counts_and_sha256_match": "not independently checked",
+    "log_names": [
+      "telemetry",
+      "task",
+      "genericity_review",
+      "genericity_audit",
+      "fr001_review_route",
+      "stage_gate",
+      "task_inspect"
+    ]
+  },
+  "checks": [
+    {
+      "id": "task_inspect",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml",
+      "result": "PASS; exit 0"
+    },
+    {
+      "id": "task_render",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python tools/task.py render --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml",
+      "result": "PASS; rendered task followed directly in current invocation"
+    },
+    {
+      "id": "source_and_submission_pins",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "result": "PASS; five source blob SHA-1 and SHA-256 values match pinned receipt; submission blob verified"
+    },
+    {
+      "id": "test_fr001_r1_review_route",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v",
+      "tests": 3,
+      "exit_code": 0
+    },
+    {
+      "id": "test_telemetry",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python -m unittest discover -s tests -p 'test_telemetry.py' -v",
+      "tests": 13,
+      "exit_code": 0
+    },
+    {
+      "id": "test_task",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python -m unittest discover -s tests -p 'test_task.py' -v",
+      "tests": 44,
+      "exit_code": 0
+    },
+    {
+      "id": "test_fr001_review_route",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python -m unittest discover -s tests -p 'test_fr001_review_route.py' -v",
+      "tests": 4,
+      "exit_code": 0
+    },
+    {
+      "id": "test_stage_gate",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "command": "python -m unittest discover -s tests -p 'test_stage_gate.py' -v",
+      "tests": 13,
+      "exit_code": 0
+    },
+    {
+      "id": "producer_logs",
+      "evidence_class": "NOT_INDEPENDENTLY_INSPECTED",
+      "result": "Human receipt declarations retained; raw logs not validated by this invocation."
+    },
+    {
+      "id": "adversarial_edge_coverage",
+      "evidence_class": "REVIEWER_INSPECTED",
+      "result": "Parent-directory symlink, URL target, descendant depth, and ZIP failure paths inspected in source/control flow; not separately reproduced."
+    }
+  ],
+  "classifications": {
+    "FR001-R1": "PASS_WITH_COVERAGE_LIMIT",
+    "FR001-R2": "PASS",
+    "FR001-R3": "PASS_IN_TELEMETRY_PROJECTION_WITH_SCOPE_LIMIT",
+    "historical_pins": "PASS",
+    "authorized_boundary": "PASS_WITH_LIMITS"
+  },
+  "findings": [
+    {
+      "id": "FR001-R1-COVERAGE",
+      "severity": "informational",
+      "summary": "Parent-directory symlink path was inspected but not separately reproduced; symlink controls and lexical/resolved guard passed."
+    },
+    {
+      "id": "FR001-R3-SCOPE",
+      "severity": "informational",
+      "summary": "Mandatory closure is enforced by telemetry projection after traversal; pc.traverse itself remains unchanged and may skip missing targets."
+    }
+  ],
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "disposition_scope": "FR001_PROJECT_CONTEXT_R1_IMPLEMENTATION_REVIEW_ONLY",
+  "scoped_rationale": "Pinned identities and required regressions pass; the three prior counterexamples are addressed in bounded telemetry role projection. Unreproduced edge cases and projection-only enforcement are explicit limitations.",
+  "changed_artifacts": [
+    "reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md",
+    "reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json"
+  ],
+  "next_eligible_action": "Record this scoped result and continue only through the existing authorized genericity/freeze workflow; obtain separate eligible authority for cleanroom, product, VO/AD, or FR-002 work.",
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ],
+  "accepted_architectural_debt_unmodified": [
+    "AD-003"
+  ],
+  "target_configuration": "NOT_SELECTED",
+  "final_f001_comparison": "OUTSTANDING"
+}
