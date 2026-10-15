@@ -14,7 +14,8 @@
         "Author/review changes in the connected remote repository when the GitHub connector is available, checking final remote HEAD.",
         "Select the smallest next authorized task from the latest review receipt and current spine.",
         "Give runnable pull, inspect, run, select-stage, commit and push commands using exact paths and names for the CURRENT task.",
-        "When user says pushed, fetch remote HEAD and inspect the new committed artifacts before deciding the next action."
+        "When user says pushed, fetch remote HEAD and inspect the new committed artifacts before deciding the next action.",
+        "Distinguish outer-shell launches from current-agent direct execution; a rendered prompt is not execution."
       ],
       "never": [
         "Claim to have run user's local compiler, test suite, Codex or hardware unless actually executed with evidence.",
@@ -97,7 +98,8 @@
         "Run prescribed unit tests/structural checks and report which were actually executed.",
         "Inspect stdout/stderr, produced artifacts, receipt and Engineering Briefing; distinguish good negative controls from unexpected failures.",
         "On a nonzero exit, STOP any automatic next stage or approval and report the exact error; retain relevant diagnostic artifacts locally.",
-        "Independent review runs only after a reviewable submission and correct registered gate. Route receipts with next_task.py only when a unique permissible transition exists."
+        "Independent review runs only after a reviewable submission and correct registered gate. Route receipts with next_task.py only when a unique permissible transition exists.",
+        "If work is performed by an already-active Codex agent, use task.py render and follow the rendered task in that invocation; do not start nested Codex via task.py run."
       ]
     },
     {
@@ -203,5 +205,22 @@
       "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json"
     ],
     "caveat": "These outputs are not yet verified on remote main as of the referenced commit. Run locally and check actual files before staging."
+  },
+  "execution_modes": {
+    "outer_shell_launch": {
+      "when": "Human has a functioning Codex CLI and task starts outside an existing Codex agent session.",
+      "inspect": "python tools/task.py inspect --manifest <exact-manifest>",
+      "execute": "python tools/task.py run --manifest <exact-manifest>",
+      "evidence": "Check registered runner telemetry, completed turns, exit code and actual review outputs. Exit code alone is not an authority decision."
+    },
+    "current_agent_direct": {
+      "when": "Task is already assigned to an active Codex agent invocation, or nested launching is unavailable.",
+      "inspect": "python tools/task.py inspect --manifest <exact-manifest>",
+      "render": "python tools/task.py render --manifest <exact-manifest>",
+      "execute": "Read and carry out the rendered prompt and playbook IN THE CURRENT agent invocation. Do not recursively call task.py run.",
+      "evidence": "Explicit DIRECT_IN_CURRENT_INVOCATION identity with performed checks and versioned receipt. Never label as a successful task.py run."
+    },
+    "operational_rule": "Selected mode and evidence must be explicit; a failed nested launcher is not automatically cured by a direct report. Retain its failure provenance.",
+    "reference": "docs/REVIEW_EXECUTION_MODES.md"
   }
 }
