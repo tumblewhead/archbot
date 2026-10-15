@@ -1,0 +1,124 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "FR-001-PROJECT-CONTEXT",
+  "source_revision": "42b19e7b64e65e8df34eeabc7b0631e8051f6312",
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "telemetry",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_telemetry.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "506957e1d757fd21814e3dc8619b2e6e0b0a76934459af50dabc448142a8d091",
+      "log_bytes": 1876
+    },
+    {
+      "name": "task",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a0367b3bb074c9c4f872ecadd25dc0d548c823cedd6977f0341cc2fff43b6e83",
+      "log_bytes": 6034
+    },
+    {
+      "name": "genericity_review",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "02f3bba015ac764002cc6fa4b2150e487d7d15948937850d00a4c4477a9725b3",
+      "log_bytes": 582
+    },
+    {
+      "name": "genericity_audit",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_audit_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b22f5b899fd3c6ffc5ef2ead77be8784c7658f63abf11b0ad2ac81c05e3cb47f",
+      "log_bytes": 602
+    },
+    {
+      "name": "stage_gate",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_stage_gate.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "d3d779103fd6b75f4fcacefce722d8cb71065c15cb96380b43add9db712aced4",
+      "log_bytes": 1657
+    },
+    {
+      "name": "task_inspect",
+      "command": [
+        "/usr/sbin/python",
+        "tools/task.py",
+        "inspect",
+        "--manifest",
+        "process/tasks/REVIEW_GENERICITY_PREFREEZE-001.yaml"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b00810f1cb8543fefe414471372a24f6fc2e9153a09dc2e9f2eacc568f4538a9",
+      "log_bytes": 406
+    }
+  ],
+  "source_sha256": {
+    "tools/task.py": "46942af8bfadad84378ffb2aeaf91924746e1144d23020a8f84366cf416de082",
+    "tools/telemetry.py": "89a4a577247979e7a1a72cdddab7238ac85012874692bcfb729ab0ff7178433b",
+    "tests/test_task.py": "85f7df18f082567037fa65161b0d18c5361bff96dab98dbe8b1412f3e502a070",
+    "tests/test_telemetry.py": "ad820d140977a9035544efb21fd6f513403fe985bff35616a70a93b738bcb0a8"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
