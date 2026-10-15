@@ -1,0 +1,125 @@
+{
+  "schema": "pc-genericity-audit/v1",
+  "task_id": "AUDIT_GENERICITY-PREFREEZE-001",
+  "operation": "AUDIT_GENERICITY",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "scope": "FRAMEWORK_PREFREEZE_AUDIT_ONLY",
+  "source_revision": "c0b6a5e26cdfb9a4e01ededccea8567aed50f1a7",
+  "source_repository": "tumblewhead/archbot",
+  "report": "reviews/qualification/GENERICITY_PREFREEZE_001-report.md",
+  "invocation": {
+    "mode": "CONNECTED_GITHUB_REMOTE_SOURCE_INSPECTION",
+    "identity": "ChatGPT connected GitHub authoring invocation",
+    "codex_runner_invoked": false,
+    "current_agent_codex_direct": false,
+    "independent_of_authoring_invocation": false,
+    "remote_source_read_only_audit": true,
+    "tests_executed_by_this_invocation": [],
+    "checks_not_executed": [
+      "python -m unittest discover -s tests -p 'test_genericity_audit_route.py' -v",
+      "python tools/task.py inspect --manifest process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml",
+      "python tools/task.py render --manifest process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml",
+      "python tools/task.py run --manifest process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml",
+      "actual reviewer-mode trials",
+      "historical archive-revision revalidation",
+      "two-project isolation/sentinel canaries",
+      "cleanroom replay"
+    ],
+    "prior_review_execution_records_not_reexecuted": [
+      "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json",
+      "reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json"
+    ]
+  },
+  "inspected_source_git_blob_sha1": {
+    "AGENTS.md": "370408817aae31c0c7a8f977a5e52ce9307b60f9",
+    "process/tasks/AUDIT_GENERICITY-PREFREEZE-001.yaml": "c3cca01a1938e5f48c69578ee90d2517c12b33cb",
+    "process/playbooks/AUDIT_GENERICITY_PREFREEZE.md": "1c1abc96462e8d9244e2f4b13b820741da74f658",
+    "agents/architecture-agent.md": "a3690968df441cd1f23c02836cfaef5a92df97bc",
+    "agents/registry.yaml": "390e35396a29d567633fe3b9159d1b7db3b52380",
+    "process/views.yaml": "13365bd0e1900de46224262d5b0dd9518935d3da",
+    "process/operations.yaml": "efb9dfd1ef3b2d8c1d4cef26d9cf22d8d09b5000",
+    "prompts/generic-task.md": "27192383ac689adc5f292151c6160737f6eb70dc",
+    "tools/task.py": "884ebe9b3f462fb83acc60ca8f77c08fa513091a",
+    "tools/task_legacy.py": "d15d5d4520f5146f08bd13b6ad47d75ee80dd44c",
+    "tools/telemetry.py": "939bf772c9a7bc6d8c311746a6a14793f5678fd7",
+    "tools/stage_gate.py": "f7bfee83256d90f431b2e38a8bbddf38daf050e1",
+    "tools/pc.py": "50b8f1ce81edd19c95a4592f17d95e6bc6720072",
+    "tools/verification_kernel.py": "76618f6c0e883de933a31a4308475747363785a3",
+    "process/ledgers/vo_ledger-AS-001-v2-active.yaml": "a19cafd1fdccaaa363ef493d22e5a282cea29d02",
+    "process/ledgers/ad_ledger.yaml": "e375786bac3216567c672b44cde1d246e446165a",
+    "process/baselines/AS-001-v2-active.yaml": "a2b470a806c9970ff06e5eb4f309cf97b656a108",
+    "docs/VK001_TERMINAL_CHECKPOINT.md": "59f16dccdd72cdaf352c8537bf65219288f9c8b2",
+    "docs/QUALIFICATION_CAMPAIGN.md": "de06c250c6403a2256df9970ec0f73f935c8d4ea",
+    "docs/REVIEW_EXECUTION_MODES.md": "9ca0771c0399d8a90fcbb395519d28beaa84284e",
+    "reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-receipt.json": "a31a5d45111bc74896f8c5830760476fcae73c0a",
+    "reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-report.md": "e7073e2240a4626b6f40b044b59816dc1783f702",
+    "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json": "95ed4cb9d3ecaa11df8a59cb8f4ccc1d7d836ae0",
+    "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-report.md": "41483dd55f78b628b885989150477683d7d38155",
+    "reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-receipt.json": "beb712b9896db73c91ffcf69eaffb4f150df607f",
+    "reviews/gates/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001-report.md": "7ffe766c42404ad18b80fbe744d2729343710358",
+    "tests/test_genericity_audit_route.py": "d1cc490894777e169b1c5fdaaf5859f59ca99ce1"
+  },
+  "source_identity_note": "Each pin is a Git blob SHA-1 returned by GitHub fetch_file, not a SHA-256. These identify remote source bytes under the recorded commit. Previously accepted reviews' own SHA-256 source pins are not altered.",
+  "classifications": [
+    {
+      "id": "Q1",
+      "status": "BLOCKED",
+      "finding": "Registered runner failures and absent demonstrated cleanroom reviewer-mode execution; role registries warrant synchronization"
+    },
+    {
+      "id": "Q2",
+      "status": "BLOCKED",
+      "finding": "Shared telemetry/context, generic OKF checker and AP gate embed Toy 1 paths or C-002 accounting"
+    },
+    {
+      "id": "Q3",
+      "status": "BLOCKED",
+      "finding": "Current-worktree historical pin checking and stale authoring status/briefing overlays"
+    },
+    {
+      "id": "Q4",
+      "status": "BLOCKED",
+      "finding": "Current repository clone leaks prior Toy 1 solutions; no proved allowlisted cleanroom pack"
+    },
+    {
+      "id": "Q5",
+      "status": "UNRESOLVED",
+      "finding": "Only host/model scopes qualified; VO-002..VO-006 open, target unset, final F-001 outstanding"
+    },
+    {
+      "id": "Q6",
+      "status": "BLOCKED",
+      "finding": "Observed launch and role friction; no measured cleanroom reproducibility or human-minutes metrics"
+    }
+  ],
+  "outstanding_blockers": [
+    "P-001 reviewer launcher failures and reproducibility",
+    "P-002 cross-project genericity",
+    "P-003 historical source-pin semantics",
+    "P-004 reviewed-status presentation",
+    "P-005 isolated cleanroom package and launcher boundary",
+    "registered role metadata consistency",
+    "open Toy 1 target/product qualification scope"
+  ],
+  "review_state": "PENDING_INDEPENDENT_REVIEW",
+  "disposition": "AUDIT_CANDIDATE_ONLY",
+  "independent_review_required": true,
+  "freeze_authorized": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ],
+  "accepted_debt_unmodified": [
+    "AD-003"
+  ],
+  "target_configuration": "NOT_SELECTED",
+  "f001_final_comparison": "OUTSTANDING",
+  "next_eligible_action": "Separately independently review the exact candidate report and receipt, then repair verified framework blockers under an authorized follow-on gate. Do not freeze or launch a cleanroom."
+}
