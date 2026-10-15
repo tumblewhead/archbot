@@ -1,0 +1,86 @@
+{
+  "schema": "pc-compiler-evidence-review/v1",
+  "task_id": "REVIEW_COMPILER_EVIDENCE-TOY1-VC001",
+  "operation": "REVIEW_COMPILER_EVIDENCE",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "input_revision": "3a831bb115aba6d162d75ae46beb0b1f52e4ea8b",
+  "submitted_source_revision": "6e3a6c330d663081b7e8fad33f17fe731b563569",
+  "submitted_source_revision_is_ancestor": true,
+  "submitted_evidence": "reviews/verification/TOY1-VO003006-20261015T031625Z.json",
+  "submitted_evidence_sha256": "5a98d1d3f4c06a78134e17c123abc7883468ff74cedb5bfccd83248016540b9b",
+  "submitted_evidence_git_blob_sha1": "899f08ef9793373dc36a98406079e0a4c774d546",
+  "reviewer_identity": "Independent Verification Agent, current invocation",
+  "independent_of_authoring_invocation": true,
+  "changed_artifacts": [
+    "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-report.md",
+    "reviews/gates/REVIEW_COMPILER_EVIDENCE-TOY1-VC001-receipt.json"
+  ],
+  "verified_source_sha256": {
+    "implementation/toy1/detector.h": "b7f68b2d81e20f64e62fbd817b31822b80bfb78d5945d4523dc7150a15486d6c",
+    "implementation/toy1/detector.c": "f6ec5917a2daeaf52c41893040b8976abc3ae85fa86227d78609078084887310",
+    "implementation/toy1/correspondence_probe.c": "c8f4dd2b1100ebaeca81d115c7bddd664b07d094d036cea34a4cee1c6da6139d",
+    "implementation/toy1/test_detector.c": "f1308252cd84888078e98f5e1a82641bbce134f61d8da4c6d9e82daa9a7a5bff",
+    "tools/toy1_c_evidence.py": "698d30b1f6a87c28cae3de6663b2480cf6463ec96a5293ba8f7c4680e032c30c"
+  },
+  "checks": [
+    {
+      "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml",
+      "result": "PASS",
+      "evidence_class": "REVIEWER_EXECUTED",
+      "summary": "Registered review task resolved."
+    },
+    {
+      "command": "python -m unittest discover -s tests -p 'test_toy1_c_evidence.py' -v",
+      "result": "PASS",
+      "evidence_class": "REVIEWER_EXECUTED",
+      "summary": "Four registered evidence-tool regression tests passed."
+    },
+    {
+      "command": "python tools/active_baseline.py inspect --baseline process/baselines/AS-001-v2-active.yaml",
+      "result": "PASS",
+      "evidence_class": "REVIEWER_EXECUTED",
+      "summary": "Active AS-v2/AP-002 confirmed; VO-002 through VO-006 open."
+    },
+    {
+      "command": "Verify all submitted stdout/stderr SHA-256 and byte counts against the evidence JSON",
+      "result": "PASS",
+      "evidence_class": "REVIEWER_INSPECTED",
+      "summary": "All available raw output files match declared hashes and byte counts."
+    },
+    {
+      "command": "cc -std=c99 -Wall -Wextra -Wconversion -Werror -pedantic -O2 implementation/toy1/detector.c implementation/toy1/correspondence_probe.c -o /tmp/toy1-vc001-review && /tmp/toy1-vc001-review",
+      "result": "PASS",
+      "evidence_class": "REVIEWER_REPRODUCED",
+      "summary": "GCC 16.2.1 20260810; HOST_PROBE_OK checks=8192."
+    },
+    {
+      "command": "python tools/task.py run --manifest process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml",
+      "result": "FAILED_TO_LAUNCH_REVIEW",
+      "evidence_class": "REVIEWER_EXECUTED",
+      "summary": "Runner returned exit 1 before any reviewer turn; zero completed turns and no formal gate decision. Direct review is recorded in this receipt/report."
+    }
+  ],
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "disposition_scope": "submitted host source/compiler evidence only; not product verification or qualification",
+  "findings": [
+    "Pinned source hashes and prior implementation-review source pins match.",
+    "Host arithmetic, initialization and rolling update correspond for the declared legal domain and examined GCC C99 environment.",
+    "Producer raw outputs match declared hashes and byte counts; negative control reports the expected MISMATCH.",
+    "Host probe independently reproduced for 8192 cases with strict C99 -O2 compilation.",
+    "Target compilation was not requested; target ABI/link/instruction and integration claims remain unexamined."
+  ],
+  "unresolved_obligations": [
+    {"id": "VO-002", "state": "OPEN", "missing": "Target/integration charged-SRAM attribution, stack, nesting and overlap evidence."},
+    {"id": "VO-003", "state": "OPEN", "missing": "Target/compiler build and integration evidence for integer-only behavior and no floating-point hardware reliance."},
+    {"id": "VO-004", "state": "OPEN", "missing": "End-to-end accepted-publisher and integration correspondence evidence."},
+    {"id": "VO-005", "state": "OPEN", "missing": "Target/integration correspondence evidence for newest-32 result behavior."},
+    {"id": "VO-006", "state": "OPEN", "missing": "Target compiler and integration correspondence evidence for legal-domain ingress and arithmetic."}
+  ],
+  "follow_up_evidence_request": "Use a separately authorized target/integration evidence task; include target ABI/build and integration evidence as appropriate without inventing timing, watchdog, ISR, or publisher obligations.",
+  "next_eligible_action": "Route only a separately authorized target/integration evidence task; this review does not automatically route verification execution.",
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "ad_accepted_or_changed": []
+}
