@@ -89,3 +89,6 @@ operations:
   REVIEW_FRAMEWORK_REPAIR_R1:
     role: verification-agent
     playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR_R1.md
+  REVIEW_GATE_ADAPTER:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_GATE_ADAPTER.md

@@ -1,0 +1,55 @@
+schema: pc-task/v1
+id: REVIEW_FR002_GATE_ADAPTER-001
+role: verification-agent
+operation: REVIEW_GATE_ADAPTER
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: FRAMEWORK_GATE_ADAPTER_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR002_GATE_ADAPTER-local-test-receipt.json
+  revision: 3c2fd85cb0bde0c13b7639e24220143e26344536
+playbook: process/playbooks/REVIEW_GATE_ADAPTER.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR-002-GATE-ADAPTER
+    scope: FR002_GATE_ADAPTER_IMPLEMENTATION_REVIEW_ONLY
+    source_revision: 3c2fd85cb0bde0c13b7639e24220143e26344536
+    implementation_revision: 57f69f5b2d8d69de876aa72649e8aa5f783ef4e9
+    submitted_evidence_commit: c0cc00658c9afdc3eea111905b131a272d87863c
+    submitted_evidence_path: reviews/qualification/FR002_GATE_ADAPTER-local-test-receipt.json
+    submitted_evidence_blob_sha1: 531ba3bf4d713a45a2e669e26b2e888da4c3f0a9
+    submitted_evidence_schema: pc-framework-repair-test-evidence/v1
+    approved_scope: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+    source_proposal: process/proposals/FR002_GATE_ADAPTER_001.yaml
+    author_report: reviews/qualification/FR002_GATE_ADAPTER-authoring-report.md
+    predecessor_review: reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json
+    source_git_blob_sha1:
+      tools/stage_gate.py: 01b7f6bad2f78aee06cd4fc5664b806fcca1b4a4
+      tools/gates/__init__.py: 911db5e8c7f9fb315603bc1ad5ee36f8fb84b82b
+      tools/gates/common.py: 86d7016deaefff011a4a9ecd682a8072e302699d
+      tools/gates/toy1_c002.py: 18ae2486bc62dca3d6ee9046c602d2ceb859c06c
+      tools/gates/binding.py: e257b25b7b11d5420f6f97ef94a0561c7af1e4f7
+      process/gate_configs/AS-001-AP-v1.yaml: f60f6840f250a21512b443084c8bcfe9b5afc2f3
+      tests/test_gate_adapter.py: f1c36e9fc6f5bc972e273d8f53f1016cdb7e034b
+outputs:
+  allowed:
+    - independent_gate_adapter_review_report
+    - independent_gate_adapter_review_receipt
+    - concise_engineering_briefing
+  prohibited:
+    - overwrite_accepted_artifacts
+    - modify_submitted_evidence
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - modify_firmware
+    - discharge_VO
+    - accept_AD
+    - implement_FR003
+    - freeze_generic_process
+    - authorize_cleanroom
+gate:
+  kind: FR002_GATE_ADAPTER_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

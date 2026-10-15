@@ -3,42 +3,42 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-002 gate adapter candidate authored, local evidence next
+## Current checkpoint: FR-002 local checks pushed, independent review next
 
-The independent FR-001 R1 review
-[report](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md)
-and [receipt](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json)
-remain `ACCEPT_WITH_CLARIFICATIONS` for telemetry role-projected context only.
-Its earlier `REVISE` review remains immutable.
+The human's [FR-002 regression receipt](reviews/qualification/FR002_GATE_ADAPTER-local-test-receipt.json)
+was pushed in `c0cc00658c9afdc3eea111905b131a272d87863c`. It records nine local checks with exit code zero,
+including the corrected synthetic gate adapter fixture, Toy 1 stage-gate
+negative tests and bound/legacy inspection. Source revision
+`3c2fd85cb0bde0c13b7639e24220143e26344536` contains the original
+FR-002 implementation at `57f69f5b2d8d69de876aa72649e8aa5f783ef4e9`
+and a fixture-only correction. Producer logs remain local. These are
+**reported local tests**, not independent acceptance.
 
-Engineering authority explicitly approved the bounded
-[FR-002 gate adapter proposal](process/proposals/FR002_GATE_ADAPTER_001.yaml).
-The [FR-002 authorization record](process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml)
-controls implementation scope. The
-[FR-002 authoring report](reviews/qualification/FR002_GATE_ADAPTER-authoring-report.md)
-describes reusable AP mechanics, opt-in Toy 1 C-002 validation, a pinned
-project gate-binding candidate, and new synthetic other-project tests.
+**Next authorized task:** independent `REVIEW_FR002_GATE_ADAPTER-001`,
+operation `REVIEW_GATE_ADAPTER`, role `verification-agent`;
+[manifest](process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml) and
+[playbook](process/playbooks/REVIEW_GATE_ADAPTER.md).
+The manifest pins the new evidence and seven source/test Git blobs.
+The reviewer must challenge validator omission, synthetic project
+isolation, and especially **authority laundering**: self-consistent
+hashes alone do not make a re-pinned policy or review approval.
 
-**Status: source authored, local execution and independent review PENDING.**
-The first FR-002 local `test_gate_adapter.py` run stopped with one failure
-and one error. Source inspection identified a synthetic fixture bug:
-`write_pinned()` omitted the policy document's `id` from the generated
-pin, so `load_binding()` correctly rejected the artificial root-solver
-policy before the intended assertions. A bounded test-only revision
-preserves the identity key and adds a negative policy-ID control.
-This revision has NOT yet been run locally, and no FR-002 test receipt was
-created. Preserve the original failed log under `runs/fr002-gate-adapter/`.
+**Next local action:** pull `main`; run
+`python -m unittest discover -s tests -p 'test_fr002_review_route.py' -v`
+and inspect the manifest with `python tools/task.py inspect --manifest
+process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml`. From an outer host
+shell use `python tools/task.py run --manifest
+process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml`. From a distinct
+already-running Codex reviewer, `render` the manifest and actually
+execute the review in that existing invocation instead of nesting Codex.
+Only after review results exist, inspect, selectively stage and push the
+new `REVIEW_FR002_GATE_ADAPTER_001` report and receipt.
 
-The human's next action is to pull `main`, run the explicitly listed stage
-gate, gate adapter, task and FR-001 regressions, inspect the explicit Toy 1
-binding, and selectively push a versioned bounded test receipt. The assistant
-will review pushed evidence and register a separate independent FR-002
-implementation reviewer.
-
-This change is NOT a freeze or cleanroom launch. The FR-002 code cannot
-accept product evidence, discharge a VO, alter accepted C-002 scope, or
-change the F-001 protected comparison. Keep earlier VC-001/VR-001 registered
-launch failures preserved.
+FR-001 R1 remains independently `ACCEPT_WITH_CLARIFICATIONS` for
+role-projected context only. The previous FR-002 fixture failure remains
+historical and the corrected receipt does not erase it. No framework
+freeze, cleanroom, product verification, target configuration, final F-001
+resolution, VO discharge or AD change follows from these checks.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
