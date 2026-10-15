@@ -24,7 +24,13 @@ def write_pinned(root, path, obj):
     dest = root / path
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(yaml.safe_dump(obj, sort_keys=False), encoding='utf-8')
-    return {'path': path, 'git_blob_sha1': blob_id(dest.read_bytes())}
+    # Preserve the document's declared identity in the pinned binding.
+    # The production loader requires this additional identity agreement:
+    # a matching blob alone does not substitute for a reviewed policy ID.
+    pin = {'path': path, 'git_blob_sha1': blob_id(dest.read_bytes())}
+    if isinstance(obj, dict) and isinstance(obj.get('id'), str):
+        pin['id'] = obj['id']
+    return pin
 
 
 class GenericGateAdapterTests(unittest.TestCase):
@@ -213,6 +219,19 @@ class GenericGateAdapterTests(unittest.TestCase):
         rejected = evaluate_bound(self.root, path, assessment)
         self.assertEqual(rejected['decision'], 'NO_DOWNSELECTION')
         self.assertIn('Assessment project identity or spine mismatch', rejected['errors'])
+
+    def test_root_solver_fixture_preserves_policy_identity(self):
+        path = self.make_root_solver()
+        manifest = yaml.safe_load((self.root / path).read_text())
+        self.assertEqual(manifest['policy']['id'], 'ROOT-AP')
+        self.assertEqual(manifest['active_baseline']['id'], 'ROOT-002-V1')
+        bound, policy, _, _, validators = load_binding(self.root, path)
+        self.assertEqual(bound['policy']['id'], policy['id'])
+        self.assertEqual(validators, [])
+        manifest['policy']['id'] = 'WRONG-POLICY'
+        write_pinned(self.root, path, manifest)
+        with self.assertRaisesRegex(ValueError, 'Policy identity mismatch'):
+            load_binding(self.root, path)
 
     def test_root_solver_cannot_remove_protected_validator_by_policy_change(self):
         path = self.make_root_solver()

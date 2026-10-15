@@ -20,6 +20,15 @@ describes reusable AP mechanics, opt-in Toy 1 C-002 validation, a pinned
 project gate-binding candidate, and new synthetic other-project tests.
 
 **Status: source authored, local execution and independent review PENDING.**
+The first FR-002 local `test_gate_adapter.py` run stopped with one failure
+and one error. Source inspection identified a synthetic fixture bug:
+`write_pinned()` omitted the policy document's `id` from the generated
+pin, so `load_binding()` correctly rejected the artificial root-solver
+policy before the intended assertions. A bounded test-only revision
+preserves the identity key and adds a negative policy-ID control.
+This revision has NOT yet been run locally, and no FR-002 test receipt was
+created. Preserve the original failed log under `runs/fr002-gate-adapter/`.
+
 The human's next action is to pull `main`, run the explicitly listed stage
 gate, gate adapter, task and FR-001 regressions, inspect the explicit Toy 1
 binding, and selectively push a versioned bounded test receipt. The assistant
