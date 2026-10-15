@@ -66,6 +66,79 @@ class BaselineContinuityTests(unittest.TestCase):
                     validate_requirement=lambda *args: [],
                 ))
 
+    def test_root_002_uses_project_bound_loader(self):
+        from tempfile import TemporaryDirectory
+        import yaml
+        from gates.binding import blob_id, load_binding
+
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+
+            def file(path, document):
+                dest = root / path
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_text(yaml.safe_dump(document), encoding="utf-8")
+                entry = {"path": path, "git_blob_sha1": blob_id(dest.read_bytes())}
+                if isinstance(document.get("id"), str):
+                    entry["id"] = document["id"]
+                return entry
+
+            bp = "baselines/ROOT-002.yaml"
+            rp = "reviews/ROOT-002.yaml"
+            vp = "ledgers/ROOT-002.yaml"
+            spine = "/architecture/ROOT-002/spine.md"
+            shared = {
+                "project_id": "ROOT-002", "spine": spine, "stage": "AP",
+                "spine_source": file("knowledge" + spine, {"id": "ROOT-002"}),
+                "active_baseline": file(bp, {
+                    "schema": "pc-active-baseline/v1", "id": "ROOT-V1",
+                    "status": "active", "source_candidate": "source/root.yaml",
+                    "source_candidate_sha256": "synthetic-source",
+                    "independent_baseline_review": rp,
+                    "active_artifacts": {
+                        "architecture_statement": "knowledge/architecture/ROOT-002/statement.md",
+                        "vo_ledger": vp,
+                    },
+                }),
+                "baseline_review": file(rp, {
+                    "schema": "pc-baseline-review/v1",
+                    "independent_of_baseline_authoring_invocation": True,
+                    "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+                    "candidate": "source/root.yaml",
+                    "candidate_sha256": "synthetic-source",
+                }),
+                "policy": file("policies/ROOT-AP.yaml", {
+                    "id": "ROOT-AP", "status": "approved_for_trial",
+                    "selection_kind": "PROVISIONAL_COMMITMENT",
+                    "requirements": ["R-NUM"], "protected_scope_decisions": [],
+                }),
+                "vo_ledger": file(vp, {
+                    "activation": {"active_baseline": bp, "reviewed_baseline": rp},
+                    "obligations": [],
+                }),
+                "ad_ledger": file("ledgers/ROOT-AD.yaml", {"items": []}),
+                "required_validators": [],
+            }
+            projection = {
+                **shared, "schema": "pc-project-ap-continuity/v1",
+                "id": "ROOT-PROJECTION-001",
+                "status": "candidate_for_independent_review",
+            }
+            p = file("project/ROOT-projection.yaml", projection)
+            candidate = {
+                **shared, "schema": "pc-ap-gate-binding/v1",
+                "status": "candidate_for_independent_review",
+                "accepted_projection": p,
+            }
+            path = "gates/ROOT-binding.yaml"
+            file(path, candidate)
+            resolved, policy, _, _, validators = load_binding(root, path)
+            self.assertEqual(resolved["project_id"], "ROOT-002")
+            self.assertEqual(policy["id"], "ROOT-AP")
+            self.assertEqual(validators, [])
+            self.assertEqual(resolved["_projection_status"],
+                             "candidate_for_independent_review")
+
     def test_noncontract_change_is_rejected(self):
         old, new = self.case()
         record = {
