@@ -1,0 +1,152 @@
+{
+  "schema": "pc-toy1-resource-evidence/v1",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "source_revision": "4b080f79fb066daf28b859f3f92ad2647abdc74b",
+  "source_sha256": {
+    "process/verification/toy1-vo002-inventory-template-v1.yaml": "2f024c6c7be42122baeece1002a2359c074acd4b1dca8ced0a3d54a1b846491d",
+    "implementation/toy1/resource_layout_probe.c": "8add34ea0686b05927230d9672ff6522e98dba41adac6dfc6ee45ec300ea9c38",
+    "implementation/toy1/detector.h": "b7f68b2d81e20f64e62fbd817b31822b80bfb78d5945d4523dc7150a15486d6c",
+    "implementation/toy1/detector.c": "f6ec5917a2daeaf52c41893040b8976abc3ae85fa86227d78609078084887310",
+    "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md": "50265f1f75e96fb2981349c4706f9032ed91ccc34add7515b62a340871c4116b",
+    "process/decisions/C-002-scope.yaml": "26b132a8873e040e30a4b05066c35c1030d6735d493aac098f14959821013b36",
+    "tools/toy1_resource_evidence.py": "724c59814ad056b699d53f76157f066c027d3eb40f123941f73637fb07c1e136"
+  },
+  "source_stable_during_collection": true,
+  "observation_status": "HOST_LAYOUT_RECORDED",
+  "host_layout_observation": {
+    "schema": "pc-toy1-layout-observation/v1",
+    "sizeof_detector": 72,
+    "sizeof_samples": 64,
+    "sizeof_oldest": 1,
+    "sizeof_sum_squares": 4,
+    "offset_samples": 0,
+    "offset_oldest": 64,
+    "offset_sum_squares": 68,
+    "window": 32,
+    "field_bytes": 69,
+    "object_overhead_bytes": 3
+  },
+  "host_evidence_scope": "C99 ABI object layout in the invoking host compiler, not target SRAM",
+  "commands": [
+    {
+      "label": "host-compiler-version",
+      "argv": [
+        "cc",
+        "--version"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/host-compiler-version.stdout.txt",
+        "sha256": "52fa390d1b33ef5e0b20f39de6624190ade494b52dd543bd8121f350ec88e0e5",
+        "byte_count": 227,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/host-compiler-version.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byte_count": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "compile-host-layout",
+      "argv": [
+        "cc",
+        "-std=c99",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-I",
+        "implementation/toy1",
+        "implementation/toy1/resource_layout_probe.c",
+        "-o",
+        "runs/TOY1-VO002-HOST-20261015T035845Z/toy1-host-layout"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/compile-host-layout.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byte_count": 0,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/compile-host-layout.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byte_count": 0,
+        "truncated": false
+      }
+    },
+    {
+      "label": "execute-host-layout",
+      "argv": [
+        "./runs/TOY1-VO002-HOST-20261015T035845Z/toy1-host-layout"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "status": "COMPLETED",
+      "stdout": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/execute-host-layout.stdout.txt",
+        "sha256": "c34196338597d39c4f4bba999104f23025a5ae654cb8f51546252b8a5befd0a1",
+        "byte_count": 199,
+        "truncated": false
+      },
+      "stderr": {
+        "path": "runs/TOY1-VO002-HOST-20261015T035845Z/execute-host-layout.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byte_count": 0,
+        "truncated": false
+      }
+    }
+  ],
+  "raw_directory": "runs/TOY1-VO002-HOST-20261015T035845Z",
+  "target_status": "NOT_REQUESTED",
+  "target_measurements_available": false,
+  "accepted_conditional_envelope_bytes": {
+    "category_ceilings": {
+      "persistent_state": 256,
+      "temporary_or_scratch": 128,
+      "detector_stack": 512,
+      "detector_attributable_interrupt_context": 256,
+      "detector_attributable_shared_allocations": 256,
+      "detector_attributable_dynamic_allocations": 128,
+      "other_detector_attributable": 256
+    },
+    "allocated_category_ceiling": 1792,
+    "reserve": 256,
+    "approved_limit": 2048
+  },
+  "measured_target_category_peaks_bytes": {
+    "persistent_state": null,
+    "temporary_or_scratch": null,
+    "detector_stack": null,
+    "detector_attributable_interrupt_context": null,
+    "detector_attributable_shared_allocations": null,
+    "detector_attributable_dynamic_allocations": null,
+    "other_detector_attributable": null
+  },
+  "unknown_or_unverified": [
+    "Selected target CPU/ABI/toolchain, linker and actual integration are unspecified",
+    "Detector stack depth and worst-case stack/context nesting",
+    "Shared, dynamic and other attributable allocations and justified exclusions",
+    "Peak simultaneous SRAM with nonoverlap and lifetime evidence",
+    "Target sizeof, section symbols and memory map",
+    "Independent target/integration qualification and final F-001 comparison"
+  ],
+  "interpretation_limit": "An observed host object size is not a complete C-002 charged-SRAM inventory, nor proof of a target category ceiling or VO discharge.",
+  "review_state": "PENDING_INDEPENDENT_REVIEW",
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_obligations": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
