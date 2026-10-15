@@ -86,3 +86,6 @@ operations:
   REVIEW_FRAMEWORK_REPAIR:
     role: verification-agent
     playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR.md
+  REVIEW_FRAMEWORK_REPAIR_R1:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR_R1.md

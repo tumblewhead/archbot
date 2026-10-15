@@ -3,43 +3,46 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-001 revision required, targeted correction authored
+## Current checkpoint: R1 regression evidence pushed, independent correction review next
 
-The independent [FR-001 review](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-report.md)
-and [receipt](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-receipt.json)
-were pushed as `8e58c2607dbab9e64668f6f4728b543070387ad6`.
-**Verdict: REVISE**. Three findings remain authoritative historical evidence:
-FR001-R1 permits a symlink alias to mismatch declared and actual project;
-FR001-R2 checks only the originating knowledge collection; FR001-R3
-silently omits missing mandatory dependency targets.
+The original [FR-001 independent review](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-report.md)
+returned **REVISE** at `8e58c2607dbab9e64668f6f4728b543070387ad6`.
+It documented three unresolved counterexamples: FR001-R1 symlink alias,
+FR001-R2 alternate-collection traversal, and FR001-R3 missing mandatory
+dependency. That historical verdict **remains unchanged**.
 
-The bounded, versioned
-[FR-001 R1 authoring correction](reviews/qualification/FR001_PROJECT_CONTEXT_R1-authoring-report.md)
-updates only `tools/telemetry.py` and `tests/test_telemetry.py` for the
-existing FR-001 authorization. This is **not yet locally executed or
-independently accepted**. It rejects symlink-alias spines and dependencies,
-restricts selected context to the declared project and explicitly linked
-shared BKP, and verifies missing mandatory dependencies fail closed.
-It adds five focused negative/positive regression cases.
+A targeted FR-001 R1 correction was authored at
+`e0ef748b70c29b6c802b325aab0afaa4d8b4ecd7`, followed by the
+historical review pin test correction at
+`3dc5f6ec854971243877f5d7357c7ca034880539`.
+The human's [R1 regression receipt](reviews/qualification/FR001_PROJECT_CONTEXT_R1-local-test-receipt.json)
+was pushed as `8d06dc3dd87db0c244ed72dc5cc1a69702c573dd`. It records **seven successful local commands**
+and source SHA-256 fingerprints, with raw logs held locally. These are
+reported test outcomes, not independent implementation acceptance.
 
-The first R1 local run exposed a historical review-route canary bug:
-`tests/test_fr001_review_route.py` compared current R1 source bytes with
-immutable original FR-001 review pins. Its corrected test now resolves the
-original submission and sources at their **recorded Git commits**, retaining
-exact Git blob SHA-1 and SHA-256 verification without rewriting the old
-review. R1 local regression evidence remains pending until the tests rerun.
+**Next assigned gate:** `REVIEW_FR001_PROJECT_CONTEXT_R1-001`,
+operation `REVIEW_FRAMEWORK_REPAIR_R1`, role `verification-agent`,
+[task manifest](process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml)
+and [review playbook](process/playbooks/REVIEW_FRAMEWORK_REPAIR_R1.md).
+The manifest pins the new R1 evidence, the source revision and all five
+source/test blobs, without rebinding original FR-001 historical pins.
 
-**Next local action:** pull, run targeted telemetry and task/genericity
-regressions, capture bounded R1 test evidence with pinned source hashes,
-and selectively push that receipt. The assistant must then inspect actual
-evidence and create a **new independent review** for R1, not reuse the
-previous rejected review. The earlier source and evidence remain in Git
-history unchanged.
+**Next local action:** pull `main`; run
+`python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v`;
+`python tools/task.py inspect --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml`;
+then from an ordinary host shell invoke
+`python tools/task.py run --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml`.
+Inside a *separate existing* Codex reviewer invocation, `render` the task
+and actually conduct the review without launching nested Codex.
+Publish only the resulting
+`reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md`
+and `reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json`
+after checking real outputs.
 
-The later C-002 adapter, historical archive auditor, launch-mode
-qualification and isolated cleanroom package are NOT included in FR-001.
-No framework freeze, cleanroom, Toy 1 target selection, F-001 result or
-VO discharge follows from this correction.
+The earlier review failure and runner limitations are preserved. No
+FR-002 implementation, framework freeze, cleanroom execution, target
+selection, Toy 1 product acceptance, F-001 final conclusion or VO discharge
+is authorized here.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

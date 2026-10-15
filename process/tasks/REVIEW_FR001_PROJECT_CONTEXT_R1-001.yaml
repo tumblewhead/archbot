@@ -1,0 +1,55 @@
+schema: pc-task/v1
+id: REVIEW_FR001_PROJECT_CONTEXT_R1-001
+role: verification-agent
+operation: REVIEW_FRAMEWORK_REPAIR_R1
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: REVISED_FRAMEWORK_REPAIR_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR001_PROJECT_CONTEXT_R1-local-test-receipt.json
+  revision: 3dc5f6ec854971243877f5d7357c7ca034880539
+playbook: process/playbooks/REVIEW_FRAMEWORK_REPAIR_R1.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR-001-PROJECT-CONTEXT-R1
+    scope: FR001_PROJECT_CONTEXT_R1_IMPLEMENTATION_REVIEW_ONLY
+    previous_review: reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-receipt.json
+    previous_disposition: REVISE
+    addressed_findings: [FR001-R1, FR001-R2, FR001-R3]
+    human_authorization: process/decisions/FR-001-PROJECT-CONTEXT-AUTHORIZATION-001.yaml
+    r1_author_report: reviews/qualification/FR001_PROJECT_CONTEXT_R1-authoring-report.md
+    implementation_revision: e0ef748b70c29b6c802b325aab0afaa4d8b4ecd7
+    source_revision: 3dc5f6ec854971243877f5d7357c7ca034880539
+    submission_commit: 8d06dc3dd87db0c244ed72dc5cc1a69702c573dd
+    submission_path: reviews/qualification/FR001_PROJECT_CONTEXT_R1-local-test-receipt.json
+    submission_blob_sha1: 3b575f20b4b6616d27a5f65be312a96e7f57e822
+    expected_submission_schema: pc-framework-repair-test-evidence/v1
+    reviewed_source_blob_sha1:
+      tools/task.py: c05a1a15f7312e8e89fea4a764f4674c5746c19e
+      tools/telemetry.py: 72928cab0dc4b361023d268b8b1e627bf3d5ab46
+      tests/test_task.py: 7571ab3eaadb17bc3b90693aea9d62d003b23260
+      tests/test_telemetry.py: 0fb4288d7f49ab5d4078e4b6873c8b432d7f7bb5
+      tests/test_fr001_review_route.py: 1a34851382d6e5a34fe3a82a063b6fb1d3fe6b71
+outputs:
+  allowed:
+    - independent_revised_repair_review_report
+    - independent_revised_repair_review_receipt
+    - engineering_briefing
+  prohibited:
+    - overwrite_accepted_artifacts
+    - rewrite_prior_REVISE_review
+    - modify_submitted_evidence
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - discharge_VO
+    - accept_AD
+    - modify_firmware
+    - implement_FR002
+    - freeze_generic_process
+    - authorize_cleanroom
+gate:
+  kind: FR001_R1_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
