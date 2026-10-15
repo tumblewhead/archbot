@@ -3,45 +3,45 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: VC-001 source/compiler evidence collector authored, local runs next
+## Current checkpoint: VC-001 host C evidence submitted; independent compiler review next
 
-The user explicitly authorized the proposed follow-on scope after the terminal
-VK-001 bounded review: collect concrete Toy 1 VO-003/VO-006 source and compiler
-correspondence evidence, followed by VO-002 charged-SRAM resource evidence.
-This authorizes **evidence collection**, not product acceptance or VO discharge.
+The user pushed `b3205bca0c74` with
+[TOY1-VO003006-20261015T031625Z](reviews/verification/TOY1-VO003006-20261015T031625Z.json)
+(`pc-toy1-c-evidence/v1`). The candidate records `HOST_PROBE_PASSED`,
+successful host C99 `-O0`, `-O2`, and `-O2 -DNDEBUG` compilations
+and executions of `detector.c` with the 8192-case shifted-queue
+correspondence probe. The deliberately wrong `NDEBUG` reference
+exited 1 as expected. All submitted source pins match the reviewed
+implementation; no target compiler was requested (`NOT_REQUESTED`).
+These are **user-local reported executions awaiting independent review**.
+Raw stdout/stderr and binaries are held under ignored `runs/`; the
+committed summary contains their hashes, not the full data.
 
-Read the [VC-001 source/compiler campaign](docs/TOY1_C_COMPILER_CORRESPONDENCE_VC001.md).
-Installed additions:
+The independently reviewed terminal [VK-001](docs/VK001_TERMINAL_CHECKPOINT.md)
+MODEL_ONLY rung remains historical. The user explicitly authorized
+subsequent VO-003/VO-006 source/compiler evidence collection, followed by
+VO-002 resource evidence. The new
+[VC-001 guide](docs/TOY1_C_COMPILER_CORRESPONDENCE_VC001.md)
+describes the scope and source/build evidence boundary.
 
-- `implementation/toy1/correspondence_probe.c`: independent shift-queue host
-  probe with 8192 legal accepted samples, reset/wrap, and a deliberately failing
-  reference-only negative control that is not disabled by `NDEBUG`.
-- `tools/toy1_c_evidence.py`: bounded host C99 compilation/execution and
-  optional explicitly configured target object/assembly/disassembly collection;
-  outputs hashed local logs plus a candidate evidence JSON. All generated
-  results are **pending independent review**.
-- `tests/test_toy1_c_evidence.py`: collector and resource-template tests.
-- `process/verification/toy1-vo002-inventory-template-v1.yaml`: unmeasured
-  accounting template with accepted 1792-byte category ceilings and 256-byte
-  reserve under the 2048-byte cap. No target or integration measurements are
-  invented.
+**Next local action:** pull and run the registered
+`process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml` using
+`tools/task.py inspect` then `tools/task.py run`, after the new
+`test_toy1_c_evidence.py` regression. The playbook is
+`process/playbooks/REVIEW_COMPILER_EVIDENCE.md`. The review task
+is pinned to the user's source revision and submitted evidence blob.
+Record an independent Markdown report and JSON receipt under
+`reviews/gates/`. Distinguish reviewed host behavior from any
+unexecuted target or linked-build claim. Stop for review before
+extending evidence collection.
 
-**Next local action:** pull, run the new `test_toy1_c_evidence.py` regression,
-then run the evidence collector with a unique `runs/` output and versioned
-`reviews/verification/` summary as shown in the VC-001 guide. Review its
-actual results and push the candidate summary. If a target compiler is not
-available, collect bounded host evidence and keep target correspondence
-unresolved; the optional target mode must not be guessed. Independent source,
-toolchain and evidence review follows once actual output is available. VO-002
-inventory follows with an explicitly selected target and integration context.
-
-The completed [VK-001 terminal checkpoint](docs/VK001_TERMINAL_CHECKPOINT.md)
-and [independent rung review](reviews/gates/REVIEW_VERIFICATION_RUNG-9de9286189ea-receipt.json)
-remain authoritative for their MODEL_ONLY scopes. The 20 unplanned ERS claims,
-VO-002..VO-006, AD-003 and final F-001 comparison remain open. No VK-001
-source/evidence bytes, accepted AS/AP/F/CON/DE or firmware were modified.
-The new collector is **outside** the terminal MODEL_ONLY operation set; it
-creates no self-approved rung or automatically routable acceptance receipt.
+VO-002, VO-003, VO-004, VO-005 and VO-006 remain OPEN. The 20 unplanned
+ERS claims remain visible. Host C tests do not prove target/compiler
+instruction behavior, actual SRAM/stack/nesting or publisher
+continuity. The [VO-002 unmeasured inventory template](process/verification/toy1-vo002-inventory-template-v1.yaml)
+is only a preparation for a separately grounded target/integration
+campaign; no hardware values are invented. Existing accepted C/AS/CON/DE,
+VO/AD states and final F-001 comparison are unchanged.
 
 ## VK-001 implementation and limits
 
