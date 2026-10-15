@@ -154,3 +154,84 @@ transitions:
     target: receipt
     trigger_kind: IMPLEMENTATION_DRAFT_SUBMITTED
     gate: IMPLEMENTATION_REVIEW
+  - id: vk_submit_derive_ers
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: SUBMISSION
+      mode: PROJECT
+      operation: DERIVE_ERS
+      gate_status: DRAFT_READY
+    operation: REVIEW_ERS
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: REVIEW_ERS
+  - id: vk_submit_design_verification_ladder
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: SUBMISSION
+      mode: PROJECT
+      operation: DESIGN_VERIFICATION_LADDER
+      gate_status: DRAFT_READY
+    operation: REVIEW_VERIFICATION_LADDER
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: REVIEW_VERIFICATION_LADDER
+  - id: vk_submit_execute_verification_ladder
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: SUBMISSION
+      mode: PROJECT
+      operation: EXECUTE_VERIFICATION_LADDER
+      gate_status: DRAFT_READY
+    operation: REVIEW_VERIFICATION_RUNG
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: REVIEW_VERIFICATION_RUNG
+  - id: vk_advance_review_ers_accept
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: REVIEW
+      mode: PROJECT
+      operation: REVIEW_ERS
+      disposition: ACCEPT
+      independent_of_authoring_invocation: true
+    operation: DESIGN_VERIFICATION_LADDER
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: VERIFICATION_REVIEW
+  - id: vk_advance_review_ers_accept_with_clarifications
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: REVIEW
+      mode: PROJECT
+      operation: REVIEW_ERS
+      disposition: ACCEPT_WITH_CLARIFICATIONS
+      independent_of_authoring_invocation: true
+    operation: DESIGN_VERIFICATION_LADDER
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: VERIFICATION_REVIEW
+  - id: vk_advance_review_verification_ladder_accept
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: REVIEW
+      mode: PROJECT
+      operation: REVIEW_VERIFICATION_LADDER
+      disposition: ACCEPT
+      independent_of_authoring_invocation: true
+    operation: EXECUTE_VERIFICATION_LADDER
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: VERIFICATION_REVIEW
+  - id: vk_advance_review_verification_ladder_accept_with_clarifications
+    receipt_schema: pc-verification/v1
+    requires:
+      kind: REVIEW
+      mode: PROJECT
+      operation: REVIEW_VERIFICATION_LADDER
+      disposition: ACCEPT_WITH_CLARIFICATIONS
+      independent_of_authoring_invocation: true
+    operation: EXECUTE_VERIFICATION_LADDER
+    target: receipt
+    trigger_kind: VERIFICATION_INPUT
+    gate: VERIFICATION_REVIEW

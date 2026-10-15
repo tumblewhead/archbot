@@ -44,3 +44,30 @@ operations:
   REVIEW_IMPLEMENTATION:
     role: verification-agent
     playbook: process/playbooks/REVIEW_IMPLEMENTATION.md
+  DERIVE_ERS:
+    role: evidence-planning-agent
+    playbook: process/playbooks/VERIFICATION_AUTHOR.md
+    contract: pc-verification/v1
+    executor: verification-kernel/v1
+  DESIGN_VERIFICATION_LADDER:
+    role: evidence-planning-agent
+    playbook: process/playbooks/VERIFICATION_AUTHOR.md
+    contract: pc-verification/v1
+    executor: verification-kernel/v1
+  EXECUTE_VERIFICATION_LADDER:
+    role: experimental-investigator
+    playbook: process/playbooks/VERIFICATION_AUTHOR.md
+    contract: pc-verification/v1
+    executor: verification-kernel/v1
+  REVIEW_ERS:
+    role: verification-agent
+    playbook: process/playbooks/VERIFICATION_REVIEW.md
+    contract: pc-verification/v1
+  REVIEW_VERIFICATION_LADDER:
+    role: verification-agent
+    playbook: process/playbooks/VERIFICATION_REVIEW.md
+    contract: pc-verification/v1
+  REVIEW_VERIFICATION_RUNG:
+    role: verification-agent
+    playbook: process/playbooks/VERIFICATION_REVIEW.md
+    contract: pc-verification/v1

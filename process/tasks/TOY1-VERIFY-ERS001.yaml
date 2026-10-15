@@ -1,0 +1,20 @@
+schema: pc-task/v1
+id: TOY1-VERIFY-ERS001
+role: evidence-planning-agent
+operation: DERIVE_ERS
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: VERIFICATION_INPUT
+  reference: process/verification/toy1-input-v1.json
+playbook: process/playbooks/VERIFICATION_AUTHOR.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+outputs:
+  allowed: [new_versioned_stage_artifact, engineering_briefing, review_receipt]
+  prohibited: [modify_approved_AS_AP_F_CON_or_DE, discharge_VO, accept_AD, implement_firmware]
+gate:
+  kind: REVIEW_ERS
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
