@@ -25,5 +25,26 @@ Do not attribute unstated facts to source documents. A structural check or succe
 ## Human-machine work split
 Assistant commits changed source/architecture artifacts to GitHub. Human pulls, runs tests and Codex locally, then pushes generated artifacts, reviewed receipts, and concise results. Raw datasets and full telemetry generally stay local; keep manifests, hashes, and bounded summaries.
 
+## Required pull–run–push handoff
+
+Read `process/pull_run_push_contract.v1.json` before issuing instructions for
+the human's local tests, builds, simulations, review tasks, or evidence pushes.
+This is the canonical machine-readable collaboration protocol.
+
+The assistant authors/reviews and commits remote changes when connected GitHub
+write access is available. The human operator pulls, performs local execution,
+inspects generated artifacts, selectively stages and commits, then pushes.
+**Every handoff must contain exact runnable pull, inspect/run, and selective
+stage/commit/push commands for the current task.** No invented manifest IDs,
+unresolved placeholders in live commands, force-push, `git add -A`, or
+assumed green results. If a task is documentation-only, explicitly say that
+no local run or push is needed.
+
+For interactive Bash diagnostics use `set +e` and capture `$?` so a nonzero
+task validation result does not terminate the user's shell. If a task fails,
+stop dependent gates and identify the actual error before rerunning. A response
+of "pushed" means fetch the latest remote HEAD, inspect its artifacts and review
+receipts, and only then choose the next authorized action.
+
 ## Safe restart
 A new agent must inspect repository HEAD, open `PROJECT_SPINE.md`, read applicable authority receipts and the live spine, then identify the next unresolved gate. If files described in the project spine have not yet been imported, report that explicitly. Never fabricate missing artifacts.
