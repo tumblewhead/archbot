@@ -3,42 +3,43 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-002 authority-root R1 correction authored
+## Current checkpoint: FR-002 R1 local evidence received; independent review next
 
-The original independent
-[FR-002 review](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-report.md)
-and [receipt](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json)
-were pushed at `eb5753a371632fbc093811b09a7c70bea458fc60`, with disposition **REVISE**.
-The reviewer reproduced `FR002-AUTH-001`: weakening
-`protected_scope_decisions`, recomputing the policy blob hash, and dropping
-the validator was accepted by the old binding loader. It also identified
-`FR002-AUTH-002`: the ROOT-002 baseline/review inputs were self-asserted
-synthetic sources, not independently established authority. Prior review,
-producer test receipts, and failure artifacts remain immutable.
+The first FR-002 independent reviewer returned **REVISE** at
+`eb5753a371632fbc093811b09a7c70bea458fc60` for reproduced policy
+re-pinning (`FR002-AUTH-001`) and synthetic, unanchored review provenance
+(`FR002-AUTH-002`). This historical rejection is immutable.
 
-The authorized FR-002 R1 candidate adds an **engine-owned authority root**
-in `tools/gates/authority_roots.py` with the reviewed Toy 1 baseline,
-independent reviews, AP reconfirmation authority, policy, active VO/AD
-ledgers, C-002 scope and validator source identities. The corrected
-`tools/gates/binding.py` rejects missing/untrusted projects or binding
-pins inconsistent with this trusted source registry. The modified
-`tests/test_gate_adapter.py` retains ROOT-002 as a *synthetic
-mechanics-only* canary, not an authorized production gate, and adds
-re-pinned policy/baseline/review/ledger attack tests.
+The [FR-002 R1 source correction](reviews/qualification/FR002_GATE_ADAPTER_R1-authoring-report.md)
+was committed at `4c1810ecf520a7c2741c4a517532d05f1ee595fd`,
+adding an engine-owned authority root, binding-loader checks and new
+adversarial negative controls. The human's
+[R1 local test receipt](reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json)
+was pushed at `d7649b4a9df40a717b3c4fe1c0cb6b73328c8132`. It **reports ten successful local
+checks**, with raw run logs retained locally, and pins eight source/test
+blobs to the R1 revision. Those identities were confirmed against the
+repository; they do not establish independent review or security proof.
 
-**Status: authored but NOT locally executed and NOT independently
-reviewed.** The human should pull and run the FR-002 R1 regression suite,
-inspect actual failures/successes, and push a new evidence receipt.
-A separate independent reviewer must then examine the engine-root
-provenance and the re-pinning attacks. Registering a new trusted project
-requires separately authorized changes to the engine root and independent
-review. Git blob hashes are content identities, not signatures; an
-untrusted party replacing engine code remains outside this bounded claim.
+**Next task:** independent `REVIEW_FR002_GATE_ADAPTER_R1-001`,
+operation `REVIEW_GATE_ADAPTER_R1`, role `verification-agent`.
+Read [the manifest](process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml)
+and [review playbook](process/playbooks/REVIEW_GATE_ADAPTER_R1.md).
+The reviewer must reproduce the prior re-pin attack, test forged
+baseline/review/VO/AD inputs, and clarify that an engine-owned registry
+is a trust root only under a verified-engine assumption. ROOT-002 remains
+a synthetic common-mechanics canary, not an authorized project.
 
-No generic engine freeze, cleanroom, target evidence, product acceptance,
-final F-001 decision, VO discharge, AD modification or FR-003
-implementation is authorized here. FR-001 R1 remains independently
-`ACCEPT_WITH_CLARIFICATIONS` for telemetry projection only.
+**Next human local action:** pull `main`, execute the new independent
+review route canary, inspect the manifest, run the new review in a distinct
+Codex invocation (no nested launches), then selectively stage and push
+its new report and receipt if valid. Assistant then inspects the actual
+review verdict and chooses the next eligible bounded action.
+
+FR-001 R1 remains `ACCEPT_WITH_CLARIFICATIONS` only for telemetry
+role projections. FR-002 R1 remains **not independently accepted**.
+No framework freeze, cleanroom, product verification, target
+configuration, final F-001 decision, VO discharge, AD change or
+FR-003 implementation is authorized by these results.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

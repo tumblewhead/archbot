@@ -1,0 +1,58 @@
+schema: pc-task/v1
+id: REVIEW_FR002_GATE_ADAPTER_R1-001
+role: verification-agent
+operation: REVIEW_GATE_ADAPTER_R1
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: FRAMEWORK_GATE_ADAPTER_R1_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+  revision: 4c1810ecf520a7c2741c4a517532d05f1ee595fd
+playbook: process/playbooks/REVIEW_GATE_ADAPTER_R1.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR-002-GATE-ADAPTER-R1
+    scope: FR002_GATE_ADAPTER_R1_IMPLEMENTATION_REVIEW_ONLY
+    previous_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+    previous_disposition: REVISE
+    addressed_findings: [FR002-AUTH-001, FR002-AUTH-002]
+    approved_scope: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+    source_proposal: process/proposals/FR002_GATE_ADAPTER_001.yaml
+    r1_author_report: reviews/qualification/FR002_GATE_ADAPTER_R1-authoring-report.md
+    source_revision: 4c1810ecf520a7c2741c4a517532d05f1ee595fd
+    original_rejected_revision: 3c2fd85cb0bde0c13b7639e24220143e26344536
+    submission_commit: d7649b4a9df40a717b3c4fe1c0cb6b73328c8132
+    submission_path: reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+    submission_blob_sha1: 785376703e6bb0775dfd808013b484458ff69bb6
+    expected_submission_schema: pc-framework-repair-test-evidence/v1
+    source_git_blob_sha1:
+      tools/stage_gate.py: 01b7f6bad2f78aee06cd4fc5664b806fcca1b4a4
+      tools/gates/__init__.py: 911db5e8c7f9fb315603bc1ad5ee36f8fb84b82b
+      tools/gates/common.py: 86d7016deaefff011a4a9ecd682a8072e302699d
+      tools/gates/toy1_c002.py: 18ae2486bc62dca3d6ee9046c602d2ceb859c06c
+      tools/gates/binding.py: 80047d755a520b8240f7c4d9f05171a450d69da3
+      tools/gates/authority_roots.py: c0667a9632096f3179e8371cedd39e4d0aaa2a3b
+      process/gate_configs/AS-001-AP-v1.yaml: f60f6840f250a21512b443084c8bcfe9b5afc2f3
+      tests/test_gate_adapter.py: f40ec76bde6bb8ccd78dff8d028f87b31ff1f399
+outputs:
+  allowed:
+    - independent_r1_gate_adapter_review_report
+    - independent_r1_gate_adapter_review_receipt
+    - concise_engineering_briefing
+  prohibited:
+    - rewrite_prior_REVISE_review
+    - overwrite_submitted_evidence
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - modify_firmware_or_target_evidence
+    - discharge_VO
+    - accept_AD
+    - implement_FR003
+    - freeze_generic_process
+    - authorize_cleanroom
+gate:
+  kind: FR002_GATE_ADAPTER_R1_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

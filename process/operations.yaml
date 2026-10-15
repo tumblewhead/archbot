@@ -92,3 +92,6 @@ operations:
   REVIEW_GATE_ADAPTER:
     role: verification-agent
     playbook: process/playbooks/REVIEW_GATE_ADAPTER.md
+  REVIEW_GATE_ADAPTER_R1:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_GATE_ADAPTER_R1.md
