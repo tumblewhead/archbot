@@ -224,5 +224,21 @@ class RegisteredWorkflowTests(unittest.TestCase):
         self.assertEqual(result["executor"],"verification-kernel/v1")
 
 
+class RegisteredRoleCompletenessTests(unittest.TestCase):
+    """A routed task must not pass planning with an unresolvable role."""
+
+    def test_registry_roles_views_and_playbooks_exist_in_real_checkout(self):
+        registry = yaml.safe_load((ROOT / "process/operations.yaml").read_text(encoding="utf-8"))
+        views = yaml.safe_load((ROOT / "process/views.yaml").read_text(encoding="utf-8"))
+        for name, operation in registry["operations"].items():
+            with self.subTest(operation=name):
+                role = operation["role"]
+                self.assertTrue((ROOT / "agents" / (role + ".md")).is_file(),
+                                f"{name}: missing agents/{role}.md")
+                self.assertIn(role, views["roles"], f"{name}: missing context view")
+                self.assertTrue((ROOT / operation["playbook"]).is_file(),
+                                f"{name}: missing registered playbook")
+
+
 if __name__ == "__main__":
     unittest.main()
