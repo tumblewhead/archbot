@@ -30,11 +30,12 @@ not Toy 1 product acceptance; no cleanroom or freeze is authorized yet.
 **Active checkpoint:** user adopted the cooperative-audience assumption.
 The hardcoded Toy 1 `tools/gates/authority_roots.py` R1 candidate is not
 independently accepted; its hostile-forgery-oriented reviewer task
-`REVIEW_FR002_GATE_ADAPTER_R1-001` is paused. The **next eligible task**
-is a **proposal only** for a project-owned accepted-baseline-continuity
-replacement, followed by explicit approval before further source edits.
-Read `docs/PC_COOPERATIVE_OPERATING_MODEL.md`. Keep prior test and
-review evidence intact.
+`REVIEW_FR002_GATE_ADAPTER_R1-001` is paused. The **next eligible decision**
+is approval or revision of the bounded baseline-continuity proposal
+`process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml`.
+Read `docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md` and
+`docs/PC_COOPERATIVE_OPERATING_MODEL.md`. Do not modify gate source
+before that specific approval. Keep historical test/review evidence intact.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML

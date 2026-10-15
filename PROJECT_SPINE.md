@@ -30,12 +30,16 @@ is **paused, not the next eligible execution**, because its threat model
 focuses on hostile authority fabrication. Do not run it as though the
 operating assumptions were unchanged. Do not delete or rewrite it.
 
-**Next eligible step:** author a bounded, versioned FR-002 replacement
-plan based on project-owned accepted-baseline continuity and explicit
-authority transitions, secure approval for its source scope, and run a
-fresh independent review after tests. Preserve Toy 1 C-002, review
-separation, and the existing regression evidence. No new source
-implementation was made by the cooperative-policy decision.
+**Next eligible decision:** engineering authority may approve or revise
+[the bounded FR-002 replacement proposal](process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml)
+and [design](docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md).
+It preserves Toy 1's accepted C-002 envelope while replacing the
+engine's Toy 1-specific authority registry with project-owned accepted-
+baseline continuity and versioned authority transitions.
+**The proposal is authored, but new source replacement is not authorized.**
+If authorized, implement in scope, collect local test evidence, and obtain
+a new independent review under the cooperative-audience contract.
+The old adversarial R1 review task remains paused as historical evidence.
 
 FR-001 R1 remains `ACCEPT_WITH_CLARIFICATIONS` for role-context
 projection only. No framework freeze, cleanroom, product verification,

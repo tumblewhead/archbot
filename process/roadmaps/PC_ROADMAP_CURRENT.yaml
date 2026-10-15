@@ -12,6 +12,7 @@ source_of_truth:
   framework_repair_sequence: process/proposals/FRAMEWORK_REPAIR_PREFREEZE_001.yaml
   cooperative_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
   fr002_replacement_design: docs/PC_COOPERATIVE_OPERATING_MODEL.md
+  fr002_bounded_replacement_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
   human_machine_protocol: process/pull_run_push_contract.v1.json
 precedence:
   - "Read actual current Git HEAD and current authority receipts before acting."
@@ -56,7 +57,10 @@ framework:
       paused_review_task: process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml
       paused_reason: "Review tests an adversarial trust-root model superseded by the cooperative-audience decision."
       chosen_direction: "Project-owned accepted-baseline continuity, explicit authority transitions, reusable generic AP mechanics and opt-in project validators."
-      next: "Write a bounded versioned replacement proposal; seek specific source-edit approval; implement, test and obtain a new independent review."
+      replacement_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
+      replacement_design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+      replacement_status: PROPOSED_NOT_AUTHORIZED
+      next: "Seek explicit human approval or revision of the bounded FR-002 baseline-continuity source replacement; then implement, test and independently review."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
       status: NOT_STARTED
@@ -112,11 +116,15 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: PROPOSAL_ONLY
+  type: HUMAN_APPROVAL_GATE
   subject: FR-002 accepted-baseline continuity replacement
-  instruction: "Draft a separately versioned bounded replacement plan for FR-002 without modifying stage-gate source yet."
+  proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
+  design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+  instruction: "Obtain engineering-authority approval or revision of this bounded source-replacement scope before modifying any engine code."
   required_sources:
     - docs/PC_COOPERATIVE_OPERATING_MODEL.md
+    - docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+    - process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
     - process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
     - reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
     - reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json

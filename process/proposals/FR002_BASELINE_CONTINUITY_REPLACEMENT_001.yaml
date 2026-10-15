@@ -1,0 +1,72 @@
+schema: pc-framework-repair-proposal/v1
+id: FR002-BASELINE-CONTINUITY-REPLACEMENT-001
+status: PROPOSED_NOT_AUTHORIZED
+repository: tumblewhead/archbot
+change_class: FR002_BOUNDED_SOURCE_REPLACEMENT
+operating_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+source_context:
+  original_fr002_revise: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+  historical_r1_source: 4c1810ecf520a7c2741c4a517532d05f1ee595fd
+  historical_r1_evidence: reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
+  paused_review_task: process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml
+  existing_implementation_authorization: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
+  current_toy1_baseline: process/baselines/AS-001-v2-active.yaml
+  current_toy1_vo_ledger: process/ledgers/vo_ledger-AS-001-v2-active.yaml
+  current_toy1_policy: process/policies/AP_SELECTION_v2.yaml
+  approved_memory_scope: process/decisions/C-002-scope.yaml
+purpose: >-
+  Replace hardcoded per-project engine authority roots with project-owned
+  accepted-baseline continuity, without relaxing accepted engineering obligations.
+requested_implementation_scope:
+  - Retain tools/gates/common.py and Toy 1-specific tools/gates/toy1_c002.py.
+  - Remove the production dependency on tools/gates/authority_roots.py from the generic binding loader.
+  - Add a generic continuity comparator against an explicitly selected accepted project baseline and protected requirements/validators.
+  - Add a versioned candidate Toy 1 authority projection derived from existing accepted baseline, policy, VO/AD and scope records, without changing those records.
+  - Require a separately authorized and reviewed transition to remove or replace a protected obligation.
+  - Preserve explicit generic --binding and historical --legacy-toy1 modes and their negative behavior.
+  - Add accidental-omission, baseline mismatch, Toy 1 and synthetic Toy 2 transition regressions.
+candidate_paths:
+  - tools/gates/binding.py
+  - tools/gates/continuity.py
+  - tools/gates/authority_roots.py
+  - tools/stage_gate.py
+  - process/project_authority/AS-001-AP-continuity-candidate-v1.yaml
+  - process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml
+  - tests/test_gate_adapter.py
+  - tests/test_baseline_continuity.py
+  - PROJECT_SPINE.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+  - reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
+protected_behavior:
+  - Project-approved C-002 2048-byte SRAM envelope and all seven charged categories.
+  - Required validator cannot silently disappear from candidate inputs.
+  - Exact active VO/AD references and protected AP decision must remain traceable.
+  - Gate eligibility never constitutes AP approval, VO discharge or final F-001 result.
+  - Old review and failed experiment evidence are preserved unchanged.
+acceptance_canaries:
+  - Original Toy 1 stage-gate positive and negative regressions behave equivalently.
+  - Accidental omission of C-002 policy or its validator blocks with an explicit continuity error.
+  - Missing or mismatched baseline, policy, scope, review or VO/AD references block without substituting Toy 1 defaults.
+  - A synthetic authorized and reviewed versioned transition can legitimately revise a synthetic protected requirement.
+  - Synthetic ROOT-002 uses the same generic mechanics and its own baseline projection without a hardcoded engine project registry.
+  - An unreviewed candidate cannot self-declare an accepted transition; preserve review separation.
+  - Separate independent FR-002 review checks the cooperative continuity contract and real submitted test evidence.
+excluded_threats:
+  - Deliberate forgery of source history or review receipts.
+  - Hostile editing of both project policy and its accepted authority records.
+  - Cryptographic signing or tamper-proof engine execution.
+prohibited:
+  - Rewrite accepted AS/AP/F/CON/DE, C-002 scope, active ledgers or accepted reviews.
+  - Bypass a project-required validator without an accepted transition.
+  - Run cleanroom, discharge VOs, alter AD-003, select target or freeze framework.
+  - Initiate FR-003 implementation under this proposal.
+human_approval_required: true
+source_code_change_authorized: false
+next_eligible_action: Seek explicit human approval or revision of this bounded source replacement.
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
