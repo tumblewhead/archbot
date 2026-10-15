@@ -117,7 +117,7 @@ int main(void)
     }
     (void)printf("HOST_PROBE_OK checks=%u sizeof_detector=%lu CHAR_BIT=%u "
                  "UINT16_MAX=%lu UINT32_MAX=%lu\n",
-                 checked, (unsigned long)sizeof detector, CHAR_BIT,
+                 checked, (unsigned long)sizeof detector, (unsigned)CHAR_BIT,
                  (unsigned long)UINT16_MAX, (unsigned long)UINT32_MAX);
     return 0;
 }
