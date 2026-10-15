@@ -62,5 +62,16 @@ class Toy1CompilerEvidenceTests(unittest.TestCase):
         self.assertTrue(all(x is None for x in template["actual_category_peaks_bytes"].values()))
 
 
+    def test_independent_compiler_review_task_is_routable_and_pinned(self):
+        # This uses the real task registry, role, playbook and pushed evidence.
+        sys.path.insert(0, str(ROOT / "tools"))
+        import task
+        manifest = "process/tasks/REVIEW_COMPILER_EVIDENCE-TOY1-VC001.yaml"
+        selected = task.validate(ROOT, manifest)
+        self.assertEqual(selected["operation"], "REVIEW_COMPILER_EVIDENCE")
+        self.assertEqual(selected["role"], "verification-agent")
+        self.assertEqual(selected["gate"], "COMPILER_EVIDENCE_REVIEW")
+
+
 if __name__ == "__main__":
     unittest.main()
