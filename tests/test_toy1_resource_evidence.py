@@ -51,5 +51,20 @@ class Toy1ResourceEvidenceTests(unittest.TestCase):
         self.assertIn("RESOURCE_SETUP_INVALID", result.stderr)
 
 
+    def test_independent_resource_review_task_is_pinned_and_routable(self):
+        import yaml
+        sys.path.insert(0, str(ROOT / "tools"))
+        import task
+        ref = "process/tasks/REVIEW_RESOURCE_EVIDENCE-TOY1-VR001.yaml"
+        selected = task.validate(ROOT, ref)
+        self.assertEqual(selected["operation"], "REVIEW_RESOURCE_EVIDENCE")
+        self.assertEqual(selected["role"], "verification-agent")
+        self.assertEqual(selected["gate"], "RESOURCE_EVIDENCE_REVIEW")
+        task_data = yaml.safe_load((ROOT / ref).read_text(encoding="utf-8"))
+        task_data["context"]["review_inputs"]["evidence_blob_sha1"] = "0" * 40
+        with self.assertRaisesRegex(task.TaskError, "identity changed"):
+            task.validate_resource_evidence_review(ROOT, task_data)
+
+
 if __name__ == "__main__":
     unittest.main()
