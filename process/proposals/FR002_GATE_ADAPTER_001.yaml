@@ -1,0 +1,59 @@
+schema: pc-framework-repair-proposal/v1
+id: FR-002-GATE-ADAPTER-001
+status: PROPOSED_NOT_AUTHORIZED
+repository: tumblewhead/archbot
+project: Progressive Concretization
+operation: REPAIR_GENERIC_STAGE_GATE
+predecessor:
+  review_commit: 6718424a4880ac6bba22c279d0a00483f5a8de98
+  review_receipt: reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json
+  disposition: ACCEPT_WITH_CLARIFICATIONS
+  disposition_scope: FR001_PROJECT_CONTEXT_R1_IMPLEMENTATION_REVIEW_ONLY
+design: docs/FR002_GATE_ADAPTER_DESIGN_001.md
+goal: Separate shared AP gate mechanics and Toy 1 C-002 resource validation without weakening accepted requirements.
+existing_sources:
+  - tools/stage_gate.py
+  - tests/test_stage_gate.py
+  - process/policies/AP_SELECTION_v2.yaml
+  - process/baselines/AS-001-v2-active.yaml
+  - process/ledgers/vo_ledger-AS-001-v2-active.yaml
+scope_if_human_authorized:
+  - Extract C-002-specific categories, 2048-byte resource ceiling, scope checks and errors to explicit opt-in Toy 1 domain validator.
+  - Bind generic gate inputs to declared project, stage, reviewed active policy and VO/AD ledgers.
+  - Refuse missing, unapproved or mismatched required domain validators; do not substitute a Toy 1 default.
+  - Preserve AP-due obligations, deferral fields, proof and review boundaries.
+  - Preserve Toy 1 positive and negative results and establish a distinct Toy 2-style synthetic project canary.
+  - Add focused regression and adversarial tests.
+candidate_paths:
+  - tools/stage_gate.py
+  - tools/gates/common.py
+  - tools/gates/toy1_c002.py
+  - process/policies
+  - tests/test_stage_gate.py
+  - tests/test_gate_adapter.py
+prohibited:
+  - Modify accepted AS_AP_F_CON_DE
+  - Modify implementation/toy1 or target evidence
+  - Modify active VO_AD ledgers or accepted review receipts
+  - Waive C-002 checks when validator missing
+  - Authorize cleanroom or freeze framework
+  - Change F-001 optimization authority
+acceptance_requirements:
+  - Original Toy 1 gate positive/negative tests remain behaviorally equivalent.
+  - C-002 checker omission or wrong policy source fails closed.
+  - Fresh project gate cannot import AS-001 or C-002 defaults.
+  - Missing active baseline or mismatched project authority fails closed.
+  - Gate eligible is distinct from independent approval or VO discharge.
+  - Separate independent reviewer validates source pins and test evidence.
+human_approval_required: true
+source_change_authorized: false
+authority_state:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
+  accepted_debt_unchanged: [AD-003]
+  final_f001_comparison: OUTSTANDING
+  target_configuration: NOT_SELECTED
+next_eligible_action: Obtain explicit human authority for FR-002 bounded implementation before modifying gate engine code.

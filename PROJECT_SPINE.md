@@ -3,46 +3,35 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: R1 regression evidence pushed, independent correction review next
+## Current checkpoint: FR-001 accepted within scope; FR-002 proposal next
 
-The original [FR-001 independent review](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_001-report.md)
-returned **REVISE** at `8e58c2607dbab9e64668f6f4728b543070387ad6`.
-It documented three unresolved counterexamples: FR001-R1 symlink alias,
-FR001-R2 alternate-collection traversal, and FR001-R3 missing mandatory
-dependency. That historical verdict **remains unchanged**.
+The independent [FR-001 R1 reviewer report](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md)
+and [receipt](reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json)
+were pushed in `6718424a4880ac6bba22c279d0a00483f5a8de98`. Disposition: **ACCEPT_WITH_CLARIFICATIONS** for
+`FR001_PROJECT_CONTEXT_R1_IMPLEMENTATION_REVIEW_ONLY`. The reviewer
+reproduced 77 regression tests (five suites), confirmed five source identities,
+and recorded honest limitations: parent-directory symlinks and deeper
+dependency cases were inspected rather than separately reproduced; mandatory
+closure is guarded at **telemetry projection**, not within all `pc.traverse`.
+Original `REVIEW_FR001_PROJECT_CONTEXT_001` remains `REVISE` historically.
+Neither review establishes cleanroom/workspace isolation.
 
-A targeted FR-001 R1 correction was authored at
-`e0ef748b70c29b6c802b325aab0afaa4d8b4ecd7`, followed by the
-historical review pin test correction at
-`3dc5f6ec854971243877f5d7357c7ca034880539`.
-The human's [R1 regression receipt](reviews/qualification/FR001_PROJECT_CONTEXT_R1-local-test-receipt.json)
-was pushed as `8d06dc3dd87db0c244ed72dc5cc1a69702c573dd`. It records **seven successful local commands**
-and source SHA-256 fingerprints, with raw logs held locally. These are
-reported test outcomes, not independent implementation acceptance.
+The next proposed repair is
+[FR-002 gate adapter](process/proposals/FR002_GATE_ADAPTER_001.yaml)
+with [design rationale](docs/FR002_GATE_ADAPTER_DESIGN_001.md).
+It will separate reusable AP gate mechanics from opt-in Toy 1 C-002
+SRAM accounting and require explicit project policy/active ledger references.
+**FR-002 is a proposal only. No implementation authorization has been given.**
 
-**Next assigned gate:** `REVIEW_FR001_PROJECT_CONTEXT_R1-001`,
-operation `REVIEW_FRAMEWORK_REPAIR_R1`, role `verification-agent`,
-[task manifest](process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml)
-and [review playbook](process/playbooks/REVIEW_FRAMEWORK_REPAIR_R1.md).
-The manifest pins the new R1 evidence, the source revision and all five
-source/test blobs, without rebinding original FR-001 historical pins.
+**Next eligible human decision:** approve or revise bounded FR-002 scope.
+If approved, assistant authors the narrowly scoped source/tests to remote
+GitHub; human pulls/runs/pushes evidence; different reviewer assesses the
+implementation. Do not run FR-002 tests before source exists, and do not
+confuse a favorable FR-001 review with authority to edit stage gates.
 
-**Next local action:** pull `main`; run
-`python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v`;
-`python tools/task.py inspect --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml`;
-then from an ordinary host shell invoke
-`python tools/task.py run --manifest process/tasks/REVIEW_FR001_PROJECT_CONTEXT_R1-001.yaml`.
-Inside a *separate existing* Codex reviewer invocation, `render` the task
-and actually conduct the review without launching nested Codex.
-Publish only the resulting
-`reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-report.md`
-and `reviews/qualification/REVIEW_FR001_PROJECT_CONTEXT_R1_001-receipt.json`
-after checking real outputs.
-
-The earlier review failure and runner limitations are preserved. No
-FR-002 implementation, framework freeze, cleanroom execution, target
-selection, Toy 1 product acceptance, F-001 final conclusion or VO discharge
-is authorized here.
+No framework freeze, cleanroom replay, target selection, final F-001
+comparison, Toy 1 product acceptance, VO discharge, or AD change occurred.
+Earlier VC-001/VR-001 failed registered launches remain historical evidence.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
