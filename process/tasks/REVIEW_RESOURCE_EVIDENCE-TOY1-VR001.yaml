@@ -1,0 +1,35 @@
+schema: pc-task/v1
+id: REVIEW_RESOURCE_EVIDENCE-TOY1-VR001
+role: verification-agent
+operation: REVIEW_RESOURCE_EVIDENCE
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: RESOURCE_EVIDENCE_SUBMITTED
+  reference: reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json
+  revision: 4b080f79fb066daf28b859f3f92ad2647abdc74b
+playbook: process/playbooks/REVIEW_RESOURCE_EVIDENCE.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    evidence_summary: reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json
+    evidence_blob_sha1: 0572374728f1d450ab35bcd1fa3a2bf0524f40c9
+    expected_schema: pc-toy1-resource-evidence/v1
+    accepted_scope: process/decisions/C-002-scope.yaml
+    resource_contract: knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md
+    resource_template: process/verification/toy1-vo002-inventory-template-v1.yaml
+    source_revision: 4b080f79fb066daf28b859f3f92ad2647abdc74b
+outputs:
+  allowed: [review_receipt, independent_evidence_report, engineering_briefing]
+  prohibited:
+    - overwrite_accepted_artifacts
+    - approve_own_gate
+    - modify_approved_AS_AP_F_CON_or_DE
+    - discharge_VO
+    - accept_AD
+    - modify_firmware
+gate:
+  kind: RESOURCE_EVIDENCE_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true
