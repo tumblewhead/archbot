@@ -71,3 +71,6 @@ operations:
     role: verification-agent
     playbook: process/playbooks/VERIFICATION_REVIEW.md
     contract: pc-verification/v1
+  REVIEW_COMPILER_EVIDENCE:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_COMPILER_EVIDENCE.md
