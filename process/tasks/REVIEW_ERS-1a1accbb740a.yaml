@@ -1,0 +1,39 @@
+schema: pc-task/v1
+id: REVIEW_ERS-1a1accbb740a
+role: verification-agent
+operation: REVIEW_ERS
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: VERIFICATION_INPUT
+  reference: reviews/verification/TOY1-VERIFY-ERS002/receipt.json
+  revision: recorded_in_receipt
+playbook: process/playbooks/VERIFICATION_REVIEW.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  workflow_provenance:
+    transition: vk_submit_derive_ers
+    receipt: reviews/verification/TOY1-VERIFY-ERS002/receipt.json
+    source_task_manifest: process/tasks/TOY1-VERIFY-ERS002.yaml
+    source_revision: null
+  review_inputs:
+    independent_review: reviews/verification/TOY1-VERIFY-ERS002/receipt.json
+    finding_ids: []
+    source_task_manifest: process/tasks/TOY1-VERIFY-ERS002.yaml
+outputs:
+  allowed:
+  - new_versioned_stage_artifact
+  - review_receipt
+  - finding_resolution
+  prohibited:
+  - overwrite_accepted_artifacts
+  - approve_own_gate
+  - modify_approved_AS_AP_or_F
+  - discharge_VO
+  - accept_AD
+  - implement_firmware
+gate:
+  kind: REVIEW_ERS
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

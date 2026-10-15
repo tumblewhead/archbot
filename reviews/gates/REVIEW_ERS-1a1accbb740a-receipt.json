@@ -1,0 +1,40 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "REVIEW",
+  "mode": "PROJECT",
+  "operation": "REVIEW_ERS",
+  "task_id": "REVIEW_ERS-1a1accbb740a",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "artifact": {
+    "path": "reviews/verification/TOY1-VERIFY-ERS002/artifact.json",
+    "sha256": "2f0cf28f4c85ac60d53f899798cb964fe0ce427eb6e93488c947e4cfb9b6d860"
+  },
+  "reviewed_author_task_id": "TOY1-VERIFY-ERS002",
+  "reviewer_invocation_id": "codex-REVIEW_ERS-1a1accbb740a-0383a464",
+  "independent_of_authoring_invocation": true,
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "findings": [
+    {
+      "id": "F-ERS-CLAR-001",
+      "severity": "clarification",
+      "summary": "The candidate DE subceilings are accounting assignments and the category ceilings are conditional commitments; neither establishes physical feasibility or fit.",
+      "source": "knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md; knowledge/architecture/AS-001/design_elements/DE-AP2-RESOURCE-v7.md; process/ledgers/vo_ledger-AS-001-v2-active.yaml (VO-002)",
+      "required_resolution": "Preserve VO-002 as open until concrete inventory, attribution, nesting, integration and target evidence receive implementation review."
+    }
+  ],
+  "vo_discharged": [],
+  "report": "reviews/gates/REVIEW_ERS-1a1accbb740a-report.md",
+  "input_revision": "0383a46413c099df0782a21a87d090db660f2a29",
+  "changed_artifacts": [
+    "reviews/gates/REVIEW_ERS-1a1accbb740a-report.md",
+    "reviews/gates/REVIEW_ERS-1a1accbb740a-receipt.json"
+  ],
+  "unresolved_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "next_eligible_action": "DESIGN_VERIFICATION_LADDER"
+}

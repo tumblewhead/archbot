@@ -1,0 +1,29 @@
+{
+  "schema": "pc-verification/v1",
+  "kind": "SUBMISSION",
+  "mode": "PROJECT",
+  "operation": "DERIVE_ERS",
+  "task_id": "TOY1-VERIFY-ERS002",
+  "project_id": "AS-001",
+  "spine": "/architecture/AS-001/spine.md",
+  "subject": {
+    "id": "TOY1-C-SOURCE-REVIEWED",
+    "semantics": "C99 source and host review as pinned; separate abstract adapter semantics",
+    "scope": "Candidate ERS revision 2: explicit CON/DE arithmetic and SRAM facets. Independent review pending; no new target, publisher or product acceptance."
+  },
+  "gate": "REVIEW_ERS",
+  "gate_status": "DRAFT_READY",
+  "artifact": {
+    "path": "reviews/verification/TOY1-VERIFY-ERS002/artifact.json",
+    "sha256": "2f0cf28f4c85ac60d53f899798cb964fe0ce427eb6e93488c947e4cfb9b6d860"
+  },
+  "briefing": "reviews/verification/TOY1-VERIFY-ERS002/briefing.md",
+  "execution_status": "COMPLETED",
+  "review_state": "PENDING",
+  "vo_discharged": [],
+  "changed_artifacts": [
+    "reviews/verification/TOY1-VERIFY-ERS002/artifact.json",
+    "reviews/verification/TOY1-VERIFY-ERS002/briefing.md",
+    "reviews/verification/TOY1-VERIFY-ERS002/receipt.json"
+  ]
+}
