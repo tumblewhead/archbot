@@ -9,6 +9,7 @@ import re
 import yaml
 
 from gates import toy1_c002
+from gates.authority_roots import trusted_root
 
 REGISTRY = {toy1_c002.VALIDATOR_ID: toy1_c002}
 SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -55,7 +56,30 @@ def load_binding(root: Path, ref: str):
     if binding.get('status') != 'candidate_for_independent_review':
         raise ValueError('Gate binding is not a declared review candidate')
     project = binding.get('project_id')
+    # Trust is rooted in reviewed engine code, not a candidate binding.
+    anchor = trusted_root(project)
     spine = binding.get('spine')
+    if spine != anchor['spine'] or binding.get('stage') != anchor['stage']:
+        raise ValueError('Project spine/stage differs from trusted authority root')
+    for key, accepted in anchor['sources'].items():
+        if key in ('approved_ap_authority', 'reviewed_as'):
+            continue
+        spec = binding.get(key)
+        if (not isinstance(spec, dict) or
+                spec.get('path') != accepted['path'] or
+                spec.get('git_blob_sha1') != accepted['git_blob_sha1']):
+            raise ValueError('Untrusted project authority source: ' + key)
+    trusted_validator = anchor['accepted_validator']
+    specs = binding.get('required_validators')
+    if not isinstance(specs, list) or len(specs) != 1:
+        raise ValueError('Untrusted protected domain validator set')
+    declared_validator = specs[0]
+    if (not isinstance(declared_validator, dict) or
+            declared_validator.get('id') != trusted_validator['id'] or
+            declared_validator.get('requirement') != trusted_validator['requirement'] or
+            declared_validator.get('scope') != trusted_validator['scope'] or
+            declared_validator.get('implementation') != trusted_validator['implementation']):
+        raise ValueError('Untrusted protected domain validator authority')
     if (not isinstance(project, str) or not project or
             spine != '/architecture/' + project + '/spine.md' or
             binding.get('stage') != 'AP'):
@@ -65,6 +89,10 @@ def load_binding(root: Path, ref: str):
         raise ValueError('Spine authority belongs to another project')
     pinned(root, binding['spine_source'], yaml_input=False)
     baseline = pinned(root, binding['active_baseline'])
+    # These accepted provenance files are discovered only through the engine
+    # trust root. Binding metadata cannot replace or re-pin them.
+    authority = pinned(root, anchor['sources']['approved_ap_authority'])
+    as_review = pinned(root, anchor['sources']['reviewed_as'])
     review = pinned(root, binding['baseline_review'])
     policy = pinned(root, binding['policy'])
     vo = pinned(root, binding['vo_ledger'])
@@ -79,6 +107,19 @@ def load_binding(root: Path, ref: str):
             review.get('candidate_sha256') != baseline.get('source_candidate_sha256') or
             vo.get('activation', {}).get('reviewed_baseline') != binding['baseline_review']['path']):
         raise ValueError('Baseline lacks matching independent review authority')
+    if (baseline.get('independent_as_review') != anchor['sources']['reviewed_as']['path'] or
+            authority.get('schema') != 'pc-ap-authority/v1' or
+            authority.get('status') != 'approved' or
+            authority.get('decision') != 'PROVISIONALLY_SELECTED' or
+            authority.get('architecture') != project + '-v2' or
+            authority.get('basis', {}).get('independent_review') != anchor['sources']['reviewed_as']['path'] or
+            authority.get('basis', {}).get('memory_scope') != trusted_validator['scope']['path'] or
+            'C-002_2048_bytes_detector_attributable_sram' not in authority.get('protected_requirements', []) or
+            as_review.get('schema') != 'pc-as-review/v1' or
+            as_review.get('disposition') not in ('ACCEPT', 'ACCEPT_WITH_CLARIFICATIONS') or
+            baseline.get('accepted_authority', {}).get('provisional_ap') != anchor['sources']['approved_ap_authority']['path'] or
+            vo.get('activation', {}).get('authority') != anchor['sources']['approved_ap_authority']['path']):
+        raise ValueError('Active baseline lacks independently anchored AP authority')
     if baseline.get('id') != binding['active_baseline'].get('id'):
         raise ValueError('Baseline id differs from pinned context')
     artifacts = baseline.get('active_artifacts', {})
@@ -95,6 +136,10 @@ def load_binding(root: Path, ref: str):
             not isinstance(policy.get('requirements'), list) or
             not policy['requirements']):
         raise ValueError('Project AP policy is not eligible for trial')
+    if (policy.get('protected_scope_decisions') != anchor['protected_requirements'] or
+            policy.get('approved_scope_refs', {}).get(trusted_validator['requirement']) !=
+            'C-002-SCOPE-001'):
+        raise ValueError('AP policy conflicts with protected trusted authority root')
     if (not isinstance(vo.get('obligations'), list) or
             not isinstance(ad.get('items'), list)):
         raise ValueError('Malformed authoritative project ledgers')

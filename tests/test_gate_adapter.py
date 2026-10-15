@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import stage_gate
 from gates import common
+from gates.authority_roots import trusted_root
 from gates.binding import blob_id, evaluate_bound, load_binding
 
 TOY1 = "process/gate_configs/AS-001-AP-v1.yaml"
@@ -51,6 +52,13 @@ class GenericGateAdapterTests(unittest.TestCase):
                 dest = self.root / path
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(ROOT / path, dest)
+        # Test source snapshots must include the independent anchor provenance,
+        # not merely the candidate binding's self-declared files.
+        for spec in trusted_root('AS-001')['sources'].values():
+            dest = self.root / spec['path']
+            if not dest.is_file():
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(ROOT / spec['path'], dest)
         self.write_binding(self.toy1)
 
     def write_binding(self, doc):
@@ -81,7 +89,7 @@ class GenericGateAdapterTests(unittest.TestCase):
         data = copy.deepcopy(self.toy1)
         data['policy']['git_blob_sha1'] = '0' * 40
         self.write_binding(data)
-        with self.assertRaisesRegex(ValueError, 'Stale project authority'):
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
             load_binding(self.root, TOY1)
         data = copy.deepcopy(self.toy1)
         data['project_id'] = 'ROOT-002'
@@ -98,7 +106,7 @@ class GenericGateAdapterTests(unittest.TestCase):
         doc['baseline_review'] = write_pinned(
             self.root, doc['baseline_review']['path'], review)
         self.write_binding(doc)
-        with self.assertRaisesRegex(ValueError, 'independent review authority'):
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
             load_binding(self.root, TOY1)
 
     def test_cross_project_vo_ledger_cannot_be_substituted(self):
@@ -108,7 +116,7 @@ class GenericGateAdapterTests(unittest.TestCase):
         ledger['activation']['active_baseline'] = 'process/baselines/OTHER.yaml'
         doc['vo_ledger'] = write_pinned(self.root, vp, ledger)
         self.write_binding(doc)
-        with self.assertRaisesRegex(ValueError, 'active baseline'):
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
             load_binding(self.root, TOY1)
 
     def test_no_unqualified_default_cli(self):
@@ -185,8 +193,14 @@ class GenericGateAdapterTests(unittest.TestCase):
 
     def test_root_solver_structural_gate_has_no_toy1_c002_or_f001(self):
         path = self.make_root_solver()
-        bound, policy, vo, ad, validators = load_binding(self.root, path)
-        self.assertEqual(validators, [])
+        # ROOT-002 is synthetic, and its locally fabricated approval cannot
+        # enter the production authority-bound loader.
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
+            load_binding(self.root, path)
+        bound = yaml.safe_load((self.root / path).read_text())
+        policy = yaml.safe_load((self.root / bound['policy']['path']).read_text())
+        vo = yaml.safe_load((self.root / bound['vo_ledger']['path']).read_text())
+        ad = yaml.safe_load((self.root / bound['ad_ledger']['path']).read_text())
         self.assertEqual(bound['project_id'], 'ROOT-002')
         assessment = {
             'schema': 'pc-ap-assessment/v2', 'candidate': 'AP-NUM', 'stage': 'AP',
@@ -211,12 +225,16 @@ class GenericGateAdapterTests(unittest.TestCase):
                 'architectural_debt': 'AD-ROOT',
             },
         }
-        result = evaluate_bound(self.root, path, assessment)
+        result = common.evaluate(
+            assessment, policy, vo, ad,
+            project_id=bound['project_id'], spine=bound['spine'])
         self.assertEqual(result['decision'], 'PASS_SIMULATION', result['errors'])
         self.assertNotIn('C-002', str(result))
         self.assertNotIn('F-001', str(result))
         assessment['spine'] = '/architecture/AS-001/spine.md'
-        rejected = evaluate_bound(self.root, path, assessment)
+        rejected = common.evaluate(
+            assessment, policy, vo, ad,
+            project_id=bound['project_id'], spine=bound['spine'])
         self.assertEqual(rejected['decision'], 'NO_DOWNSELECTION')
         self.assertIn('Assessment project identity or spine mismatch', rejected['errors'])
 
@@ -225,12 +243,17 @@ class GenericGateAdapterTests(unittest.TestCase):
         manifest = yaml.safe_load((self.root / path).read_text())
         self.assertEqual(manifest['policy']['id'], 'ROOT-AP')
         self.assertEqual(manifest['active_baseline']['id'], 'ROOT-002-V1')
-        bound, policy, _, _, validators = load_binding(self.root, path)
-        self.assertEqual(bound['policy']['id'], policy['id'])
-        self.assertEqual(validators, [])
+        self.assertEqual(
+            manifest['policy']['id'],
+            yaml.safe_load((self.root / manifest['policy']['path']).read_text())['id'])
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
+            load_binding(self.root, path)
         manifest['policy']['id'] = 'WRONG-POLICY'
         write_pinned(self.root, path, manifest)
-        with self.assertRaisesRegex(ValueError, 'Policy identity mismatch'):
+        self.assertNotEqual(
+            manifest['policy']['id'],
+            yaml.safe_load((self.root / manifest['policy']['path']).read_text())['id'])
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
             load_binding(self.root, path)
 
     def test_root_solver_cannot_remove_protected_validator_by_policy_change(self):
@@ -241,7 +264,82 @@ class GenericGateAdapterTests(unittest.TestCase):
         policy['protected_scope_decisions'] = ['R-NUM']
         manifest['policy'] = write_pinned(self.root, policy_path, policy)
         write_pinned(self.root, path, manifest)
-        with self.assertRaisesRegex(ValueError, 'protected domain validators'):
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
+            load_binding(self.root, path)
+        # Generic *mechanics* still block missing required checks in the
+        # synthetic project, but such evidence conveys no approval.
+        mechanics = common.evaluate(
+            {'schema': 'pc-ap-assessment/v2',
+             'stage': 'AP', 'candidate': 'ROOT-AP',
+             'policy_id': 'ROOT-AP', 'simulation_only': True,
+             'project_id': 'ROOT-002',
+             'spine': '/architecture/ROOT-002/spine.md',
+             'requirements': {},
+             'comparative_decision': {'mode': 'supported_projection',
+                                      'evidence': ['synthetic']}},
+            policy,
+            yaml.safe_load((self.root / manifest['vo_ledger']['path']).read_text()),
+            yaml.safe_load((self.root / manifest['ad_ledger']['path']).read_text()),
+            project_id='ROOT-002', spine='/architecture/ROOT-002/spine.md')
+        self.assertEqual(mechanics['decision'], 'NO_DOWNSELECTION')
+        self.assertIn('Missing, duplicate or unexpected protected domain validator',
+                      mechanics['errors'])
+
+    def test_rehashed_weakened_toy1_policy_cannot_remove_c002(self):
+        doc = copy.deepcopy(self.toy1)
+        path = doc['policy']['path']
+        policy = yaml.safe_load((self.root / path).read_text())
+        policy['protected_scope_decisions'] = []
+        doc['policy'] = write_pinned(self.root, path, policy)
+        doc['required_validators'] = []
+        self.write_binding(doc)
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
+            load_binding(self.root, TOY1)
+
+    def test_forged_active_baseline_and_review_pins_are_rejected(self):
+        doc = copy.deepcopy(self.toy1)
+        basepath = doc['active_baseline']['path']
+        baseline = yaml.safe_load((self.root / basepath).read_text())
+        baseline['source_candidate_sha256'] = 'fake-but-self-consistent'
+        doc['active_baseline'] = write_pinned(self.root, basepath, baseline)
+        doc['active_baseline']['id'] = baseline['id']
+        reviewpath = doc['baseline_review']['path']
+        review = yaml.safe_load((self.root / reviewpath).read_text())
+        review['candidate_sha256'] = 'fake-but-self-consistent'
+        doc['baseline_review'] = write_pinned(self.root, reviewpath, review)
+        self.write_binding(doc)
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
+            load_binding(self.root, TOY1)
+
+    def test_rehashed_ledger_and_validator_cannot_replace_authority(self):
+        for field in ('vo_ledger', 'ad_ledger'):
+            with self.subTest(field=field):
+                doc = copy.deepcopy(self.toy1)
+                path = doc[field]['path']
+                original = (ROOT / path).read_bytes()
+                (self.root / path).write_bytes(original)
+                value = yaml.safe_load(original)
+                value['unreviewed_extra'] = 'invented'
+                doc[field] = write_pinned(self.root, path, value)
+                self.write_binding(doc)
+                with self.assertRaisesRegex(ValueError, 'Untrusted project authority source'):
+                    load_binding(self.root, TOY1)
+                (self.root / path).write_bytes(original)
+
+    def test_untrusted_second_project_cannot_promote_forged_review(self):
+        path = self.make_root_solver()
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
+            load_binding(self.root, path)
+        # A fabricated candidate may look self-consistent but still has
+        # no reviewed authority root in this engine.
+        binding = yaml.safe_load((self.root / path).read_text())
+        fake_review = self.root / binding['baseline_review']['path']
+        forged = yaml.safe_load(fake_review.read_text())
+        forged['disposition'] = 'ACCEPT'
+        binding['baseline_review'] = write_pinned(
+            self.root, binding['baseline_review']['path'], forged)
+        write_pinned(self.root, path, binding)
+        with self.assertRaisesRegex(ValueError, 'Untrusted project authority root'):
             load_binding(self.root, path)
 
     def test_generic_code_has_no_toy1_constants(self):

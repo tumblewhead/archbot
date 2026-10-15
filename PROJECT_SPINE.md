@@ -3,42 +3,42 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-002 local checks pushed, independent review next
+## Current checkpoint: FR-002 authority-root R1 correction authored
 
-The human's [FR-002 regression receipt](reviews/qualification/FR002_GATE_ADAPTER-local-test-receipt.json)
-was pushed in `c0cc00658c9afdc3eea111905b131a272d87863c`. It records nine local checks with exit code zero,
-including the corrected synthetic gate adapter fixture, Toy 1 stage-gate
-negative tests and bound/legacy inspection. Source revision
-`3c2fd85cb0bde0c13b7639e24220143e26344536` contains the original
-FR-002 implementation at `57f69f5b2d8d69de876aa72649e8aa5f783ef4e9`
-and a fixture-only correction. Producer logs remain local. These are
-**reported local tests**, not independent acceptance.
+The original independent
+[FR-002 review](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-report.md)
+and [receipt](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json)
+were pushed at `eb5753a371632fbc093811b09a7c70bea458fc60`, with disposition **REVISE**.
+The reviewer reproduced `FR002-AUTH-001`: weakening
+`protected_scope_decisions`, recomputing the policy blob hash, and dropping
+the validator was accepted by the old binding loader. It also identified
+`FR002-AUTH-002`: the ROOT-002 baseline/review inputs were self-asserted
+synthetic sources, not independently established authority. Prior review,
+producer test receipts, and failure artifacts remain immutable.
 
-**Next authorized task:** independent `REVIEW_FR002_GATE_ADAPTER-001`,
-operation `REVIEW_GATE_ADAPTER`, role `verification-agent`;
-[manifest](process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml) and
-[playbook](process/playbooks/REVIEW_GATE_ADAPTER.md).
-The manifest pins the new evidence and seven source/test Git blobs.
-The reviewer must challenge validator omission, synthetic project
-isolation, and especially **authority laundering**: self-consistent
-hashes alone do not make a re-pinned policy or review approval.
+The authorized FR-002 R1 candidate adds an **engine-owned authority root**
+in `tools/gates/authority_roots.py` with the reviewed Toy 1 baseline,
+independent reviews, AP reconfirmation authority, policy, active VO/AD
+ledgers, C-002 scope and validator source identities. The corrected
+`tools/gates/binding.py` rejects missing/untrusted projects or binding
+pins inconsistent with this trusted source registry. The modified
+`tests/test_gate_adapter.py` retains ROOT-002 as a *synthetic
+mechanics-only* canary, not an authorized production gate, and adds
+re-pinned policy/baseline/review/ledger attack tests.
 
-**Next local action:** pull `main`; run
-`python -m unittest discover -s tests -p 'test_fr002_review_route.py' -v`
-and inspect the manifest with `python tools/task.py inspect --manifest
-process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml`. From an outer host
-shell use `python tools/task.py run --manifest
-process/tasks/REVIEW_FR002_GATE_ADAPTER-001.yaml`. From a distinct
-already-running Codex reviewer, `render` the manifest and actually
-execute the review in that existing invocation instead of nesting Codex.
-Only after review results exist, inspect, selectively stage and push the
-new `REVIEW_FR002_GATE_ADAPTER_001` report and receipt.
+**Status: authored but NOT locally executed and NOT independently
+reviewed.** The human should pull and run the FR-002 R1 regression suite,
+inspect actual failures/successes, and push a new evidence receipt.
+A separate independent reviewer must then examine the engine-root
+provenance and the re-pinning attacks. Registering a new trusted project
+requires separately authorized changes to the engine root and independent
+review. Git blob hashes are content identities, not signatures; an
+untrusted party replacing engine code remains outside this bounded claim.
 
-FR-001 R1 remains independently `ACCEPT_WITH_CLARIFICATIONS` for
-role-projected context only. The previous FR-002 fixture failure remains
-historical and the corrected receipt does not erase it. No framework
-freeze, cleanroom, product verification, target configuration, final F-001
-resolution, VO discharge or AD change follows from these checks.
+No generic engine freeze, cleanroom, target evidence, product acceptance,
+final F-001 decision, VO discharge, AD modification or FR-003
+implementation is authorized here. FR-001 R1 remains independently
+`ACCEPT_WITH_CLARIFICATIONS` for telemetry projection only.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
