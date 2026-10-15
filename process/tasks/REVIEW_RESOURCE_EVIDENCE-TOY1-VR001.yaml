@@ -16,6 +16,7 @@ context:
     evidence_summary: reviews/verification/TOY1-VO002-HOST-20261015T035845Z.json
     evidence_blob_sha1: 0572374728f1d450ab35bcd1fa3a2bf0524f40c9
     expected_schema: pc-toy1-resource-evidence/v1
+    project_id: AS-001
     accepted_scope: process/decisions/C-002-scope.yaml
     resource_contract: knowledge/architecture/AS-001/contracts/CON-AP2-003-v6.md
     resource_template: process/verification/toy1-vo002-inventory-template-v1.yaml
