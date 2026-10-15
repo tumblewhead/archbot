@@ -3,39 +3,39 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: ERS002 independently accepted; rung planning next
+## Current checkpoint: bounded plan accepted; model-evidence execution next
 
-User commit `9737d44d6631` contains the revised ERS bundle at
-[TOY1-VERIFY-ERS002](reviews/verification/TOY1-VERIFY-ERS002/receipt.json)
+User commit `cd431e0f7603` contains the plan bundle at
+[DESIGN_VERIFICATION_LADDER-dedd836166b5](reviews/verification/DESIGN_VERIFICATION_LADDER-dedd836166b5/receipt.json)
 and its independent
-[REVIEW_ERS-1a1accbb740a](reviews/gates/REVIEW_ERS-1a1accbb740a-receipt.json).
+[REVIEW_VERIFICATION_LADDER-954fe316bda6](reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json).
 Disposition: **ACCEPT_WITH_CLARIFICATIONS**. The
-[review report](reviews/gates/REVIEW_ERS-1a1accbb740a-report.md) resolves
-F-ERS-001 and F-ERS-002 for ERS coverage, reports 21 requirements/21 claims,
-and records matching artifact integrity and all 31 source pins. These are
-reported independent-review results, not tests executed by this assistant.
+[plan review report](reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-report.md)
+records matching artifact integrity and 34 source pins, and independently
+recomputes the conditional arithmetic bounds. These are reported reviewer
+checks, not tests or experiments executed by this assistant.
 
-The clarification preserves the distinction between conditional SRAM category
-commitments, proposed DE accounting assignments, and actual target feasibility.
-VO-002 through VO-006 remain OPEN. This accepts the ERS projection for the next
-scoped activity, not product behavior, target qualification or VO discharge.
-The original draft artifact's PENDING field remains historical authoring state;
-its separate review receipt supplies the disposition. Do not edit accepted bytes.
+The accepted plan contains only `ARITHMETIC-MODEL-BOUND`, targeting
+`ERS-CON-ARITH-BOUNDS` using `window_integer_bound/v1` with window=32,
+max_sample=4095 and bits=32. Its binding is MODEL_ONLY and maximum conclusion
+is MODEL_EVIDENCE. F-PLAN-CLAR-001 explicitly keeps the other 20 ERS claims
+unplanned/open. VO-002 through VO-006 remain OPEN. The plan is not a complete
+verification campaign or evidence of C, target, integration or publisher behavior.
 
 **Next local action:** use `tools/next_task.py inspect/emit --receipt
-reviews/gates/REVIEW_ERS-1a1accbb740a-receipt.json` to generate
-`DESIGN_VERIFICATION_LADDER`, inspect/run that task, then read its generated
-`reviews/verification/<task-id>/briefing.md`. Route that plan's submission
-receipt through the existing `REVIEW_VERIFICATION_LADDER` operation. Do not
-execute the ladder before favorable independent plan review.
+reviews/gates/REVIEW_VERIFICATION_LADDER-954fe316bda6-receipt.json` to generate
+`EXECUTE_VERIFICATION_LADDER`; inspect/run the deterministic task and read its
+`reviews/verification/<task-id>/briefing.md`. Route the execution submission
+receipt through the existing `REVIEW_VERIFICATION_RUNG` operation for independent
+review. Preserve unplanned claims, model scope and all open VOs. Stop at that
+review for the next decision; it is terminal in the present VK-001 slice.
+No new operation, kernel, model, schema, playbook or routing change is needed.
 
-The accepted ERS currently supplies one candidate rung, ARITHMETIC-MODEL-BOUND,
-targeting only ERS-CON-ARITH-BOUNDS with a MODEL_ONLY binding. The deterministic
-planner validates that candidate and records the remaining claims in
-`unplanned_claim_ids`; it does not generate a complete target campaign. No missing
-method may be silently represented as a passed or inapplicable claim. Whether
-this bounded plan is adequate for its declared next activity is for independent
-plan review. No new kernel, role, playbook or routing change is needed to launch.
+The generated PLAN artifact's PENDING field and inherited subject text are
+historical authoring content; the separate review receipt supplies its acceptance
+for this bounded activity. Do not edit accepted bytes to change their status.
+No execution-evidence bundle was included in this push. Running the third stage
+and reviewing its output remains outstanding.
 
 ## VK-001 implementation and limits
 
@@ -44,10 +44,10 @@ operations use a shared deterministic kernel and pc-verification/v1. Independent
 reviews use local Codex. The initial planner validates explicit model/rung
 candidates; it does not discover arbitrary physics. Model evidence cannot
 discharge a product VO. The interactive human interface is not installed;
-structured briefings/questions are emitted now. The ERS bundles record local
-authoring, and their reviews record scoped checks. They do not establish that
-all fixture demos or the complete regression suite passed; consult actual run
-evidence before making those claims. This assistant has not run those tests.
+structured briefings/questions are emitted now. The ERS and plan bundles record
+local authoring, and their reviews record scoped checks. They do not establish
+that all fixture demos or the complete regression suite passed; consult actual
+run evidence before making those claims. This assistant has not run those tests.
 
 ## Current Toy 1 authority
 
@@ -81,7 +81,12 @@ REVISE review is retained under `reviews/gates/REVIEW_ERS-1d5aeec83447-*`.
 [ERS revision 2](docs/ERS_REVISION_002.md) records the inventory repair:
 `process/verification/toy1-input-v2.json` retains the original eight statements
 and adds thirteen projections of existing arithmetic and resource obligations.
-Neither that repair nor its acceptance changes product requirements or firmware.
+The accepted [ERS002 submission](reviews/verification/TOY1-VERIFY-ERS002/receipt.json)
+and [independent ERS review](reviews/gates/REVIEW_ERS-1a1accbb740a-receipt.json)
+record resolution of F-ERS-001/002 and 21 requirement/claim mappings. Conditional
+SRAM ceilings and proposed DE partitions are commitments/accounting assignments,
+not measured capacities. Neither that acceptance nor plan acceptance changes
+product requirements, firmware or VO/AD state.
 
 Roadmap: finish Toy 1, genericity review/freeze, cleanroom Toy 1 without the future
 dialogue interface, add dialogue, replay Toy 1 with it, then Toy 2 and increased
