@@ -1,0 +1,101 @@
+{
+  "schema": "pc-framework-repair-review/v1",
+  "task_id": "REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001",
+  "operation": "REVIEW_HISTORICAL_INTEGRITY_R1",
+  "gate": "FR003_R1_FOCUSED_INDEPENDENT_REVIEW",
+  "disposition_scope": "FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY",
+  "input_revision": "70fe90aeaae2c59044a10238c767c9eaae3a7303",
+  "reviewed_source_revision": "0c17ff1b749a675980d848477a92980ff7782c4c",
+  "previous_source_revision": "66b75a2a3720bca32f13b430a26715da8477641f",
+  "submitted_evidence_commit": "d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601",
+  "submitted_evidence_path": "reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json",
+  "submitted_evidence_blob_sha1": "26f72860147b53ed31cc5a9b9a1139585f2387bd",
+  "submitted_evidence_schema": "pc-framework-repair-test-evidence/v1",
+  "reviewer_invocation_id": "direct-review-20261016T-FR003-HISTORICAL-INTEGRITY-R1-001",
+  "reviewer_execution_mode": "CURRENT_AGENT_DIRECT",
+  "independent_of_authoring_invocation": true,
+  "independence_basis": "Distinct current-agent invocation from source correction and human local-test production; task inspect and render succeeded; this invocation performed the review. No nested task.py run was used.",
+  "task_inspect": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml",
+    "exit_code": 0
+  },
+  "task_render": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py render --manifest process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml",
+    "exit_code": 0,
+    "note": "Rendered task was followed in this invocation; rendering alone is not review execution."
+  },
+  "submission_identity_match": true,
+  "producer_evidence": {
+    "evidence_class": "SUBMITTED_EVIDENCE",
+    "receipt_check_count": 7,
+    "all_recorded_exit_codes_zero": true,
+    "producer_logs_available": false,
+    "note": "Receipt identity and source pins were independently verified. Producer logs were not available in this checkout."
+  },
+  "verified_source_sha1": {
+    "tools/historical_audit.py": "b98d659daa469f9e47fec68c088538065f71727f",
+    "tests/test_historical_audit.py": "ba90347d92d01bc03001b388e45d824947742999",
+    "tools/verification_kernel.py": "76618f6c0e883de933a31a4308475747363785a3",
+    "tools/active_baseline.py": "8e7ce55f82c222881f71b9e1a3cef7a41e6f22a2",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "e8f9e412e35736ab0469d854c504c1331c78a5b9",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "69116d5c503ef52fd4ba9dd2fe00af23e6e3588f",
+    "AGENTS.md": "86e3f8d31d7565184c92aa789fd4fdbede29753d",
+    "PROJECT_SPINE.md": "48ca58bbdc79645553977c88cd771ebf5f42c9e7",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "24cc5014b9fd3a9c75555277bb7aa5d514b03d88"
+  },
+  "verified_source_sha256": {
+    "tools/historical_audit.py": "e936516820f951ab3e5a164f934fc108a787885ff08b99e880de4f1866957f12",
+    "tests/test_historical_audit.py": "a9b1b7430d8018d27fd4bd649f567459fdf14266a8b37a12a11912aba8d41abf",
+    "tools/verification_kernel.py": "475023b2e1a64b5c1c66a73948aed9b0a838a1966344bbe7fbafd8b014988642",
+    "tools/active_baseline.py": "bfc27ef3f329753e75f08aa7ae6458e41863000467bfc95366ca9a31e5f3632d",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "908082954a56eaa7b7495b628b3cf959e4af46470a727f52f0ba6a06a8e93414",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "5b7cfb28e14b4eb048ac131a153c2839b2d764746150a4850d071561d69c86fb",
+    "AGENTS.md": "3e11b8e2b7068ea8055513c73e221501eb15b50c09dcc48b374a6e17e42cd35e",
+    "PROJECT_SPINE.md": "1bac4dc38438203495f508f549e15786ca9a38201d77b60d6151773934c38584",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "2fb4da807dfd8f8738d7731fa4a8521908a7cd7b75a50643ae2ecffcc732dfb1"
+  },
+  "checks": [
+    {"id":"test_fr003_r1_review_route","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_fr003_r1_review_route.py' -v","tests":3,"exit_code":0},
+    {"id":"test_historical_audit","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_historical_audit.py' -v","tests":13,"exit_code":0},
+    {"id":"test_verification_kernel","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_verification_kernel.py' -v","tests":13,"exit_code":0},
+    {"id":"test_active_baseline","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_active_baseline.py' -v","tests":7,"exit_code":0},
+    {"id":"test_fr003_review_route","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_fr003_review_route.py' -v","tests":4,"exit_code":0},
+    {"id":"test_fr001_r1_review_route","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v","tests":3,"exit_code":0},
+    {"id":"test_fr002_continuity_review_route","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_fr002_continuity_review_route.py' -v","tests":4,"exit_code":0},
+    {"id":"test_task","evidence_class":"REVIEWER_REPRODUCED","command":"python -m unittest discover -s tests -p 'test_task.py' -v","tests":44,"exit_code":0},
+    {"id":"malformed_surrogate_and_unicode_fixture","evidence_class":"REVIEWER_REPRODUCED","result":"U+D800 and U+DC00 each returned UNRESOLVED with UTF-8 path reason; valid café.txt returned HISTORICAL_MATCH and item MATCH","exit_code":0},
+    {"id":"historical_r1_cli","evidence_class":"REVIEWER_REPRODUCED","command":"python tools/historical_audit.py inspect --receipt reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json --revision 0c17ff1b749a675980d848477a92980ff7782c4c","historical_status":"HISTORICAL_MATCH","exit_code":0},
+    {"id":"historical_r1_cli_check_current","evidence_class":"REVIEWER_REPRODUCED","command":"python tools/historical_audit.py inspect --receipt reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json --revision 0c17ff1b749a675980d848477a92980ff7782c4c --check-current","historical_status":"HISTORICAL_MATCH","present_applicability":"NOT_EVALUATED","current_correspondence":"DIFFERENT","exit_code":0}
+  ],
+  "addressed_finding_resolution": {
+    "id": "FR003-REVIEW-FINDING-001",
+    "status": "RESOLVED",
+    "basis": "Independent disposable-Git probes for escaped U+D800 and U+DC00 returned bounded UNRESOLVED results; valid non-ASCII UTF-8 filename remained auditable."
+  },
+  "classifications": {
+    "focused_unicode_correction": "REVIEWER_REPRODUCED",
+    "source_identity": "REVIEWER_REPRODUCED",
+    "historical_match_vs_current_correspondence": "REVIEWER_REPRODUCED",
+    "historical_mismatch_and_unresolved_semantics": "REVIEWER_REPRODUCED_BY_TEST_SUITE",
+    "review_overlay_separation": "REVIEWER_REPRODUCED_BY_TEST_SUITE",
+    "producer_logs": "NOT_AVAILABLE_NOT_INDEPENDENTLY_VERIFIED",
+    "scope": "FOCUSED_R1_REVIEW_NOT_FRESH_BROAD_QUALIFICATION"
+  },
+  "disposition": "ACCEPT",
+  "changed_artifacts": [
+    "reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-report.md",
+    "reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-receipt.json"
+  ],
+  "unresolved_obligations": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006", "final F-001 comparison"],
+  "next_eligible_action": "Qualify the necessary reviewer execution mode under its own authorized FR-004 task; then prioritize FR-005 fresh-agent cleanroom package and bootstrap.",
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "target_configuration": "NOT_SELECTED",
+  "final_f001_comparison": "OUTSTANDING",
+  "architectural_debt_changed": false
+}
