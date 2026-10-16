@@ -57,18 +57,25 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**New architectural direction:** all future projects must be self-contained
-and removable/drop-in without editing or deleting the reusable framework.
-Read `process/layout/PC_PROJECT_BOUNDARY_001.yaml`,
-`docs/PROJECT_BOUNDARY_LAYOUT_001.md` and the bounded migration
-proposal `process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml`.
-**This layout is proposed, not implemented.** The current root directory
-still mixes framework tools and Toy 1 project files; deleting the
-legacy `knowledge/`, `process/` or `reviews/` would be unsafe.
-The next implementation gate is explicit authorization of the bounded
-project-root migration; FR-004 reviewer execution qualification remains
-separately pending. Until completed, do not advertise working
-delete/drop semantics.
+**Active portable-project direction:** independent project Git repositories
+can be installed at `projects/<project_id>/` as optional Git submodules;
+ordinary copied folders remain supported. The user said "lets proceed"
+to the submodule-first migration plan. A bounded stage-one authorization
+is recorded in `process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml`.
+New `framework/core/project_registry.py` supports explicit project
+`list`, `inspect`, `init` and checks a validated `project.yaml`.
+`tests/test_project_registry.py` contains 11 synthetic regression
+methods. **Source authored, NOT LOCALLY TESTED OR INDEPENDENTLY REVIEWED.**
+No Toy 1 files were moved and no real Toy 1 submodule exists.
+Legacy task, context and gate tools still use mixed root paths.
+
+**Next local task:** pull, run the project-registry and selected historical
+regressions; on actual success selectively push a new
+`reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json`.
+Assistant inspects that evidence before registering a separate review.
+The genuine Toy 1 repository, Gitlink, and project-scoped task/gate
+routing are Phase B and still require migration mapping, local tests
+and separate authority. Never delete legacy roots on Phase A alone.
 
 **Cleanroom distinction:** removing an active project directory does
 not remove its prior Git history, backups or connected data. FR-005

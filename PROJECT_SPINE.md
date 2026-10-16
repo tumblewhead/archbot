@@ -3,56 +3,59 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-003 R1 accepted; project isolation architecture proposed
+## Current checkpoint: submodule-ready project discovery candidate; local tests next
 
-Follow [the machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
-and the [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
-FR-001 and FR-002 remain independently `ACCEPT_WITH_CLARIFICATIONS`
-for their scoped implementations. FR-002's Toy 1 continuity projection
-remains a candidate, and its ROOT-002 protected-validator clarification
-remains. No project product acceptance follows.
+Read the [roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml) and
+[qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
+FR-001/FR-002 have independent scoped acceptances with clarifications.
+FR-003's historical first `REVISE` remains preserved and its focused
+Unicode correction R1 returned `ACCEPT` at
+`ff9c723882b88dd9e5589c745768a1590e0cc9eb`.
+No project product acceptance, framework freeze or cleanroom follows.
 
-The latest [focused FR-003 R1 independent review](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-receipt.json)
-pushed in `ff9c723882b88dd9e5589c745768a1590e0cc9eb` returned
-**ACCEPT** for `FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY`,
-resolving `FR003-REVIEW-FINDING-001`. The reviewer independently
-ran 91 test methods, reproduced escaped U+D800/U+DC00 returning bounded
-`UNRESOLVED`, and confirmed a valid Unicode path still matches.
-Producer logs were unavailable to this reviewer; source identities
-and key tests were independently reproduced. The initial FR-003
-`REVISE` and all historical receipts remain immutable.
-FR-003 acceptance is scoped to the correction plus previously
-examined evidence behavior, not new broad security assurance.
+**Human-approved direction:** engineering projects can be independent
+Git repositories, preferably installed as optional Git submodules at
+`projects/<project_id>/`. Copied ordinary project folders must also
+work. Gitlinks pin a project commit for distribution, not accepted
+engineering authority. User said "lets proceed" to the submodule-first
+implementation direction.
 
-**New human architectural direction:** visibly distinguish permanent
-framework machinery from project-owned state and disposable runtime.
-[Directory ownership contract](process/layout/PC_PROJECT_BOUNDARY_001.yaml),
-[layout design](docs/PROJECT_BOUNDARY_LAYOUT_001.md), and the
-[bounded migration proposal](process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml)
-document `framework/` (reusable code/process/qualification),
-`projects/<project_id>/` (self-contained knowledge, authority, code,
-validators, reviews, tests), and project-local ignored `.work/`.
-A project should be discoverable simply by dropping in its directory,
-and removable as active state by deleting that directory without
-altering shared framework source.
+A bounded [Phase A authorization](process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml),
+[ownership contract](process/layout/PC_PROJECT_BOUNDARY_001.yaml),
+[proposal](process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml) and
+[submodule runbook](docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md)
+define the intended staged extraction.
 
-**Important:** this target structure is **NOT YET IMPLEMENTED**.
-The present root still mixes Toy 1 with the framework across
-`knowledge/`, `process/`, `reviews/`, `tools/` and `tests/`.
-Do not delete those roots, rewrite accepted receipts, or claim
-portable delete/drop works today. Git history retains previous project
-content even when the worktree project is removed; FR-005 cleanroom
-requires separate positive-allowlist packaging with no old Git history.
+**Stage-one source authored, NOT LOCALLY TESTED OR INDEPENDENTLY REVIEWED:**
+`framework/core/project_registry.py` implements `list`, `inspect`
+and `init`, checking manifest ID, in-bundle roots, explicit project
+selection, symlink restrictions, declared validator paths without
+loading their code, and optional Gitlink classification.
+`tests/test_project_registry.py` has 11 methods covering no active
+project, portable drop-in folders, two-project separation, removal,
+fresh unsolved project bootstrap, invalid paths and synthetic Gitlinks.
+`projects/README.md` distinguishes checkout removal from Gitlink
+deregistration.
 
-**Next eligible decision:** engineering authority approval or revision
-of `PC-PROJECT-ISOLATION-MIGRATION-001` before any bulk path moves,
-source routing migration or removal of old active roots. FR-004
-reviewer-mode qualification remains separately pending; we should
-qualify only the single mode actually promised. FR-005's working
-fresh-agent unsolved-project bootstrap is the main integration
-milestone, then FR-006 separate independent freeze review. No
-cleanroom run, target qualification, final F-001, VO discharge or
-framework freeze is authorized by this architecture proposal.
+**Next local action:** pull this source candidate, run
+`test_project_registry.py` and selected legacy task/history regressions.
+If all tests pass, commit/push new
+`reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json`
+with exact source pins and command-log fingerprints. Assistant reviews
+pushed evidence before registering an independent Phase A review.
+
+**Phase B not implemented:** creation of a real separate AS-001 repository,
+reviewed file ownership/migration mapping, parent Gitlink, project-scoped
+legacy task/gate/telemetry routes, and non-destructive historical source
+lookup. The GitHub connector cannot create the external project repo;
+do not invent its URL. Do not delete existing `knowledge/`, `process/`,
+`reviews/`, `implementation/` or move accepted source under Phase A.
+
+Priority: a real fresh-agent project bootstrap, not an endless metadata
+review chain. FR-004 reviewer-mode qualification, FR-005 isolated package,
+and FR-006 framework freeze are separate pending milestones.
+Removing a project folder does not erase its Git history or authorize
+a cleanroom. VOs 002–006, AD-003 and F-001 remain outstanding.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

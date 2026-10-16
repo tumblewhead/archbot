@@ -1,11 +1,13 @@
 schema: pc-framework-migration-proposal/v1
 id: PC-PROJECT-ISOLATION-MIGRATION-001
-status: PROPOSED_SOURCE_MIGRATION_NOT_AUTHORIZED
+status: PHASE_A_FOUNDATION_AUTHORED_UNTESTED_FULL_MIGRATION_PENDING
 repository: tumblewhead/archbot
 architectural_direction:
   source: "User requested a permanent reusable machinery versus removable/drop-in project directory distinction."
   accepted_as_desired_behavior: true
   specific_source_move_authorized: false
+  submodule_preference: "Independent project repository as optional Git submodule in framework checkout; ordinary folder remains supported."
+  phase_a_foundation_authorized_by: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
 boundary_contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
 design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
 program_context:
@@ -19,6 +21,18 @@ purpose: >-
   Turn the current mixed-root pilot repository into an installed reusable
   framework that can accept, select, export and remove self-contained
   engineering-project bundles without residual active project authority.
+implementation_phases:
+  phase_a:
+    status: SOURCE_CANDIDATE_NOT_TESTED
+    authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
+    code: framework/core/project_registry.py
+    tests: tests/test_project_registry.py
+    runbook: docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
+    scope: "Explicit project manifest, ordinary-folder and Gitlink discovery, read-only inspection, unsolved-project initialization."
+  phase_b:
+    status: NOT_STARTED
+    requires: "Independent Toy 1 repository, reviewed source mapping, local migration evidence and scoped authorization."
+    scope: "Actual Toy 1 extraction, parent Gitlink, generic tool integration, old-path compatibility and deletion/reinstall qualification."
 proposed_bounded_implementation:
   - "Introduce framework/ and projects/ as real, separately owned roots."
   - "Add an explicit project.yaml contract and validated project-root resolver; require project_id selection, no Toy 1 default."
@@ -86,9 +100,11 @@ authority:
   architecture_direction_recorded: true
   implementation_scope_approval_required: true
   source_migration_authorized: false
+  phase_a_foundation_authorized: true
+  phase_b_toy1_move_authorized: false
   framework_frozen: false
   cleanroom_authorized: false
   product_verified: false
   vo_discharged: []
   open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
-next_eligible_action: "Approve or revise the bounded project-isolation migration scope. No destructive Git moves before authorization."
+next_eligible_action: "Human pulls stage-one project-discovery source, runs tests and selectively pushes local evidence; no Toy 1 move or Gitlink registration yet."

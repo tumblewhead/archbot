@@ -1,0 +1,41 @@
+schema: pc-framework-migration-authorization/v1
+id: PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001
+proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
+submodule_design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
+decision: AUTHORIZE_BOUNDED_SUBMODULE_FOUNDATION
+approved_by: user:engineering_authority
+approval_evidence: "User requested project AS001 as a submodule and replied 'lets proceed' to the proposed submodule-first migration path."
+authorized_now:
+  - "Specify optional Git-submodule installation for independently owned projects, retaining plain-folder compatibility."
+  - "Implement a generic project manifest and read-only discovery/inspection plus safe empty-project initialization under framework/core."
+  - "Add regression tests for no-default, drop-in discovery, independent project roots, invalid paths and local Gitlink identification."
+  - "Record proposed submodule extraction procedure and explicit original-source-history mapping, without changing current Toy 1 files."
+  - "Update roadmap, spine and framework documentation to mark stage 1 as an untested candidate."
+not_authorized_yet:
+  - "Deleting or relocating original Toy 1 AS/AP/F/CON/DE, its accepted project authority, independent reviews, ledgers or implementation."
+  - "Creating a submodule Gitlink before a separate project repository and qualifying its migration."
+  - "Treating the new directory resolver as integrated with all legacy tools/task/telemetry/gates."
+  - "Framework freeze, cleanroom, product qualification, final F-001 or VO discharge."
+permitted_paths:
+  - framework/core/project_registry.py
+  - tests/test_project_registry.py
+  - projects/README.md
+  - process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
+  - process/layout/PC_PROJECT_BOUNDARY_001.yaml
+  - process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
+  - docs/PROJECT_BOUNDARY_LAYOUT_001.md
+  - docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
+  - AGENTS.md
+  - PROJECT_SPINE.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+  - .gitignore
+post_stage_one:
+  - "Human local tests and regression evidence."
+  - "Separate source/installation review, then scoped Toy 1 migration decision and creation of independent repository."
+source_change_state: CANDIDATE_NOT_TESTED_NOT_INDEPENDENTLY_REVIEWED
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

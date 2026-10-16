@@ -9,3 +9,8 @@ pc-review-*.zip
 .env.*
 # Local archived transfers
 *.log
+
+# Disposable scratch inside plain project checkouts
+/projects/*/.work/
+# Explicit exports are never active projects
+/exports/

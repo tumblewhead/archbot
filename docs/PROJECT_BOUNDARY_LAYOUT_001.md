@@ -143,3 +143,39 @@ This is the point of the change: a project becomes a replaceable input to a reus
 **Migration versus authority:** moving project data can change path-embedded evidence, reviewed selectors and content digests. A changed path is a new source identity and must not be made to look like an accepted historical path. New project-root references need an explicit, versioned migration mapping and appropriate reviews, not mutation of original accepted receipts. The migration does not discharge Toy 1 VO-002..VO-006 or complete F-001.
 
 **Current status:** proposed architecture, not a working delete/drop interface. FR-004, framework freeze and cleanroom execution remain separately gated.
+
+## 9. Installation model: independent project repositories and optional Git submodules
+
+**Selected direction:** Prefer each maintained engineering project to own an
+independent repository and be installed as a Git submodule at
+`projects/<project_id>/`. Git submodules supply a reproducible parent
+Gitlink pointing to one project commit. They are **not required** for
+project discovery: copied folders and independent nested checkouts with
+a valid `project.yaml` remain usable, and discovery never silently
+selects a default project.
+
+Git operations are not engineering approval. `git submodule deinit`
+unloads a worktree but leaves the parent Gitlink; permanently removing
+a submodule registration changes the parent repo and `.gitmodules`.
+Deleting an ordinary folder removes visible active state, not prior
+remote/Git backups. Original Toy 1 review receipts retain their old
+monorepo path/revision identities and must not be rewritten during
+extraction. After migration, source identity includes repository
+identity as well as commit, path and digest.
+
+**Phase A foundation authored:** `framework/core/project_registry.py`
+offers `list`, `inspect`, and `init`. The new code checks bundle
+manifest, path containment and explicit project selection, recognizes
+staged Gitlinks, and never executes declared project validators.
+`tests/test_project_registry.py` includes empty-registry, folder
+copy, deletion, two-project, alias and Gitlink canaries. This code is
+**not yet locally tested or independently reviewed**, and legacy
+`task.py` and `telemetry.py` still use root paths. A separate
+reviewed Toy 1 repository **does not yet exist**. See
+[stage-one runbook](PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md).
+
+**Phase B remains unperformed:** classification of mixed files,
+independent Toy 1 repository, a real submodule with a verified remote,
+project-scoped task/gate/context routing, review of active authority
+migration and old-path historical evidence. Do not make destructive
+moves under Phase A authorization.

@@ -166,12 +166,22 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 project_isolation:
-  status: ARCHITECTURAL_DIRECTION_DEFINED_MIGRATION_NOT_AUTHORIZED
+  status: SUBMODULE_FOUNDATION_AUTHORED_AWAITING_LOCAL_TESTS
   contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
   design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
   proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
   source_migration_authorized: false
-  objective: "Framework installed once; projects portable self-contained folders; per-project work ignored; no cross-project authority leakage."
+  phase_a_authorized: true
+  phase_a_authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
+  phase_a_source: framework/core/project_registry.py
+  phase_a_tests: tests/test_project_registry.py
+  phase_a_status: SOURCE_AUTHORED_UNTESTED_NOT_INDEPENDENTLY_REVIEWED
+  phase_b_toy1_move_authorized: false
+  versioned_installation_preference: OPTIONAL_GIT_SUBMODULE
+  ordinary_folder_support: true
+  submodule_runbook: docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
+  planned_local_receipt: reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json
+  objective: "Framework installed once; projects portable self-contained folders, with optional independently versioned Git submodules; per-project work ignored; no cross-project authority leakage."
   blockers:
     - "tools/pc.py still embeds Toy 1 AS-001 evidence path and root knowledge."
     - "tools/task.py still assumes process/tasks and reviews at repository root."
@@ -180,20 +190,24 @@ project_isolation:
   acceptance_demo: "Empty projects -> none active; drop Toy 1 -> usable; drop second -> isolated; remove Toy 1 -> no active residue; fresh empty project -> no inherited solutions."
   cleanroom_limit: "Deleting worktree folder does not erase Git history; FR-005 must use a separate package without old .git, old artifacts or hidden context."
 next_eligible_action:
-  type: HUMAN_APPROVAL_GATE
-  subject: Portable project-root migration
-  proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
-  design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
-  contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
-  instruction: "Approve or revise the bounded migration from mixed roots to permanent framework plus self-contained projects; no bulk move or source-route changes before approval."
-  fr003_focused_review_accepted: true
-  fr004_separate_authorization_required: true
+  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
+  subject: Stage-one portable project discovery and unsolved bootstrap
+  phase_a_authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
+  source: framework/core/project_registry.py
+  tests: tests/test_project_registry.py
+  local_receipt: reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json
+  instruction: "Pull project-discovery source candidate, run new and selected old regressions, selectively push actual local evidence only after all pass."
+  independently_reviewed: false
+  real_submodule_installed: false
+  legacy_toy1_source_moved: false
+  phase_b_requires_separate_authorization: true
+  fr004_remains_separate: true
   framework_frozen: false
   prohibit:
-    - "Do not imply the current root is deletable as a project bundle."
-    - "Do not move accepted Toy 1 assets or rewrite review receipts until migration is separately authorized."
-    - "Do not treat R1 FR-003 ACCEPT as product acceptance or broad framework freeze."
-    - "Do not begin FR-004 source work, cleanroom or VO discharge without appropriate authority."
+    - "Do not claim legacy task/gate engines support relocatable projects yet."
+    - "Do not invent a Toy 1 repository URL or Gitlink."
+    - "Do not move accepted Toy 1 sources or rewrite historical receipts."
+    - "Do not authorize cleanroom, final F-001 or VO discharge."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

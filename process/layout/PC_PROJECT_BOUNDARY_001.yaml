@@ -1,6 +1,6 @@
 schema: pc-filesystem-ownership/v1
 id: PC-PROJECT-BOUNDARY-001
-status: PROPOSED_ARCHITECTURE_NOT_YET_IMPLEMENTED
+status: FOUNDATION_AUTHORED_UNTESTED_FULL_MIGRATION_PENDING
 scope: progressive-concretization-tooling
 owner: framework
 goals:
@@ -27,6 +27,13 @@ future_layout:
     project_path_pattern: projects/<project_id>/
     self_contained: true
     portable: true
+    installation:
+      preferred_versioned: GIT_SUBMODULE
+      also_supported: [PLAIN_FOLDER, INDEPENDENT_GIT_CHECKOUT]
+      project_discovery_requires_git: false
+      submodule_gitlink_is_distribution_metadata_not_project_acceptance: true
+      uninitialized_submodule_worktree: NOT_ACTIVE
+      no_invented_remote_url: true
     tracked:
       - project.yaml
       - PROJECT_SPINE.md
@@ -50,6 +57,8 @@ root_bootstrap:
   paths: [AGENTS.md, README.md, framework/, projects/]
   active_project_default: NONE
   project_selection: EXPLICIT_ID_OR_VALIDATED_PROJECT_DIRECTORY
+  installed_via_submodule: OPTIONAL_NOT_REQUIRED
+  project_revision_identity: "(repository_identity, commit_sha, project_relative_path, content_digest)"
   project_discovery: "Enumerate projects/*/project.yaml, no source-coded allowlist."
   missing_project: FAIL_VISIBLE_WITH_NO_PROJECT_ACTIVE
 project_manifest:
@@ -135,6 +144,9 @@ current_legacy_inventory:
     - tools/active_baseline.py
     - tools/next_task.py
 transition:
+  phase_a: "Generic project_registry.py list/inspect/init source candidate authored; not locally tested or reviewed."
+  phase_b: "Independent AS-001 repository creation, reviewed file classification, real Gitlink and project-root routing pending."
+  migration_runbook: docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
   classification_first: true
   no_destructive_move_before_approved_plan: true
   preserve_historical_git_revision_pins: true
@@ -149,7 +161,10 @@ transition:
     - "Fresh unsolved project bootstrap -> generate empty legal project with no reused solution"
     - "Legacy Toy 1 evidence source commits remain reproducible without rewriting originals"
 approval:
-  user_architectural_direction: "User requested explicit permanent-versus-project directory ownership and removable/drop-in project folders."
+  user_architectural_direction: "User requested project folder isolation and later Git submodule installation for AS001, then explicitly said lets proceed."
+  foundation_authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
+  phase_a_foundation_authorized: true
+  phase_b_destructive_migration_authorized: false
   source_migration_authorized: false
   framework_freeze_authorized: false
   cleanroom_authorized: false
