@@ -1,0 +1,229 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "PC-PROJECT-SUBMODULE-FOUNDATION-001",
+  "source_revision": "b6839c7fedea5bede7b485976b6590fdece6fca8",
+  "authorization": "process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml",
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "test_project_registry.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_project_registry.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "16663bca46d6a082e444be09df4b172b21eee9c21898548dc80dbc173056ba94",
+      "log_bytes": 1637
+    },
+    {
+      "name": "test_task.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "abaf99ece0953db7613aed2394bf096031d3cc301a11b3f4aec67abc29dc3533",
+      "log_bytes": 6034
+    },
+    {
+      "name": "test_gate_adapter.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_gate_adapter.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "787c27326d9ef0e6271cc7c624660ef9d4eeea48e22ce92e8526dedd97a70f38",
+      "log_bytes": 4605
+    },
+    {
+      "name": "test_baseline_continuity.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_baseline_continuity.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "47880fedd204daf3b5fe099edc9871b83722c7398c3693441f523be1ec8ce0dd",
+      "log_bytes": 806
+    },
+    {
+      "name": "test_active_baseline.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_active_baseline.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c640143a579368504091ed55d619eda1b19f279130eb46dbcaf3092fa00ea82d",
+      "log_bytes": 1104
+    },
+    {
+      "name": "test_historical_audit.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_historical_audit.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "358f228492a344616469637df36f2ac85498e2a8e69cb459689f999e69cfe3ed",
+      "log_bytes": 1985
+    },
+    {
+      "name": "test_fr003_r1_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr003_r1_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "210f97cfa12bf825e6cd7a0928113d9bf1864b5930c195e76e4db5daab1bf198",
+      "log_bytes": 476
+    },
+    {
+      "name": "cli_empty",
+      "command": [
+        "/usr/sbin/python",
+        "framework/core/project_registry.py",
+        "list",
+        "--root",
+        "/tmp/tmpgp31eyq1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e95718c8bc15c26541a68799e428ec103434330a3c5469edd0f2461d78625b16",
+      "log_bytes": 98
+    },
+    {
+      "name": "cli_init_a",
+      "command": [
+        "/usr/sbin/python",
+        "framework/core/project_registry.py",
+        "init",
+        "AS-001",
+        "--root",
+        "/tmp/tmpgp31eyq1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "767a9be58153a82719dc5609a044c1e78fde1c4851e091d726b13981b7da1e51",
+      "log_bytes": 444
+    },
+    {
+      "name": "cli_init_b",
+      "command": [
+        "/usr/sbin/python",
+        "framework/core/project_registry.py",
+        "init",
+        "ROOT-002",
+        "--root",
+        "/tmp/tmpgp31eyq1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ea161c697103f929f8b015009283dc61e30ebb91dc7fa9e072178624c2366e9b",
+      "log_bytes": 448
+    },
+    {
+      "name": "cli_two_projects",
+      "command": [
+        "/usr/sbin/python",
+        "framework/core/project_registry.py",
+        "list",
+        "--root",
+        "/tmp/tmpgp31eyq1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "114f0c611a92b9d7578c4d9ffd0748620f530bf4c70bf874476c8c5ce9824e7a",
+      "log_bytes": 1098
+    },
+    {
+      "name": "cli_remove_a",
+      "command": [
+        "/usr/sbin/python",
+        "framework/core/project_registry.py",
+        "list",
+        "--root",
+        "/tmp/tmpgp31eyq1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fbabf5172b877a62d25192a14257230171bbb0716b887e20a8b1e59406860413",
+      "log_bytes": 601
+    }
+  ],
+  "source_sha256": {
+    "framework/core/project_registry.py": "7adcc6b76145f910e9f075e960fd1d024bd83c1546a7c25448fc2a0b8b389b8f",
+    "tests/test_project_registry.py": "af11bbd72dfd13b1dd4e7fffc37adbe77c5d800b2beaef8ae5c44fe12b268d15",
+    "projects/README.md": "baf61e6b1da0e95aae10ceb0eee377c0e1a55847e22e1af2ea5240c0ede69689",
+    "process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml": "7453fe9783ee71aafff44e96b2b8758e5070af8e345077ab9988ec5285928c6b",
+    "process/layout/PC_PROJECT_BOUNDARY_001.yaml": "cb9af120bf878252d4ba47f09c8f35b343f587d84ac06c1e5b943cf42637ac79",
+    "docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md": "4a8d9f80b2ec504d98f65979eba44020e620ae8bfed1ea694395e96b517cfc10",
+    "AGENTS.md": "a056a4bb6bde41701f9def6f37f44a654d60dd9ef6a77a244089101d7cd021be",
+    "PROJECT_SPINE.md": "2d1c5a0dd4c806ad4ea2cdbc7460e410ad8c40a2053545e022c0adcad02141e8",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "3dd2031d1faf1ada08aee6dc0fb82654cf68f2d3e7cefa8efcb3fd7f49824494"
+  },
+  "source_git_blob_sha1": {
+    "framework/core/project_registry.py": "4ade03cf69cfedc86f97ee582faf364b646b60c2",
+    "tests/test_project_registry.py": "335680e51c1383bbc2a9d93482ec425acb657bcf",
+    "projects/README.md": "dbdce3d82da5797cb09610466918bf0b78db3abc",
+    "process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml": "78196d4631b3c1d6af199129e4a7fba9dc535954",
+    "process/layout/PC_PROJECT_BOUNDARY_001.yaml": "deff8e1dd1413c270270865b2f47bb39ff129651",
+    "docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md": "7d8446a7dc5a8cb060d00cbd99607c357a0c908d",
+    "AGENTS.md": "1052c0408c45cce544faa852b8038f5f96854045",
+    "PROJECT_SPINE.md": "7d3239828ad745980103fbcd770f863d7720df4f",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "b7033485d69407b6c0943d08616f43f16f8125db"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
