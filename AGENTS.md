@@ -41,22 +41,26 @@ tested, so full non-Toy-1 domain-validator qualification remains outside
 this review. Toy 1's continuity projection is still a candidate and
 NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 `REVIEW_FR002_GATE_ADAPTER_R1-001` paused task are preserved.
-**Current FR-003 checkpoint:** the bounded source proposal
-`process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml` was explicitly
-approved ("yes proceed"), recorded in
-`process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml`.
-The read-only historical auditor `tools/historical_audit.py` and
-`tests/test_historical_audit.py` (12 methods) are authored. The human's
-local receipt pushed in `040400394e030c7898de66aa3bd1a3648f8e3555`
-reports **14 successful checks** for source
-`66b75a2a3720bca32f13b430a26715da8477641f`; nine source blob
-identities match. FR-003 remains **NOT INDEPENDENTLY REVIEWED**.
-Next is `REVIEW_FR003_HISTORICAL_INTEGRITY-001` with manifest
-`process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml`.
-Conduct a genuinely distinct review and inspect its verdict before
-calling FR-003 accepted or proceeding to FR-004. Do not conflate
-historical correspondence, current applicability or independent
-review disposition with product verification.
+**Current FR-003 checkpoint:** independent review
+`REVIEW_FR003_HISTORICAL_INTEGRITY_001` at
+`f33cd51bddc3c415293899d0350b469e67403823` returned
+**REVISE** for a single blocking malformed-path defect
+`FR003-REVIEW-FINDING-001`: a JSON escaped lone UTF-8 surrogate can
+raise `UnicodeEncodeError` instead of bounded `UNRESOLVED`.
+The reviewer independently reran 87 unit tests and confirmed source-time
+identity, current applicability separation and reviewer overlays.
+**Next authorized source action:** narrowly reject unencodable paths
+in `tools/historical_audit.py`, add a focused negative regression,
+collect human local tests and have a distinct reviewer assess the fix.
+No FR-004, freeze, cleanroom or VO discharge authorization follows.
+
+**Delivery priority:** avoid expanding FR-003 into a broad security audit
+under the cooperative-audience assumption. After narrow correction,
+qualify only the reviewer execution mode actually needed (FR-004),
+then prioritize FR-005's usable fresh-agent cleanroom package and a
+real unsolved-project bootstrap. FR-006 is the independent integrated
+freeze decision. A new direction requires its own authority; do not
+silently bypass existing gates.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML

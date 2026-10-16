@@ -80,7 +80,7 @@ framework:
       next: "Scoped FR-002 implementation review accepted; preserve clarification and candidate projection state. No FR-003 work without separate authorization."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
-      status: LOCAL_TEST_EVIDENCE_RECEIVED_INDEPENDENT_REVIEW_PENDING
+      status: INDEPENDENT_REVIEW_REVISE_FOCUSED_CORRECTION_REQUIRED
       proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
       design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
       implementation_authorized: true
@@ -93,7 +93,13 @@ framework:
       local_evidence_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json
       local_checks: REPORTED_14_SUCCESS
       independent_review_task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml
-      independent_review: PENDING
+      independent_review: REVISE
+      review_commit: f33cd51bddc3c415293899d0350b469e67403823
+      review_report: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-report.md
+      review_receipt: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
+      blocking_finding: FR003-REVIEW-FINDING-001
+      issue: "Malformed JSON-escaped lone surrogate path raises UnicodeEncodeError instead of bounded UNRESOLVED."
+      recommended_correction: "Reject non-UTF-8-encodable path; one negative regression; rerun local checks and independent review."
       intent: "Read-only historical source-revision auditor distinct from current-applicability checking and reviewed-status overlay."
       exit: "Historical byte correspondence is verifiable at the original source revision, without requiring current worktree bytes to match; applicability and review status remain separate."
     - id: FR-004-REVIEWER-EXECUTION
@@ -146,23 +152,21 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: INDEPENDENT_REVIEW_EXECUTION
-  subject: FR-003 historical source-integrity auditor
-  task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml
-  operation: REVIEW_HISTORICAL_INTEGRITY
-  role: verification-agent
-  tested_source_revision: 66b75a2a3720bca32f13b430a26715da8477641f
-  evidence_submission_commit: 040400394e030c7898de66aa3bd1a3648f8e3555
-  instruction: "Human pulls, runs the route canary, inspects the registered task and executes a distinct independent reviewer. Selectively publish actual review report/receipt."
-  source_approval_recorded: true
-  local_tests_reported_pass: true
-  independently_reviewed: false
+  type: FOCUSED_CORRECTION_TO_REVIEWED_SOURCE
+  subject: FR-003 malformed Unicode path must return bounded UNRESOLVED
+  source_authorization: process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml
+  review_commit: f33cd51bddc3c415293899d0350b469e67403823
+  review_receipt: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
+  blocking_finding: FR003-REVIEW-FINDING-001
+  instruction: "Fix only malformed UTF-8 path handling and add a focused regression, then gather local test evidence and distinct review. Keep earlier review intact."
+  recommended_post_correction_priority: "FR-004 one required reviewer execution mode; FR-005 fresh-agent bootstrap/positive allowlist; FR-006 independent integrated freeze; then the authorized cleanroom Toy 1 demonstration."
+  independently_reviewed_and_accepted: false
   framework_frozen: false
   prohibit:
-    - "Do not mark FR-003 accepted based only on producer tests."
-    - "Do not change historical authoring states, reviews, accepted project source or VO/AD records."
-    - "Do not activate Toy 1 FR-002 candidate continuity projection."
-    - "Do not start FR-004 implementation, cleanroom, final F-001 or VO discharge."
+    - "Do not relabel FR-003 REVISE as acceptance."
+    - "Do not expand to hostile security hardening or rewrite historical evidence."
+    - "Do not change accepted product source, VO/AD ledgers, or Toy 1 projection state."
+    - "Do not start FR-004 source work, cleanroom or VO discharge without authorization."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
