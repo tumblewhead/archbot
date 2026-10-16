@@ -1,0 +1,241 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "FR002-BASELINE-CONTINUITY-REPLACEMENT-001",
+  "source_revision": "44063ef971bcfd13e96c29eb5371e8fcc14e333a",
+  "authorization": "process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml",
+  "previous_review": "reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json",
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "test_baseline_continuity.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_baseline_continuity.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "015a136e4fc28ef257aa4fe6aadfe927ae3f8ed9b0e65be953fed62972ac6907",
+      "log_bytes": 806
+    },
+    {
+      "name": "test_gate_adapter.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_gate_adapter.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "15af127c0ced38680c79681945134985fec692cf27d49ae8224c9f39cfa29928",
+      "log_bytes": 4605
+    },
+    {
+      "name": "test_stage_gate.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_stage_gate.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c715e1002b988b7389deb92619d1f8a3d52b1d650164ec74ab3fdc8612afae61",
+      "log_bytes": 1657
+    },
+    {
+      "name": "test_task.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "abaf99ece0953db7613aed2394bf096031d3cc301a11b3f4aec67abc29dc3533",
+      "log_bytes": 6034
+    },
+    {
+      "name": "test_telemetry.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_telemetry.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "081895108ea617cb24b462d05effb52c3d73f8837554b7a9a8b79d536bccbdac",
+      "log_bytes": 2652
+    },
+    {
+      "name": "test_fr001_r1_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr001_r1_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4e097408a08a5d43aea212660b4cf6f123dc6753a4cb18626ff640d7e4a20eb0",
+      "log_bytes": 546
+    },
+    {
+      "name": "test_fr002_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr002_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2b3001d07a768ee2cacb29401c0dbee07626fd50d91ab26b9167383ec228f9a8",
+      "log_bytes": 600
+    },
+    {
+      "name": "test_fr002_r1_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr002_r1_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "071edc8b746f190175c3cae8f99b39f85f5831e6e5e5d2ce41a95c00d2143593",
+      "log_bytes": 748
+    },
+    {
+      "name": "test_genericity_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a0db73f911d564655ba94077f392cbce3c9654b5df3f5ae5d1883bceb3fbdc9c",
+      "log_bytes": 582
+    },
+    {
+      "name": "test_genericity_audit_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_genericity_audit_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fdc0e48fe1c8f4a48332d1f157bcdeb3b0abe335f61ee223f9484700347e1241",
+      "log_bytes": 602
+    },
+    {
+      "name": "bound_inspect_v2",
+      "command": [
+        "/usr/sbin/python",
+        "tools/stage_gate.py",
+        "inspect",
+        "--binding",
+        "process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml"
+      ],
+      "exit_code": 0,
+      "log_sha256": "52e1f409389678da1fa054c1cefa6266b1e3c434738c3e107b5bf6e8ec8527a5",
+      "log_bytes": 1374
+    },
+    {
+      "name": "legacy_inspect",
+      "command": [
+        "/usr/sbin/python",
+        "tools/stage_gate.py",
+        "inspect",
+        "--legacy-toy1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "31b13f7bd159bbd99f686c1e94f60a294250cb77ab1cd92dc546cbbea3c745fc",
+      "log_bytes": 1256
+    }
+  ],
+  "source_sha256": {
+    "tools/stage_gate.py": "c87b0f570a193a124802d5eca7144b517617a2adecc306107275f30a5d9bf5c9",
+    "tools/gates/__init__.py": "da4ea4e61f4d3d7ffa7a97674894e7f07362590c4d488a5cb7c1ee915b25f0f7",
+    "tools/gates/common.py": "05e7844024dbc94364e7a3c1300ab24381484a2c9455f0996b6cf04232a1a79f",
+    "tools/gates/toy1_c002.py": "0711ae893e6cfc3e9413dd5d1dbe4dbacd0807fb724317cfecf3f50f65491f56",
+    "tools/gates/binding.py": "b56f4bdfe9e3881091cb03927da380aee3ac3096eeea333326d8e39e1e51d258",
+    "tools/gates/continuity.py": "6522898cfb6ad80f2bffa37a5788c048dc552544f08f3682e89ffbffa725897b",
+    "process/project_authority/AS-001-AP-continuity-candidate-v1.yaml": "203d596200ab9caa07be6e4c6d4e09b9d08ee63ee6dbb32d95e68b264df941be",
+    "process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml": "36e3726ec26dce867246eb1d940f1b53116f8c41a21c70ced77c2a4a0946acd4",
+    "tests/test_gate_adapter.py": "5a8604f7c914d7bf7d4d44c2a6f7228adcdb8d6f24a0e3c0d61724d7b7f32477",
+    "tests/test_baseline_continuity.py": "30e4f5d111ceb481fb6c7c59c2cbbb3b95da6bb4aab03114f34ec798049aeda3"
+  },
+  "source_git_blob_sha1": {
+    "tools/stage_gate.py": "01b7f6bad2f78aee06cd4fc5664b806fcca1b4a4",
+    "tools/gates/__init__.py": "911db5e8c7f9fb315603bc1ad5ee36f8fb84b82b",
+    "tools/gates/common.py": "86d7016deaefff011a4a9ecd682a8072e302699d",
+    "tools/gates/toy1_c002.py": "18ae2486bc62dca3d6ee9046c602d2ceb859c06c",
+    "tools/gates/binding.py": "d9c206bdfb873c0f5cd511bb26e7fc7445393b4f",
+    "tools/gates/continuity.py": "3ba20fdf4e3688757fb43a255230edaf1009e503",
+    "process/project_authority/AS-001-AP-continuity-candidate-v1.yaml": "cc0610357f03716ab940b72e00525b248c3361b4",
+    "process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml": "85c879036dd9dd9a511a4d1a21ab2249e3106590",
+    "tests/test_gate_adapter.py": "e09777318d0fcafad5cfead829875c6bc69d14bc",
+    "tests/test_baseline_continuity.py": "11da40fc38c12d8170b4053ca9bb22760e37f3ef"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
