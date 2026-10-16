@@ -1,0 +1,111 @@
+{
+  "schema": "pc-framework-repair-review/v1",
+  "task_id": "REVIEW_FR003_HISTORICAL_INTEGRITY-001",
+  "operation": "REVIEW_HISTORICAL_INTEGRITY",
+  "gate": "FR003_HISTORICAL_INTEGRITY_INDEPENDENT_REVIEW",
+  "disposition_scope": "FR003_HISTORICAL_SOURCE_INTEGRITY_IMPLEMENTATION_ONLY",
+  "input_revision": "563f0789907c09f1735ce37d43e4b09e7098eced",
+  "reviewed_source_revision": "66b75a2a3720bca32f13b430a26715da8477641f",
+  "submitted_evidence_commit": "040400394e030c7898de66aa3bd1a3648f8e3555",
+  "submitted_evidence_path": "reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json",
+  "submitted_evidence_blob_sha1": "32c0bda1e7cde375da76fe0e09890e8655cd9033",
+  "submitted_evidence_schema": "pc-framework-repair-test-evidence/v1",
+  "reviewer_invocation_id": "direct-review-20261015T-FR003-HISTORICAL-INTEGRITY-001",
+  "reviewer_execution_mode": "CURRENT_AGENT_DIRECT",
+  "independent_of_authoring_invocation": true,
+  "independence_basis": "Distinct current-agent invocation from source authoring and human local-test production; task inspect and render succeeded and this invocation performed the review. No nested runner used.",
+  "task_inspect": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py inspect --manifest process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml",
+    "exit_code": 0
+  },
+  "task_render": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/task.py render --manifest process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml",
+    "exit_code": 0,
+    "note": "Rendered task was performed in this invocation; render alone is not review evidence."
+  },
+  "submission_identity_match": true,
+  "verified_source_sha1": {
+    "tools/historical_audit.py": "878dd1981fe4becbd76046fc772ca51233fce0a9",
+    "tests/test_historical_audit.py": "aa3dc919d39feaa5753d206822fa3e13bc84727e",
+    "tools/verification_kernel.py": "76618f6c0e883de933a31a4308475747363785a3",
+    "tools/active_baseline.py": "8e7ce55f82c222881f71b9e1a3cef7a41e6f22a2",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "e8f9e412e35736ab0469d854c504c1331c78a5b9",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "69116d5c503ef52fd4ba9dd2fe00af23e6e3588f",
+    "AGENTS.md": "eee31708be0ab9730a1f6a801a6147d2e3bcc034",
+    "PROJECT_SPINE.md": "ceda5f4adf3bae3614639aa249d184119bf9ba3d",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "be2a58a83882a414e895854d418c3a7e0de6c682"
+  },
+  "verified_source_sha256": {
+    "tools/historical_audit.py": "a36c941a46f0f27e76ce5502fd564931415f5eb5aa8d6196175b01d9d04c6bc5",
+    "tests/test_historical_audit.py": "7aa945ed94ddfe343c9414e962d2741b8f545d61b8b5c730ea3f1bd9d49c7e5a",
+    "tools/verification_kernel.py": "475023b2e1a64b5c1c66a73948aed9b0a838a1966344bbe7fbafd8b014988642",
+    "tools/active_baseline.py": "bfc27ef3f329753e75f08aa7ae6458e41863000467bfc95366ca9a31e5f3632d",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "908082954a56eaa7b7495b628b3cf959e4af46470a727f52f0ba6a06a8e93414",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "5b7cfb28e14b4eb048ac131a153c2839b2d764746150a4850d071561d69c86fb",
+    "AGENTS.md": "3e11b8e2b7068ea8055513c73e221501eb15b50c09dcc48b374a6e17e42cd35e",
+    "PROJECT_SPINE.md": "1bac4dc38438203495f508f549e15786ca9a38201d77b60d6151773934c38584",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "2fb4da807dfd8f8738d7731fa4a8521908a7cd7b75a50643ae2ecffcc732dfb1"
+  },
+  "source_time_audit": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "command": "python tools/historical_audit.py inspect --receipt reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json --revision 66b75a2a3720bca32f13b430a26715da8477641f --check-current",
+    "exit_code": 0,
+    "historical_status": "HISTORICAL_MATCH",
+    "current_correspondence": "DIFFERENT",
+    "present_applicability": "NOT_EVALUATED"
+  },
+  "producer_logs": {
+    "evidence_class": "REVIEWER_REPRODUCED",
+    "path": "runs/fr003-historical-integrity/ (ignored local logs)",
+    "declared_and_observed_log_count": 14,
+    "all_byte_counts_and_sha256_match": true,
+    "reported_command_exit_codes": "All fourteen recorded as zero; reviewer independently reproduced the prescribed suites and CLI."
+  },
+  "checks": [
+    {"id": "test_fr003_review_route", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_fr003_review_route.py' -v", "tests": 4, "exit_code": 0},
+    {"id": "test_historical_audit", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_historical_audit.py' -v", "tests": 12, "exit_code": 0},
+    {"id": "test_verification_kernel", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_verification_kernel.py' -v", "tests": 13, "exit_code": 0},
+    {"id": "test_active_baseline", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_active_baseline.py' -v", "tests": 7, "exit_code": 0},
+    {"id": "test_fr001_r1_review_route", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_fr001_r1_review_route.py' -v", "tests": 3, "exit_code": 0},
+    {"id": "test_fr002_continuity_review_route", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_fr002_continuity_review_route.py' -v", "tests": 4, "exit_code": 0},
+    {"id": "test_task", "evidence_class": "REVIEWER_REPRODUCED", "command": "python -m unittest discover -s tests -p 'test_task.py' -v", "tests": 44, "exit_code": 0},
+    {"id": "historical_fr002_cli", "evidence_class": "REVIEWER_REPRODUCED", "command": "python tools/historical_audit.py inspect --receipt reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json --revision 44063ef971bcfd13e96c29eb5371e8fcc14e333a --check-current --review reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json", "historical_status": "HISTORICAL_MATCH", "current_correspondence": "ALL_MATCH", "present_applicability": "NOT_EVALUATED", "exit_code": 0},
+    {"id": "fr003_historical_cli", "evidence_class": "REVIEWER_REPRODUCED", "historical_status": "HISTORICAL_MATCH", "current_correspondence": "DIFFERENT", "present_applicability": "NOT_EVALUATED", "exit_code": 0},
+    {"id": "malformed_surrogate_path", "evidence_class": "REVIEWER_REPRODUCED", "result": "UnicodeEncodeError escaped inspect() rather than bounded UNRESOLVED", "disposition_effect": "BLOCKING_REVISE"},
+    {"id": "optional_sha1_and_other_project", "evidence_class": "REVIEWER_REPRODUCED", "result": "Empty optional blob-SHA1 mapping matched a synthetic project receipt using shared audit path."},
+    {"id": "current_checkers_unchanged", "evidence_class": "REVIEWER_INSPECTED", "result": "No diff in tools/verification_kernel.py or tools/active_baseline.py from reviewed source revision to input checkout."}
+  ],
+  "classifications": {
+    "H1_historical_identity_vs_worktree": "REVIEWER_REPRODUCED",
+    "H2_missing_incomplete_evidence": "REVIEWER_REPRODUCED_WITH_BLOCKING_COUNTEREXAMPLE",
+    "H3_path_commit_safety": "REVIEWER_INSPECTED_AND_REPRODUCED",
+    "H4_review_overlay_independence": "REVIEWER_REPRODUCED",
+    "H5_schema_genericity": "REVIEWER_INSPECTED_AND_REPRODUCED",
+    "H6_evidence_runs_scope": "REVIEWER_REPRODUCED"
+  },
+  "findings": [
+    {
+      "id": "FR003-REVIEW-FINDING-001",
+      "severity": "blocking",
+      "summary": "A JSON-escaped lone surrogate in a source path passes path_ref and causes uncaught UnicodeEncodeError at UTF-8 encoding instead of bounded UNRESOLVED.",
+      "reproduction": "Valid disposable Git commit; receipt source_sha256 key was a JSON-escaped lone surrogate (U+D800); historical_audit.inspect raised UnicodeEncodeError.",
+      "required_correction": "Reject non-UTF-8-encodable paths or convert encoding failure to AuditInputError and add a regression expecting UNRESOLVED."
+    }
+  ],
+  "disposition": "REVISE",
+  "bounded_next_eligible_action": "Correct FR003-REVIEW-FINDING-001 under existing FR-003 source authorization, add the malformed-path regression, obtain new local test evidence and request a distinct review of the new source revision.",
+  "changed_artifacts": [
+    "reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-report.md",
+    "reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json"
+  ],
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": ["VO-002", "VO-003", "VO-004", "VO-005", "VO-006"],
+  "target_configuration": "NOT_SELECTED",
+  "final_f001_comparison": "OUTSTANDING",
+  "architectural_debt_changed": false
+}
