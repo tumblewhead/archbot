@@ -1,0 +1,164 @@
+{
+  "schema": "pc-framework-repair-test-evidence/v1",
+  "task_id": "FR003-HISTORICAL-INTEGRITY-R1-001",
+  "source_revision": "0c17ff1b749a675980d848477a92980ff7782c4c",
+  "previous_review": "reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json",
+  "addressed_findings": [
+    "FR003-REVIEW-FINDING-001"
+  ],
+  "execution": "HUMAN_LOCAL_CHECKS",
+  "checks": [
+    {
+      "name": "test_historical_audit.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_historical_audit.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "36ecd8ea1a101ff36112a13d1c935767f7a7fccd72b9efc62e1d680d738ef40e",
+      "log_bytes": 1985
+    },
+    {
+      "name": "test_verification_kernel.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_verification_kernel.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "aaa6604441beb4825c33bc2ca6a8b7b474032736044b0ef8dde845dfea4831c4",
+      "log_bytes": 1977
+    },
+    {
+      "name": "test_active_baseline.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_active_baseline.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c640143a579368504091ed55d619eda1b19f279130eb46dbcaf3092fa00ea82d",
+      "log_bytes": 1104
+    },
+    {
+      "name": "test_fr003_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr003_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "657d7688651efffdeadb979bb534a0e7423cf5dd9293ea046d10c49f99db8c4d",
+      "log_bytes": 724
+    },
+    {
+      "name": "test_fr002_continuity_review_route.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_fr002_continuity_review_route.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2a977d05ecb8662e4efbd36d25eaccd4a33ae8b97b0ac17d2d02d723fc07a29a",
+      "log_bytes": 744
+    },
+    {
+      "name": "test_task.py",
+      "command": [
+        "/usr/sbin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_task.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "22dc259bee15f29d5e68afdfe3b7adf4c7bb74a547873580bd3ced70008958d2",
+      "log_bytes": 6034
+    },
+    {
+      "name": "historical_fr003_cli",
+      "command": [
+        "/usr/sbin/python",
+        "tools/historical_audit.py",
+        "inspect",
+        "--receipt",
+        "reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json",
+        "--revision",
+        "66b75a2a3720bca32f13b430a26715da8477641f",
+        "--check-current"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9d8d0b946fad656c8a4845e87f99d1f9e29bd9d63387d5497fa66ec92603bae9",
+      "log_bytes": 6524
+    }
+  ],
+  "source_sha256": {
+    "tools/historical_audit.py": "e936516820f951ab3e5a164f934fc108a787885ff08b99e880de4f1866957f12",
+    "tests/test_historical_audit.py": "a9b1b7430d8018d27fd4bd649f567459fdf14266a8b37a12a11912aba8d41abf",
+    "tools/verification_kernel.py": "475023b2e1a64b5c1c66a73948aed9b0a838a1966344bbe7fbafd8b014988642",
+    "tools/active_baseline.py": "bfc27ef3f329753e75f08aa7ae6458e41863000467bfc95366ca9a31e5f3632d",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "908082954a56eaa7b7495b628b3cf959e4af46470a727f52f0ba6a06a8e93414",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "5b7cfb28e14b4eb048ac131a153c2839b2d764746150a4850d071561d69c86fb",
+    "AGENTS.md": "5cc20905c73c7759ddf0e674661325b5aa41c5b14c2de7c183e1ea572540b681",
+    "PROJECT_SPINE.md": "8fd75008a46e75bee43501affcef49f2db5b705e8677521bf54354d26eb378eb",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "82439a905184291a4829fa32d32ce8b9302f2bbb1f5ea069f9178e23fcc56bbf"
+  },
+  "source_git_blob_sha1": {
+    "tools/historical_audit.py": "b98d659daa469f9e47fec68c088538065f71727f",
+    "tests/test_historical_audit.py": "ba90347d92d01bc03001b388e45d824947742999",
+    "tools/verification_kernel.py": "76618f6c0e883de933a31a4308475747363785a3",
+    "tools/active_baseline.py": "8e7ce55f82c222881f71b9e1a3cef7a41e6f22a2",
+    "process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml": "e8f9e412e35736ab0469d854c504c1331c78a5b9",
+    "reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md": "69116d5c503ef52fd4ba9dd2fe00af23e6e3588f",
+    "AGENTS.md": "86e3f8d31d7565184c92aa789fd4fdbede29753d",
+    "PROJECT_SPINE.md": "48ca58bbdc79645553977c88cd771ebf5f42c9e7",
+    "process/roadmaps/PC_ROADMAP_CURRENT.yaml": "24cc5014b9fd3a9c75555277bb7aa5d514b03d88"
+  },
+  "independently_reviewed": false,
+  "framework_frozen": false,
+  "cleanroom_authorized": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "open_vos": [
+    "VO-002",
+    "VO-003",
+    "VO-004",
+    "VO-005",
+    "VO-006"
+  ]
+}
