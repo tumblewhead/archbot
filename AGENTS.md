@@ -49,16 +49,16 @@ NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 raise `UnicodeEncodeError` instead of bounded `UNRESOLVED`.
 The reviewer independently reran 87 unit tests and confirmed source-time
 identity, current applicability separation and reviewer overlays.
-**Current FR-003 correction:** the narrowly scoped R1 source fix for
-`FR003-REVIEW-FINDING-001` rejects UTF-8-unencodable repository paths
-in `tools/historical_audit.py`. A new regression in
-`tests/test_historical_audit.py` checks JSON-escaped high and low lone
-surrogates return bounded `UNRESOLVED`. These files are **authoring
-candidates, not locally tested or independently reviewed**. The human
-now runs focused regressions and publishes a NEW versioned receipt
-`reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json`
-only after actual success. Then a DIFFERENT independent reviewer
-reviews the focused correction, preserving original `REVISE`.
+**Current FR-003 correction:** user-pushed local R1 evidence
+`d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601` reports seven
+successful checks for focused source revision
+`0c17ff1b749a675980d848477a92980ff7782c4c`.
+All nine source Git blob pins match. The prior `REVISE` review
+remains unchanged. **Next task:** distinct independent focused R1
+review `process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml`,
+after `tests/test_fr003_r1_review_route.py` and manifest inspection.
+The reviewer must reproduce the JSON-escaped lone surrogate fix, then
+publish only its own new report and receipt. FR-003 is **not yet accepted**.
 No FR-004, freeze, cleanroom or VO discharge authorization follows.
 
 **Delivery priority:** avoid expanding FR-003 into a broad security audit

@@ -1,0 +1,59 @@
+schema: pc-task/v1
+id: REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001
+role: verification-agent
+operation: REVIEW_HISTORICAL_INTEGRITY_R1
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: FR003_R1_CORRECTION_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
+  revision: 0c17ff1b749a675980d848477a92980ff7782c4c
+playbook: process/playbooks/REVIEW_HISTORICAL_INTEGRITY_R1.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR003-HISTORICAL-INTEGRITY-R1-001
+    scope: FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY
+    operating_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+    approved_scope: process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml
+    first_review: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
+    first_review_disposition: REVISE
+    addressed_finding: FR003-REVIEW-FINDING-001
+    previous_source_revision: 66b75a2a3720bca32f13b430a26715da8477641f
+    reviewed_source_revision: 0c17ff1b749a675980d848477a92980ff7782c4c
+    evidence_submission_commit: d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601
+    evidence_submission_path: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
+    evidence_submission_blob_sha1: 26f72860147b53ed31cc5a9b9a1139585f2387bd
+    evidence_schema: pc-framework-repair-test-evidence/v1
+    source_git_blob_sha1:
+      tools/historical_audit.py: b98d659daa469f9e47fec68c088538065f71727f
+      tests/test_historical_audit.py: ba90347d92d01bc03001b388e45d824947742999
+      tools/verification_kernel.py: 76618f6c0e883de933a31a4308475747363785a3
+      tools/active_baseline.py: 8e7ce55f82c222881f71b9e1a3cef7a41e6f22a2
+      process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml: e8f9e412e35736ab0469d854c504c1331c78a5b9
+      reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md: 69116d5c503ef52fd4ba9dd2fe00af23e6e3588f
+      AGENTS.md: 86e3f8d31d7565184c92aa789fd4fdbede29753d
+      PROJECT_SPINE.md: 48ca58bbdc79645553977c88cd771ebf5f42c9e7
+      process/roadmaps/PC_ROADMAP_CURRENT.yaml: 24cc5014b9fd3a9c75555277bb7aa5d514b03d88
+outputs:
+  allowed:
+    - independent_r1_historical_integrity_review_report
+    - independent_r1_historical_integrity_review_receipt
+    - scoped_engineering_briefing
+  prohibited:
+    - rewrite_original_REVISE_receipt
+    - overwrite_prior_test_evidence
+    - modify_submitted_source_revision
+    - approve_own_implementation
+    - alter_AS_AP_F_CON_DE
+    - modify_active_VO_AD
+    - discharge_VO
+    - accept_AD
+    - implement_FR004
+    - freeze_framework
+    - authorize_cleanroom
+gate:
+  kind: FR003_R1_FOCUSED_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

@@ -80,7 +80,7 @@ framework:
       next: "Scoped FR-002 implementation review accepted; preserve clarification and candidate projection state. No FR-003 work without separate authorization."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
-      status: FOCUSED_R1_SOURCE_CANDIDATE_AWAITING_LOCAL_EVIDENCE
+      status: R1_LOCAL_EVIDENCE_RECEIVED_INDEPENDENT_REVIEW_PENDING
       proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
       design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
       implementation_authorized: true
@@ -100,7 +100,11 @@ framework:
       blocking_finding: FR003-REVIEW-FINDING-001
       issue: "Malformed JSON-escaped lone surrogate path raises UnicodeEncodeError instead of bounded UNRESOLVED."
       recommended_correction: "Reject non-UTF-8-encodable path; one negative regression; rerun local checks and independent review."
-      correction_status: AUTHORED_UNTESTED
+      correction_status: LOCAL_CHECKS_REPORTED_PASS_REVIEW_PENDING
+      correction_source_revision: 0c17ff1b749a675980d848477a92980ff7782c4c
+      r1_evidence_commit: d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601
+      r1_evidence_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
+      r1_review_task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml
       correction_scope: "Only tools/historical_audit.py and tests/test_historical_audit.py; no broader hardening."
       next_local_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
       existing_revise_preserved: true
@@ -156,23 +160,23 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
-  subject: FR-003 R1 malformed Unicode source-path correction
-  source_authorization: process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml
-  previous_review: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
-  blocking_finding: FR003-REVIEW-FINDING-001
-  changed_source: [tools/historical_audit.py, tests/test_historical_audit.py]
-  source_candidate_status: AUTHORED_NOT_TESTED
-  expected_new_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
-  instruction: "Human pulls the focused R1 source, executes historical audit and related regression tests, and selectively pushes a new R1 receipt only if all checks pass."
-  following_action: "Assistant inspects pushed evidence, then registers a new distinct focused R1 independent review."
-  independently_reviewed_and_accepted: false
+  type: INDEPENDENT_REVIEW_EXECUTION
+  subject: FR-003 R1 focused malformed-path correction
+  task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml
+  operation: REVIEW_HISTORICAL_INTEGRITY_R1
+  role: verification-agent
+  evidence_submission_commit: d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601
+  tested_source_revision: 0c17ff1b749a675980d848477a92980ff7782c4c
+  instruction: "Pull, run R1 routing canary, inspect task, execute a distinct focused reviewer and selectively push only actual review artifacts."
+  existing_blocking_review: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
+  local_checks_reported_pass: true
+  independently_accepted: false
   framework_frozen: false
+  following_priority: "After scoped FR-003 acceptance, qualify one reviewer mode and move to FR-005 fresh-agent bootstrap."
   prohibit:
-    - "Do not relabel initial FR-003 REVISE as acceptance or overwrite original evidence."
-    - "Do not expand to hostile security hardening."
-    - "Do not modify accepted product source, VO/AD ledgers or Toy 1 projection state."
-    - "Do not start FR-004 implementation, cleanroom or VO discharge without authorization."
+    - "Do not rewrite earlier FR-003 REVISE or R1 producer evidence."
+    - "Do not claim FR-003 accepted before actual independent review disposition."
+    - "Do not start FR-004 source, cleanroom or VO discharge without authority."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

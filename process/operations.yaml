@@ -101,3 +101,6 @@ operations:
   REVIEW_HISTORICAL_INTEGRITY:
     role: verification-agent
     playbook: process/playbooks/REVIEW_HISTORICAL_INTEGRITY.md
+  REVIEW_HISTORICAL_INTEGRITY_R1:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_HISTORICAL_INTEGRITY_R1.md
