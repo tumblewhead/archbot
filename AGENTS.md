@@ -15,7 +15,7 @@ checkpoint. Neither roadmap grants source-edit approval.
 
 **Framework path:** genericity audit → FR-001 project context (independently
 accepted with clarifications) → **FR-002 generic gate/project baseline
-continuity (active redesign, NOT accepted)** → FR-003 historical integrity
+continuity (independently accepted with clarifications, scoped)** → FR-003 historical integrity
 → FR-004 reviewer execution qualification → FR-005 cleanroom input package
 → FR-006 independent integrated framework-freeze review.
 
@@ -31,15 +31,19 @@ not Toy 1 product acceptance; no cleanroom or freeze is authorized yet.
 Human engineering authority approved the bounded baseline-continuity
 replacement `FR002-BASELINE-CONTINUITY-REPLACEMENT-001`; see
 `process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml`.
-**Current task:** human-run local regression evidence submitted in
-`44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea`, reporting 12 successful
-checks for source `44063ef971bcfd13e96c29eb5371e8fcc14e333a`.
-FR-002 is NOT INDEPENDENTLY ACCEPTED. Next is the independent
-`REVIEW_FR002_BASELINE_CONTINUITY-001` task in
-`process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml`, then inspection
-of its actual disposition. The prior `REVISE` is immutable; the old
-hostile-forgery `REVIEW_FR002_GATE_ADAPTER_R1-001` task stays paused.
-Do not freeze the engine.
+**Current checkpoint:** independent FR-002 cooperative baseline-continuity
+review `REVIEW_FR002_BASELINE_CONTINUITY_001` returned
+`ACCEPT_WITH_CLARIFICATIONS`, committed at
+`2dbd7b003ed515b916595287b8d29478fc1aa805`. This qualifies the
+bounded implementation under its cooperative operating scope only.
+The ROOT-002 canary has no protected validator; registration is separately
+tested, so full non-Toy-1 domain-validator qualification remains outside
+this review. Toy 1's continuity projection is still a candidate and
+NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
+`REVIEW_FR002_GATE_ADAPTER_R1-001` paused task are preserved.
+**Next action:** checkpoint/roadmap synchronized; any FR-003 planning
+or source work requires its own separate authorization. No framework
+freeze, cleanroom, product acceptance or VO discharge.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML

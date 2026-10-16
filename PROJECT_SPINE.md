@@ -3,50 +3,52 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-002 continuity local evidence received; independent review next
+## Current checkpoint: FR-002 scoped independent acceptance recorded
 
 Read the [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
 and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md) for complete
 milestones and authority boundaries.
 
-The user explicitly authorized the bounded cooperative
-[FR-002 baseline-continuity replacement](process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml).
-Source was authored at `c23a31b93574cd71eb6f7cc6b65e1ee470b5a482`
-and supplemented by a real second-project loader canary at
-`44063ef971bcfd13e96c29eb5371e8fcc14e333a`.
-The human's [local regression receipt](reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json)
-was submitted in `44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea`:
-12 checks with zero exit codes and ten Git source identities that match the
-tested source commit. Raw test logs are local; no independent review yet.
+The [FR-002 cooperative baseline-continuity independent report](reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-report.md)
+and [receipt](reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json)
+were pushed in `2dbd7b003ed515b916595287b8d29478fc1aa805` with
+disposition **ACCEPT_WITH_CLARIFICATIONS** for
+`FR002_COOPERATIVE_BASELINE_CONTINUITY_IMPLEMENTATION_ONLY`.
+The reviewer independently reran 93 unit tests from seven suites, verified
+10 source and receipt identities and 12 local producer-log fingerprints,
+inspected the preserved C-002 checks, and reproduced a synthetic
+reviewed-transition path through the full project-bound loader.
 
-**Next authorized task:** independent `REVIEW_FR002_BASELINE_CONTINUITY-001`
-with operation `REVIEW_BASELINE_CONTINUITY` and
-[manifest](process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml)/
-[playbook](process/playbooks/REVIEW_BASELINE_CONTINUITY.md).
-The reviewer must test project-owned baseline continuity, prevention of
-accidental C-002 omission, a truly usable reviewed transition path, Toy 1
-negative controls, explicit simulation-vs-approval boundary, and a
-second-project binding with no engine-owned project registry.
+**Clarification `FR002-CONT-CLARIFICATION-001` (minor):** the
+second-project ROOT-002 loader canary has no protected domain validator;
+the explicit registration interface was tested separately. Thus this
+review establishes generic loading, continuity and extension-interface
+behavior, **not** a complete independently qualified Toy 2 validator.
+This qualification limit is retained for future Toy 2 and genericity work.
 
-**Next human action:** pull, run the new route canary, inspect the manifest,
-then launch a genuinely separate `verification-agent` review, or render
-and perform the task inside an already separately invoked reviewer.
-Commit/push only the new scoped report and receipt. The assistant then
-inspects the actual verdict before suggesting FR-003 or a correction.
+Source revision `44063ef971bcfd13e96c29eb5371e8fcc14e333a`
+and the human's [regression receipt](reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json)
+remain pinned to their recorded histories. The earlier FR-002
+[REVISE reviewer verdict](reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json)
+and historical R1 source and evidence remain immutable; the hostile-forgery
+`REVIEW_FR002_GATE_ADAPTER_R1-001` task remains **paused**.
+The current project-owned
+`process/project_authority/AS-001-AP-continuity-candidate-v1.yaml`
+is still `candidate_for_independent_review`; **do not activate it** or
+treat this implementation review as approval of that projection.
 
-The original FR-002 independent `REVISE` review and older R1 source and
-test receipt remain historical and unchanged. The hostile-forgery review
-task `REVIEW_FR002_GATE_ADAPTER_R1-001` remains **paused**. The new
-Toy 1 continuity projection remains `candidate_for_independent_review`
-and cannot confer real product gate eligibility. FR-001 R1 remains accepted
-with clarifications for role-context projection only.
+**The review's next eligible action was to update this checkpoint and the
+roadmap together; that administrative step is now recorded.**
+FR-003 historical-integrity planning and source work have **not** been
+authorized. A separate bounded proposal/authorization is needed before
+the next implementation task. No independent review here accepts
+firmware, grants product qualification, freezes the generic framework,
+launches cleanroom, closes F-001 or discharges a verification obligation.
 
-The cooperative-audience assumption governs: preserve requirements and
-reviewed authority transitions against accidental mistakes; do not
-expand this review into hostile repository forgery or cryptographic
-signing. FR-002 is **not independently accepted**. No freeze, cleanroom,
-target qualification, AD change, final F-001, VO discharge or FR-003
-implementation is authorized.
+FR-001 R1 remains independently `ACCEPT_WITH_CLARIFICATIONS` for scoped
+role-projected context. Cooperative users and agents remain the operating
+assumption; requirements must persist across normal project changes
+unless an explicit reviewed transition applies.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
