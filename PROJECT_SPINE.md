@@ -3,45 +3,50 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-002 baseline continuity source candidate; local tests next
+## Current checkpoint: FR-002 continuity local evidence received; independent review next
 
 Read the [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
-and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md) for durable
-milestones and scope.
+and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md) for complete
+milestones and authority boundaries.
 
-Engineering authority approved [FR002-BASELINE-CONTINUITY-REPLACEMENT-001](process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml)
-by the explicit reply "lets proceed"; the versioned
-[authorization](process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml)
-limits source changes. The
-[authoring report](reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md)
-covers the new generic `tools/gates/continuity.py`, project-owned Toy 1
-candidate projection, new v2 binding, source changes and regression tests.
+The user explicitly authorized the bounded cooperative
+[FR-002 baseline-continuity replacement](process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml).
+Source was authored at `c23a31b93574cd71eb6f7cc6b65e1ee470b5a482`
+and supplemented by a real second-project loader canary at
+`44063ef971bcfd13e96c29eb5371e8fcc14e333a`.
+The human's [local regression receipt](reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json)
+was submitted in `44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea`:
+12 checks with zero exit codes and ten Git source identities that match the
+tested source commit. Raw test logs are local; no independent review yet.
 
-**Status: source candidate authored, NOT YET LOCALLY TESTED, NOT
-INDEPENDENTLY REVIEWED.** The next action is for the human to pull,
-run `test_baseline_continuity.py`, `test_gate_adapter.py`, unchanged
-`test_stage_gate.py`, task/telemetry/FR-001 and prior review-route
-regressions, and explicit v2/legacy inspectors. If any fail, preserve
-logs, stop and report. If all pass, selectively commit/push a fresh
-FR002_BASELINE_CONTINUITY-local-test-receipt.json with checks and source
-hashes. The assistant must inspect pushed evidence before registering a
-new independent review.
+**Next authorized task:** independent `REVIEW_FR002_BASELINE_CONTINUITY-001`
+with operation `REVIEW_BASELINE_CONTINUITY` and
+[manifest](process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml)/
+[playbook](process/playbooks/REVIEW_BASELINE_CONTINUITY.md).
+The reviewer must test project-owned baseline continuity, prevention of
+accidental C-002 omission, a truly usable reviewed transition path, Toy 1
+negative controls, explicit simulation-vs-approval boundary, and a
+second-project binding with no engine-owned project registry.
 
-The previous FR-002 independent **REVISE** verdict and all earlier
-R1 source/evidence are historical, not overwritten or accepted by this
-replacement. `REVIEW_FR002_GATE_ADAPTER_R1-001` remains paused.
-The new project projection is itself a **candidate**, so it can
-support simulation/inspection only until separately reviewed and
-accepted. The original Toy 1 v1 binding remains historical, and new
-explicit inspection uses the candidate v2 binding; `--legacy-toy1`
-remains available.
+**Next human action:** pull, run the new route canary, inspect the manifest,
+then launch a genuinely separate `verification-agent` review, or render
+and perform the task inside an already separately invoked reviewer.
+Commit/push only the new scoped report and receipt. The assistant then
+inspects the actual verdict before suggesting FR-003 or a correction.
 
-Cooperative users are assumed; detect accidental missing requirements
-and require versioned reviewed transitions, not hostile forgery
-resistance. FR-001 R1 remains `ACCEPT_WITH_CLARIFICATIONS` for scoped
-role-context projection. No framework freeze, cleanroom, target
-qualification, final F-001, VO discharge, AD change or FR-003 work is
-authorized.
+The original FR-002 independent `REVISE` review and older R1 source and
+test receipt remain historical and unchanged. The hostile-forgery review
+task `REVIEW_FR002_GATE_ADAPTER_R1-001` remains **paused**. The new
+Toy 1 continuity projection remains `candidate_for_independent_review`
+and cannot confer real product gate eligibility. FR-001 R1 remains accepted
+with clarifications for role-context projection only.
+
+The cooperative-audience assumption governs: preserve requirements and
+reviewed authority transitions against accidental mistakes; do not
+expand this review into hostile repository forgery or cryptographic
+signing. FR-002 is **not independently accepted**. No freeze, cleanroom,
+target qualification, AD change, final F-001, VO discharge or FR-003
+implementation is authorized.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

@@ -1,0 +1,61 @@
+schema: pc-task/v1
+id: REVIEW_FR002_BASELINE_CONTINUITY-001
+role: verification-agent
+operation: REVIEW_BASELINE_CONTINUITY
+spine: /architecture/AS-001/spine.md
+trigger:
+  kind: FR002_COOPERATIVE_BASELINE_CONTINUITY_EVIDENCE_SUBMITTED
+  reference: reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json
+  revision: 44063ef971bcfd13e96c29eb5371e8fcc14e333a
+playbook: process/playbooks/REVIEW_BASELINE_CONTINUITY.md
+context:
+  selection: role_policy
+  mandatory_dependency_closure: true
+  include_raw_data_by_default: false
+  review_inputs:
+    repair_id: FR002-BASELINE-CONTINUITY-REPLACEMENT-001
+    scope: FR002_COOPERATIVE_BASELINE_CONTINUITY_IMPLEMENTATION_ONLY
+    operating_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+    approved_scope: process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml
+    design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
+    proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
+    author_report: reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
+    prior_independent_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
+    prior_disposition: REVISE
+    retired_review_task: process/tasks/REVIEW_FR002_GATE_ADAPTER_R1-001.yaml
+    source_revision: 44063ef971bcfd13e96c29eb5371e8fcc14e333a
+    submission_commit: 44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea
+    submission_path: reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json
+    submission_blob_sha1: bf0c598e75bc098998df9552c94bd19d99858da8
+    expected_submission_schema: pc-framework-repair-test-evidence/v1
+    source_git_blob_sha1:
+      tools/stage_gate.py: 01b7f6bad2f78aee06cd4fc5664b806fcca1b4a4
+      tools/gates/__init__.py: 911db5e8c7f9fb315603bc1ad5ee36f8fb84b82b
+      tools/gates/common.py: 86d7016deaefff011a4a9ecd682a8072e302699d
+      tools/gates/toy1_c002.py: 18ae2486bc62dca3d6ee9046c602d2ceb859c06c
+      tools/gates/binding.py: d9c206bdfb873c0f5cd511bb26e7fc7445393b4f
+      tools/gates/continuity.py: 3ba20fdf4e3688757fb43a255230edaf1009e503
+      process/project_authority/AS-001-AP-continuity-candidate-v1.yaml: cc0610357f03716ab940b72e00525b248c3361b4
+      process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml: 85c879036dd9dd9a511a4d1a21ab2249e3106590
+      tests/test_gate_adapter.py: e09777318d0fcafad5cfead829875c6bc69d14bc
+      tests/test_baseline_continuity.py: 11da40fc38c12d8170b4053ca9bb22760e37f3ef
+outputs:
+  allowed:
+    - independent_cooperative_continuity_review_report
+    - independent_cooperative_continuity_review_receipt
+    - concise_engineering_briefing
+  prohibited:
+    - rewrite_old_REVISE_or_R1_receipts
+    - modify_submitted_source_or_test_evidence
+    - approve_own_implementation
+    - alter_accepted_AS_AP_F_CON_DE_or_C002
+    - modify_active_VO_AD_ledgers
+    - discharge_VO
+    - accept_AD
+    - implement_FR003
+    - freeze_generic_framework
+    - authorize_cleanroom
+gate:
+  kind: FR002_COOPERATIVE_CONTINUITY_INDEPENDENT_REVIEW
+  on_missing_evidence: UNRESOLVED
+  require_independent_review: true

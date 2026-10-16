@@ -48,7 +48,7 @@ framework:
       scope: "Declared project spine controls telemetry role-projected context and exported context, not physical workspace isolation."
       exit: "Scoped context selection independently reviewed."
     - id: FR-002-GATE-ADAPTER
-      status: SOURCE_CANDIDATE_AWAITING_LOCAL_TESTS_AND_INDEPENDENT_REVIEW
+      status: LOCAL_EVIDENCE_SUBMITTED_INDEPENDENT_REVIEW_PENDING
       authority: process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
       first_independent_review: reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
       first_review_verdict: REVISE
@@ -59,13 +59,17 @@ framework:
       chosen_direction: "Project-owned accepted-baseline continuity, explicit authority transitions, reusable generic AP mechanics and opt-in project validators."
       replacement_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
       replacement_design: docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
-      replacement_status: AUTHORIZED_SOURCE_CANDIDATE_UNTESTED
+      replacement_status: LOCAL_CHECKS_REPORTED_PASS_REVIEW_PENDING
+      tested_source_revision: 44063ef971bcfd13e96c29eb5371e8fcc14e333a
+      local_evidence_commit: 44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea
+      local_evidence_receipt: reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json
+      independent_review_task: process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml
       source_authorization: process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml
       authoring_report: reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
       new_project_projection: process/project_authority/AS-001-AP-continuity-candidate-v1.yaml
       new_candidate_binding: process/gate_configs/AS-001-AP-continuity-candidate-v2.yaml
       new_tests: [tests/test_gate_adapter.py, tests/test_baseline_continuity.py]
-      next: "Human pulls, locally runs bounded tests and explicit v2/legacy inspector checks, then pushes test evidence. Assistant inspects before a new independent review."
+      next: "Human pulls new review route, runs its canary, then executes independent cooperative-continuity review and pushes report/receipt. Assistant inspects disposition."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
       status: NOT_STARTED
@@ -121,29 +125,21 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
-  subject: FR-002 accepted-baseline continuity source candidate
-  proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
-  authorization: process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml
-  source_report: reviews/qualification/FR002_BASELINE_CONTINUITY-authoring-report.md
-  planned_receipt: reviews/qualification/FR002_BASELINE_CONTINUITY-local-test-receipt.json
-  instruction: "Pull the source candidate, run targeted and historical regressions and explicit binding v2/legacy inspections; report failures or push a bounded receipt if all pass."
-  required_sources:
-    - docs/PC_COOPERATIVE_OPERATING_MODEL.md
-    - docs/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.md
-    - process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
-    - process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
-    - reviews/qualification/REVIEW_FR002_GATE_ADAPTER_001-receipt.json
-    - reviews/qualification/FR002_GATE_ADAPTER_R1-local-test-receipt.json
-    - process/decisions/FR-002-GATE-ADAPTER-AUTHORIZATION-001.yaml
-    - process/baselines/AS-001-v2-active.yaml
+  type: INDEPENDENT_REVIEW_EXECUTION
+  subject: FR-002 cooperative project-owned baseline continuity
+  task: process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml
+  operation: REVIEW_BASELINE_CONTINUITY
+  role: verification-agent
+  evidence_submission_commit: 44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea
+  tested_source_revision: 44063ef971bcfd13e96c29eb5371e8fcc14e333a
+  instruction: "Pull and validate the new review route, then execute a distinct independent reviewer invocation and selectively publish the actual scoped report/receipt."
   source_approval_recorded: true
   independently_reviewed: false
   prohibit:
-    - "Do not run paused REVIEW_FR002_GATE_ADAPTER_R1-001 as the active review gate."
+    - "Do not run paused REVIEW_FR002_GATE_ADAPTER_R1-001 as the active review."
     - "Do not label FR-002 accepted or the framework frozen."
-    - "Do not rewrite historical independent review receipts, accepted AS/AP/F/CON/DE or active VO/AD ledgers."
-    - "Do not run the cleanroom, complete F-001, select target or discharge VOs."
+    - "Do not rewrite accepted AS/AP/F/CON/DE or old review receipts."
+    - "Do not start FR-003, cleanroom, target selection, final F-001, or VO discharge."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

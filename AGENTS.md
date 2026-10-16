@@ -31,13 +31,15 @@ not Toy 1 product acceptance; no cleanroom or freeze is authorized yet.
 Human engineering authority approved the bounded baseline-continuity
 replacement `FR002-BASELINE-CONTINUITY-REPLACEMENT-001`; see
 `process/decisions/FR002_BASELINE_CONTINUITY_REPLACEMENT-AUTHORIZATION-001.yaml`.
-**Current task:** source candidate authored but NOT LOCALLY TESTED and
-NOT INDEPENDENTLY REVIEWED. The human pulls, runs focused gate and
-continuity regressions, and pushes a bounded evidence receipt only when
-every check passes. The prior FR-002 `REVISE` review remains historical;
-the hostile-forgery `REVIEW_FR002_GATE_ADAPTER_R1-001` task is paused.
-Next after validated local evidence is a **new**, independent review of
-cooperative project-owned baseline continuity. Do not freeze the engine.
+**Current task:** human-run local regression evidence submitted in
+`44da84c263b54c8b5fcda3d9ea80bfd4109aa6ea`, reporting 12 successful
+checks for source `44063ef971bcfd13e96c29eb5371e8fcc14e333a`.
+FR-002 is NOT INDEPENDENTLY ACCEPTED. Next is the independent
+`REVIEW_FR002_BASELINE_CONTINUITY-001` task in
+`process/tasks/REVIEW_FR002_BASELINE_CONTINUITY-001.yaml`, then inspection
+of its actual disposition. The prior `REVISE` is immutable; the old
+hostile-forgery `REVIEW_FR002_GATE_ADAPTER_R1-001` task stays paused.
+Do not freeze the engine.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
