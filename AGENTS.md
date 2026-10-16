@@ -46,13 +46,17 @@ NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 approved ("yes proceed"), recorded in
 `process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml`.
 The read-only historical auditor `tools/historical_audit.py` and
-`tests/test_historical_audit.py` (12 methods) are authored as a
-**source candidate NOT LOCALLY TESTED and NOT INDEPENDENTLY REVIEWED**.
-Next the human pulls, runs the new suite and historic VK-001/FR-001/
-FR-002/active-baseline regressions, then selectively pushes evidence.
-The assistant inspects pushed results before registering a distinct
-FR-003 reviewer. Do not call historical hash correspondence product
-verification, present applicability or accepted review disposition.
+`tests/test_historical_audit.py` (12 methods) are authored. The human's
+local receipt pushed in `040400394e030c7898de66aa3bd1a3648f8e3555`
+reports **14 successful checks** for source
+`66b75a2a3720bca32f13b430a26715da8477641f`; nine source blob
+identities match. FR-003 remains **NOT INDEPENDENTLY REVIEWED**.
+Next is `REVIEW_FR003_HISTORICAL_INTEGRITY-001` with manifest
+`process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml`.
+Conduct a genuinely distinct review and inspect its verdict before
+calling FR-003 accepted or proceeding to FR-004. Do not conflate
+historical correspondence, current applicability or independent
+review disposition with product verification.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML

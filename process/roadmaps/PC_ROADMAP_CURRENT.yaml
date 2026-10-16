@@ -80,7 +80,7 @@ framework:
       next: "Scoped FR-002 implementation review accepted; preserve clarification and candidate projection state. No FR-003 work without separate authorization."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
-      status: SOURCE_CANDIDATE_AWAITING_LOCAL_TESTS_AND_INDEPENDENT_REVIEW
+      status: LOCAL_TEST_EVIDENCE_RECEIVED_INDEPENDENT_REVIEW_PENDING
       proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
       design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
       implementation_authorized: true
@@ -88,7 +88,11 @@ framework:
       source: tools/historical_audit.py
       tests: tests/test_historical_audit.py
       author_report: reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md
-      local_checks: NOT_EXECUTED
+      source_revision: 66b75a2a3720bca32f13b430a26715da8477641f
+      local_evidence_commit: 040400394e030c7898de66aa3bd1a3648f8e3555
+      local_evidence_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json
+      local_checks: REPORTED_14_SUCCESS
+      independent_review_task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml
       independent_review: PENDING
       intent: "Read-only historical source-revision auditor distinct from current-applicability checking and reviewed-status overlay."
       exit: "Historical byte correspondence is verifiable at the original source revision, without requiring current worktree bytes to match; applicability and review status remain separate."
@@ -142,22 +146,23 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
-  subject: FR-003 source-time historical audit candidate
-  status: SOURCE_AUTHORIZED_UNTESTED
-  proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
-  authorization: process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml
-  author_report: reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md
-  planned_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json
-  instruction: "Pull current FR-003 source, run new/history/active-baseline regressions and exact CLI; stop on errors or selectively push test receipt on complete pass."
-  local_tests_completed: false
+  type: INDEPENDENT_REVIEW_EXECUTION
+  subject: FR-003 historical source-integrity auditor
+  task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY-001.yaml
+  operation: REVIEW_HISTORICAL_INTEGRITY
+  role: verification-agent
+  tested_source_revision: 66b75a2a3720bca32f13b430a26715da8477641f
+  evidence_submission_commit: 040400394e030c7898de66aa3bd1a3648f8e3555
+  instruction: "Human pulls, runs the route canary, inspects the registered task and executes a distinct independent reviewer. Selectively publish actual review report/receipt."
+  source_approval_recorded: true
+  local_tests_reported_pass: true
   independently_reviewed: false
   framework_frozen: false
   prohibit:
-    - "Do not claim FR-003 accepted from a matching hash or green author tests."
-    - "Do not edit historical reviews, authoring PENDING state, accepted project data or active VO/AD ledgers."
-    - "Do not activate Toy 1's FR-002 candidate continuity projection."
-    - "Do not start FR-004, cleanroom, final F-001 or discharge VOs without their own authority."
+    - "Do not mark FR-003 accepted based only on producer tests."
+    - "Do not change historical authoring states, reviews, accepted project source or VO/AD records."
+    - "Do not activate Toy 1 FR-002 candidate continuity projection."
+    - "Do not start FR-004 implementation, cleanroom, final F-001 or VO discharge."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

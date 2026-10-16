@@ -98,3 +98,6 @@ operations:
   REVIEW_BASELINE_CONTINUITY:
     role: verification-agent
     playbook: process/playbooks/REVIEW_BASELINE_CONTINUITY.md
+  REVIEW_HISTORICAL_INTEGRITY:
+    role: verification-agent
+    playbook: process/playbooks/REVIEW_HISTORICAL_INTEGRITY.md
