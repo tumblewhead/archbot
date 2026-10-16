@@ -3,48 +3,56 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-003 R1 producer evidence verified; focused review next
+## Current checkpoint: FR-003 R1 accepted; project isolation architecture proposed
 
-Read the [durable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
-and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
-FR-001 and FR-002 retain scoped `ACCEPT_WITH_CLARIFICATIONS`, with
-FR-002's ROOT-002 protected-validator coverage clarification preserved.
-Toy 1's candidate continuity projection is not active.
+Follow [the machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
+and the [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
+FR-001 and FR-002 remain independently `ACCEPT_WITH_CLARIFICATIONS`
+for their scoped implementations. FR-002's Toy 1 continuity projection
+remains a candidate, and its ROOT-002 protected-validator clarification
+remains. No project product acceptance follows.
 
-FR-003 initially returned **REVISE** in
-[its independent review](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json)
-for finding `FR003-REVIEW-FINDING-001`: a JSON-escaped lone
-surrogate source path escaped as `UnicodeEncodeError` rather than
-bounded `UNRESOLVED`. This initial review and old producer receipt
-remain untouched.
+The latest [focused FR-003 R1 independent review](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-receipt.json)
+pushed in `ff9c723882b88dd9e5589c745768a1590e0cc9eb` returned
+**ACCEPT** for `FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY`,
+resolving `FR003-REVIEW-FINDING-001`. The reviewer independently
+ran 91 test methods, reproduced escaped U+D800/U+DC00 returning bounded
+`UNRESOLVED`, and confirmed a valid Unicode path still matches.
+Producer logs were unavailable to this reviewer; source identities
+and key tests were independently reproduced. The initial FR-003
+`REVISE` and all historical receipts remain immutable.
+FR-003 acceptance is scoped to the correction plus previously
+examined evidence behavior, not new broad security assurance.
 
-A narrow fix in `tools/historical_audit.py` and regression for high/low
-lone surrogate values were committed at
-`0c17ff1b749a675980d848477a92980ff7782c4c`.
-The user's [new R1 local receipt](reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json)
-was pushed in `d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601`
-and reports **seven exit-zero commands**, with nine source pins
-matching the tested source commit. This is producer evidence, not
-independent acceptance.
+**New human architectural direction:** visibly distinguish permanent
+framework machinery from project-owned state and disposable runtime.
+[Directory ownership contract](process/layout/PC_PROJECT_BOUNDARY_001.yaml),
+[layout design](docs/PROJECT_BOUNDARY_LAYOUT_001.md), and the
+[bounded migration proposal](process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml)
+document `framework/` (reusable code/process/qualification),
+`projects/<project_id>/` (self-contained knowledge, authority, code,
+validators, reviews, tests), and project-local ignored `.work/`.
+A project should be discoverable simply by dropping in its directory,
+and removable as active state by deleting that directory without
+altering shared framework source.
 
-**Next eligible task:** distinct `verification-agent`
-`REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001` using
-[manifest](process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml)
-and [focused playbook](process/playbooks/REVIEW_HISTORICAL_INTEGRITY_R1.md).
-Human pulls, runs `test_fr003_r1_review_route.py`, inspects the task,
-then executes a separate reviewer invocation and selectively publishes
-the report/receipt. If reviewer reports `REVISE`, preserve it.
-The assistant inspects the actual verdict before changing milestone
-status or proposing FR-004.
+**Important:** this target structure is **NOT YET IMPLEMENTED**.
+The present root still mixes Toy 1 with the framework across
+`knowledge/`, `process/`, `reviews/`, `tools/` and `tests/`.
+Do not delete those roots, rewrite accepted receipts, or claim
+portable delete/drop works today. Git history retains previous project
+content even when the worktree project is removed; FR-005 cleanroom
+requires separate positive-allowlist packaging with no old Git history.
 
-**Direction after FR-003 acceptance:** minimize FR-004 to the necessary
-reviewer mode, prioritize FR-005 fresh unsolved-project/bootstrap
-demonstration, then FR-006 integrated freeze and an independently
-authorized cleanroom Toy 1. No unlimited polish cycle.
-
-FR-003 remains **not independently accepted**. No FR-004 implementation,
-framework freeze, cleanroom, target acceptance, final F-001, AD change or
-VO discharge is authorized. Cooperative-audience assumption applies.
+**Next eligible decision:** engineering authority approval or revision
+of `PC-PROJECT-ISOLATION-MIGRATION-001` before any bulk path moves,
+source routing migration or removal of old active roots. FR-004
+reviewer-mode qualification remains separately pending; we should
+qualify only the single mode actually promised. FR-005's working
+fresh-agent unsolved-project bootstrap is the main integration
+milestone, then FR-006 separate independent freeze review. No
+cleanroom run, target qualification, final F-001, VO discharge or
+framework freeze is authorized by this architecture proposal.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

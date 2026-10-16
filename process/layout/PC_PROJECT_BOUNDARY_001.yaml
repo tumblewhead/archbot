@@ -1,0 +1,155 @@
+schema: pc-filesystem-ownership/v1
+id: PC-PROJECT-BOUNDARY-001
+status: PROPOSED_ARCHITECTURE_NOT_YET_IMPLEMENTED
+scope: progressive-concretization-tooling
+owner: framework
+goals:
+  - "Installing the reusable framework never installs a hidden active engineering project."
+  - "Deleting projects/<project_id>/ removes all visible active project-owned artifacts and local work in that folder."
+  - "Dropping a portable project folder into projects/ makes it discoverable without rewriting generic framework source."
+  - "Projects cannot silently obtain requirements, decisions, validators, evidence or configuration from a different project."
+  - "Framework qualification/evolution is separate from a project's own acceptance/decision history."
+future_layout:
+  framework:
+    path: framework/
+    persistent: true
+    content:
+      - core_and_cli
+      - agent_roles
+      - generic_process_operations_and_playbooks
+      - schemas_templates_and_role_views
+      - generic_validators_and_extension_contracts
+      - framework_documentation_and_tests
+      - qualification_reviews_and_process_roadmap
+    not_project_specific: true
+  projects:
+    root: projects/
+    project_path_pattern: projects/<project_id>/
+    self_contained: true
+    portable: true
+    tracked:
+      - project.yaml
+      - PROJECT_SPINE.md
+      - knowledge/
+      - process/
+      - decisions_and_accepted_ledger_state/
+      - reviews_and_evidence_receipts/
+      - implementation/
+      - adapters/
+      - tests/
+    ignored:
+      - .work/
+      - __pycache__/
+      - generated_local_logs/
+  exports:
+    path: exports/
+    optional: true
+    default_ignored: true
+    purpose: "Optional explicit portable snapshots, never autoloaded as an active project."
+root_bootstrap:
+  paths: [AGENTS.md, README.md, framework/, projects/]
+  active_project_default: NONE
+  project_selection: EXPLICIT_ID_OR_VALIDATED_PROJECT_DIRECTORY
+  project_discovery: "Enumerate projects/*/project.yaml, no source-coded allowlist."
+  missing_project: FAIL_VISIBLE_WITH_NO_PROJECT_ACTIVE
+project_manifest:
+  proposed_schema: pc-project-bundle/v1
+  canonical_location: projects/<project_id>/project.yaml
+  required:
+    - project_id
+    - bundle_schema_version
+    - framework_contract_version
+    - project_spine
+    - project_artifact_roots
+    - activated_baseline_reference_or_null
+    - declared_validators
+  conditions:
+    - "project_id equals validated project directory identifier."
+    - "Every project-local authority reference resolves inside this project bundle."
+    - "Only explicit references into versioned generic framework interfaces may cross into framework/."
+    - "No authority or project-data reference into a sibling project or framework qualification tree."
+    - "A project bundle cannot silently self-approve reviewed source or bypass required human authority."
+    - "Import never marks candidate documents accepted."
+    - "Framework version incompatibility blocks with a clear upgrade/migration report."
+separation:
+  temporary_outputs: projects/<project_id>/.work/
+  review_receipts: projects/<project_id>/reviews/
+  project_knowledge: projects/<project_id>/knowledge/
+  project_implementation: projects/<project_id>/implementation/
+  project_validator_code: projects/<project_id>/adapters/
+  framework_review_receipts: framework/qualification/
+  framework_source_code: framework/core/
+  framework_accepted_operating_rules: framework/process/
+  project_templates: framework/templates/
+deletion_semantics:
+  removes_from_worktree: "Entire active project folder, including local .work, if deliberately removed."
+  does_not_remove: "Git commit history, remote backups, explicit exports, already connected external copies."
+  after_deletion: "Tool lists no such active project; no stale global selected project or project-specific registry allowed."
+  recommended_before_delete: "Optional explicit portable export or version control commit; operator chooses."
+  cleanroom_requirement: "Pack independent allowlisted workspace without the old repository's .git history, original project folders, previous chats or evaluator artifacts."
+current_legacy_inventory:
+  framework_candidate_roots:
+    - agents/
+    - tools/
+    - process/playbooks/
+    - process/templates/
+    - process/operations.yaml
+    - process/views.yaml
+    - process/loop_transitions.yaml
+  project_candidate_roots:
+    - knowledge/
+    - implementation/toy1/
+    - process/baselines/
+    - process/ledgers/
+    - process/policies/
+    - process/gate_configs/
+    - process/project_authority/
+    - process/verification/toy1-input-v1.json
+    - process/verification/toy1-input-v2.json
+    - reviews/gates/
+    - reviews/verification/
+  mixed_roots_need_per_file_classification:
+    - tools/gates/
+    - tools/toy1_c_evidence.py
+    - tools/toy1_resource_evidence.py
+    - tests/
+    - process/decisions/
+    - process/tasks/
+    - process/proposals/
+    - docs/
+    - reviews/
+    - prompts/
+    - PROJECT_SPINE.md
+  ignored_runtime:
+    - runs/
+    - .venv/
+    - __pycache__/
+  path_couplings_to_remove:
+    - tools/pc.py
+    - tools/task.py
+    - tools/task_legacy.py
+    - tools/telemetry.py
+    - tools/gates/binding.py
+    - tools/stage_gate.py
+    - tools/verification_kernel.py
+    - tools/active_baseline.py
+    - tools/next_task.py
+transition:
+  classification_first: true
+  no_destructive_move_before_approved_plan: true
+  preserve_historical_git_revision_pins: true
+  retain_legacy_entrypoints_until_new_project_contract_qualified: true
+  no_duplicate_active_authority_paths_after_cutover: true
+  migration_requires_project_data_and_framework_code_path_tests: true
+  acceptance_demo:
+    - "No projects installed -> no active project"
+    - "Drop project A -> discover, validate, select and run independent project-local routing"
+    - "Drop project B -> no A paths, evidence or authority visible in selected B context"
+    - "Remove A -> active project A disappears; B still runs"
+    - "Fresh unsolved project bootstrap -> generate empty legal project with no reused solution"
+    - "Legacy Toy 1 evidence source commits remain reproducible without rewriting originals"
+approval:
+  user_architectural_direction: "User requested explicit permanent-versus-project directory ownership and removable/drop-in project folders."
+  source_migration_authorized: false
+  framework_freeze_authorized: false
+  cleanroom_authorized: false

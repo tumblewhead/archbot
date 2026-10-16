@@ -1,0 +1,94 @@
+schema: pc-framework-migration-proposal/v1
+id: PC-PROJECT-ISOLATION-MIGRATION-001
+status: PROPOSED_SOURCE_MIGRATION_NOT_AUTHORIZED
+repository: tumblewhead/archbot
+architectural_direction:
+  source: "User requested a permanent reusable machinery versus removable/drop-in project directory distinction."
+  accepted_as_desired_behavior: true
+  specific_source_move_authorized: false
+boundary_contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
+design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
+program_context:
+  fr001_scope: INDEPENDENTLY_ACCEPTED_WITH_CLARIFICATIONS
+  fr002_scope: INDEPENDENTLY_ACCEPTED_WITH_CLARIFICATIONS
+  fr003_review: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-receipt.json
+  fr003_r1_disposition: ACCEPT
+  remaining_fr004: reviewer_execution_mode_qualification
+  remaining_fr005: cleanroom_project_bootstrap_package
+purpose: >-
+  Turn the current mixed-root pilot repository into an installed reusable
+  framework that can accept, select, export and remove self-contained
+  engineering-project bundles without residual active project authority.
+proposed_bounded_implementation:
+  - "Introduce framework/ and projects/ as real, separately owned roots."
+  - "Add an explicit project.yaml contract and validated project-root resolver; require project_id selection, no Toy 1 default."
+  - "Classify existing mixed-root source per file before moving it; separate framework's own qualification from Toy 1 review history."
+  - "Migrate Toy 1 current active materials and validators with reviewed path mapping; do not rewrite historical receipt identities."
+  - "Move local scratch/logs inside project .work (ignored), with optional explicit non-autoloaded exports."
+  - "Adapt generic task/context/gate/verification entrypoints to project-scoped paths and relocatable adapters."
+  - "Retain historical Git source-time lookup for archived receipts at old revisions."
+  - "Add a fresh unsolved project initializer and portable project manifest validation."
+  - "Demonstrate drop-in project, multi-project isolation, project deletion, and fresh-project bootstrap with actual tests."
+  - "Preserve previous entrypoints as explicit legacy compatibility during migration; prohibit implicit legacy default on new project operations."
+candidate_surface:
+  framework:
+    - framework/core/
+    - framework/agents/
+    - framework/process/
+    - framework/templates/
+    - framework/tests/
+    - framework/docs/
+    - framework/qualification/
+  projects:
+    - projects/AS-001/
+    - projects/ROOT-002/
+  root:
+    - AGENTS.md
+    - README.md
+    - .gitignore
+  legacy_paths_to_reconcile:
+    - agents/
+    - tools/
+    - tests/
+    - knowledge/
+    - process/
+    - reviews/
+    - implementation/
+    - prompts/
+    - docs/
+    - PROJECT_SPINE.md
+requirements:
+  - "New project creation must have no accepted baseline, AP selection, discharged VO or inherited solution."
+  - "Deleting one project folder must leave no active project registration, context or generated run artifacts for that project."
+  - "Dropping a compatible project folder must require no edit to reusable engine code."
+  - "All active evidence/authority/validator paths for a project must be project-root local or declared generic interfaces."
+  - "Framework qualification files cannot become project-accepted authority by accidental lookup."
+  - "No cross-project source or authority reference without an explicit reviewed export/import decision."
+  - "Old Git commits and independently reviewed evidence remain reproducible at their historical locations."
+  - "No positive cleanroom claim merely because an active project folder was deleted from a Git checkout."
+  - "Retain independent reviewer execution boundaries from FR004 and FR005; migration is not an FR004 acceptance."
+acceptance_demonstrations:
+  - "No projects installed: list empty, project commands do not invent AS-001."
+  - "Portable Toy 1: copy into projects/AS-001, inspect/dispatch without shared tool source edits."
+  - "Independent ROOT-002: no accidental Toy 1 context, validator or accepted decision reference."
+  - "Remove Toy 1 folder: active discovery and tasks no longer see its material; ROOT-002 still works."
+  - "Project initializer emits only empty unsolved scaffolding with correct schema and no AP/CON/DE/implementation answers."
+  - "Historical source-time FR001/FR002/FR003 audits still match earlier Git revisions."
+  - "Framework regression suite and Toy 1 accepted behavior remain within earlier accepted limits."
+  - "Separate independent review of project isolation and migration evidence before calling portable restart qualified."
+non_goals:
+  - "New security sandbox against actively malicious engineers or agents."
+  - "Erasing Git history/connected account contents when a project directory is deleted."
+  - "Modifying accepted Toy 1 requirements or discharging open VOs."
+  - "Declaring a cleanroom qualification before isolation package tests and separate authorization."
+  - "Requiring two reviewer execution modes solely for symmetry."
+authority:
+  architecture_direction_recorded: true
+  implementation_scope_approval_required: true
+  source_migration_authorized: false
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
+next_eligible_action: "Approve or revise the bounded project-isolation migration scope. No destructive Git moves before authorization."

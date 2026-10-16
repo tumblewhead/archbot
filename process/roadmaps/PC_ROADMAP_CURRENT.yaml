@@ -36,7 +36,7 @@ human_machine_split:
   human: "Pull, run local tests and separate Codex reviewer sessions, inspect and selectively stage/commit/push evidence."
   safety: "No invented passing results, self-review acceptance, force push, broad staging or claim that a green test discharges a VO."
 framework:
-  current_milestone: FR-002-GATE-ADAPTER
+  current_milestone: FR-004-REVIEWER-EXECUTION_AND_PROJECT_BOUNDARY_DESIGN
   stage_order:
     - id: GENERICITY_PREFREEZE_AUDIT
       status: REVIEWED_WITH_CLARIFICATIONS
@@ -80,7 +80,7 @@ framework:
       next: "Scoped FR-002 implementation review accepted; preserve clarification and candidate projection state. No FR-003 work without separate authorization."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
-      status: R1_LOCAL_EVIDENCE_RECEIVED_INDEPENDENT_REVIEW_PENDING
+      status: FOCUSED_R1_ACCEPTED_ORIGINAL_REVISE_PRESERVED
       proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
       design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
       implementation_authorized: true
@@ -105,6 +105,12 @@ framework:
       r1_evidence_commit: d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601
       r1_evidence_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
       r1_review_task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml
+      r1_review_commit: ff9c723882b88dd9e5589c745768a1590e0cc9eb
+      r1_review_receipt: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_R1_001-receipt.json
+      r1_review_disposition: ACCEPT
+      r1_review_scope: FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY
+      r1_blocking_finding_resolved: true
+      note: "Narrow R1 correction accepted; original FR-003 REVISE remains historical and review did not requalify every possible property."
       correction_scope: "Only tools/historical_audit.py and tests/test_historical_audit.py; no broader hardening."
       next_local_receipt: reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json
       existing_revise_preserved: true
@@ -159,24 +165,35 @@ program_campaign:
       status: PLANNED
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
+project_isolation:
+  status: ARCHITECTURAL_DIRECTION_DEFINED_MIGRATION_NOT_AUTHORIZED
+  contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
+  design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
+  proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
+  source_migration_authorized: false
+  objective: "Framework installed once; projects portable self-contained folders; per-project work ignored; no cross-project authority leakage."
+  blockers:
+    - "tools/pc.py still embeds Toy 1 AS-001 evidence path and root knowledge."
+    - "tools/task.py still assumes process/tasks and reviews at repository root."
+    - "tools/gates/binding.py imports Toy 1-specific validator from generic tool root."
+    - "process/tasks, process/decisions, reviews, docs and tests mix project and framework authority."
+  acceptance_demo: "Empty projects -> none active; drop Toy 1 -> usable; drop second -> isolated; remove Toy 1 -> no active residue; fresh empty project -> no inherited solutions."
+  cleanroom_limit: "Deleting worktree folder does not erase Git history; FR-005 must use a separate package without old .git, old artifacts or hidden context."
 next_eligible_action:
-  type: INDEPENDENT_REVIEW_EXECUTION
-  subject: FR-003 R1 focused malformed-path correction
-  task: process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml
-  operation: REVIEW_HISTORICAL_INTEGRITY_R1
-  role: verification-agent
-  evidence_submission_commit: d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601
-  tested_source_revision: 0c17ff1b749a675980d848477a92980ff7782c4c
-  instruction: "Pull, run R1 routing canary, inspect task, execute a distinct focused reviewer and selectively push only actual review artifacts."
-  existing_blocking_review: reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json
-  local_checks_reported_pass: true
-  independently_accepted: false
+  type: HUMAN_APPROVAL_GATE
+  subject: Portable project-root migration
+  proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
+  design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
+  contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
+  instruction: "Approve or revise the bounded migration from mixed roots to permanent framework plus self-contained projects; no bulk move or source-route changes before approval."
+  fr003_focused_review_accepted: true
+  fr004_separate_authorization_required: true
   framework_frozen: false
-  following_priority: "After scoped FR-003 acceptance, qualify one reviewer mode and move to FR-005 fresh-agent bootstrap."
   prohibit:
-    - "Do not rewrite earlier FR-003 REVISE or R1 producer evidence."
-    - "Do not claim FR-003 accepted before actual independent review disposition."
-    - "Do not start FR-004 source, cleanroom or VO discharge without authority."
+    - "Do not imply the current root is deletable as a project bundle."
+    - "Do not move accepted Toy 1 assets or rewrite review receipts until migration is separately authorized."
+    - "Do not treat R1 FR-003 ACCEPT as product acceptance or broad framework freeze."
+    - "Do not begin FR-004 source work, cleanroom or VO discharge without appropriate authority."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

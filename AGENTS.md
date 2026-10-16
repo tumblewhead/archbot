@@ -49,25 +49,36 @@ NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 raise `UnicodeEncodeError` instead of bounded `UNRESOLVED`.
 The reviewer independently reran 87 unit tests and confirmed source-time
 identity, current applicability separation and reviewer overlays.
-**Current FR-003 correction:** user-pushed local R1 evidence
-`d35b51da1e7efefa4fe4bf1db7e2a4beb2d2d601` reports seven
-successful checks for focused source revision
-`0c17ff1b749a675980d848477a92980ff7782c4c`.
-All nine source Git blob pins match. The prior `REVISE` review
-remains unchanged. **Next task:** distinct independent focused R1
-review `process/tasks/REVIEW_FR003_HISTORICAL_INTEGRITY_R1-001.yaml`,
-after `tests/test_fr003_r1_review_route.py` and manifest inspection.
-The reviewer must reproduce the JSON-escaped lone surrogate fix, then
-publish only its own new report and receipt. FR-003 is **not yet accepted**.
-No FR-004, freeze, cleanroom or VO discharge authorization follows.
+**Current FR-003 outcome:** independent R1 review at
+`ff9c723882b88dd9e5589c745768a1590e0cc9eb` returned
+`ACCEPT` within `FR003_R1_FOCUSED_UNICODE_PATH_CORRECTION_ONLY`,
+resolving `FR003-REVIEW-FINDING-001`. This is a narrowly accepted
+correction, not a broad product/firmware qualification; the original
+`REVISE` receipt remains immutable. The reviewer independently ran
+91 test methods and real malformed-Unicode probes.
 
-**Delivery priority:** avoid expanding FR-003 into a broad security audit
-under the cooperative-audience assumption. After narrow correction,
-qualify only the reviewer execution mode actually needed (FR-004),
-then prioritize FR-005's usable fresh-agent cleanroom package and a
-real unsolved-project bootstrap. FR-006 is the independent integrated
-freeze decision. A new direction requires its own authority; do not
-silently bypass existing gates.
+**New architectural direction:** all future projects must be self-contained
+and removable/drop-in without editing or deleting the reusable framework.
+Read `process/layout/PC_PROJECT_BOUNDARY_001.yaml`,
+`docs/PROJECT_BOUNDARY_LAYOUT_001.md` and the bounded migration
+proposal `process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml`.
+**This layout is proposed, not implemented.** The current root directory
+still mixes framework tools and Toy 1 project files; deleting the
+legacy `knowledge/`, `process/` or `reviews/` would be unsafe.
+The next implementation gate is explicit authorization of the bounded
+project-root migration; FR-004 reviewer execution qualification remains
+separately pending. Until completed, do not advertise working
+delete/drop semantics.
+
+**Cleanroom distinction:** removing an active project directory does
+not remove its prior Git history, backups or connected data. FR-005
+requires a separately isolated, positive-allowlist project package.
+
+**Delivery priority:** qualify only the needed independent-review mode
+(FR-004), make the permanent-framework / removable-project boundary
+real, and get a fresh unsolved project to boot under FR-005. FR-006
+is the independent integrated freeze; project migration does not confer
+its approval. Do not expand accepted FR-003 into open-ended polishing.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
