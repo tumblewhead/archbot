@@ -1,5 +1,12 @@
 # Submodule-first project migration: execution and safety contract
 
+**PAUSED for the Toy 1 fresh-start pipe-cleaner (2026-10-16).** This plan is
+retained for later, not a prerequisite for the next cleanroom diagnostic.
+See `docs/CLN_TOY1_PIPE_CLEANER_001.md` for the active test. The M0 local
+receipt has now been submitted, but project foundation independent review
+and all multi-project milestones are parked.
+
+
 **State:** planned, NOT yet performed. Stage-one project discovery is
 a source candidate; the existing Toy 1 authority, working tree and Git
 history have not been moved. See

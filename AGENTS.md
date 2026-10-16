@@ -57,25 +57,27 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**Active portable-project direction:** independent project Git repositories
-can be installed at `projects/<project_id>/` as optional Git submodules;
-ordinary copied folders remain supported. The user said "lets proceed"
-to the submodule-first migration plan. A bounded stage-one authorization
-is recorded in `process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml`.
-New `framework/core/project_registry.py` supports explicit project
-`list`, `inspect`, `init` and checks a validated `project.yaml`.
-`tests/test_project_registry.py` contains 11 synthetic regression
-methods. **Source authored, NOT LOCALLY TESTED OR INDEPENDENTLY REVIEWED.**
-No Toy 1 files were moved and no real Toy 1 submodule exists.
-Legacy task, context and gate tools still use mixed root paths.
+**CURRENT PRIORITY: Toy 1 fresh-start pipe-cleaner.** The user explicitly
+deferred dual-project and submodule migration work and requested the
+tool's first run from the **unsolved original Toy 1 brief**. Start with
+`docs/CLN_TOY1_PIPE_CLEANER_001.md` and bounded
+`process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml`.
+The candidate `tools/cleanroom_pipe_cleaner.py` and
+`tests/test_toy1_pipe_cleaner.py` create/check a tiny allowlisted
+workspace, with original BKP, neutral roles and one AS authoring task.
+Source authored, **NOT LOCALLY TESTED, NOT A QUALIFIED CLEANROOM**.
+Next: human pulls, runs the package tests and creates a clean workspace
+outside the source repo, independently inspects its inputs, then invokes
+a genuinely fresh agent to create `AS-DRAFT-001` and questions.
+This is a pre-freeze diagnostic, never a hidden FR-005/FR-006 approval.
 
-**Next local task:** pull, run the project-registry and selected historical
-regressions; on actual success selectively push a new
-`reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json`.
-Assistant inspects that evidence before registering a separate review.
-The genuine Toy 1 repository, Gitlink, and project-scoped task/gate
-routing are Phase B and still require migration mapping, local tests
-and separate authority. Never delete legacy roots on Phase A alone.
+**PORTABILITY WORK PAUSED.** The last project-registry source at
+`b6839c7fedea5bede7b485976b6590fdece6fca8` now has
+[local producer evidence](reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json)
+pushed in `a6bb262e609dfeb609616e895a3925358d2dffd3`:
+12 exit-zero commands and 9 source pins verified. It has NOT been
+independently reviewed. Do not launch its review, migrate Toy 1 to a
+submodule, or make second-project work a prerequisite for pipe-cleaner.
 
 **Cleanroom distinction:** removing an active project directory does
 not remove its prior Git history, backups or connected data. FR-005

@@ -166,7 +166,7 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 project_isolation:
-  status: SUBMODULE_FOUNDATION_AUTHORED_AWAITING_LOCAL_TESTS
+  status: PAUSED_LOCAL_EVIDENCE_SUBMITTED_NOT_INDEPENDENTLY_REVIEWED
   contract: process/layout/PC_PROJECT_BOUNDARY_001.yaml
   design: docs/PROJECT_BOUNDARY_LAYOUT_001.md
   proposal: process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml
@@ -175,7 +175,12 @@ project_isolation:
   phase_a_authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
   phase_a_source: framework/core/project_registry.py
   phase_a_tests: tests/test_project_registry.py
-  phase_a_status: SOURCE_AUTHORED_UNTESTED_NOT_INDEPENDENTLY_REVIEWED
+  phase_a_status: LOCAL_CHECKS_REPORTED_PASS_PAUSED
+  phase_a_local_receipt: reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json
+  phase_a_local_submission_commit: a6bb262e609dfeb609616e895a3925358d2dffd3
+  phase_a_local_checks: 12
+  phase_a_local_pins_verified: 9
+  phase_a_independent_review: NOT_PERFORMED
   phase_b_toy1_move_authorized: false
   versioned_installation_preference: OPTIONAL_GIT_SUBMODULE
   ordinary_folder_support: true
@@ -193,7 +198,7 @@ delivery_plan:
   id: PORTABLE_PROJECT_TO_FRESH_AGENT_DEMO-001
   runbook: docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
   ordering: [M0_REGISTRY_TRIAL, M1_FOCUSED_REVIEW, M2_TOY1_INDEPENDENT_REPO, M3_SUBMODULE_AND_ROUTING, M4_PORTABILITY_DEMO, M5_FRESH_AGENT_PROOF_OF_USE, M6_FREEZE_DECISION]
-  current: M0_REGISTRY_TRIAL
+  current: PAUSED_FOR_TOY1_PIPE_CLEANER
   stages:
     - id: M0_REGISTRY_TRIAL
       status: AUTHOR_CODE_COMMITTED_AWAITING_HUMAN_LOCAL_TESTS
@@ -222,25 +227,40 @@ delivery_plan:
   parallel_allowed:
     - "Human may create real Toy 1 repository while M0 evidence is collected, but must not move current accepted sources without distinct migration approval."
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
+cleanroom_pipe_cleaner:
+  id: CLN-TOY1-PIPE-CLEANER-001
+  status: PREPARATION_SOURCE_CANDIDATE_NOT_LOCALLY_TESTED
+  priority: IMMEDIATE
+  type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
+  preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
+  runbook: docs/CLN_TOY1_PIPE_CLEANER_001.md
+  package_builder: tools/cleanroom_pipe_cleaner.py
+  tests: tests/test_toy1_pipe_cleaner.py
+  first_observable_result: "Fresh agent creates AS-DRAFT-001.md, QUESTIONS-001.md and BRIEFING-001.md from original BKP only; review and human authority follow."
+  included: "Pinned original BKP and neutral framework role/playbook, empty project manifest/spine and initial AS task only."
+  excluded: "All prior AS-001 solutions, proofs, AP/F, contracts, implementation, accepted decisions, review evidence, old Git history, old chat, evaluator oracle."
+  diagnostic_gate: "Actual preflight, new fresh-agent invocation, measured filesystem and connector access, truthful output and stopping point."
+  formal_cleanroom_authorized: false
+  next_stages: [AS_REVIEW, PROOF_AND_F, AP, CON, DE, C_IMPLEMENTATION, INDEPENDENT_VERIFICATION]
+  parked:
+    - "Portable-project foundation independent review and Toy 1 submodule"
+    - "Multi-project isolation demo and second project"
+    - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: HUMAN_LOCAL_REGRESSION_EVIDENCE
-  subject: Stage-one portable project discovery and unsolved bootstrap
-  phase_a_authorization: process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml
-  source: framework/core/project_registry.py
-  tests: tests/test_project_registry.py
-  local_receipt: reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json
-  instruction: "Pull project-discovery source candidate, run new and selected old regressions, selectively push actual local evidence only after all pass."
-  independently_reviewed: false
-  real_submodule_installed: false
-  legacy_toy1_source_moved: false
-  phase_b_requires_separate_authorization: true
-  fr004_remains_separate: true
+  type: HUMAN_PREPARE_DIAGNOSTIC_WORKSPACE
+  subject: First Toy 1 fresh-start Architecture Statement pipe-cleaner
+  authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
+  runbook: docs/CLN_TOY1_PIPE_CLEANER_001.md
+  source: tools/cleanroom_pipe_cleaner.py
+  tests: tests/test_toy1_pipe_cleaner.py
+  instruction: "Pull new package builder; run preflight regression; prepare external workspace; independently check agent reachability; start fresh agent at TASK-001 and capture AS draft/questions/briefing. Do not expose auditor_only or prior checkout."
+  reviewed_cleanroom: false
   framework_frozen: false
   prohibit:
-    - "Do not claim legacy task/gate engines support relocatable projects yet."
-    - "Do not invent a Toy 1 repository URL or Gitlink."
-    - "Do not move accepted Toy 1 sources or rewrite historical receipts."
-    - "Do not authorize cleanroom, final F-001 or VO discharge."
+    - "Do not claim pre-freeze diagnostic equals formal cleanroom qualification."
+    - "Do not supply previous Toy 1 accepted solution material, old Git history, old chat or evaluator rubric to the fresh agent."
+    - "Do not start multi-project or Git submodule migration to serve this experiment."
+    - "Do not accept draft AS or discharge VOs automatically."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

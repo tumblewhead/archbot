@@ -3,68 +3,62 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: submodule-ready project discovery candidate; local tests next
+## Current checkpoint: first Toy 1 cleanroom pipe-cleaner preparation
 
-Read the [roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml) and
-[qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
-FR-001/FR-002 have independent scoped acceptances with clarifications.
-FR-003's historical first `REVISE` remains preserved and its focused
-Unicode correction R1 returned `ACCEPT` at
-`ff9c723882b88dd9e5589c745768a1590e0cc9eb`.
-No project product acceptance, framework freeze or cleanroom follows.
+The human reprioritized the work to **a fresh Toy 1 run from its original
+unsolved problem inputs**. Dual projects, full project-root migration
+and Toy 1 Git submodule installation are paused. They are not
+prerequisites for a diagnostic from an isolated source allowlist.
 
-**Human-approved direction:** engineering projects can be independent
-Git repositories, preferably installed as optional Git submodules at
-`projects/<project_id>/`. Copied ordinary project folders must also
-work. Gitlinks pin a project commit for distribution, not accepted
-engineering authority. User said "lets proceed" to the submodule-first
-implementation direction.
+**Closest concrete output:** `tools/cleanroom_pipe_cleaner.py`
+and `tests/test_toy1_pipe_cleaner.py`, with the
+[bounded preparation decision](process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml)
+and [pipe-cleaner runbook](docs/CLN_TOY1_PIPE_CLEANER_001.md).
+The code is an **untested candidate** for creating a small fresh-agent
+workspace outside this Git repository. It copies only fixed original
+BKP sources, two neutral roles, a generic AS review playbook, the
+new project-registry executable, and blank project/task scaffolding.
+An auditor-only manifest records content hashes. The first task
+stops after generating a draft `AS=(C,R,PS)`, unanswered
+stakeholder-authority questions and an engineering briefing.
 
-A bounded [Phase A authorization](process/decisions/PC-PROJECT-SUBMODULE-FOUNDATION-AUTHORIZATION-001.yaml),
-[ownership contract](process/layout/PC_PROJECT_BOUNDARY_001.yaml),
-[proposal](process/proposals/PC_PROJECT_ISOLATION_MIGRATION_001.yaml) and
-[submodule runbook](docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md)
-define the intended staged extraction.
+**Next local action:** run the new package/preflight tests, generate
+a fresh external workspace, audit the positive allowlist, then run a
+new independent agent with access limited to `workspace/` to produce
+the first AS draft. The old solved Toy 1 AS/AP/P/CON/DE, implementation,
+acceptance receipts, old Git history, evaluator reference and chat
+must not be visible. Physical access limitations are measured, not
+assumed. An actual evaluator reviews the produced draft separately.
+This is a **pre-freeze diagnostic**, not the final qualified
+cleanroom or evidence of independent review.
 
-**Stage-one source authored, NOT LOCALLY TESTED OR INDEPENDENTLY REVIEWED:**
-`framework/core/project_registry.py` implements `list`, `inspect`
-and `init`, checking manifest ID, in-bundle roots, explicit project
-selection, symlink restrictions, declared validator paths without
-loading their code, and optional Gitlink classification.
-`tests/test_project_registry.py` has 11 methods covering no active
-project, portable drop-in folders, two-project separation, removal,
-fresh unsolved project bootstrap, invalid paths and synthetic Gitlinks.
-`projects/README.md` distinguishes checkout removal from Gitlink
-deregistration.
+Original BKP inputs contain a synthetic 1 ms timing statement.
+The prior accepted scope correction is excluded deliberately.
+A fresh agent must separate unproven model assumptions from
+stakeholder authority and ask the human instead of importing the
+previous response. This is a useful diagnostic of Progressive
+Concretization's behavior.
 
-**Next local action:** pull this source candidate, run
-`test_project_registry.py` and selected legacy task/history regressions.
-If all tests pass, commit/push new
-`reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json`
-with exact source pins and command-log fingerprints. Assistant reviews
-pushed evidence before registering an independent Phase A review.
+FR-001/FR-002 scoped independent acceptances and FR-003's focused
+R1 `ACCEPT` are preserved. The project registry's latest local
+evidence receipt was pushed in
+`a6bb262e609dfeb609616e895a3925358d2dffd3` with 12 checks
+recorded exit zero and nine source pins verified, but **no independent
+registry acceptance**. Do not launch its review during this test.
+Older Toy 1 source, protected authority, prior reviews and existing
+VO/AD ledger state remain untouched.
 
-**Phase B not implemented:** creation of a real separate AS-001 repository,
-reviewed file ownership/migration mapping, parent Gitlink, project-scoped
-legacy task/gate/telemetry routes, and non-destructive historical source
-lookup. The GitHub connector cannot create the external project repo;
-do not invent its URL. Do not delete existing `knowledge/`, `process/`,
-`reviews/`, `implementation/` or move accepted source under Phase A.
+The formal cleanroom campaign remains gated by one necessary
+reviewer execution mode (FR-004), independently reviewed positive
+allowlist (FR-005), integrated freeze (FR-006), and separate
+cleanroom-launch authority. These gates cannot be silently passed
+by a successful diagnostic. The pipe-cleaner is meant to expose
+real process gaps before those gates.
 
-**Execution board now explicit:** the [submodule migration runbook](docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md)
-and [roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml) enumerate M0 through M6
-with observable exit tests. **M0 is unblocked except for human local
-execution.** M1 is a scoped independent review; M2 requires an actual
-independent Toy 1 repository and separately authorized migration.
-M3 is real project-root routing, M4 a two-project portability demo,
-M5 an authorized fresh-agent proof-of-use, M6 integrated freeze.
-Do not infer successful execution of the new registry from this plan.
-
-Priority: a real fresh-agent project bootstrap, not an endless metadata
-review chain. FR-004 reviewer-mode qualification, FR-005 isolated package,
-and FR-006 framework freeze are separate pending milestones.
-Removing a project folder does not erase its Git history or authorize
-a cleanroom. VOs 002–006, AD-003 and F-001 remain outstanding.
+**Strict boundaries:** no FR-004/FR-005/FR-006 completion claimed,
+no product acceptance, target qualification, final F-001 decision
+or VO discharge. VO-002..VO-006 remain open and AD-003 remains
+unresolved for final acceptance.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

@@ -1,0 +1,41 @@
+schema: pc-diagnostic-preparation-authorization/v1
+id: CLN-TOY1-PIPE-CLEANER-PREPARATION-001
+decision: AUTHORIZE_BOUNDED_PREFREEZE_DIAGNOSTIC_PREPARATION
+approved_by: user:engineering_authority
+approval_evidence: "User directed: 'actually lets stay on target for the cleanroom test. we can try dual projects later, i want to get a piple cleaner run of the tool with toy-1 from the start'"
+intent: "Prioritize an isolated fresh-agent Toy 1 start-to-AS diagnostic before further dual-project/submodule work."
+status: PREPARATION_AUTHORIZED_NOT_CLEANROOM_EXECUTION_QUALIFIED
+basis:
+  boundary: docs/CLN_BOUNDARY_PREFREEZE_001.md
+  campaign: docs/QUALIFICATION_CAMPAIGN.md
+  stage: PRE_FREEZE_PIPE_CLEANER_NOT_CLN_QUALIFICATION
+authorized_preparation:
+  - "Prepare a pinned positive-allowlist copy of original unsolved Toy 1 BKP and problem-neutral role/process inputs."
+  - "Generate new empty candidate project authority, a first-stage AS task, and auditor-only source hash manifest."
+  - "Write local preparation/inspection tests and a runbook for a fresh independent agent invocation."
+  - "Record results as diagnostic only, with explicit missing authority and contamination caveats."
+excluded:
+  - "Importing old AS-001 spine, AS/P/AP/F/CON/DE, solved implementation, reviewer receipts or prior evaluator rubrics into fresh agent workspace."
+  - "Running a formal cleanroom qualification before FR-005 input-boundary review, FR-006 freeze and separate launch authority."
+  - "Moving, rewriting or deleting accepted Toy 1 source, VO/AD ledgers or reviews."
+  - "Replacing the legacy task/gate engine or treating the diagnostic scaffold as integrated end-to-end qualified tooling."
+  - "Exposing existing Git history, connected apps or prior chat to the fresh agent."
+permitted_paths:
+  - tools/cleanroom_pipe_cleaner.py
+  - tests/test_toy1_pipe_cleaner.py
+  - docs/CLN_TOY1_PIPE_CLEANER_001.md
+  - process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
+  - AGENTS.md
+  - PROJECT_SPINE.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+pending:
+  - "Human runs package builder/tests on local source and conducts a fresh-agent first-stage trial in an appropriately isolated environment."
+  - "An independent auditor verifies physical agent reachability before any cleanroom claims."
+  - "Later stage tasks progress only through human-authorized decisions and independent review."
+limits:
+  project_registry_foundation: HUMAN_LOCAL_TESTS_SUBMITTED_BUT_NOT_INDEPENDENTLY_REVIEWED
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]
