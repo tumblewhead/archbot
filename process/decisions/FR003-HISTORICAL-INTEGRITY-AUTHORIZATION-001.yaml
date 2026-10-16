@@ -1,0 +1,35 @@
+schema: pc-framework-repair-authorization/v1
+id: FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001
+source_proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
+source_design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
+decision: AUTHORIZE_BOUNDED_IMPLEMENTATION
+approved_by: user:engineering_authority
+approval_evidence: "Explicit user reply 'yes proceed' to the request to approve FR003-HISTORICAL-INTEGRITY-001"
+authorized_scope:
+  - Add a separate read-only source-time Git blob auditor with bounded outputs and explicit receipt/revision inputs.
+  - Support declared receipt schemas only and preserve source-time author's review_state.
+  - Keep optional present-worktree correspondence and separately linked independent review disposition apart from historical identity.
+  - Add synthetic Git-history and real review-evidence regression canaries.
+  - Preserve current-worktree verifier and active baseline verifier unchanged.
+permitted_paths:
+  - tools/historical_audit.py
+  - tests/test_historical_audit.py
+  - tests/test_verification_kernel.py
+  - reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md
+  - process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml
+  - AGENTS.md
+  - PROJECT_SPINE.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+prohibited:
+  - Modify accepted AS/AP/F/CON/DE, C-002 scope, firmware or live VO/AD ledgers.
+  - Rewrite historical receipts, authoring review_state or independent review verdicts.
+  - Modify tools/verification_kernel.py or tools/active_baseline.py in this bounded slice.
+  - Add network fetches, cryptographic-signing requirements or hostile Git-forgery threat claims.
+  - Authorize FR-004, cleanroom, framework freeze, target selection, product verification or VO discharge.
+scope_state: SOURCE_CANDIDATE_NOT_INDEPENDENTLY_REVIEWED
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

@@ -3,44 +3,52 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-003 historical-integrity proposal ready for approval
+## Current checkpoint: FR-003 auditor source candidate; local evidence next
 
-Read the [program roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
-and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md) for the
-complete sequence and current authority limits.
+Follow the [program roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
+and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
+The prior FR-002 [independent cooperative baseline-continuity review](reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json)
+remains **ACCEPT_WITH_CLARIFICATIONS** within its scoped implementation
+claim. The minor ROOT-002 protected-validator coverage clarification is
+still open. The Toy 1 project continuity projection is still a candidate
+and has **not** been activated; all historical FR-002 `REVISE` and R1
+receipts remain unchanged.
 
-FR-002's [independent cooperative baseline-continuity review](reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json)
-was pushed at `2dbd7b003ed515b916595287b8d29478fc1aa805` with
-**ACCEPT_WITH_CLARIFICATIONS** limited to its implementation review.
-The minor `FR002-CONT-CLARIFICATION-001` remains: synthetic ROOT-002
-proves loader generality and separately tested registration, but not a
-complete second project's protected-validator qualification. The Toy 1
-continuity projection remains **candidate, not activated**.
-All older FR-002 `REVISE` and historical R1 evidence remain intact.
+Engineering authority explicitly approved the bounded
+[FR-003 historical-integrity proposal](process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml)
+with reply "yes proceed", recorded in the
+[FR-003 authorization](process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml).
+The [authoring report](reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md)
+describes new read-only `tools/historical_audit.py`, its explicitly
+supported receipt shapes, and 12 synthetic/real history regression
+methods in `tests/test_historical_audit.py`. Existing
+`tools/verification_kernel.py` current-file checking and
+`tools/active_baseline.py` present applicability remain untouched.
 
-**New FR-003 planning artifact:** the
-[bounded historical-integrity proposal](process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml)
-and [design](docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md)
-are authored, **NOT AUTHORIZED FOR SOURCE EDITS**.
-Source inspection found that `verification_kernel.check_pins` checks
-today's worktree bytes; existing historical reviewer-route canaries
-already examine bytes at exact Git source revisions. FR-003 proposes a
-read-only auditor to verify the original source-time hashes without
-confusing later source changes with historical failure. It keeps
-(1) historical byte identity, (2) present applicability and
-(3) independent review disposition in separate result fields.
+**Status: SOURCE CANDIDATE AUTHORED, NOT LOCALLY TESTED, NOT
+INDEPENDENTLY REVIEWED.** The human's next step is to pull, run
+`test_historical_audit.py`, `test_verification_kernel.py`,
+`test_active_baseline.py` and FR-001/FR-002 review-route regressions,
+plus a real FR-002 historical-audit CLI check. Stop and return failing
+diagnostics if any command fails. If all pass, publish a **new bounded**
+`reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json`
+with exact source identities and output fingerprints. The assistant
+must inspect pushed evidence before preparing the new independent
+FR-003 reviewer task.
 
-**Next eligible action: explicit human engineering approval or revision
-of `FR003-HISTORICAL-INTEGRITY-001` before coding.** The proposal does
-not confer implementation authority. If approved, create a narrowly
-scoped versioned auditor/test candidate; human runs/pushes local tests;
-a different reviewer independently evaluates the actual evidence.
-Do not start FR-004/FR-005/FR-006 or infer freeze from FR-002.
+The auditor reports (H) historical source-time byte identity,
+(A) optional current-worktree byte correspondence, and
+(R) a separately linked reviewer disposition. It **does not**
+declare general current applicability, alter the original authoring
+`review_state`, infer a favorable review, or change accepted project
+authority. Missing source-time revision or Git blob means
+`UNRESOLVED`, not a historical failure. No network fetch, source
+execution, acceptance or target work is authorized.
 
-The cooperative-audience assumption remains active. FR-001 R1 still
-has `ACCEPT_WITH_CLARIFICATIONS` for role-projected context only.
-No framework freeze, cleanroom, product verification, target selection,
-final F-001, AD change or VO discharge is authorized.
+No FR-004/FR-005/FR-006 implementation, generic framework freeze,
+cleanroom, final F-001 decision, product verification or VO discharge
+is authorized. Cooperative-audience assumptions remain active.
+FR-001's scoped acceptance remains unchanged.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

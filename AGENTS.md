@@ -41,14 +41,18 @@ tested, so full non-Toy-1 domain-validator qualification remains outside
 this review. Toy 1's continuity projection is still a candidate and
 NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 `REVIEW_FR002_GATE_ADAPTER_R1-001` paused task are preserved.
-**Next decision:** a bounded FR-003 historical-integrity source proposal
-has been authored in `process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml`,
-with design in `docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md`.
-It is **PROPOSED_NOT_AUTHORIZED**. Engineering authority must explicitly
-approve or revise the bounded source scope before any historical-auditor
-implementation. Keep historical source matching, current applicability
-and independent review disposition distinct. No framework freeze,
-cleanroom, product acceptance or VO discharge.
+**Current FR-003 checkpoint:** the bounded source proposal
+`process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml` was explicitly
+approved ("yes proceed"), recorded in
+`process/decisions/FR003-HISTORICAL-INTEGRITY-AUTHORIZATION-001.yaml`.
+The read-only historical auditor `tools/historical_audit.py` and
+`tests/test_historical_audit.py` (12 methods) are authored as a
+**source candidate NOT LOCALLY TESTED and NOT INDEPENDENTLY REVIEWED**.
+Next the human pulls, runs the new suite and historic VK-001/FR-001/
+FR-002/active-baseline regressions, then selectively pushes evidence.
+The assistant inspects pushed results before registering a distinct
+FR-003 reviewer. Do not call historical hash correspondence product
+verification, present applicability or accepted review disposition.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
