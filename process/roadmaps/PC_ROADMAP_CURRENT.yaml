@@ -189,6 +189,39 @@ project_isolation:
     - "process/tasks, process/decisions, reviews, docs and tests mix project and framework authority."
   acceptance_demo: "Empty projects -> none active; drop Toy 1 -> usable; drop second -> isolated; remove Toy 1 -> no active residue; fresh empty project -> no inherited solutions."
   cleanroom_limit: "Deleting worktree folder does not erase Git history; FR-005 must use a separate package without old .git, old artifacts or hidden context."
+delivery_plan:
+  id: PORTABLE_PROJECT_TO_FRESH_AGENT_DEMO-001
+  runbook: docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md
+  ordering: [M0_REGISTRY_TRIAL, M1_FOCUSED_REVIEW, M2_TOY1_INDEPENDENT_REPO, M3_SUBMODULE_AND_ROUTING, M4_PORTABILITY_DEMO, M5_FRESH_AGENT_PROOF_OF_USE, M6_FREEZE_DECISION]
+  current: M0_REGISTRY_TRIAL
+  stages:
+    - id: M0_REGISTRY_TRIAL
+      status: AUTHOR_CODE_COMMITTED_AWAITING_HUMAN_LOCAL_TESTS
+      deliverable: reviews/qualification/PROJECT_SUBMODULE_FOUNDATION-local-test-receipt.json
+      exit: "Registry tests, legacy regressions, real CLI smoke, exact local source/log evidence; no default active project."
+    - id: M1_FOCUSED_REVIEW
+      status: BLOCKED_ON_M0
+      exit: "Distinct independent reviewer disposition for Phase A only, including drop-in/delete and Gitlink semantics."
+    - id: M2_TOY1_INDEPENDENT_REPO
+      status: BLOCKED_ON_REAL_REPO_AND_MIGRATION_AUTHORITY
+      external_dependency: "Human-created independent AS-001 repository with confirmed URL."
+      exit: "Copy-only project bundle and reviewed old-repo/path to new-repo/path source migration identities."
+    - id: M3_SUBMODULE_AND_ROUTING
+      status: BLOCKED_ON_M2
+      exit: "Pinned real Gitlink and explicit selected-project task/telemetry/gate/verification routing; legacy historical auditors still resolve."
+    - id: M4_PORTABILITY_DEMO
+      status: BLOCKED_ON_M3
+      exit: "Two installed projects isolated, unload/reload works, new third project unsolved and unapproved."
+    - id: M5_FRESH_AGENT_PROOF_OF_USE
+      status: BLOCKED_ON_M4_AND_FR004_FR005
+      exit: "Authorized fresh agent runs substantive engineering workflow from only permitted unsolved inputs, with actual transcript/evidence and explicit failures."
+    - id: M6_FREEZE_DECISION
+      status: BLOCKED_ON_M5
+      exit: "Independent FR-006 integrated review and separate cleanroom authorization; unresolved Toy 1 product VOs remain explicit."
+  anti_polish_rule: "Only address findings that block the next observable milestone; no open-ended security or schema redesign under cooperative-audience model."
+  parallel_allowed:
+    - "Human may create real Toy 1 repository while M0 evidence is collected, but must not move current accepted sources without distinct migration approval."
+    - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 next_eligible_action:
   type: HUMAN_LOCAL_REGRESSION_EVIDENCE
   subject: Stage-one portable project discovery and unsolved bootstrap

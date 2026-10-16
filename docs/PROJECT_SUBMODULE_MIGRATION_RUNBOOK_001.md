@@ -112,3 +112,69 @@ not a cleanroom boundary.
 
 Source migration and integration steps beyond Phase A need their own
 local evidence and explicit review/authorization before destructive moves.
+
+## Delivery board: executable milestones (October 2026)
+
+This is the current critical path, not a wish list. A milestone exits only
+when its observable demonstration and evidence are present. Do not create
+another implementation/review loop for documentation polish.
+
+| Order | Milestone | Owner/actor | Observable exit | Blocker |
+|---|---|---|---|---|
+| **M0: Registry trial** | Human runs the 11 project-registry tests, current task/gate and historical audit regressions; produces a **new** bounded receipt | Human runs; assistant verifies | No-default, two-project, drop-in/delete and Gitlink fixture succeed, source pins match | Last source at `35917dc3bc8dd927b62a2b741e0fbbf8097473b3` is untested |
+| **M1: Focused registry review** | Independent reviewer checks those behaviors and scope, no full process re-review | Separate verifier | Explicit scoped disposition and findings | M0 evidence |
+| **M2: Independent Toy 1 repository** | Human creates remote; agent prepares *copy-only* project snapshot and old-to-new identity map, including decisions, ledgers, reviews and validators | Human creates repo; assistant authors migration | Independent repository has valid `project.yaml`, manifests and pinned snapshot; old monorepo remains intact | Real repository URL and separately approved extraction |
+| **M3: Real Gitlink and selected-project routing** | Add verified `projects/AS-001` Gitlink; adapt task, telemetry, gate and verification paths to explicit project roots, preserving old historical lookups | Assistant authors; human tests | Same Toy 1 task works through project selection; no implicit global AS-001; historical source revisions remain verifiable | M2 + reviewed mapping + migration authority |
+| **M4: Project portability demonstration** | Install a second project, switch selections, unload/reload one, initialize a third empty project | Human runs demonstrations | No cross-project authority/context/validator bleed; no accepted design in new project; exact commands and transcripts archived | M3 |
+| **M5: Fresh-agent proof-of-use** | Qualify the required independent reviewer mode (FR-004), build and review FR-005 positive-allowlist package; run an authorized fresh unsolved-project bootstrap/rehearsal | Separate reviewer + human | Agent actually produces AS/P/AP/CON/DE/C/evidence or reports bounded failure, from allowed unsolved inputs | M4 + FR-004/005 specific gates |
+| **M6: Qualification decision** | FR-006 integrated review and separate authorization for cleanroom Toy 1 without dialogue | Independent verification/engineering authority | Real acceptance scope and outstanding VOs explicitly recorded; no auto-freeze | M5 |
+
+### Parallel tasks that do not compromise authority
+
+M0 can be executed locally **now**. Preparation for M2 may proceed
+in parallel: the human can create a new empty private Toy 1 repository
+and obtain its exact clone URL, without removing or changing old accepted
+assets. Migration-copy operations and real Gitlink installation remain
+blocked until scoped approval and source ownership mapping are reviewed.
+
+FR-004's mode qualification can be planned alongside M2/M3 using
+`CURRENT_AGENT_DIRECT` evidence already produced by independent
+reviewers. Do not spend time on symmetry with another launcher unless
+the process promises that launcher as supported. FR-005 packaging and
+fresh-agent experiment stay downstream of the project-root isolation
+demonstration.
+
+### Smallest truthful demonstration at each handoff
+
+M0: `python -m unittest discover -s tests -p 'test_project_registry.py' -v`.
+
+Then run its single-project CLI against a **temporary** root, so no
+synthetic installed project pollutes the canonical checkout:
+
+```bash
+tmp="$(mktemp -d)"
+python framework/core/project_registry.py list --root "$tmp"
+python framework/core/project_registry.py init ROOT-002 --root "$tmp"
+python framework/core/project_registry.py inspect ROOT-002 --root "$tmp"
+python framework/core/project_registry.py list --root "$tmp"
+# Inspect then explicitly remove the temporary directory:
+rm -r -- "$tmp"
+```
+
+Do not use `git submodule add` with an invented URL. A real remote
+must exist, and submodule commits and parent Gitlinks are **two** distinct
+version-control events. The registry's current `list`/`init`/`inspect`
+does **not** make existing task execution project-aware.
+
+### Stop conditions and scope discipline
+
+- If the M0 tests fail, stop and provide the exact failing command/log.
+  Only the demonstrated defect is in scope; no unrelated feature additions.
+- Do not overwrite historical FR-003/FR-002 review receipts or migrate
+  source-time paths by rewriting them.
+- Do not equate `git submodule deinit` with deleting a project's remote
+  repository or parent Gitlink.
+- Keep a real project Git URL optional in the generic tool. No network
+  dependency for plain folder discovery.
+- When M4 can be demonstrated, prefer actual end-to-end testing over
+  further generic abstractions.

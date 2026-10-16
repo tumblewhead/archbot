@@ -51,6 +51,15 @@ lookup. The GitHub connector cannot create the external project repo;
 do not invent its URL. Do not delete existing `knowledge/`, `process/`,
 `reviews/`, `implementation/` or move accepted source under Phase A.
 
+**Execution board now explicit:** the [submodule migration runbook](docs/PROJECT_SUBMODULE_MIGRATION_RUNBOOK_001.md)
+and [roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml) enumerate M0 through M6
+with observable exit tests. **M0 is unblocked except for human local
+execution.** M1 is a scoped independent review; M2 requires an actual
+independent Toy 1 repository and separately authorized migration.
+M3 is real project-root routing, M4 a two-project portability demo,
+M5 an authorized fresh-agent proof-of-use, M6 integrated freeze.
+Do not infer successful execution of the new registry from this plan.
+
 Priority: a real fresh-agent project bootstrap, not an endless metadata
 review chain. FR-004 reviewer-mode qualification, FR-005 isolated package,
 and FR-006 framework freeze are separate pending milestones.
