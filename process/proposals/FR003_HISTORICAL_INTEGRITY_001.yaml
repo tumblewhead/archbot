@@ -1,0 +1,69 @@
+schema: pc-framework-repair-proposal/v1
+id: FR003-HISTORICAL-INTEGRITY-001
+status: PROPOSED_NOT_AUTHORIZED
+repository: tumblewhead/archbot
+program: Progressive Concretization
+stage: FRAMEWORK_PREFREEZE
+operating_assumption: process/decisions/PC-COOPERATIVE-AUDIENCE-001.yaml
+design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
+predecessor:
+  fr002_review_commit: 2dbd7b003ed515b916595287b8d29478fc1aa805
+  fr002_review_receipt: reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json
+  fr002_disposition: ACCEPT_WITH_CLARIFICATIONS
+  fr002_scope: FR002_COOPERATIVE_BASELINE_CONTINUITY_IMPLEMENTATION_ONLY
+purpose: >-
+  Verify historical review or verification evidence against its declared
+  source-time Git revision without mistaking later worktree edits for
+  historical invalidity. Keep present applicability and independent
+  reviewed status as separately reported questions.
+observed_source_behavior:
+  - tools/verification_kernel.py check_pins compares source_sha256 with current worktree.
+  - tools/active_baseline.py verifies a current active baseline and reviewed files for present applicability.
+  - Existing historical review-route canaries use git show at pinned full commit SHA and compare Git blob SHA-1 with receipt source SHA-256.
+requested_implementation_scope:
+  - Implement a read-only historical source-audit function and CLI taking explicit repository revision, receipt/manifest and bounded path-to-digest declarations.
+  - Fetch bytes at the exact full Git revision and verify SHA-256, optionally Git blob SHA-1 when present.
+  - Report distinct states HISTORICAL_MATCH, HISTORICAL_MISMATCH or UNRESOLVED; missing objects, absent source revision and unsupported receipt shapes are UNRESOLVED, not claimed invalidity.
+  - Report optional present-worktree correspondence in a different field, using current-state rules without changing the historical result.
+  - Report source-time authoring review_state and later independent review receipts as distinct information without rewriting authoring artifacts or inferring acceptance.
+  - Include clear evidence class, checked revision, exact paths, hashes, size limits, missing inputs and non-claims in bounded machine-readable output.
+  - Keep existing current-worktree verification and active-baseline commands intact; expose a separate explicit historical command.
+candidate_paths:
+  - tools/historical_audit.py
+  - tests/test_historical_audit.py
+  - tests/test_verification_kernel.py
+  - docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
+  - PROJECT_SPINE.md
+  - AGENTS.md
+  - process/roadmaps/PC_ROADMAP_CURRENT.yaml
+  - reviews/qualification/FR003_HISTORICAL_INTEGRITY-authoring-report.md
+acceptance_canaries:
+  - Valid old receipt pins match source-time bytes after an unrelated later source change.
+  - Present worktree mismatch does not change historical source-match status.
+  - Wrong SHA-256 or Git blob SHA-1 at declared revision is a historical mismatch, not stale present applicability.
+  - Unavailable Git commit, missing revision, missing historical object or unsupported receipt schema returns UNRESOLVED with precise reason.
+  - Input paths cannot traverse or alias outside repository history and ambiguous ref expressions are rejected.
+  - Prior authoring PENDING is preserved even when a separate independent review later accepted its scope.
+  - Newer accepted baseline may supersede an older one for current use without erasing the older historical evidence.
+  - Synthetic second project works without AS-001 assumptions or new project root registry.
+  - Historical FR-001, FR-002, verification and active baseline regression suites still pass.
+  - Separate independent reviewer reproduces historical and current-applicability contrast with actual Git revisions.
+out_of_scope:
+  - Deliberate Git-history forgery or cryptographic signatures.
+  - Migrating or rewriting historical receipts, accepted decisions or reviewed source.
+  - Current project acceptance or automatic status overlay promotion.
+  - New physical cleanroom, reviewer launcher qualification, C firmware or target verification.
+prohibited:
+  - Modify accepted AS/AP/F/CON/DE or active VO/AD ledgers.
+  - Overwrite old review receipts or source-time authoring fields.
+  - Declare review acceptance, target correctness, final F-001, VO discharge, framework freeze or cleanroom authorization.
+  - Treat Git digest match as proof of semantic correctness or stakeholder approval.
+human_approval_required: true
+source_code_change_authorized: false
+next_eligible_action: Obtain explicit human authorization for bounded FR-003 source changes after inspecting this proposal.
+authority_limits:
+  framework_frozen: false
+  cleanroom_authorized: false
+  product_verified: false
+  vo_discharged: []
+  open_vos: [VO-002, VO-003, VO-004, VO-005, VO-006]

@@ -80,9 +80,12 @@ framework:
       next: "Scoped FR-002 implementation review accepted; preserve clarification and candidate projection state. No FR-003 work without separate authorization."
       exit: "No embedded Toy 1 project-authority list in generic gate; Toy 1 C-002 and negative controls preserved; another project uses same generic mechanics."
     - id: FR-003-HISTORICAL-INTEGRITY
-      status: NOT_STARTED
+      status: PROPOSED_AWAITING_SOURCE_AUTHORIZATION
+      proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
+      design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
+      implementation_authorized: false
       intent: "Read-only historical source-revision auditor distinct from current-applicability checking and reviewed-status overlay."
-      exit: "Historical acceptance remains verifiable at its original revision without requiring present-worktree hashes to match."
+      exit: "Historical byte correspondence is verifiable at the original source revision, without requiring current worktree bytes to match; applicability and review status remain separate."
     - id: FR-004-REVIEWER-EXECUTION
       status: NOT_STARTED
       intent: "Qualify the supported independent reviewer invocation mode(s) with real completed turns and accurate launch-failure records."
@@ -133,21 +136,20 @@ program_campaign:
       objective: "Retarget generic engine to a distinct numerical root solver, then increase novelty, complexity and team scale."
   campaign_dependency: "The existing qualification campaign puts Toy 1 evidence and generic framework freeze before the cleanroom. Do not treat pre-freeze repair work as final Toy 1 completion."
 next_eligible_action:
-  type: AUTHORITY_GATE_FOR_NEXT_MILESTONE
-  subject: FR-003 historical integrity
-  current_status: NOT_STARTED_NOT_AUTHORIZED
-  completed_administrative_action: "Record scoped FR-002 independent ACCEPT_WITH_CLARIFICATIONS in AGENTS.md, PROJECT_SPINE.md and this roadmap."
-  independent_review_commit: 2dbd7b003ed515b916595287b8d29478fc1aa805
-  independent_review_receipt: reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json
-  instruction: "Seek separate authorization for the next bounded FR-003 proposal before implementing any historical auditor. Do not infer approval from the FR-002 review."
-  fr002_reviewed_implementation: true
-  fr002_project_projection_activated: false
+  type: HUMAN_APPROVAL_GATE
+  subject: FR-003 historical integrity auditor
+  status: PROPOSAL_READY_SOURCE_NOT_AUTHORIZED
+  proposal: process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml
+  design: docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md
+  instruction: "Obtain explicit engineering-authority approval or revision of the bounded FR-003 source implementation scope before changing auditor code."
+  preceding_scoped_review: reviews/qualification/REVIEW_FR002_BASELINE_CONTINUITY_001-receipt.json
+  human_approval_before_new_source: true
   framework_frozen: false
   prohibit:
-    - "Do not execute the paused hostile-forgery FR-002 R1 review as current task."
-    - "Do not activate the candidate Toy 1 continuity projection based on implementation review."
-    - "Do not claim complete second-project protected validator qualification."
-    - "Do not start FR-003 source edits, cleanroom, final F-001 or discharge VOs without their distinct authority."
+    - "Do not implement the FR-003 historical auditor until its bounded scope is specifically approved."
+    - "Do not rewrite prior review receipts or source-time authoring state."
+    - "Do not activate the Toy 1 candidate continuity projection."
+    - "Do not claim FR-004, cleanroom, final F-001, product acceptance or VO discharge."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

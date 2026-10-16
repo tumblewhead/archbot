@@ -41,9 +41,14 @@ tested, so full non-Toy-1 domain-validator qualification remains outside
 this review. Toy 1's continuity projection is still a candidate and
 NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 `REVIEW_FR002_GATE_ADAPTER_R1-001` paused task are preserved.
-**Next action:** checkpoint/roadmap synchronized; any FR-003 planning
-or source work requires its own separate authorization. No framework
-freeze, cleanroom, product acceptance or VO discharge.
+**Next decision:** a bounded FR-003 historical-integrity source proposal
+has been authored in `process/proposals/FR003_HISTORICAL_INTEGRITY_001.yaml`,
+with design in `docs/FR003_HISTORICAL_INTEGRITY_DESIGN_001.md`.
+It is **PROPOSED_NOT_AUTHORIZED**. Engineering authority must explicitly
+approve or revise the bounded source scope before any historical-auditor
+implementation. Keep historical source matching, current applicability
+and independent review disposition distinct. No framework freeze,
+cleanroom, product acceptance or VO discharge.
 
 **Update rule:** on each independently reviewed milestone or authorized
 change of direction, update `PROJECT_SPINE.md` and the roadmap YAML
