@@ -49,9 +49,16 @@ NOT ACTIVATED. Historical first FR-002 `REVISE` and old hostile-forgery
 raise `UnicodeEncodeError` instead of bounded `UNRESOLVED`.
 The reviewer independently reran 87 unit tests and confirmed source-time
 identity, current applicability separation and reviewer overlays.
-**Next authorized source action:** narrowly reject unencodable paths
-in `tools/historical_audit.py`, add a focused negative regression,
-collect human local tests and have a distinct reviewer assess the fix.
+**Current FR-003 correction:** the narrowly scoped R1 source fix for
+`FR003-REVIEW-FINDING-001` rejects UTF-8-unencodable repository paths
+in `tools/historical_audit.py`. A new regression in
+`tests/test_historical_audit.py` checks JSON-escaped high and low lone
+surrogates return bounded `UNRESOLVED`. These files are **authoring
+candidates, not locally tested or independently reviewed**. The human
+now runs focused regressions and publishes a NEW versioned receipt
+`reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json`
+only after actual success. Then a DIFFERENT independent reviewer
+reviews the focused correction, preserving original `REVISE`.
 No FR-004, freeze, cleanroom or VO discharge authorization follows.
 
 **Delivery priority:** avoid expanding FR-003 into a broad security audit

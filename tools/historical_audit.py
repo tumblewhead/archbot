@@ -43,6 +43,10 @@ def path_ref(ref):
             ref != PurePosixPath(ref).as_posix() or
             any(p in ("", ".", "..", ".git") for p in ref.split("/"))):
         raise AuditInputError("Unsafe repository-relative path")
+    try:
+        ref.encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise AuditInputError("Repository path is not UTF-8 encodable") from exc
     return ref
 
 

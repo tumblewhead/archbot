@@ -3,46 +3,51 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: FR-003 independent REVISE; focused correction next
+## Current checkpoint: FR-003 focused R1 correction; local tests next
 
-Read [the machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
+Read the [machine-readable roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml)
 and [qualification campaign](docs/QUALIFICATION_CAMPAIGN.md).
-FR-001 and FR-002 are independently accepted only with their stated
-clarifications; Toy 1's continuity projection is still a candidate,
-and VO-002..VO-006 and final F-001 remain outstanding.
+FR-001 and FR-002 remain independently accepted with their declared
+clarifications; the Toy 1 continuity projection is not activated, and
+VO-002..VO-006 and final F-001 are still outstanding.
 
-The [FR-003 independent report](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-report.md)
-and [receipt](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json)
-were pushed in `f33cd51bddc3c415293899d0350b469e67403823`: **REVISE**, not acceptance.
-Reviewed source: `66b75a2a3720bca32f13b430a26715da8477641f`;
-human producer evidence: `040400394e030c7898de66aa3bd1a3648f8e3555`.
-The reviewer independently reran 87 unit tests, confirmed all nine
-source identities and fourteen local-log fingerprints, and observed
-`HISTORICAL_MATCH` with later-worktree correspondence `DIFFERENT`
-and `present_applicability=NOT_EVALUATED`.
+The [FR-003 initial independent review](reviews/qualification/REVIEW_FR003_HISTORICAL_INTEGRITY_001-receipt.json)
+at `f33cd51bddc3c415293899d0350b469e67403823`
+returned **REVISE** with one blocking finding,
+`FR003-REVIEW-FINDING-001`. A JSON-escaped lone surrogate in a source
+path caused uncaught UnicodeEncodeError instead of `UNRESOLVED`.
+The earlier [local evidence receipt](reviews/qualification/FR003_HISTORICAL_INTEGRITY-local-test-receipt.json)
+and initial review report remain unchanged, pinned to their
+original source revisions.
 
-**Only blocking defect:** `FR003-REVIEW-FINDING-001`. A JSON-escaped
-lone surrogate (U+D800) in a source path passes `path_ref` then raises
-uncaught `UnicodeEncodeError`, instead of bounded `UNRESOLVED`.
-A narrow correction is authorized under existing FR-003 source scope:
-reject non-UTF-8-encodable paths or catch encoding failure, add one
-negative regression, then obtain fresh human tests and distinct review.
-Do not rewrite the original `REVISE` receipt or call the code accepted.
+**Narrow R1 candidate now authored under existing FR-003 authorization:**
+`tools/historical_audit.py:path_ref` rejects unencodable UTF-8 paths
+with `AuditInputError`. `tests/test_historical_audit.py` adds an
+explicit JSON-escaped lone-surrogate regression for both high and low
+surrogates. No other implementation file is modified. This change
+is **NOT LOCALLY TESTED or INDEPENDENTLY ACCEPTED** yet.
 
-**Strategic priority after this small correction:** accelerate toward
-the actual proof-of-use. FR-004 should qualify the reviewer execution
-mode the process promises, without demanding two modes for symmetry.
-FR-005 should demonstrate an independently checked, positive-allowlist
-fresh-agent bootstrap from unsolved inputs. FR-006 is a separate
-integrated framework-freeze review. A practical end-to-end cleanroom
-Toy 1 demonstration is the milestone, not an unlimited succession of
-metadata/edge-case audits. This is prioritization guidance, **not**
-authorization to skip existing stage gates or launch cleanroom early.
+**Next task:** human pulls the R1 source, runs focused historical,
+verification kernel, active-baseline and review-route regressions,
+and runs the explicit historical CLI on previous evidence. If all
+actually pass, publish the NEW
+`reviews/qualification/FR003_HISTORICAL_INTEGRITY_R1-local-test-receipt.json`
+with source identities and log fingerprints. Do not overwrite earlier
+test or review receipts. Assistant verifies pushed evidence, then routes
+a *distinct* scoped R1 independent review. Do not re-run the old
+FR-003 initial reviewer task as though its source pin had changed.
 
-The cooperative-audience operating assumption applies. The source-time
-auditor's digest result is not review approval or product correctness.
-No FR-004 implementation, framework freeze, cleanroom, target selection,
-accepted AD change, final F-001 decision or VO discharge is authorized.
+**Delivery priority:** close FR-003 via the narrow corrective review,
+then FR-004 only needs to qualify the one reviewer mode the process
+actually promises. FR-005 must prioritize working cleanroom input
+isolation plus a fresh-agent end-to-end bootstrap. FR-006 remains the
+integrated framework-freeze gate, after which cleanroom Toy 1 requires
+its own authorization. A pre-freeze rehearsal may be proposed
+separately, but this R1 authorization does not permit it.
+
+No FR-004 implementation, framework freeze, cleanroom, target
+qualification, AD change, final F-001 acceptance or VO discharge is
+authorized. Cooperative-audience scope remains active.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

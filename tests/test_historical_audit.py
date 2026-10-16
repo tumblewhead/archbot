@@ -119,6 +119,22 @@ class HistoricalAuditTests(unittest.TestCase):
         self.assertEqual(ha.inspect(self.root, "../bad.json")["historical_status"],
                          "UNRESOLVED")
 
+    def test_json_escaped_lone_surrogate_path_is_unresolved(self):
+        for codepoint in (0xD800, 0xDC00):
+            with self.subTest(codepoint=codepoint):
+                bad_path = "knowledge/other-project/" + chr(codepoint)
+                self.receipt["source_sha256"] = {bad_path: self.initial_sha}
+                self.receipt.pop("source_git_blob_sha1", None)
+                self.write_receipt()
+                # json.dumps escapes invalid Unicode, so it reaches inspect()
+                # as a parsed JSON string rather than an invalid byte stream.
+                raw = (self.root / self.receipt_ref).read_bytes()
+                self.assertTrue(all(byte < 128 for byte in raw))
+                report = ha.inspect(self.root, self.receipt_ref)
+                self.assertEqual(report["historical_status"], "UNRESOLVED")
+                self.assertIn("UTF-8", report["reason"])
+                self.assertEqual(report["items"], [])
+
     def test_unsupported_schema_and_missing_digest_unresolved(self):
         self.receipt["schema"] = "unknown-unreviewed-shape"
         self.write_receipt()
