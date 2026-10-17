@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: PREPARATION_SOURCE_CANDIDATE_NOT_LOCALLY_TESTED
+  status: AS_AUTHORING_ARTIFACTS_PRESERVED_DIAGNOSTIC_REVIEW_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -237,6 +237,15 @@ cleanroom_pipe_cleaner:
   package_builder: tools/cleanroom_pipe_cleaner.py
   tests: tests/test_toy1_pipe_cleaner.py
   first_observable_result: "Fresh agent creates AS-DRAFT-001.md, QUESTIONS-001.md and BRIEFING-001.md from original BKP only; review and human authority follow."
+  diagnostic_authoring_submission_commit: 57c49628dfca12e30315eb7b08f63c478379cc68
+  diagnostic_authoring_artifact_dir: reviews/diagnostics/CLN-001-TASK-001/
+  archived_files: [AS-DRAFT-001.md, QUESTIONS-001.md, BRIEFING-001.md, RUN-NOTES.md, SHA256SUMS]
+  author_result: FIRST_DRAFT_CREATED_STOPPED_BEFORE_DOWNSTREAM_STAGES
+  package_preflight_reported: PASS
+  runtime_isolation_independently_verified: false
+  reviewer_handoff: reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md
+  independent_as_review: PENDING
+  human_authority_disposition: PENDING
   included: "Pinned original BKP and neutral framework role/playbook, empty project manifest/spine and initial AS task only."
   excluded: "All prior AS-001 solutions, proofs, AP/F, contracts, implementation, accepted decisions, review evidence, old Git history, old chat, evaluator oracle."
   diagnostic_gate: "Actual preflight, new fresh-agent invocation, measured filesystem and connector access, truthful output and stopping point."
@@ -247,20 +256,23 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: HUMAN_PREPARE_DIAGNOSTIC_WORKSPACE
-  subject: First Toy 1 fresh-start Architecture Statement pipe-cleaner
-  authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
-  runbook: docs/CLN_TOY1_PIPE_CLEANER_001.md
-  source: tools/cleanroom_pipe_cleaner.py
-  tests: tests/test_toy1_pipe_cleaner.py
-  instruction: "Pull new package builder; run preflight regression; prepare external workspace; independently check agent reachability; start fresh agent at TASK-001 and capture AS draft/questions/briefing. Do not expose auditor_only or prior checkout."
+  type: INDEPENDENT_DIAGNOSTIC_AS_REVIEW
+  subject: Fresh Toy 1 AS draft from original BKP sources
+  branch: experiment/toy1-pipe-cleaner-001
+  authored_commit: 57c49628dfca12e30315eb7b08f63c478379cc68
+  review_handoff: reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md
+  output_paths:
+    - reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md
+    - reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json
+  instruction: "Prepare independent reviewer workspace with only three BKP + three authored artifacts + generic review role/playbook. Run separate Codex reviewer; preserve actual disposition and isolation limits; selectively push review only."
+  following_action: "Human engineering decisions on the reviewed open source authority and specification questions; no automatic AS acceptance."
   reviewed_cleanroom: false
   framework_frozen: false
   prohibit:
-    - "Do not claim pre-freeze diagnostic equals formal cleanroom qualification."
-    - "Do not supply previous Toy 1 accepted solution material, old Git history, old chat or evaluator rubric to the fresh agent."
-    - "Do not start multi-project or Git submodule migration to serve this experiment."
-    - "Do not accept draft AS or discharge VOs automatically."
+    - "Do not expose old solved Toy 1 artifacts or evaluator rubric to the authoring agent."
+    - "Do not treat the diagnostic reviewer status as stakeholder approval or formal cleanroom qualification."
+    - "Do not auto-start proof/AP/CON/DE/C without explicit human authority."
+    - "Do not restart parked project-registry/submodule work."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

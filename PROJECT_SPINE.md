@@ -3,62 +3,56 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: first Toy 1 cleanroom pipe-cleaner preparation
+## Current checkpoint: first fresh Toy 1 AS submitted; independent diagnostic review next
 
-The human reprioritized the work to **a fresh Toy 1 run from its original
-unsolved problem inputs**. Dual projects, full project-root migration
-and Toy 1 Git submodule installation are paused. They are not
-prerequisites for a diagnostic from an isolated source allowlist.
+The human created an external pre-freeze diagnostic workspace from
+the original three synthetic Toy 1 BKP inputs and ran a fresh Codex
+architecture agent. The produced artifacts were submitted on branch
+`experiment/toy1-pipe-cleaner-001` at
+`57c49628dfca12e30315eb7b08f63c478379cc68`:
 
-**Closest concrete output:** `tools/cleanroom_pipe_cleaner.py`
-and `tests/test_toy1_pipe_cleaner.py`, with the
-[bounded preparation decision](process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml)
-and [pipe-cleaner runbook](docs/CLN_TOY1_PIPE_CLEANER_001.md).
-The code is an **untested candidate** for creating a small fresh-agent
-workspace outside this Git repository. It copies only fixed original
-BKP sources, two neutral roles, a generic AS review playbook, the
-new project-registry executable, and blank project/task scaffolding.
-An auditor-only manifest records content hashes. The first task
-stops after generating a draft `AS=(C,R,PS)`, unanswered
-stakeholder-authority questions and an engineering briefing.
+- [AS-DRAFT-001](reviews/diagnostics/CLN-001-TASK-001/AS-DRAFT-001.md)
+- [QUESTIONS-001](reviews/diagnostics/CLN-001-TASK-001/QUESTIONS-001.md)
+- [BRIEFING-001](reviews/diagnostics/CLN-001-TASK-001/BRIEFING-001.md)
+- [source/run notes](reviews/diagnostics/CLN-001-TASK-001/RUN-NOTES.md) and
+  [SHA256SUMS](reviews/diagnostics/CLN-001-TASK-001/SHA256SUMS)
 
-**Next local action:** run the new package/preflight tests, generate
-a fresh external workspace, audit the positive allowlist, then run a
-new independent agent with access limited to `workspace/` to produce
-the first AS draft. The old solved Toy 1 AS/AP/P/CON/DE, implementation,
-acceptance receipts, old Git history, evaluator reference and chat
-must not be visible. Physical access limitations are measured, not
-assumed. An actual evaluator reviews the produced draft separately.
-This is a **pre-freeze diagnostic**, not the final qualified
-cleanroom or evidence of independent review.
+The authoring result stops at AS=(C,R,PS), records requirement
+candidates and synthetic assumptions separately, raises specific
+stakeholder-authority and timing questions, and does not claim
+proof, selection, CON, DE or implementation. This is a useful
+**first-stage authoring result**, NOT independent acceptance.
 
-Original BKP inputs contain a synthetic 1 ms timing statement.
-The prior accepted scope correction is excluded deliberately.
-A fresh agent must separate unproven model assumptions from
-stakeholder authority and ask the human instead of importing the
-previous response. This is a useful diagnostic of Progressive
-Concretization's behavior.
+**Next handoff:** read
+[REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md).
+Human creates a *separate* reviewer workspace by positive allowlist:
+three BKP files, three newly authored artifacts and generic
+verification guidance only. Run a distinct Codex reviewer; it emits
+`REVIEW-001.md` and `REVIEW-001.json`, then stop. Copy only those
+reviewer artifacts back to the experiment branch. A favorable
+source-fidelity review opens **human requirements disposition**;
+it does not automatically approve AS or permit downstream stages.
 
-FR-001/FR-002 scoped independent acceptances and FR-003's focused
-R1 `ACCEPT` are preserved. The project registry's latest local
-evidence receipt was pushed in
-`a6bb262e609dfeb609616e895a3925358d2dffd3` with 12 checks
-recorded exit zero and nine source pins verified, but **no independent
-registry acceptance**. Do not launch its review during this test.
-Older Toy 1 source, protected authority, prior reviews and existing
-VO/AD ledger state remain untouched.
+**Important remaining limitation:** The author's run notes record
+filesystem/runtime isolation **NOT INDEPENDENTLY VERIFIED**.
+Earlier `cleanroom_pipe_cleaner.py inspect` reported the initial
+allowlisted package intact; that does not establish the agent could
+not access host paths, connections or prior memory. This remains a
+**pre-freeze diagnostic, not FR-005 qualification or a formal
+cleanroom result**.
 
-The formal cleanroom campaign remains gated by one necessary
-reviewer execution mode (FR-004), independently reviewed positive
-allowlist (FR-005), integrated freeze (FR-006), and separate
-cleanroom-launch authority. These gates cannot be silently passed
-by a successful diagnostic. The pipe-cleaner is meant to expose
-real process gaps before those gates.
+**Work intentionally parked:** multi-project experiments,
+project-registry independent review, Toy 1 submodule migration,
+and the legacy task/gate root refactoring. The registry's local
+producer tests were pushed in `a6bb262e609dfeb609616e895a3925358d2dffd3`,
+but no independent registry acceptance was declared. Preserve
+original Toy 1 accepted records and all historical review receipts.
 
-**Strict boundaries:** no FR-004/FR-005/FR-006 completion claimed,
-no product acceptance, target qualification, final F-001 decision
-or VO discharge. VO-002..VO-006 remain open and AD-003 remains
-unresolved for final acceptance.
+**Formal milestones unchanged:** FR-004 reviewer-mode qualification,
+FR-005 positive-allowlist isolation, FR-006 integrated freeze,
+and a separately authorized real cleanroom replay. Toy 1 final
+F-001 is outstanding, no target selected, AD-003 unresolved,
+VO-002..VO-006 open. No VO/AD authority was altered here.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

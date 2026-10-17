@@ -57,19 +57,21 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: Toy 1 fresh-start pipe-cleaner.** The user explicitly
-deferred dual-project and submodule migration work and requested the
-tool's first run from the **unsolved original Toy 1 brief**. Start with
-`docs/CLN_TOY1_PIPE_CLEANER_001.md` and bounded
-`process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml`.
-The candidate `tools/cleanroom_pipe_cleaner.py` and
-`tests/test_toy1_pipe_cleaner.py` create/check a tiny allowlisted
-workspace, with original BKP, neutral roles and one AS authoring task.
-Source authored, **NOT LOCALLY TESTED, NOT A QUALIFIED CLEANROOM**.
-Next: human pulls, runs the package tests and creates a clean workspace
-outside the source repo, independently inspects its inputs, then invokes
-a genuinely fresh agent to create `AS-DRAFT-001` and questions.
-This is a pre-freeze diagnostic, never a hidden FR-005/FR-006 approval.
+**CURRENT PRIORITY: Toy 1 pipe-cleaner first AS diagnostic.**
+The new agent's AS draft, questions, briefing and source hashes were
+committed on `experiment/toy1-pipe-cleaner-001` at
+`57c49628dfca12e30315eb7b08f63c478379cc68`.
+The author stopped before downstream engineering stages.
+Read `reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md`.
+**Next action** is an independent **diagnostic** reviewer workspace
+and distinct Codex invocation for first-stage source fidelity.
+It must use only the original three BKP sources, three submitted
+outputs, and generic verification guidance. The reviewer should
+report `READY_FOR_HUMAN_QUESTIONS`, `REVISE_DRAFT` or `UNRESOLVED`,
+without asserting any stakeholder AS acceptance. The first package
+preflight reported PASS; physical Codex filesystem/connector
+isolation was NOT independently verified. No formal FR-005 cleanroom
+qualification or product verification is implied.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
