@@ -1,0 +1,98 @@
+schema: pc-cln-diagnostic-as-addendum-disposition/v1
+id: CLN-001-AS-ADDENDUM-008-R1-DISPOSITION
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ACTIVE_ACCEPTED_ADDITIVE_AS_CLARIFICATION
+scope: SYNTHETIC_PREFREEZE_DIAGNOSTIC_ONLY
+decision_authority:
+  originating: human_experiment_sponsor
+  delegated_decision_maker: ChatGPT_assistant_CLN001_only
+  delegation_record: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  new_real_product_authority: false
+decision:
+  disposition: ACCEPT_R1_WITH_NONBLOCKING_PHYSICAL_REFINEMENT_UNKNOWNS
+  accepted_source: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md
+  accepted_source_git_blob: 0357f82bd8754e88aac3c79224cdb2c770e3e0f1
+  acceptance_kind: ADDITIVE_INTERPRETATION_NO_REPLACEMENT_OF_AS_REV_002
+  binding_on_future_CLN001_AP_evaluation: true
+  original_AS_and_D001_rewritten: false
+  original_AS_activated_by: reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
+review_basis:
+  focused_independent_review_commit: 698c162e624df0faab640ef294a1bea63997981e
+  focused_report: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008-R1.md
+  focused_report_git_blob: 9fe541786dba1e93593f26b56428e50292bd4a6c
+  focused_receipt: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008-R1.json
+  focused_receipt_git_blob: acf370ef4b310e70ff6340292cc4b4ddf5f23352
+  raw_review_manifest: reviews/diagnostics/CLN-001-TASK-008/REVIEW_AS_ADDENDUM008_R1_SHA256SUMS
+  raw_review_manifest_blob: bb3d8574c61859502dc28f6f2e68559b5b071fcb
+  review_disposition: READY_FOR_DELEGATED_AS_ADDENDUM_DISPOSITION
+  finding_R008_3: RESOLVED_FOR_EXACT_R1_BYTES
+  review_exact_delta: TITLE_AND_S28_ONLY
+  reviewer_reported_payload_hashes: 18_OF_18_MATCH
+  reviewer_externally_authenticated: false
+  OS_connector_isolation_qualified: false
+  prior_original_review: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.json
+  prior_original_disposition: REVISE_AS_ADDENDUM_PRESERVED
+accepted_clarifications:
+  A008_R1:
+    exact_index_supply: >-
+      Preserve one exact pair (n,E_n) for every accepted valid event.
+      Physical representation may be explicit or implicit ONLY if an
+      actual consumer, with genuinely available accepted-event/reset
+      association and state, can exactly decode the one-based accepted
+      event rank throughout all accepted sequence lifetimes.
+      Observer-only rank, lone request ID or energy-only response
+      without retained accepted-rank association is insufficient.
+    not_an_approval_of_RI: true
+  A008_R2:
+    accepted_result_obligation: >-
+      Every accepted valid event owes a correctly associated logical
+      result even across stalls, faults, reset or restart; reporting
+      an error does not fulfill that obligation. Invalid attempts
+      neither advance the accepted index nor numeric or association
+      state. No universal crash survival, reliable exactly-once
+      transport or infinite availability is inferred.
+  A008_R3:
+    observable_reset: >-
+      Explicit reset begins new zero-padded numeric history and rank;
+      old accepted results cannot alias new-sequence results.
+      Consumer-visible reset ordering and unambiguous association
+      are required. A separate acknowledgment event is optional;
+      drain, marker, version tag or other mechanism is unselected.
+      Finite tags need validated lifetime/retirement/reuse conditions.
+    mandatory_distinct_acknowledgment: false
+accepted_limits:
+  no_finite_epoch_or_counter_wrap: true
+  no_mandatory_reset_or_valid_sample_drop: true
+  no_new_backpressure_publisher_pause_or_recovery_guarantee: true
+  no_hard_1ms_deadline: true
+  no_RN_or_C_HIST_service_approval: true
+  no_AP_selection: true
+  no_contract_DE_C_authorization: true
+  no_target_or_product_qualification: true
+  numeric_latest_32_energy_unchanged: true
+  memory_ceiling_detector_attributable_bytes: 2048
+  no_hardware_FPU_dependency: true
+  three_F_axes: [RAM_peak, compute_effort, device_energy_consumption]
+  conditional_T1_T2_scope_unchanged: true
+  T002_2_through_T002_8: OPEN
+  R4_whole_detector: OPEN_DEFERRED
+  PO_003_1_and_3: UNPROVEN
+  historical_Toy1_VOs_discharged: []
+remaining_interface_evidence:
+  - "Identify physical consumer, actual information, exact decoder and sequence/reset lifetime."
+  - "Specify acceptance and output publication, pending-state retention/retry and bounded queue or proved flow coordination."
+  - "Specify reset ordering, old/new debt handling and nonaliasing without mandated acknowledgment."
+  - "Review any RN/external history service provider, binding, snapshot, retention, availability, ownership and resources."
+  - "Account all attributable peak RAM, call stack, runtime, device energy and dependency evidence under compatible scopes."
+next_task:
+  authorization: SEPARATE_STAGE_APPROPRIATE_INDEPENDENT_AP_FEASIBILITY_EVALUATION_OF_UNSELECTED_A_B_C
+  evaluation_may: >-
+    Produce source-grounded conditional feasibility analysis, explicit
+    acceptance and service-dependency matrix, independent numeric
+    models and symbolic F comparisons with honest UNKNOWNs.
+  evaluation_may_not: >-
+    Treat unknown H gates as PASS, assume new services or index
+    mechanisms, approve contracts, select an AP, begin CON/DE/C or
+    discharge any verification obligation.
+  AP_selection_requires_separate_authority_after_evaluation: true
