@@ -3,59 +3,61 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: first CLN-001 conditional theorem independently reviewed
+## Current checkpoint: CLN-001 conditional theorem accepted; Stage-5 interface applicability next
 
-The CLN-001 synthetic energy primitive AS is accepted under
-[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml),
-and its diagnostic three-axis F under
-[F-DISPOSITION-003](reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml).
-No target measurements or AP have been accepted.
+The human sponsor delegated CLN-001 **synthetic diagnostic** engineering
+authority to the assistant, not real product or generalized process
+authority. The scoped AS and F remain accepted:
+[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml)
+and [F-DISPOSITION-003](reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml).
+All RAM/compute/device-energy realization values are UNKNOWN.
+No AP has been selected.
 
-The first separate Proof Engineer authored
-[PROOF-ATTEMPT-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md)
-at `2026cb251353285d8fe63671b9ce2b25c9fa9be6`.
-The user then ran the independent proof reviewer, archived its
-original REVIEW-PROOF-004.md/json and manifest at
+The first separate Proof Engineer's attempt and distinct mathematical
+review were archived at
+`2026cb251353285d8fe63671b9ce2b25c9fa9be6` and
 `f255c662847378ac3df39b55c71e146a1f71cf7c`.
-Reviewer verdict: **ACCEPT_WITH_CLARIFICATIONS**, no blocking
-mathematical defect. Its report independently reconstructs
-the crucial 31-zero-continuation recovery and state-distinguishability
-proofs, with separately recorded finite checks.
+The independent review returned **ACCEPT_WITH_CLARIFICATIONS**.
+[PROOF-DISPOSITION-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml)
+records **T1 accepted**: exact future NUMERIC output equivalence
+iff padded ordered 31-tails agree (all nonempty continuations).
+**T2 accepted conditionally**: at fixed n>=32, a deterministic
+complete retained-information no-replay machine needs at least
+`2^372` distinguishable states (372 bits or 47 whole octets
+of information capacity). This is not a 47-byte implementation
+or an unconditional detector-local SRAM bound. The indexed
+interface was not part of T1. PO-003-1 and PO-003-3 remain UNPROVEN.
 
-The CLN-001 sponsor delegate records the scoped result in
-[PROOF-DISPOSITION-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml):
-**T1 ACCEPTED** for future **numeric** outputs under all
-nonempty continuations iff padded 31-sample tails agree.
-**T2 ACCEPTED CONDITIONALLY**: `2^372` distinguishable complete
-retained states (at least 372 bits or 47 octets of information
-capacity) at a fixed epoch length n>=32, assuming a complete
-deterministic **no external replay/readback** information boundary
-and unrestricted future continuations. This is **not**
-a detector SRAM lower bound without ownership closure, nor
-a sufficient 47-byte implementation, target fit or proof of
-the full indexed output interface.
+**Next eligible project task:** [TASK-INTERFACE-005](reviews/diagnostics/CLN-001-TASK-005/TASK-INTERFACE-005.md).
+The accepted AS permits upstream ownership of acquisition memory,
+but neither the ability to reread prior samples nor a no-replay
+contract is yet established. It calls for a logically exact
+`(n,E_n)` pair, but does not assign a finite-implementation
+index owner, epoch lifetime or overflow policy. Stage-5 analyst
+must compare alternative information boundaries and index
+interpretations, trace conditional T2 applicability, and create
+a D002 **PROPOSED_NOT_APPROVED** decision with exact consequences,
+without silently amending the AS or choosing AP.
 
-PO-003-1 and PO-003-3 remain **UNPROVEN**.
-The finite-state unbounded-index issue in PO-003-3, external
-publisher-history/replay ownership and permitted epoch length
-must be analyzed before using T2 to qualify an architectural
-candidate. No index wrap policy, AS amendment or AP is silently
-adopted. All T002-2..8 and deferred R4 whole-detector detection
-obligations remain OPEN.
+The user pulls the branch and runs
+[prepare_interface005.sh](reviews/diagnostics/CLN-001-TASK-005/prepare_interface005.sh)
+from the real Archbot checkout to CREATE
+`~/archbot-cln001-interface-005`, then launches a fresh
+Codex analyst. Read
+[STAGE5_HANDOFF](reviews/diagnostics/CLN-001-TASK-005/STAGE5_HANDOFF.md).
+After its three outputs appear,
+[archive_interface005.sh](reviews/diagnostics/CLN-001-TASK-005/archive_interface005.sh)
+copies and pushes original evidence with safe restart behavior:
+existing identical files and previously staged intended outputs
+are recognized. The next independent review and delegated D002
+disposition are separate gates.
 
-**Next work is scoped applicability/interface clarification**:
-decide what information is retained locally versus accessible
-upstream, whether indices are externally supplied, and whether
-epochs can be unbounded. The next AP author must not import
-the old Toy 1 solution or treat conditional theorem applicability
-as resolved. Current user goal includes learning the Git
-workflow; no new Codex agent task has been launched yet.
-
-This remains a **pre-freeze diagnostic**, not formal cleanroom
-FR-005/FR-006. Real hardware, target memory/timing/power and
-full detector remain unqualified. No old Toy 1 VO or architectural
-debt is discharged, and dual-project/migration work stays parked.
-`main` remains unchanged.
+R4 full sustained-energy detector and T002-2..8 remain OPEN.
+This is **pre-freeze diagnostic**, not formal FR-005/FR-006
+cleanroom, hardware qualification or original Toy 1 VO
+discharge. Historical accepted Toy 1 solution remains excluded
+from fresh-agent packages. Framework/submodule work parked;
+`main` unchanged.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

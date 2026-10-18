@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE4_PROOF_ACCEPTED_WITH_CLARIFICATIONS_APPLICABILITY_OPEN
+  status: STAGE5_INTERFACE_APPLICABILITY_AUTHORING_PREPARED
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -355,22 +355,28 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: CLN001_PROOF_APPLICABILITY_AND_INTERFACE_SCOPE
-  subject: external history ownership and logical index/epoch interpretation
+  type: CLN001_STAGE5_INTERFACE_OPTIONS_ANALYSIS
+  subject: accepted T2 information-boundary applicability and exact logical-index implementation interpretation
   branch: experiment/toy1-pipe-cleaner-001
-  reviewed_proof_commit: f255c662847378ac3df39b55c71e146a1f71cf7c
-  accepted_scope_record: reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml
-  next_steps: "Inspect T2 additional no-replay model versus the accepted AS upstream boundary, clarify permitted epochs and indexed-output responsibility with delegated synthetic authority, then issue a distinct source-allowlisted task before AP. User presently studying Git workflow."
-  mathematical_T1_accepted: true
-  mathematical_T2_conditionally_accepted: true
-  proof_of_local_RAM_fit: false
+  accepted_AS: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  accepted_T1_T2_scope: reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml
+  task: reviews/diagnostics/CLN-001-TASK-005/TASK-INTERFACE-005.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-005/prepare_interface005.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-005/archive_interface005.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-005/STAGE5_HANDOFF.md
+  expected_outputs: [INTERFACE-OPTIONS-005.md, DECISION-PROPOSAL-005.yaml, BRIEFING-005.md]
+  instruction: "Human pulls the experiment branch; prepare script creates a new source-allowlisted workspace; fresh agent analyzes no-replay/history ownership and index/epoch options and returns an UNAPPROVED D002 proposal; archive script safely resumes after partial copy/stage; distinct review and delegated D002 decision follow."
+  output_status: NOT_YET_EXECUTED
+  D002_status: PROPOSAL_ONLY_NOT_APPROVED
+  AS_and_F_unchanged: true
   AP_selected: false
-  cleanroom_qualified: false
+  formal_cleanroom_qualified: false
   prohibit:
-    - "Do not silently assume no replay or an external index mechanism when applying T2 to a candidate design."
-    - "Do not turn 47 octets of complete information capacity into implemented detector RAM."
-    - "Do not authorize AP/CON/DE/C merely because the theorem review passed."
-    - "Do not import older Toy 1 proof/code/F/AP or resume unrelated framework migration."
+    - "Do not assume the mathematical no-replay model is the accepted physical detector boundary."
+    - "Do not silently impose an epoch length, finite index wrap or an external index source."
+    - "Do not treat the theorem's complete-state lower bound as local device RAM."
+    - "Do not edit earlier AS/F/D001/proof/review, or import old solved Toy 1 solutions."
+    - "Do not begin AP/CON/DE/C before the applicability and authority gates."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

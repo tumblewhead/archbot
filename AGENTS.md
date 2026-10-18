@@ -57,22 +57,30 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 theorem applicability and interface scope.**
-Original independent proof reviewer was pushed at
-`f255c662847378ac3df39b55c71e146a1f71cf7c` with
-`ACCEPT_WITH_CLARIFICATIONS`. A scoped additive mathematical
-disposition is in
-`reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml`.
-T1 (padded 31-tail equivalence for every future numeric output)
-is accepted. T2 (2^372 complete retained states, 372 information
-bits under deterministic, no-replay, unrestricted-continuation
-model) is conditionally accepted, NOT a 47-byte implementation
-or detector-local SRAM result. PO-003-1/3 are unproven; logical
-index lifetime and external history ownership remain unresolved.
-No automatic AP/CON/DE/C execution or old Toy 1 import.
-The human is also studying our Git workflow; allow interactive
-inspection before issuing more local agent tasks. Formal
-cleanroom/target qualification remains false, VOs still open.
+**CURRENT PRIORITY: CLN-001 Stage-5 interface and theorem applicability.**
+The independent proof review at
+`f255c662847378ac3df39b55c71e146a1f71cf7c`
+and scoped `PROOF-DISPOSITION-004.yaml` accept T1 for
+future numeric output and T2 only for the explicit complete
+deterministic **no-replay** information boundary. Neither
+47-octet capacity nor mathematical T2 is proof of detector
+SRAM fit. PO-003-3's closed finite-state/unbounded-index
+issue is still UNPROVEN.
+Do not select AP before establishing the history replay/
+memory ownership and logical sample-index semantics.
+
+The next bounded **source-only** task is
+`reviews/diagnostics/CLN-001-TASK-005/TASK-INTERFACE-005.md`.
+Human runs the new `prepare_interface005.sh` from the
+experiment checkout to CREATE `~/archbot-cln001-interface-005`,
+then starts fresh Codex. Output is an **unapproved** D002
+proposal and options matrix, not an authority decision.
+`archive_interface005.sh` is designed to be restartable
+after partially completed copying/staging, without rewriting
+original files or staging unrelated FR-002 receipts.
+Full annotated pull/run/push instructions in `STAGE5_HANDOFF.md`.
+Later distinct review and delegated decision required before AP.
+Formal cleanroom and hardware/product qualification remain false.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
