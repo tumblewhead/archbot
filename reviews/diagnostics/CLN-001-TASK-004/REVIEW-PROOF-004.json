@@ -1,0 +1,493 @@
+{
+  "review_id": "CLN-001-REVIEW-PROOF-004",
+  "candidate": "inputs/PROOF-ATTEMPT-004.md",
+  "companion": "inputs/PROOF-BRIEFING-004.md",
+  "disposition": "ACCEPT_WITH_CLARIFICATIONS",
+  "disposition_scope": "Accept the exact mathematical T1 and conditional T2 only. Clarifications concern complete-state versus detector-local RAM applicability, finite horizon and external-index boundaries, and unavailable historical provenance. No blocking mathematical flaw or required mathematical repair was found.",
+  "mathematical_acceptance": {
+    "accepted_theorems": [
+      "T1",
+      "T2"
+    ],
+    "T1": "For all finite valid histories h,g over D={0,...,4095}, equality of F_h(u),F_g(u) for every nonempty continuation u, observing only its last numeric energy, is equivalent to equality of the padded ordered latest-31 tails.",
+    "T2": "For each fixed n>=32, every exact machine satisfying the stated deterministic complete-state/no-replay A4 model has at least 2^372 reachable retained states after length-n histories; at least 372 bits of complete distinguishability capacity, or at least 47 whole eight-bit octets if encoded entirely in a fixed octet store.",
+    "conditional_T2": true,
+    "excluded": [
+      "Current/empty-continuation output equivalence",
+      "Full indexed-interface sufficiency",
+      "Unconditional local SRAM requirement",
+      "Sufficient detector allocation",
+      "2048-byte compliance",
+      "PO-003-1 acceptance",
+      "PO-003-3 proof or unconditional AS defect",
+      "Product or implementation verification"
+    ]
+  },
+  "theorem_findings": [
+    {
+      "id": "T1",
+      "disposition": "ACCEPT",
+      "finding_ids": [
+        "R1",
+        "R2"
+      ],
+      "candidate_refs": [
+        "sections 2-6; lines 30-131"
+      ],
+      "independently_reconstructed_equations": [
+        "t_i(h)=x_(m-31+i), i=1..31, with x_j=0 for j<=0",
+        "1<=r<=31: F_h(u)=sum(i=r..31)t_i(h)^2+sum(k=1..r)u_k^2",
+        "r>=32: F_h(u)=sum(k=r-31..r)u_k^2",
+        "y_j=F_h(0^j)=sum(i=j..31)t_i(h)^2",
+        "t_j(h)^2=y_j-y_(j+1), j=1..30; t_31(h)^2=y_31",
+        "0<=a<b implies b^2-a^2=(b-a)(b+a)>0"
+      ],
+      "finding": "Window decomposition covers all startup lengths and every nonempty continuation. All 31 tail squares are recoverable, and unsigned injectivity recovers values. Each unequal-tail pair has at least one distinguishing zero continuation of length at most 31.",
+      "blocking_flaw": null,
+      "required_mathematical_repair": null
+    },
+    {
+      "id": "T2",
+      "disposition": "ACCEPT",
+      "conditional": true,
+      "finding_ids": [
+        "R3",
+        "R5"
+      ],
+      "candidate_refs": [
+        "A4 lines 58-60",
+        "section 7 lines 135-153"
+      ],
+      "independently_reconstructed_equations": [
+        "h_a=0^(n-31) followed by a, for a in D^31; length n, tail a",
+        "q(h)=q(g) implies equal future states and numeric outputs by induction on a common continuation",
+        "a!=b implies q(h_a)!=q(h_b)",
+        "|Q_n|>=4096^31=2^372",
+        "2^b>=2^372 implies b>=372; 8B>=372 implies B>=47"
+      ],
+      "finding": "Every tail is reachable at the same accepted length. Complete deterministic state equality forces future numeric equivalence. The injection and capacity translation hold, without finite-Q, index differences, free encoding metadata, or a sufficient-allocation assumption.",
+      "blocking_flaw": null,
+      "required_mathematical_repair": null
+    }
+  ],
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "INFO",
+      "theorems": [
+        "T1"
+      ],
+      "finding": "Independently reconstructed exact window positions and sufficiency; r=1 includes 31 old values, r=31 includes the newest old value, r=32 includes none. Empty/short startup histories follow from padding.",
+      "action": "No mathematical correction."
+    },
+    {
+      "id": "R2",
+      "severity": "INFO",
+      "theorems": [
+        "T1"
+      ],
+      "finding": "All 31 zero observations and 30 differences recover ordered squares; squaring injectivity on the adopted nonnegative domain is used exactly for value recovery. Unequal tails imply a distinguishing continuation, not necessarily a common final length for all pairs.",
+      "action": "No mathematical correction."
+    },
+    {
+      "id": "R3",
+      "severity": "INFO",
+      "theorems": [
+        "T2"
+      ],
+      "finding": "Same-n reachability and deterministic complete-state induction give 2^372 states, 372 bits, and conditional 47-octet minimum capacity. Neither 384-bit necessity nor a sufficient implementation footprint follows.",
+      "action": "No mathematical correction."
+    },
+    {
+      "id": "R4",
+      "severity": "NONBLOCKING_CLARIFICATION",
+      "theorems": [
+        "T1",
+        "T2"
+      ],
+      "finding": "Counterexample and boundary variants are correct. Current-output inclusion changes the invariant to padded 32-tails; signed domains change it to ordered squares; indexing remains separate; modular outputs are outside exact arithmetic.",
+      "action": "Preserve the exact observation and domain when citing acceptance."
+    },
+    {
+      "id": "R5",
+      "severity": "NONBLOCKING_CLARIFICATION",
+      "theorems": [
+        "T2"
+      ],
+      "finding": "A4 is an additional information-boundary hypothesis. Replay/readable external outputs defeat local-state L4 if omitted. External logical indices alone do not defeat the fixed-n numeric distinction, though they change the literal input signature and index-closure applicability. Finite caps change admissible continuations near the cap.",
+      "action": "Before a local resource application, establish all permitted information sources and ownership. Do not silently insert a cap or infer a local SRAM allocation."
+    },
+    {
+      "id": "R6",
+      "severity": "NONBLOCKING_CLARIFICATION",
+      "theorems": [
+        "T1",
+        "T2"
+      ],
+      "finding": "All 14 present hashes match. Ten of 12 historical author source entries match current bytes; two are unavailable. Historical controls, actor identities, activation conditions and original execution remain unauthenticated.",
+      "action": "Describe current-byte verification separately from historical assertions. No mathematical dependency requires the absent sources; no proof rewrite required."
+    }
+  ],
+  "blocking_findings": [],
+  "assumptions": [
+    {
+      "id": "DOMAIN",
+      "classification": "adopted synthetic D001/AS model",
+      "statement": "Accepted values are integers 0..4095 inclusive, with unrestricted independent choices and repeated numeric values permitted."
+    },
+    {
+      "id": "EPOCH",
+      "classification": "adopted lifecycle plus stated mathematical quantification",
+      "statement": "Arbitrary finite accepted histories including empty/startup; initialization/reset starts a new epoch. No maximum epoch length is imposed."
+    },
+    {
+      "id": "PADDING",
+      "classification": "adopted D001/AS relation",
+      "statement": "Only pre-epoch absent positions contribute zero. Reset discards prior-epoch history; operational losses are not padded."
+    },
+    {
+      "id": "VALID_EVENTS",
+      "classification": "adopted D001/AS contract",
+      "statement": "Invalid values expose rejection/precondition violation without changing accepted state/index. Missing, duplicate and out-of-order delivery are outside the accepted contract; applicable detectable faults must be reported."
+    },
+    {
+      "id": "EXACT_OBSERVATION",
+      "classification": "T1 definition from TASK/AS",
+      "statement": "Exact integer numeric energy on the last event of every nonempty finite continuation; no current output or logical index observed. Continuations stay within an epoch and contain accepted values only."
+    },
+    {
+      "id": "A4",
+      "classification": "additional conditional analytical hypothesis, not an AS realization restriction",
+      "statement": "Fixed deterministic initial state and delta/lambda on complete retained q and current value only; exactness for all valid streams; all retained output-affecting information counted, including registers, control, counters and readable outputs; no omitted replay, log, oracle, mutable storage or history-bearing information. Fixed history-independent constants allowed; Q need not be finite."
+    },
+    {
+      "id": "CAPACITY",
+      "classification": "conditional encoding interpretation",
+      "statement": "Binary capacity counts all distinguishable configurations, not average entropy; 47-octet lower bound applies only when all counted information is encoded in fixed whole eight-bit octets."
+    }
+  ],
+  "counterexample_audit": [
+    {
+      "case": "equal_current_energy",
+      "witness": "h=(1,0), g=(0,1), u=0^31",
+      "result": "Current energies and indices equal; future energies 0 and 1. Equal-length minimal history length is 2.",
+      "effect": "Refutes current-energy-only sufficiency, not T1."
+    },
+    {
+      "case": "oldest_of_previous_32",
+      "witness": "h=(1,0^31), g=0^32",
+      "result": "Current energies 1 and 0; equal tails, equal outputs for every nonempty continuation.",
+      "effect": "Refutes current-inclusive 31-tail equivalence and 384-bit necessity based solely on future numeric outputs."
+    },
+    {
+      "case": "current_output_variant",
+      "witness": "Include mathematical empty-continuation energy, E_0=0",
+      "result": "Exact corrected invariant is equality of padded 32-tails, by subtraction and unsigned injectivity.",
+      "effect": "Different observation problem; actual E_0 publication remains optional."
+    },
+    {
+      "case": "tail_boundary_impulses",
+      "witness": "h=(0,1,0^30) versus zeros; h=(0^31,1) versus zeros",
+      "result": "First pair differs only at r=1 on zero continuations; second differs at r=31 but not r=32.",
+      "effect": "Confirms oldest recovery and exact 31/32 boundary."
+    },
+    {
+      "case": "signed_replacement",
+      "witness": "h=(1), g=(-1)",
+      "result": "Different values, equal squared tails and all future energies in a changed signed domain.",
+      "effect": "Value necessity fails; ordered square-tail equivalence remains. T2 must count squared contributions under the changed alphabet."
+    },
+    {
+      "case": "startup_vs_accepted_zero",
+      "witness": "empty versus (0), next sample b",
+      "result": "Identical numeric futures; pairs (1,b^2) and (2,b^2).",
+      "effect": "T1 is numeric-only; no full indexed-interface sufficiency."
+    },
+    {
+      "case": "reset",
+      "witness": "(4095), reset, then 1",
+      "result": "New pair (1,1); retaining old contribution would give incorrect energy 16769026.",
+      "effect": "New epoch, not a valid same-epoch continuation."
+    },
+    {
+      "case": "invalid_input",
+      "witness": "(1), reject -1, then 31 valid zeros",
+      "result": "Last pair (32,1); accepting a replacement zero instead gives (33,0).",
+      "effect": "Invalid event cannot masquerade as accepted zero. No API was tested."
+    },
+    {
+      "case": "delivery_faults",
+      "witness": "Missing/duplicated/out-of-order event versus repeated valid numeric value",
+      "result": "Operational faults are outside the accepted sequence contract; repeated values remain allowed.",
+      "effect": "No loss-padding or invisible-fault-detection guarantee."
+    },
+    {
+      "case": "upstream_replay",
+      "witness": "Local state cleared after output; upstream retains and supplies window history",
+      "result": "Equal local states can have unequal numeric futures due to different external histories.",
+      "first_invalid_unconditional_step": "L4, candidate line 141, if q omits consulted upstream history",
+      "effect": "T1 unchanged; local boundary fails A4. Enlarged-state lower bound does not establish local detector SRAM."
+    },
+    {
+      "case": "readable_prior_outputs",
+      "witness": "Consulted external log omitted from proposed q",
+      "result": "Complete-state induction is unavailable for that q. Count all consulted information or change applicability analysis.",
+      "effect": "A4 not established for local cache; no assumption that arbitrary logs suffice."
+    },
+    {
+      "case": "external_index",
+      "witness": "Correct index supplied as additional input",
+      "result": "Literal A4 signature changes, but same fixed-n histories receive identical future indices.",
+      "effect": "Numeric distinction persists under index-only extension. Closed-machine PO-003-3 applicability can change; it remains unproven."
+    },
+    {
+      "case": "finite_epoch_cap",
+      "witness": "Changed contract caps at L; at n=L no futures; at n=L-30 tails 0^29,1,0 and 0^29,0,1",
+      "result": "Final states can discard history. The tail pair agrees for every permitted future length 1..30 and separates at forbidden length 31.",
+      "effect": "Capped-horizon necessity and all-n bound do not follow. Original unrestricted T1/T2 remain accepted; no cap is adopted."
+    },
+    {
+      "case": "modular_output",
+      "witness": "Output energies modulo 2, tail value 0 versus 2",
+      "result": "Distinct unsigned values have identical squared contributions modulo 2.",
+      "effect": "Changed observation relation invalidates value necessity; original exact-integer theorems are not overflow proofs."
+    }
+  ],
+  "source_hash_algorithm": "SHA-256",
+  "source_hash_base": "inputs/",
+  "source_hashes": {
+    "PO-OPPORTUNITIES-003.md": "088f079a0d1476f65722eb3bd6e207333412dbbec985764e1864171495c3ccd9",
+    "TASK-PROOF-004.md": "1338519f2c11accd4d27fa1dd38a5691d4b3eb5f3d5f5ec0a37d9eec2dc1ac86",
+    "REVIEW-PO-003.md": "18362d90284743886be5da35c88de16838429a6fb088527dd6b7330ea3e837e9",
+    "DECISION-001.yaml": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+    "adc.md": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+    "AS-REV-002.md": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+    "REVIEW-PO-003.json": "78b9d60165e29331f3328f291b29cac85999df6894bc760e88c4d1b8cdcba15a",
+    "DECISION-TRACE-002.md": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+    "problem-origin.md": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+    "PROOF_REVIEWER_ROLE.md": "b7fbb874b81f7efd86b4d7977c0a5ff11846076c7ab2609d5fcd2172f6ee8bb5",
+    "PROOF-ATTEMPT-004.md": "be8ac09d8252a8b14accb9a9baafcc0bea2f091c12286a52ef0f409586345c99",
+    "target.md": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+    "PROOF-BRIEFING-004.md": "ce7c29202141e68c6c99e919efe454112958ae61e97d2d1a9638eeb93654ae9a",
+    "AS-ACTIVATION-002.yaml": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c"
+  },
+  "control_hashes": {
+    "AGENTS.md": "146d801716e9c68c4e18e0eb32cab37077c3ad97ae0ff6a5b8fc1ca4c2633cf0",
+    "TASK.md": "7336ddadc808870be8079b2912cda90cf28f584684d706b01108864a06f874b0",
+    "inputs/SHA256SUMS": "ad28c4043d0277dca5bc44673d95da8a98438b97e1c144e287241422de2673bb"
+  },
+  "source_integrity": {
+    "manifest": "inputs/SHA256SUMS",
+    "manifest_entries_verified": 14,
+    "manifest_check_command": "sha256sum -c SHA256SUMS",
+    "manifest_check_cwd": "/home/easy/archbot-cln001-proof-review-004/inputs",
+    "manifest_check_exit_status": 0,
+    "manifest_check_result": "All 14 OK",
+    "candidate_sha256": "be8ac09d8252a8b14accb9a9baafcc0bea2f091c12286a52ef0f409586345c99",
+    "companion_sha256": "ce7c29202141e68c6c99e919efe454112958ae61e97d2d1a9638eeb93654ae9a",
+    "activation_AS_hash_matches": true,
+    "historical_author_source_entries": 12,
+    "historical_author_entries_matching_supplied_bytes": 10,
+    "historical_author_sources_not_supplied": {
+      "PO-BRIEFING-003.md": "1d45d40c5328b16514fc1bd5a1396110cb8be055c4a80a88b1c2bef09644d9e2",
+      "PROOF_ENGINEER_ROLE.md": "cf538167f1d6bccdde325c33c66c2458be2af476826673e3d56cb31b708116fb"
+    },
+    "author_task_matches_supplied_TASK_PROOF_004": true,
+    "historical_control_hashes_verified": false,
+    "historical_execution_authenticated": false,
+    "historical_activation_conditions_verified": false,
+    "external_identities_authenticated": false
+  },
+  "checks_actually_performed": [
+    {
+      "id": "MANUAL_RECONSTRUCTION",
+      "kind": "mathematical review",
+      "result": "PASS",
+      "scope": "Independently derived every window case, all zero recovery observations, unsigned injectivity, fixed-n reachability, complete-state induction, count and encoding bounds. Audited assumptions, candidate dependencies, counterexamples, prior PO-R3/R4 findings, other opportunity separation and remaining obligations."
+    },
+    {
+      "id": "SOURCE_HASHES",
+      "kind": "local byte integrity",
+      "command": "python3 -B - <<'PY'\nimport hashlib\nimport json\nimport re\nfrom pathlib import Path\n\nmanifest = {}\nfor line in Path('inputs/SHA256SUMS').read_text().splitlines():\n    digest, name = line.split(maxsplit=1)\n    manifest[name.strip()] = digest\nactual = {name: hashlib.sha256((Path('inputs') / name).read_bytes()).hexdigest()\n          for name in manifest}\nassert manifest == actual and len(manifest) == 14\nbrief = Path('inputs/PROOF-BRIEFING-004.md').read_text()\nbrief = brief.split('The exact inspected control/manifest hashes', 1)[0]\nhistorical = dict(re.findall(r'\\| `inputs/([^`]+)` \\| `([0-9a-f]{64})` \\|', brief))\nmatched = {name: digest for name, digest in historical.items()\n           if name in actual and actual[name] == digest}\nmissing = {name: digest for name, digest in historical.items() if name not in actual}\nassert len(historical) == 12 and len(matched) == 10 and len(missing) == 2\nassert actual['TASK-PROOF-004.md'] == '1338519f2c11accd4d27fa1dd38a5691d4b3eb5f3d5f5ec0a37d9eec2dc1ac86'\nactivation = Path('inputs/AS-ACTIVATION-002.yaml').read_text()\nassert 'source_AS_sha256: ' + actual['AS-REV-002.md'] in activation\ncontrol = {name: hashlib.sha256(Path(name).read_bytes()).hexdigest()\n           for name in ('AGENTS.md', 'TASK.md', 'inputs/SHA256SUMS')}\nprint(json.dumps({'current_manifest_entries': 14, 'source_hashes': actual,\n                  'author_historical_entries': 12, 'historical_entries_matched': 10,\n                  'historical_entries_not_supplied': missing,\n                  'control_hashes': control,\n                  'author_task_bytes_match': True, 'activation_AS_hash_matches': True,\n                  'result': 'PASS'}, indent=2))\nPY",
+      "result": "PASS",
+      "exit_status": 0,
+      "scope": "All 14 entries; 10 historical source matches; 2 unavailable; author task and ACT AS identities. Corrected audit table scope after two initial wrapper failures.",
+      "initial_wrapper_failure": {
+        "attempts": 2,
+        "reason": "Broad table regex included the historical inputs/SHA256SUMS control row as a thirteenth package source; assertion failed.",
+        "correction": "Extract only the explicitly labeled historical 12-entry source table.",
+        "source_mismatch_found": false
+      }
+    },
+    {
+      "id": "AUTHOR_REPRODUCTION",
+      "kind": "present reproduction of supplied code",
+      "command": "python3 -B - <<'PY'\nimport ast\nimport contextlib\nimport hashlib\nimport io\nimport json\nimport os\nimport platform\nimport sys\nfrom pathlib import Path\n\nbrief = Path('inputs/PROOF-BRIEFING-004.md').read_text()\ncode = brief.split(\"```bash\\npython3 -B - <<'PY'\\n\", 1)[1].split('\\nPY\\n```', 1)[0] + '\\n'\ntree = ast.parse(code)\nimports = [ast.unparse(n) for n in ast.walk(tree) if isinstance(n, (ast.Import, ast.ImportFrom))]\nassert imports == ['from itertools import product']\nassert not any(isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in {'open', 'eval', 'exec', '__import__'} for n in ast.walk(tree))\noutput = io.StringIO()\nwith contextlib.redirect_stdout(output):\n    exec(compile(tree, 'inputs/PROOF-BRIEFING-004.md:python-block', 'exec'), {})\nexpected = 'PASS: formula_checks=672\\nPASS: recovery_tails=112, distinct_reduced_vectors=81\\nPASS: oldest_value_comparisons=3402\\nPASS: selected counterexample arithmetic and cardinality/octet arithmetic\\n'\nassert output.getvalue() == expected\nprint(json.dumps({'check': 'author_code_reproduction', 'cwd': os.getcwd(), 'python': sys.version, 'executable': sys.executable, 'platform': platform.platform(), 'code_sha256': hashlib.sha256(code.encode()).hexdigest(), 'stdout': output.getvalue(), 'result': 'PASS'}, indent=2))\nPY",
+      "result": "PASS",
+      "exit_status": 0,
+      "extracted_code_sha256": "43e7de3753f9c84999d53ca29fc8eab1e74e25aea26a229cfd536779f12188af",
+      "counts": {
+        "formula_checks": 672,
+        "recovery_instances": 112,
+        "distinct_reduced_vectors": 81,
+        "oldest_value_comparisons": 3402
+      },
+      "scope": "Exact supplied Python block inspected and rerun; stated stdout reproduced. Does not authenticate original author execution."
+    },
+    {
+      "id": "INDEPENDENT_QUEUE_REFERENCE",
+      "kind": "independently authored bounded supplement",
+      "command": "python3 -B - <<'PY'\nfrom collections import deque\nfrom itertools import product\nimport json\nimport os\nimport platform\nimport sys\n\ndef run(history, future):\n    window = deque([0] * 32, maxlen=32)\n    for value in history:\n        window.append(value)\n    result = []\n    for value in future:\n        window.append(value)\n        result.append(sum(value * value for value in window))\n    return result\n\ndef padded_tail(history):\n    return tuple(([0] * 31 + list(history))[-31:])\n\nhistories = []\nfor length in (0, 1, 2, 30, 31, 32, 33, 64):\n    histories += [\n        (0,) * length,\n        (4095,) * length,\n        tuple(4095 if i % 2 else 0 for i in range(length)),\n        tuple((197 * i + 17) % 4096 for i in range(length))]\nfutures = []\nfor length in (1, 2, 30, 31, 32, 33, 64):\n    futures += [(0,) * length, (4095,) * length,\n                tuple((211 * i + 23) % 4096 for i in range(length))]\nformula_checks = 0\nfor history in histories:\n    tail = padded_tail(history)\n    for future in futures:\n        r = len(future)\n        expected = (sum(x*x for x in tail[r-1:]) + sum(x*x for x in future)\n                    if r < 32 else sum(x*x for x in future[-32:]))\n        assert run(history, future)[-1] == expected\n        formula_checks += 1\n\ntails = []\nfor values in product((0, 1, 4095), repeat=4):\n    tail = [0] * 31\n    for index, value in zip((0, 9, 19, 30), values):\n        tail[index] = value\n    tails.append(tuple(tail))\nrecovery_tails = tails + [\n    tuple(4095 if index == pos else 0 for index in range(31))\n    for pos in range(31)]\nvectors = []\nfor tail in recovery_tails:\n    observations = run((0,) + tail, (0,) * 32)\n    squares = tuple(observations[i] - observations[i+1] for i in range(31))\n    assert observations[31] == 0\n    assert squares == tuple(x*x for x in tail)\n    vectors.append(tuple(observations[:31]))\nassert len(set(vectors[:81])) == 81\nassert len(set(recovery_tails)) == len(set(vectors)) == 108\n\noldest_checks = 0\nfor tail in tails:\n    for future in futures:\n        for oldest in (1, 4095):\n            assert run((oldest,) + tail, future) == run((0,) + tail, future)\n            oldest_checks += 1\n\npair_checks = 0\nfor i, first in enumerate(tails):\n    for second in tails[i+1:]:\n        a, b = run((0,) + first, (0,) * 31), run((0,) + second, (0,) * 31)\n        assert any(x != y for x, y in zip(a, b))\n        pair_checks += 1\nreachability_checks = 0\nfor n in (32, 33, 64):\n    for tail in tails:\n        history = (0,) * (n-31) + tail\n        assert len(history) == n and padded_tail(history) == tail\n        reachability_checks += 1\nassert len({x*x for x in range(4096)}) == 4096\nassert run((1, 0), (0,)*31)[-1] == 0\nassert run((0, 1), (0,)*31)[-1] == 1\nassert run((), (7,)) == run((0,), (7,)) == [49]\nassert run((1,), (0,)*31)[-1] == 1\nassert run((1, 0), (0,)*31)[-1] == 0\nfor future in futures:\n    assert run((1,), future) == run((-1,), future)\nassert run((4095,), (1,)) == [16769026]\nassert run((), (1,)) == [1]\na = (0,)*29 + (1, 0)\nb = (0,)*29 + (0, 1)\nassert run(a, (0,)*30) == run(b, (0,)*30)\nassert run(a, (0,)*31)[-1] == 0\nassert run(b, (0,)*31)[-1] == 1\nassert 4096**31 == 2**372 and 46*8 < 372 <= 47*8\nprint(json.dumps({\n    'check': 'independent_queue_reference',\n    'cwd': os.getcwd(), 'python': sys.version,\n    'executable': sys.executable, 'platform': platform.platform(),\n    'history_instances': len(histories), 'continuation_instances': len(futures),\n    'formula_checks': formula_checks,\n    'recovery_instances': len(recovery_tails), 'distinct_recovery_tails': 108,\n    'distinct_reduced_vectors': 81, 'oldest_history_comparisons': oldest_checks,\n    'reduced_tail_pairs_distinguished': pair_checks,\n    'fixed_length_reachability_checks': reachability_checks,\n    'unsigned_squares_distinct': 4096,\n    'counterexamples_and_capacity': 'PASS', 'result': 'PASS'}, indent=2))\nPY",
+      "result": "PASS",
+      "exit_status": 0,
+      "inputs": {
+        "history_lengths": [
+          0,
+          1,
+          2,
+          30,
+          31,
+          32,
+          33,
+          64
+        ],
+        "history_shapes": [
+          "zeros",
+          "4095",
+          "alternating zero/4095",
+          "(197*i+17)%4096"
+        ],
+        "continuation_lengths": [
+          1,
+          2,
+          30,
+          31,
+          32,
+          33,
+          64
+        ],
+        "continuation_shapes": [
+          "zeros",
+          "4095",
+          "(211*i+23)%4096"
+        ],
+        "reduced_tail_positions_one_based": [
+          1,
+          10,
+          20,
+          31
+        ],
+        "reduced_tail_values": [
+          0,
+          1,
+          4095
+        ],
+        "impulses": "4095 at each of 31 tail positions",
+        "fixed_lengths": [
+          32,
+          33,
+          64
+        ]
+      },
+      "counts": {
+        "formula_checks": 672,
+        "recovery_instances": 112,
+        "distinct_recovery_tails": 108,
+        "distinct_reduced_vectors": 81,
+        "oldest_history_comparisons": 3402,
+        "reduced_tail_pairs_distinguished": 3240,
+        "fixed_length_reachability_checks": 243,
+        "unsigned_squares_distinct": 4096
+      },
+      "selected_checks": "Equal-energy, signed, startup, rejection-stutter arithmetic, reset exclusion, finite-horizon and capacity examples",
+      "scope": "Finite exact arithmetic, not universal proof, target testing, lifecycle API verification or implementation evidence."
+    }
+  ],
+  "execution_environment": {
+    "cwd": "/home/easy/archbot-cln001-proof-review-004",
+    "shell": "bash",
+    "login": false,
+    "python": "3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]",
+    "executable": "/usr/sbin/python3",
+    "platform": "Linux-7.1.8-arch1-3-x86_64-with-glibc2.44",
+    "integer_arithmetic": "Python arbitrary-precision integers",
+    "randomness": false,
+    "generated_scripts": false,
+    "network_used": false
+  },
+  "author_check_audit": {
+    "counts_match": true,
+    "distinct_recovery_instances": 108,
+    "recovery_instances": 112,
+    "reduced_impulse_overlap": 4,
+    "history_instances": 32,
+    "continuation_instances": 21,
+    "formula_checks": 672,
+    "oldest_comparisons": 3402,
+    "notes": [
+      "Direct last-32 slicing valid because omitted startup positions are zero.",
+      "Formula r-1 slice matches one-based tail position r.",
+      "Signed assertion is a scoped changed-domain test only.",
+      "Reset and invalid behavior have no concrete API execution evidence."
+    ]
+  },
+  "prior_findings_assessment": [
+    {
+      "id": "PO-R3",
+      "assessment": "Exact equivalence proof accepted; screening status no longer substituted for proof."
+    },
+    {
+      "id": "PO-R4",
+      "assessment": "Conditional cardinality accepted; local-boundary replay/ownership applicability remains open."
+    },
+    {
+      "id": "PO-R1/PO-R2",
+      "assessment": "PO-003-1 remains outside this proof acceptance."
+    },
+    {
+      "id": "PO-R5",
+      "assessment": "PO-003-3 remains separate and unproven; no unconditional AS defect established."
+    }
+  ],
+  "remaining_obligations": [
+    "T002-2",
+    "T002-3",
+    "T002-4",
+    "T002-5",
+    "T002-6",
+    "T002-7",
+    "T002-8"
+  ],
+  "R4_detection_scope": "UNRESOLVED_BEFORE_COMPLETE_DETECTOR_CLAIM",
+  "next_gate": "Separately authorized realization-specific applicability/interface review of actual information sources, replay/readback permissions, index mechanism and ownership before applying T2 to local resource claims. No further Proof Engineer, AP/CON/DE/C or qualification work is automatically authorized.",
+  "reviewer_independence_limits": [
+    "Only AGENTS.md, TASK.md and inputs/ supplied technical context were used; generated outputs were read only for structural validation.",
+    "Candidate was not authored or edited in this invocation. No Proof Engineer, Proof Scout, sponsor delegate or AS/F decision-maker role assumed. No subagents used.",
+    "No older solved Toy 1 artifacts, Git history/objects, cited archives, other workspaces, network, connected systems, hidden evaluator or external identities accessed.",
+    "Historical activation, review separation, actor identity, original author execution and original author controls/manifest not independently authenticated.",
+    "D001 discloses delegate prior-solution familiarity; historical blindness was not established.",
+    "Directory source isolation is not OS, runtime, connector or physical isolation. Formal cleanroom qualification is not established."
+  ],
+  "limitations": [
+    "Tests are finite supplements; universal acceptance rests on mathematical reconstruction.",
+    "No proof-assistant certification, implementation or target tests.",
+    "No local SRAM bound until complete retained-state boundary and ownership established; no 47-byte sufficient implementation allocation.",
+    "No index overhead, stack, scratch, fault metadata, alignment, timing, power or performance result established.",
+    "AS/F/D001 unchanged, no AP selected, no complete detector established.",
+    "PO-003-1 and PO-003-3 remain outside accepted proof scope."
+  ],
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "implementation_verified": false,
+  "automatic_progression_authorized": false,
+  "artifact_validation": {
+    "result": "PASS",
+    "checks": [
+      "Both files parse/read successfully; JSON disposition and identities match Markdown.",
+      "All 14 source hashes agree with current supplied bytes.",
+      "Required theorem findings, explicit assumptions, checks, limits and false verification flags present."
+    ]
+  }
+}
+
