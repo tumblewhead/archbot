@@ -3,45 +3,45 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 independent Stage-6 AP review prepared
+## Current checkpoint: CLN-001 Stage-7 proposed D003 review prepared
 
-The user-sponsored, **CLN-001-only** synthetic diagnostic has an
-accepted scoped AS/F, D001 and D002, and mathematical T1 plus
-conditional T2. The latter's `2^372` state requirement applies
-only to a deterministic complete retained-information no-replay
-boundary with unrestricted futures, **not** automatically to
-detector SRAM. Full event-index implementation and theorem
-applicability to actual resources remain unresolved.
+The **independent** Stage-6 review of three unselected APs, archived
+at [45d85da](https://github.com/tumblewhead/archbot/commit/45d85dad82aaf3b1a74b856138d4bc0ccd8e4b47),
+returned `READY_FOR_INDEPENDENT_AP_EVALUATION` at candidate-draft quality
+scope only: [review](reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.md)
+and [structured receipt](reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.json).
+All realized H1–H6 compliance and the three F axes remain UNKNOWN.
+No AP is selected, and the accepted mathematical proof's conditional
+`2^372` complete-state information bound is NOT sufficient implementation
+RAM or a detector-local bound for an upstream-replay architecture.
 
-The fresh Proposal Agent authored three **unselected**
-alternatives, pushed at
-`65ba5bf74347b28464e0ac610eea160bc131971f`:
-[AP-CANDIDATES-006](reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md),
-[AP-COMPARISON-006](reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md)
-and [AP-BRIEFING-006](reviews/diagnostics/CLN-001-TASK-006/AP-BRIEFING-006.md)
-with output hashes. AP A retains local raw-tail samples and
-recomputes; AP B retains local squares plus an incremental sum;
-AP C requires prospective publisher-owned history readback.
-A/B's RI event-rank index interpretation and C's RN external
-numeral service are **not** yet accepted physical-interface
-contracts. All H1..H6 candidate gates and realized RAM,
-compute, device-energy costs are UNKNOWN. No AP selected.
+The significant blockers are review R006-1 (physical exact-index
+supply), R006-2 (accepted-event/output/reset coordination), R006-3
+(unapproved C snapshot/RN services) and R006-6 (complete costs).
+Conditional B recurrence was checked; its age cursor is part of the
+invariant. C requires coherent event-bound snapshots. Neither analysis
+is target implementation evidence.
 
-**Next eligible task: independent source and candidate-quality
-review of AP-006-A/B/C**, not a winning AP decision:
-[TASK-REVIEW-AP-006](reviews/diagnostics/CLN-001-TASK-006/TASK-REVIEW-AP-006.md)
-and [AP_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-006/AP_REVIEW_HANDOFF.md).
-Human pulls the experiment branch and executes
-[prepare_ap_review006.sh](reviews/diagnostics/CLN-001-TASK-006/prepare_ap_review006.sh),
-which CREATEs `~/archbot-cln001-ap-review-006` with
-source-pinned BKP/AS/D001/D002/F/proof and only the three new
-AP drafts. A fresh, separate Codex reviewer writes
-`REVIEW-AP-006.md` and `REVIEW-AP-006.json`. Human runs
-restartable
-[archive_ap_review006.sh](reviews/diagnostics/CLN-001-TASK-006/archive_ap_review006.sh)
-from its real Git checkout to preserve and selectively push
-raw reviewer output. Then source-specific AP evaluation or
-revision may be authorized, separately from selection.
+**Next eligible task:** independent source/authority review of the
+non-effective [D003-PROPOSAL-007](reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml)
+and [briefing](reviews/diagnostics/CLN-001-TASK-007/D003-BRIEFING-007.md).
+The proposed RI interpretation is deliberately conditional and MUST be
+challenged against the accepted requirement to **supply** n to the actual
+consumer. A mathematical rank assigned by an observer alone is not a
+physical index interface. Acceptance/result debt, old-vs-new reset
+fencing and C's unapproved services are additional review subjects.
+Read the [Stage-7 handoff](reviews/diagnostics/CLN-001-TASK-007/STAGE7_HANDOFF.md).
+The human runs [preparation](reviews/diagnostics/CLN-001-TASK-007/prepare_d003_review007.sh),
+a **new** separate Codex reviewer, then the restartable
+[archive](reviews/diagnostics/CLN-001-TASK-007/archive_d003_review007.sh).
+This is an additive proposed interpretation, not an effective D003,
+AS amendment, index-service acceptance, independent AP feasibility
+evaluation or architecture selection.
+
+After the review: favorable -> separately issue delegated D003
+disposition with explicit AS-impact decision; otherwise bounded
+revision/investigation. Then authorize stage-appropriate independent
+AP feasibility evaluation without silently selecting an AP.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
