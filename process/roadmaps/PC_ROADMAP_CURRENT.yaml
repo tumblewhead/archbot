@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE8_ADDITIVE_AS_DRAFT_REVIEW_PREPARED_NOT_ACTIVE
+  status: STAGE8_R1_FOCUSED_AS_CORRECTION_REVIEW_PREPARED_NOT_ACTIVE
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -431,7 +431,7 @@ stage7_d003_review_and_delegated_disposition:
   RI_RN_C_HIST_approved: false
   AP_selected: false
 stage8_additive_AS_review:
-  status: PROPOSED_NOT_ACTIVE_INDEPENDENT_REVIEW_PREPARED
+  status: ORIGINAL_AS_ADDENDUM_REVIEWED_REVISE_R1_PROPOSED
   proposed_addendum: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
   engineering_briefing: reviews/diagnostics/CLN-001-TASK-008/BRIEFING-008.md
   reviewer_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008.md
@@ -444,28 +444,55 @@ stage8_additive_AS_review:
   AS_activation_required_after_review: true
   scope: "Accepted event index supplied to actual consumer, output debt, reset association; review material-change risk."
   all_APs_unselected: true
-next_eligible_action:
-  type: CLN001_STAGE8_INDEPENDENT_AS_ADDENDUM_SOURCE_REVIEW
-  subject: "Check index supply and lifecycle addendum for fidelity to D001, activated AS and guarded D003 disposition."
-  branch: experiment/toy1-pipe-cleaner-001
-  review_basis_commit: eb491accb86b12dad783d8ce02b4dff19b490079
-  delegated_disposition: reviews/diagnostics/CLN-001-TASK-008/D003-DISPOSITION-007.yaml
-  proposal: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
-  reviewer_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-008/STAGE8_HANDOFF.md
-  expected_outputs: [REVIEW-AS-ADDENDUM-008.md, REVIEW-AS-ADDENDUM-008.json]
-  stop_on: [UNEXPECTED_SOURCE_IDENTITY, REVIEW_REVISE, REVIEW_UNRESOLVED, UNAUTHORIZED_AS_CHANGE]
-  instruction: "Human pulls experiment branch, runs source-pinned preparation, launches new independent Codex, archives exact MD/JSON review and pushes evidence. No AS activation by reviewer."
-  AS_active_baseline_changed: false
+stage8_independent_review_and_correction:
+  original_as_addendum: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
+  review_archive_commit: 0d7f83b4e6b9d912562de93ea268eb1575f41f88
+  report: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.md
+  receipt: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.json
+  checksum: reviews/diagnostics/CLN-001-TASK-008/REVIEW_AS_ADDENDUM008_SHA256SUMS
+  disposition: REVISE_AS_ADDENDUM
+  blocking_finding: R008-3
+  blocking_detail: "Unapproved mandatory reset acknowledgment in A008-R3/S28; ordering and old/new result association are required, acknowledgment event optional."
+  all_other_findings: [R008-1, R008-2, R008-4, R008-5, R008-6]
+  source_hashes_reported: 15_OF_15_PASS
+  finite_assertions_reported: 11_PASS_NO_HARDWARE
+  original_artifacts_preserved: true
+  revised_AS: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md
+  correction_note: reviews/diagnostics/CLN-001-TASK-008/R008-3-CORRECTION-NOTE.md
+  versioned_revision_status: PROPOSED_NOT_ACTIVE
+  strict_allowed_delta: HEADING_AND_R008_3_SENTENCE_ONLY
+  independent_R1_review_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008-R1.md
+  R1_prepare: reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008_r1.sh
+  R1_archive: reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008_r1.sh
+  R1_handoff: reviews/diagnostics/CLN-001-TASK-008/STAGE8_R1_HANDOFF.md
+  R1_expected_outputs: [REVIEW-AS-ADDENDUM-008-R1.md, REVIEW-AS-ADDENDUM-008-R1.json, REVIEW_AS_ADDENDUM008_R1_SHA256SUMS]
+  R1_review_completed: false
+  AS_addendum_activated: false
+  RI_RN_C_HIST_approved: false
   AP_selected: false
+next_eligible_action:
+  type: CLN001_STAGE8_R1_FOCUSED_INDEPENDENT_AS_REVIEW
+  subject: "Check byte-scoped R008-3 correction and exact AS source-fidelity; no AS activation or AP selection."
+  branch: experiment/toy1-pipe-cleaner-001
+  source_review_commit: 0d7f83b4e6b9d912562de93ea268eb1575f41f88
+  original_AS_addendum: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
+  revised_AS_addendum: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md
+  correction_note: reviews/diagnostics/CLN-001-TASK-008/R008-3-CORRECTION-NOTE.md
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008-R1.md
+  preparation: reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008_r1.sh
+  archive: reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008_r1.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-008/STAGE8_R1_HANDOFF.md
+  expected_outputs: [REVIEW-AS-ADDENDUM-008-R1.md, REVIEW-AS-ADDENDUM-008-R1.json]
+  instruction: "Human pulls branch, syntax-checks scripts, runs focused source-pinned preparer, launches fresh independent Codex, selectively archives original review bytes, commits and pushes."
+  stop_on: [SOURCE_BLOB_MISMATCH, UNAUTHORIZED_DELTA, REVIEW_REVISE, REVIEW_UNRESOLVED]
+  AS_addendum_activated: false
   all_realized_H1_H6: UNKNOWN
-  prohibit:
-    - "No observer-only rank passed off as a consumer-supplied exact n."
-    - "No unapproved finite epoch/wrap, dropped valid events or reset/fault cancellation of result debt."
-    - "No RN/C-HIST service or upstream-cost exemption by assertion."
-    - "No unreviewed addendum activation, target/product qualification or formal cleanroom claims."
+  APs_unselected: true
+  forbid:
+    - "No mandatory reset acknowledgment; no observer-only index as physical consumer supply."
+    - "No old accepted-result debt cancellation, valid-event drop or finite epoch/wrap."
+    - "No external service and target-cost assumption."
+    - "No source-review result automatically activating AS or selecting AP."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
