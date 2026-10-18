@@ -1,0 +1,1283 @@
+{
+  "review_id": "CLN-001-REVIEW-AS-ADDENDUM-008",
+  "disposition": "REVISE_AS_ADDENDUM",
+  "disposition_scope": "Independent source/authority review of exact supplied proposed addendum only; no activation, AP evaluation/selection or physical feasibility decision.",
+  "disposition_reason": "Resolve S28 mandatory reset acknowledgment versus required reset order/association. The accepted sources do not require a distinct acknowledgment mechanism, and the exact text does not distinguish optional mechanism from new observable restriction. Other major lifecycle/index clauses are source-consistent interpretations with unresolved physical evidence and no new universal failure guarantee.",
+  "role": "Independent reviewer; not addendum author, delegate, Stage-7 reviewer or AP selector.",
+  "AS_addendum_activated": false,
+  "AS_changed": false,
+  "RI_approved": false,
+  "RN_approved": false,
+  "C_HIST_approved": false,
+  "AP_selected": false,
+  "target_verified": false,
+  "product_verified": false,
+  "formal_cleanroom_qualified": false,
+  "vo_discharged": [],
+  "clause_findings": [
+    {
+      "clause": "A008-R1",
+      "finding_ids": [
+        "R008-1",
+        "R008-4"
+      ],
+      "source_status": "NECESSARY_INTERPRETATION_REQUIRING_ADDITIVE_DISPOSITION",
+      "AS_impact": "Potentially faithful exact implicit representation; actual consumer decoder/state and unrestricted lifetime not demonstrated. No observer-only weakening, finite epoch or RI eligibility approved.",
+      "effective": false
+    },
+    {
+      "clause": "A008-R2",
+      "finding_ids": [
+        "R008-2",
+        "R008-4"
+      ],
+      "source_status": "SOURCE_CONSISTENT_DEBT_INTERPRETATION_WITH_FAILURE_MODEL_OPEN",
+      "AS_impact": "Preserves one logical result per accepted valid event and invalid invariance; does not promise universal crash/restart recovery, permanent availability, exactly-once physical delivery or a deadline. New failure guarantees would require delegated amendment.",
+      "effective": false
+    },
+    {
+      "clause": "A008-R3",
+      "finding_ids": [
+        "R008-3",
+        "R008-4"
+      ],
+      "source_status": "REVISE_ACKNOWLEDGMENT_RESTRICTION_OR_SEEK_NEW_AMENDMENT",
+      "AS_impact": "Reset history/order/non-aliasing are faithful; unconditional acknowledgment adds a protocol/observable restriction unless explicitly made an optional means of establishing association.",
+      "effective": false
+    },
+    {
+      "clause": "Additive C",
+      "finding_ids": [
+        "R008-1",
+        "R008-2",
+        "R008-4"
+      ],
+      "source_status": "CONSUMER_AND_ACCEPTANCE_INTERPRETATION_WITH_BOUNDARIES_OPEN",
+      "AS_impact": "No new input filtering, retrospective unacceptance or guaranteed acquisition buffering.",
+      "effective": false
+    },
+    {
+      "clause": "Additive PS and open conditions",
+      "finding_ids": [
+        "R008-5",
+        "R008-6"
+      ],
+      "source_status": "PRESERVES_NUMERIC_AND_AUTHORITY_LIMITS_SUBJECT_TO_R3_REVISION",
+      "AS_impact": "PS, model, F, proof scope, services and all open obligations unchanged; no activation or feasibility finding.",
+      "effective": false
+    }
+  ],
+  "findings": [
+    {
+      "id": "R008-1",
+      "clauses": [
+        "Additive C",
+        "A008-R1",
+        "Additive PS"
+      ],
+      "severity": "HIGH",
+      "blocks_current_referral": false,
+      "classification": [
+        "b",
+        "d"
+      ],
+      "assessment": "Exact implicit representation is potentially faithful; actual consumer and decoder are not demonstrated.",
+      "detail": "The actual consumer is the component expected to use the indexed energy, not an omniscient observer, arbitrary test harness or producer with unavailable state. No named physical component, retained state inventory, concrete interface or decoder is supplied. This is permissible at source-review stage and prevents RI eligibility claims. AS PS does not prescribe a literal numeral, stored counter, integer format or API. An exact decoder must map the actual consumer state, response and genuinely available context to a unique accepted ordinal and reset sequence for every event. All-zero/restart, invalid-attempt and finite-wrap witnesses refute observer/transaction/attempt/modular shortcuts. Supported lifetime is not authority to introduce a finite epoch or restart exemption.",
+      "sources": [
+        "DECISION-001:Q4/Q6",
+        "AS-REV-002:C/lifecycle/PS",
+        "D002-1/2/5",
+        "REVIEW-D003-007:R007-1",
+        "D003-DISPOSITION-007:P1"
+      ],
+      "probes": [
+        "P01",
+        "P02",
+        "P07"
+      ],
+      "AS_impact": "Class b representation clarification; class d physical evidence remains due. Observer-only indexing, finite epochs, forced resets, exhaustion or narrowed restart support would be class c material changes requiring new delegated amendment.",
+      "followup": "Identify consumer, actual state/context, accepted-event/result bijection, exact decoder, reset association, arbitrary-rank argument and full cost/ownership before physical eligibility; no service presumed."
+    },
+    {
+      "id": "R008-2",
+      "clauses": [
+        "A008-R2"
+      ],
+      "severity": "HIGH",
+      "blocks_current_referral": false,
+      "classification": [
+        "a",
+        "b",
+        "d"
+      ],
+      "assessment": "Persistent logical result debt is source-consistent; universal failure survival or physical exactly-once delivery is not established.",
+      "detail": "D001 requires one exact indexed result per accepted valid event. Acceptance, commit and publication are distinct; losing a result or reporting a fault cannot turn an unfulfilled obligation into a fulfilled one. Reset/restart does not retrospectively unaccept the event. The absence of a crash model and S25 no-universal-recovery disclaimer mean this is a preservation rule, not guaranteed recovery from arbitrary information destruction, permanent disconnection or permanent stalls. The debt can remain outstanding and conformity unestablished. Exactly one logical result does not forbid retransmitting the same result under a reviewed protocol; it does not provide reliable exactly-once transport or acknowledgment. A new guarantee of recovery/availability across specified failures would require explicit delegated amendment and failure assumptions.",
+      "sources": [
+        "DECISION-001:R1/R3/Q4/Q6",
+        "AS-REV-002:R1/R3/lifecycle/PS",
+        "D003-DISPOSITION-007:P2",
+        "REVIEW-D003-007:R007-2"
+      ],
+      "probes": [
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P08"
+      ],
+      "AS_impact": "Class a per-event output/invalid invariance; class b explicit debt interpretation; class d acceptance/delivery/fault models. No new universal failure guarantee follows from R2 read with its express limitation.",
+      "followup": "In later delegated lifecycle disposition distinguish preserved obligation from a new guarantee of recovery, define supported failures and retry identity, then supply capacity/retention evidence. No rollback, fault-report discharge, invalid padding or replay as new acceptance."
+    },
+    {
+      "id": "R008-3",
+      "clauses": [
+        "A008-R3",
+        "Authority and purpose",
+        "Open feasibility and authority conditions"
+      ],
+      "severity": "BLOCKING",
+      "blocks_current_referral": true,
+      "classification": [
+        "b",
+        "c",
+        "d"
+      ],
+      "assessment": "The unconditional reset-acknowledgment wording is not established as a necessary consequence of accepted requirements.",
+      "detail": "S28 (lines 67-69) says the contract must identify reset order AND acknowledgment at the consumer boundary. Correct reset ordering and old/new non-aliasing are necessary; a distinct acknowledgment obligation is not present in D001 Q4/Q6 or the activated AS. Stage-7 and the bounded D003 disposition explicitly leave acknowledgment and reset completion unselected. A logical interface could establish order and association through an ordered reset marker and ordered results, with the consumer tracking that order, without a separate acknowledgment event. That is a countermodel to necessity, not approval or evidence that such a mechanism is available here. As written, S28 does not say acknowledgment may be absent when equivalent order/association is proved. A literal mandatory acknowledgment imposes an additional observable/protocol restriction, contrary to the unqualified no-D001-amendment/semantics-only framing. If acknowledgment merely names any way the consumer knows reset association, the text must say so rather than relying on reviewer repair.",
+      "sources": [
+        "AS-ADDENDUM-008:67-69 (S28)",
+        "DECISION-001:Q4/Q6",
+        "AS-REV-002:R2/lifecycle/PS",
+        "REVIEW-D003-007:R007-3",
+        "D003-DISPOSITION-007:P3 and must_verify"
+      ],
+      "probes": [
+        "P06",
+        "P07"
+      ],
+      "AS_impact": "Reset order/non-aliasing class b; later evidence class d; a required positive acknowledgment event/service is class c and needs a new explicit delegated amendment. Current bounded authorization for clarification does not activate it.",
+      "followup": "Revise the exact source to distinguish required observable ordering/association from an optional acknowledgment mechanism, or explicitly seek a new delegated amendment adopting the extra acknowledgment obligation with assumptions and consequences. Do not activate this exact text as an unqualified clarification."
+    },
+    {
+      "id": "R008-4",
+      "clauses": [
+        "Additive C",
+        "A008-R1",
+        "A008-R2",
+        "A008-R3",
+        "Open feasibility and authority conditions"
+      ],
+      "severity": "HIGH",
+      "blocks_current_referral": false,
+      "classification": [
+        "b",
+        "d"
+      ],
+      "assessment": "Acceptance, finite capacity, reset completion and restart association remain unresolved interface questions.",
+      "detail": "The physical acceptance event can be reviewed prospectively but cannot silently exclude valid ordered samples to make capacity work. S13/S14/S33/S40 retain that constraint. Q+1 pending entries exceed Q slots under the explicit no-other-retention assumptions; numeric tail does not retain arbitrary unpaid history. Arbitrarily long finite stalls need justified storage or lossless coordination. Permanent unavailability cannot satisfy eventual delivery, although no finite deadline or reset-completion bound is imposed. Draining under an indefinite stall may never complete; preserving old identity needs retained state/association and safe reuse. Neither a publisher pause facility, a reliable acknowledgment service nor crash-safe storage can be presumed.",
+      "sources": [
+        "DECISION-001:Q4/Q6/R3",
+        "D002-2/5",
+        "D003-DISPOSITION-007:P2/P3",
+        "REVIEW-D003-007:R007-2/R007-3"
+      ],
+      "probes": [
+        "P01",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "AS_impact": "No present authority for new valid-event restrictions, supported-lifetime caps or mandatory flow control. New guarantees or operating restrictions are class c amendments; mechanisms preserving agreed observables remain class d.",
+      "followup": "Keep actual acceptance/delivery/reset linearization, consumer information lifetime, retry/deduplication, retention, service/failure assumptions and attributable resources open for independently authorized work. No concrete protocol is authored here."
+    },
+    {
+      "id": "R008-5",
+      "clauses": [
+        "Additive PS",
+        "Open feasibility and authority conditions"
+      ],
+      "severity": "INFORMATIONAL",
+      "blocks_current_referral": false,
+      "classification": [
+        "a",
+        "d"
+      ],
+      "assessment": "Numeric requirements, adopted model, F, proof scope and open obligations are preserved at source level.",
+      "detail": "The latest-32 exact PS, startup/reset zero padding, accepted order and invalid rejection remain unchanged. Domain 0..4095, nominal-only 1 ms, hypothetical 32-bit/no-FPU model and 2048-byte detector-attributable RAM remain governing. Owned persistent/scratch/stack plus index, transaction, queues and shared-attributable storage count. Exclusive upstream ownership requires evidence and does not mean zero device energy. No numeric compute/power target, software-float ban, target/toolchain choice, hard deadline, active flash budget or selected algorithm/AP is added. All H1-H6 and three realized F coordinates stay UNKNOWN for A/B/C. T1 excludes index/current-output/interface metadata; T2 remains conditional, not a 47-byte implementation or detector-local bound with replay.",
+      "sources": [
+        "Original three BKP files",
+        "DECISION-001:R1-R6/A1-A4",
+        "AS-REV-002:C/R/PS",
+        "F-DISPOSITION-003",
+        "PROOF-DISPOSITION-004",
+        "D002-3/4/6",
+        "REVIEW-D003-007:R007-4/R007-5"
+      ],
+      "probes": [
+        "P09",
+        "P10"
+      ],
+      "AS_impact": "No numeric or objective amendment identified. Service reliance still requires separate evidence and authorization, and behavior-changing limits additionally require amendment.",
+      "followup": "Retain all T002-2..8 OPEN, R4 deferred, PO-003-1/3 unproven, AP families unselected, compatible F evidence scopes and all realization costs UNKNOWN."
+    },
+    {
+      "id": "R008-6",
+      "clauses": [
+        "All"
+      ],
+      "severity": "INFORMATIONAL",
+      "blocks_current_referral": false,
+      "classification": [
+        "a",
+        "d"
+      ],
+      "assessment": "Current source consistency checked; historical provenance, execution separation and physical qualification are not authenticated.",
+      "detail": "All 15 current manifest payload hashes match. The full Stage-7 MD/JSON were examined as supplied review findings, including their counterexamples, source inventories, AS impact, services, F/theorem scopes, checks and independence limits. Their historical package filenames and hash assertions are not sources independently accessed or verified in this invocation. No Git, other workspace, old solved Toy1 artifact, app, network, hidden reference, evaluator or subagent was used. A positive allowlist proves neither OS nor connector isolation.",
+      "sources": [
+        "AGENTS.md",
+        "TASK.md",
+        "inputs/SHA256SUMS",
+        "AS-ACTIVATION-002",
+        "REVIEW-D003-007.md/json",
+        "D003-DISPOSITION-007"
+      ],
+      "probes": [],
+      "AS_impact": "No activation, transferred delegation, inherited proof or VO discharge follows.",
+      "followup": "Retain exact current source identities and these scope limitations with the review."
+    }
+  ],
+  "sentence_classification_legend": {
+    "a": "Already accepted behavior or recorded authority/status; procedural/provenance rows do not become product requirements.",
+    "b": "Necessary interpretation requiring explicit additive AS disposition.",
+    "c": "Material new requirement/restriction requiring a new explicit delegated amendment; S28 is mixed and contains such a reading.",
+    "d": "Mechanism/evidence question for later independently authorized interface/service/AP work."
+  },
+  "sentence_classification_method": "50 complete prose sentences or status/activation fragments in source order. Markdown headings and R1/R2/R3 topic labels are structural identifiers, not extra normative sentences. Full text and source line locators retained; mixed S28 explicitly split by semantic part. No author text was changed.",
+  "sentence_classifications": [
+    {
+      "id": "S01",
+      "source": "inputs/AS-ADDENDUM-008.md:3",
+      "sentence": "**State:** PROPOSED, NOT ACTIVE.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Recorded proposal status, not activation or an accepted product requirement.",
+      "basis": "TASK; D003 disposition status"
+    },
+    {
+      "id": "S02",
+      "source": "inputs/AS-ADDENDUM-008.md:3-5",
+      "sentence": "Additive clarification of accepted `AS-REV-002` as activated by `AS-ACTIVATION-002`, submitted for a **distinct independent source/authority review**.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "The additive-clarification label is a claim under review; S28 contains a possible material restriction.",
+      "basis": "D003 disposition P1-P3; R008-3"
+    },
+    {
+      "id": "S03",
+      "source": "inputs/AS-ADDENDUM-008.md:5-6",
+      "sentence": "This is not a replacement AS and does not amend D001 or activate D003-P1.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves the original baseline and nonactivation; cannot authorize the S28 restriction merely by disclaiming amendment.",
+      "basis": "D003 disposition limits"
+    },
+    {
+      "id": "S04",
+      "source": "inputs/AS-ADDENDUM-008.md:6-7",
+      "sentence": "Its author is the CLN-001-only delegated engineering decision maker, not the reviewer.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Supplied role/provenance assertion only; not externally authenticated.",
+      "basis": "D003 disposition authority"
+    },
+    {
+      "id": "S05",
+      "source": "inputs/AS-ADDENDUM-008.md:11-14",
+      "sentence": "Read together with D001 `DECISION-001.yaml`, accepted `AS-REV-002.md`, `AS-ACTIVATION-002.yaml`, accepted D002, reviewed D003 proposal, the independent `REVIEW-D003-007`, and the guarded delegated `D003-DISPOSITION-007.yaml`.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Correct supplied source hierarchy; referenced historical paths are not followed.",
+      "basis": "D001; activation; D002; D003 disposition"
+    },
+    {
+      "id": "S06",
+      "source": "inputs/AS-ADDENDUM-008.md:14",
+      "sentence": "All three original BKP files are synthetic.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Original BKP explicitly identify invented/synthetic sources.",
+      "basis": "BKP three files"
+    },
+    {
+      "id": "S07",
+      "source": "inputs/AS-ADDENDUM-008.md:15-16",
+      "sentence": "The independent Stage-7 review returned `READY_FOR_DELEGATED_D003_DISPOSITION` at **proposal-review scope only**.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Matches both Stage-7 outputs; readiness was proposal scope.",
+      "basis": "Stage-7 disposition and scope"
+    },
+    {
+      "id": "S08",
+      "source": "inputs/AS-ADDENDUM-008.md:17-18",
+      "sentence": "The delegate issued a bounded disposition for an AS clarification, not an operative index service or an AP selection.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Matches the bounded disposition; grants neither RI nor AP authority.",
+      "basis": "D003 disposition decision and limits"
+    },
+    {
+      "id": "S09",
+      "source": "inputs/AS-ADDENDUM-008.md:22-23",
+      "sentence": "A physical *consumer* is the component that must obtain the logical `(n,E_n)` association for each accepted input event.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Necessary consumer-facing interpretation of exact supplied pair; identifies a role, not an actual physical component or its state.",
+      "basis": "D001 Q4; AS C/PS; D002-1/2; R008-1"
+    },
+    {
+      "id": "S10",
+      "source": "inputs/AS-ADDENDUM-008.md:23-26",
+      "sentence": "Distinguish the producer's acquisitions, the detector's accepted sample sequence, the numeric state, pending result obligations, and the consumer's actually available sequence/reset information.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Separates lifecycle concepts without supplying physical acceptance, commitment, storage, or delivery services.",
+      "basis": "D001 Q4/Q6; Stage-7 R007-2; R008-2"
+    },
+    {
+      "id": "S11",
+      "source": "inputs/AS-ADDENDUM-008.md:26-28",
+      "sentence": "A mathematically reconstructible index available only to an omniscient trace observer does not satisfy the consumer's output contract.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Observer-only rank cannot refine a pair actually supplied to a consumer.",
+      "basis": "AS PS; Stage-7 R007-1; P01"
+    },
+    {
+      "id": "S12",
+      "source": "inputs/AS-ADDENDUM-008.md:30-32",
+      "sentence": "A valid input presented to an acquisition interface need not be called accepted until the proposed physical acceptance event is defined and reviewed.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "An interface acceptance event needs definition; this is not permission to gate away otherwise-valid ordered inputs or queue overflow prospectively.",
+      "basis": "D001 Q6; D002-5; R008-4"
+    },
+    {
+      "id": "S13",
+      "source": "inputs/AS-ADDENDUM-008.md:32-33",
+      "sentence": "That boundary cannot be chosen retrospectively to excuse already accepted events, lost data or unsupported buffering.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves accepted-event obligation; post hoc unacceptance does not restore conformity.",
+      "basis": "D001 R1/R3; AS lifecycle/PS"
+    },
+    {
+      "id": "S14",
+      "source": "inputs/AS-ADDENDUM-008.md:33-35",
+      "sentence": "D001's assumption of intended ordered omission-free publisher delivery remains in force.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Restates diagnostic ordered omission-free delivery, distinct from proven real ADC delivery.",
+      "basis": "D001 Q6; AS C"
+    },
+    {
+      "id": "S15",
+      "source": "inputs/AS-ADDENDUM-008.md:35-36",
+      "sentence": "No additional publisher suspension, backpressure, history service, retry mechanism, crash model or lossless storage is assumed.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Correct absence of service/failure-model authority; it neither forbids later proposals nor proves their availability.",
+      "basis": "D001 Q6; D002-5; D003 disposition P2/P4"
+    },
+    {
+      "id": "S16",
+      "source": "inputs/AS-ADDENDUM-008.md:40-42",
+      "sentence": "The required logical observable remains exactly `(n,E_n)`, with one-based `n` counting **accepted valid** events since explicit initialization/reset.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Exact one-based accepted-valid ordinal and reset scope are already in the activated AS.",
+      "basis": "D001 Q4; AS lifecycle/PS"
+    },
+    {
+      "id": "S17",
+      "source": "inputs/AS-ADDENDUM-008.md:43-47",
+      "sentence": "An implementation need not transmit a literal numeral if and only if a fully defined concrete interface makes the **actual consuming component** uniquely determine the exact `n` for every accepted event from information it actually possesses, throughout the contract's supported sequence/reset/restart lifetime.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Exact representation can be implicit; actual decoder must cover all accepted ranks. Supported lifetime cannot silently create an epoch cap or excuse lost association after restart.",
+      "basis": "AS PS representation neutrality; D002-2/5; R008-1"
+    },
+    {
+      "id": "S18",
+      "source": "inputs/AS-ADDENDUM-008.md:47-49",
+      "sentence": "Such a refinement needs an explicit decoder, accepted-event/result bijection, consumer reset association, unrestricted-rank argument, and independently reviewed evidence.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Appropriate refinement evidence due later; no concrete decoder, actual consumer state, bijection, or unrestricted physical rank proof supplied.",
+      "basis": "D002-2; Stage-7 R007-1"
+    },
+    {
+      "id": "S19",
+      "source": "inputs/AS-ADDENDUM-008.md:50-51",
+      "sentence": "A response attached to a fresh transaction alone is insufficient when the consumer cannot know the transaction's accepted rank.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Request identity alone need not reveal accepted rank, especially after restart or invalid attempts.",
+      "basis": "AS PS; P01/P02"
+    },
+    {
+      "id": "S20",
+      "source": "inputs/AS-ADDENDUM-008.md:51-52",
+      "sentence": "This clause does not claim any particular RI design has met those conditions.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "RI remains an unproved candidate interface; no operative service or gate PASS.",
+      "basis": "D003 disposition P1; Stage-7 R007-1"
+    },
+    {
+      "id": "S21",
+      "source": "inputs/AS-ADDENDUM-008.md:54-55",
+      "sentence": "For every accepted valid event, exactly one correctly associated energy result is owed.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Restates one logical exact result per accepted event; does not mandate exactly one physical packet or successful transport attempt.",
+      "basis": "D001 R1/R3/Q4; D002-1"
+    },
+    {
+      "id": "S22",
+      "source": "inputs/AS-ADDENDUM-008.md:55-56",
+      "sentence": "Numeric state commitment and result delivery are not interchangeable.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Numeric state update does not prove the output obligation was supplied.",
+      "basis": "D001 Q4; AS PS; P04"
+    },
+    {
+      "id": "S23",
+      "source": "inputs/AS-ADDENDUM-008.md:56-58",
+      "sentence": "A fault report, delivery stall, consumer restart, or later explicit reset does not retrospectively discharge an owed accepted-event result.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Debt survives bookkeeping, reset and restart; this supplies no crash recovery or delivery to a permanently unavailable consumer. If read as guaranteeing such recovery it would be class c and need new authority.",
+      "basis": "D001 Q4/Q6; D003 disposition P2; R008-2"
+    },
+    {
+      "id": "S24",
+      "source": "inputs/AS-ADDENDUM-008.md:58-61",
+      "sentence": "Invalid input must be rejected or explicitly violate its precondition without advancing accepted history, index, or pending association; invalid attempt count is not accepted ordinal.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Invalid attempt cannot advance accepted history, rank, or existing association. Diagnostic rejection bookkeeping is distinct from numerical/association state.",
+      "basis": "D001 Q6; AS lifecycle; P02/P03"
+    },
+    {
+      "id": "S25",
+      "source": "inputs/AS-ADDENDUM-008.md:61-62",
+      "sentence": "No new deadline or universal fault recovery is implied.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves nominal timing and absence of universal recovery guarantees; must govern the reading of S23.",
+      "basis": "D001 R3/A2/Q6; D003 disposition P2"
+    },
+    {
+      "id": "S26",
+      "source": "inputs/AS-ADDENDUM-008.md:64-65",
+      "sentence": "Explicit reset begins a new zero-padded numeric history and new one-based accepted rank.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Reset establishes fresh zero-padded numeric sequence and n=1 at next accepted input.",
+      "basis": "D001 R2/Q4; AS R2/PS"
+    },
+    {
+      "id": "S27",
+      "source": "inputs/AS-ADDENDUM-008.md:65-66",
+      "sentence": "Old accepted-event output obligations remain distinguishable from new ones.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Needed old/new output association interpretation; numeric reset alone need not discard old debts.",
+      "basis": "AS R1/R2/PS; D003 disposition P3; P06"
+    },
+    {
+      "id": "S28",
+      "source": "inputs/AS-ADDENDUM-008.md:67-69",
+      "sentence": "The eventual physical contract must identify reset order and acknowledgment at the consumer boundary, and prove that old in-flight outputs cannot alias new ones.",
+      "classes": [
+        "b",
+        "c",
+        "d"
+      ],
+      "assessment": "Reset order and non-aliasing are necessary interpretation (b), their proof is later evidence (d), but unconditional consumer acknowledgment is an additional observable/protocol restriction (c) unless explicitly allowed to be absent when equivalent ordering establishes association. No such allowance is written. Resolve by revision or separate delegated amendment.",
+      "basis": "D001 Q4/Q6; AS PS; D003 disposition P3; R008-3"
+    },
+    {
+      "id": "S29",
+      "source": "inputs/AS-ADDENDUM-008.md:69-71",
+      "sentence": "Draining prior outputs or preserving old-sequence identity are alternatives for later review, not selected mechanisms.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Unselected candidate mechanisms, each requiring availability, retention, synchronization and resource evidence; no drain completion guarantee.",
+      "basis": "D003 disposition P3; Stage-7 R007-3"
+    },
+    {
+      "id": "S30",
+      "source": "inputs/AS-ADDENDUM-008.md:71-72",
+      "sentence": "Consumer restart alone does not reset the detector.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Restart is not the explicit detector reset required to restart numeric history/rank. Restoring association remains an open mechanism.",
+      "basis": "D001 Q4; AS R2/PS; P06"
+    },
+    {
+      "id": "S31",
+      "source": "inputs/AS-ADDENDUM-008.md:72-73",
+      "sentence": "Wrapping finite generation tags alone cannot prove unrestricted safe non-aliasing.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Finite tags alone fail after reuse while old work is live; proven bounded live-work lifetime or safe reuse could make finite tags usable.",
+      "basis": "P07; Stage-7 CE_TAG_REUSE"
+    },
+    {
+      "id": "S32",
+      "source": "inputs/AS-ADDENDUM-008.md:77-82",
+      "sentence": "For valid accepted stream `x_1,x_2,...` in a single explicit initialization/reset sequence, with conceptual zeros only at `j<=0`, retain exactly `E_n = sum_{k=0}^{31} x_{n-k}^2`, paired with the exact logical accepted-event rank `n>=1`.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Exact unchanged latest-32 PS; padding only before initialization/reset and n is logical.",
+      "basis": "D001 R1/R2/Q4; AS PS"
+    },
+    {
+      "id": "S33",
+      "source": "inputs/AS-ADDENDUM-008.md:84-86",
+      "sentence": "No new index field, finite epoch limit, required periodic reset, rejection of otherwise-valid events, loss padding, fixed deadline or forced backpressure is introduced.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves absence of field/epoch/deadline/flow-control mandates and valid-event restrictions; constrains S12/S17.",
+      "basis": "D001 R3; D002-5; D003 disposition must_verify"
+    },
+    {
+      "id": "S34",
+      "source": "inputs/AS-ADDENDUM-008.md:86-88",
+      "sentence": "An all-zero history before consumer restart cannot distinguish rank 1 from rank 2 absent retained association.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Indistinguishability witness when actual consumer has no retained or otherwise available exact association; energy alone cannot reveal rank.",
+      "basis": "P01; AS PS"
+    },
+    {
+      "id": "S35",
+      "source": "inputs/AS-ADDENDUM-008.md:88-89",
+      "sentence": "A delayed old `(1,1)` after reset cannot be mistaken for a new `(1,4)`.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Old/new association must be preserved; unequal energy is not a sequence identity, and equal energies strengthen the counterexample.",
+      "basis": "P06; D003 disposition P3"
+    },
+    {
+      "id": "S36",
+      "source": "inputs/AS-ADDENDUM-008.md:93-94",
+      "sentence": "The addendum specifies **required observable semantics**, not a completed protocol.",
+      "classes": [
+        "b"
+      ],
+      "assessment": "Intent is observable clarification; S28 currently also admits a mandatory acknowledgment reading, so this assertion is not fully established.",
+      "basis": "R008-3"
+    },
+    {
+      "id": "S37",
+      "source": "inputs/AS-ADDENDUM-008.md:94-95",
+      "sentence": "Whether they are realizable on the hypothetical finite embedded platform remains UNKNOWN.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Correctly leaves full-interface finite-platform feasibility UNKNOWN; not a theorem of impossibility or feasibility.",
+      "basis": "D002; Stage-7 all findings"
+    },
+    {
+      "id": "S38",
+      "source": "inputs/AS-ADDENDUM-008.md:95-98",
+      "sentence": "Independent review must determine whether A008-R1..R3 faithfully clarify accepted D001/AS or introduce a material requirement change needing a further sponsor-delegate decision before activation.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Appropriate independent authority gate; this review identifies a class-c restriction requiring resolution, not activation.",
+      "basis": "TASK; D003 disposition independent_additive_AS_review"
+    },
+    {
+      "id": "S39",
+      "source": "inputs/AS-ADDENDUM-008.md:100-102",
+      "sentence": "In particular, arbitrary accepted histories plus indefinite stalls and finite queues expose an unresolved liveness/capacity interface question.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Capacity/liveness challenge under continued acceptance and stalls, not an adopted guarantee of arbitrary fault survival or infinite buffering.",
+      "basis": "P05/P08; Stage-7 R007-2"
+    },
+    {
+      "id": "S40",
+      "source": "inputs/AS-ADDENDUM-008.md:102-104",
+      "sentence": "That question must not be \"solved\" by treating a fault report as delivery, silently rejecting valid events, or postulating an unapproved service.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves per-event output and omission-free model; no fault-report substitute, silent filtering, or service assumption.",
+      "basis": "D001 Q4/Q6; D002-5"
+    },
+    {
+      "id": "S41",
+      "source": "inputs/AS-ADDENDUM-008.md:104-105",
+      "sentence": "A fully specified acceptance/delivery contract and independent feasibility evidence remain due later.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Acceptance/delivery mechanism, capacity assumptions and feasibility remain due; later contract may not amend accepted behavior without authority.",
+      "basis": "D002-2/5; D003 disposition P2"
+    },
+    {
+      "id": "S42",
+      "source": "inputs/AS-ADDENDUM-008.md:107-108",
+      "sentence": "RN external exact numeral provider and C-HIST publisher snapshot service are unapproved, unmeasured candidate dependencies.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Correctly records unapproved and unmeasured candidate dependencies, not accepted upstream capabilities.",
+      "basis": "D003 disposition P4; Stage-7 R007-4"
+    },
+    {
+      "id": "S43",
+      "source": "inputs/AS-ADDENDUM-008.md:108-111",
+      "sentence": "For each, provider, accepted-event binding, consistency, retention, reset fencing, availability, error semantics and attributable resources must be reviewed before reliance.",
+      "classes": [
+        "d"
+      ],
+      "assessment": "Provider and service evidence remain due; snapshot coherence alone does not prove event identity or retention.",
+      "basis": "D002-2/3/5; P09; Stage-7 R007-4"
+    },
+    {
+      "id": "S44",
+      "source": "inputs/AS-ADDENDUM-008.md:111-112",
+      "sentence": "D002's ownership disclosure and the accepted RAM boundary remain unchanged.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves 2048 detector-owned bytes and ownership disclosure; exclusion needs ownership evidence.",
+      "basis": "D001 R5/A4; D002-3"
+    },
+    {
+      "id": "S45",
+      "source": "inputs/AS-ADDENDUM-008.md:114-116",
+      "sentence": "All H1–H6 realized gates and active F measurements (`RAM_peak`, `compute_effort`, `device_energy_consumption`) remain UNKNOWN for AP-006-A/B/C.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves UNKNOWN realization gates/three F axes for all unselected AP families; no direct AP artifact inspection claimed.",
+      "basis": "F disposition; D003 disposition P5; Stage-7 R007-5"
+    },
+    {
+      "id": "S46",
+      "source": "inputs/AS-ADDENDUM-008.md:116-119",
+      "sentence": "T1 covers future numeric continuations only; T2's 372-bit/47-octet conditional capacity minimum is not a sufficient target allocation or local RAM bound for externally replayed history.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Correct conditional theorem limits, with full hypotheses supplied by accepted proof disposition; no numeric capacity result discharges indexing or full-interface storage.",
+      "basis": "Proof disposition T1/T2; D002-4"
+    },
+    {
+      "id": "S47",
+      "source": "inputs/AS-ADDENDUM-008.md:119-120",
+      "sentence": "T002-2 through T002-8 stay OPEN, R4 complete detection stays DEFERRED, PO-003-1/3 unproven.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "All named obligations remain OPEN, detection deferred, other proof opportunities unproven.",
+      "basis": "Activation; F/proof/D002 dispositions; Stage-7 obligation table"
+    },
+    {
+      "id": "S48",
+      "source": "inputs/AS-ADDENDUM-008.md:122-123",
+      "sentence": "**Activation condition:** independent review of this exact addendum, followed by a separate explicit delegated AS-addendum disposition.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Separate explicit delegated disposition is required after review; review itself grants no activation.",
+      "basis": "TASK; D003 disposition review gate"
+    },
+    {
+      "id": "S49",
+      "source": "inputs/AS-ADDENDUM-008.md:124-125",
+      "sentence": "No addendum or D003 interpretation is made effective merely by authoring this file.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "Preserves non-effectiveness on authorship alone.",
+      "basis": "D003 disposition limits"
+    },
+    {
+      "id": "S50",
+      "source": "inputs/AS-ADDENDUM-008.md:125-126",
+      "sentence": "No AP, contract, implementation, product, target or formal cleanroom is accepted.",
+      "classes": [
+        "a"
+      ],
+      "assessment": "No AP, physical contract, implementation or qualification acceptance.",
+      "basis": "TASK; all disposition limits"
+    }
+  ],
+  "AS_impact": {
+    "baseline": "D001 plus activated AS-REV-002, accepted D002, adopted F and accepted conditional proof disposition. Older AS draft-status labels are superseded by supplied activation, whose history was not independently authenticated.",
+    "clarification_versus_amendment": "R1 exact consumer decoding and R2 preserved debt can be faithful additive interpretations. R3 order/non-aliasing likewise. A mandatory acknowledgment, new failure-survival guarantee, consumer-lifetime restriction, finite index epoch, valid-event filtering or changed publisher behavior is material and needs new delegated amendment. S28 does not explicitly resolve the acknowledgment distinction; this review does not silently repair it.",
+    "unresolved_contradictions": [
+      "S28 mandatory acknowledgment reading versus S3 no-D001-amendment and S36 semantics-only framing.",
+      "S23 retained debt cannot be read as successful delivery under arbitrary information destruction/permanent unavailability while S15/S25 assume no crash model or universal recovery. The consistent reading preserves an unfulfilled obligation; it does not prove recovery.",
+      "S12 acceptance definition and S17 supported lifetime cannot become unapproved filters, epoch caps or restart exemptions in view of S13/S14/S18/S33/S40."
+    ],
+    "applied_amendments": [],
+    "realizability": "UNKNOWN: no physical decoder, capacity/recovery/reset service, target or full-interface realization supplied. Finite-witness counterexamples refute specified shortcuts, not every possible AP.",
+    "blocking_revision": "Resolve acknowledgment as optional means versus explicitly new obligation. Source revision requires independent review of revised bytes and separate explicit delegated AS-addendum disposition; a material requirement needs new delegated amendment, not this reviewer decision."
+  },
+  "actual_consumer": {
+    "role_defined": true,
+    "physical_component_identified": false,
+    "actual_state_inventory_supplied": false,
+    "concrete_decoder_supplied": false,
+    "exact_rank_proved_for_arbitrary_event_count": false,
+    "RI_evidence_status": "NOT_DEMONSTRATED",
+    "required_information": "Consumer actually accessible accepted-order/rank association, response identity, reset sequence and restart lifetime state; no omniscient trace, acquisition count, fresh transaction or energy-only substitute."
+  },
+  "probe_evidence": [
+    {
+      "id": "P01",
+      "topic": "Actual-consumer rank ambiguity",
+      "observed": {
+        "world_A": [
+          1,
+          0
+        ],
+        "world_B": [
+          2,
+          0
+        ],
+        "same_consumer_observation": [
+          "fresh local request",
+          0
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "If consumer state and visible metadata are the same, no decoder can return both correct ranks. A real retained rank/reset association could distinguish these worlds; none is supplied.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P02",
+      "topic": "Invalid attempts versus accepted ordinal",
+      "observed": [
+        [
+          1,
+          49
+        ],
+        "REJECT",
+        [
+          2,
+          113
+        ]
+      ],
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "Attempt count cannot be used as accepted-event index. Rejection must also preserve prior pending association.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P03",
+      "topic": "Invalid is not an accepted zero",
+      "observed": {
+        "required": [
+          32,
+          1
+        ],
+        "incorrect_zero": [
+          33,
+          0
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "Only pre-sequence absence is zero padding; invalid input must not age the tail.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P04",
+      "topic": "Accept/commit/lose/report/retry",
+      "observed": {
+        "accept_1_then_2": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "retry_1_as_new_event": [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "After accepted 1, losing publication leaves (1,1) owed; a fault report does not supply it. Retrying as new input changes history. A retry bound to the same event may be investigated, but no retry/deduplication or crash-recovery service exists in the accepted sources.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P05",
+      "topic": "Finite queue under stalls",
+      "observed": [
+        {
+          "Q": 1,
+          "accepted_unpublished": 2
+        },
+        {
+          "Q": 2,
+          "accepted_unpublished": 3
+        },
+        {
+          "Q": 3,
+          "accepted_unpublished": 4
+        },
+        {
+          "Q": 4,
+          "accepted_unpublished": 5
+        }
+      ],
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "Under no other retention/replay/compression and no delivery, Q+1 owed entries exceed Q slots. General argument is conditional capacity reasoning, not an unconditional impossibility proof. No publisher suspension or hard 1 ms deadline is inferred.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P06",
+      "topic": "Old/new reset association and restart",
+      "observed": {
+        "old": [
+          1,
+          1
+        ],
+        "new_after_reset": [
+          1,
+          4
+        ],
+        "restart_without_reset": [
+          2,
+          1
+        ],
+        "equal_energy_old_new": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "A delayed old ordinal 1 must not attach to the new sequence. Both numerical values and ranks can be identical in different sequences, so energy comparison is not fencing. Consumer restart without detector reset leaves numeric history/rank intact.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P07",
+      "topic": "Finite ordinal/generation reuse",
+      "observed": {
+        "rank_fields": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            5,
+            1,
+            0
+          ]
+        ],
+        "generation_fields": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            4,
+            0,
+            1,
+            1
+          ]
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "With a two-bit field, ranks 1/5 or generations 0/4 collide. Symbolically replace 4 by 2^b or 2^g. Only-tag fencing fails if an old response remains live at reuse; this does not outlaw finite tags with a proved safe lifetime/non-reuse condition.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P08",
+      "topic": "Numeric history versus output history",
+      "observed": {
+        "current_A": [
+          33,
+          0
+        ],
+        "current_B": [
+          33,
+          0
+        ],
+        "old_owed_A": [
+          1,
+          1
+        ],
+        "old_owed_B": [
+          1,
+          4
+        ]
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "After 32 zeros, both latest-31 tails and current energy coincide, but old unpublished results differ. Numeric tail alone cannot reconstruct arbitrary outstanding debt.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P09",
+      "topic": "Unsupplied snapshot identity/coherence",
+      "observed": {
+        "correct": 5,
+        "mixed": 9,
+        "wrong_coherent": 8
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "A mixed read and a coherent wrong-event read both fail with in-range values. These are specification witnesses; no C-HIST service was run. Evicting a sole required snapshot before result retention similarly leaves unpaid debt.",
+      "physical_interface_test": false
+    },
+    {
+      "id": "P10",
+      "topic": "Numeric boundaries and conditional capacity arithmetic",
+      "observed": {
+        "max_energy": 536608800,
+        "fits_unsigned_29_bits": true,
+        "T2_bits": 372,
+        "T2_whole_octets": 47,
+        "boundary_energies": {
+          "0": 0,
+          "1": 16769025,
+          "31": 519839775,
+          "32": 536608800,
+          "33": 536608800
+        }
+      },
+      "method": "Fresh inline Python exact-integer specification calculation, plus stated logical trace reasoning.",
+      "interpretation": "Arithmetic facts impose no algorithm, physical field, target RAM allocation or hardware qualification. T2 capacity excludes full-interface metadata and depends on its complete-state/no-replay hypotheses.",
+      "physical_interface_test": false
+    }
+  ],
+  "probe_receipt": {
+    "language": "Inline Python 3 with unbounded integer specification arithmetic; no probe file created.",
+    "actual_assertions_passed": 11,
+    "assertion_names": [
+      "zero_restart",
+      "invalid_rank",
+      "invalid_padding",
+      "debt_retry",
+      "queue_overflow",
+      "reset_and_restart",
+      "two_bit_collisions",
+      "same_current_tail",
+      "different_old_debt",
+      "snapshot_witnesses",
+      "numeric_and_capacity_arithmetic"
+    ],
+    "correction": "The preliminary witness run printed a hard-coded label of 13 assertions although its body contained 11 assert statements. The recorded receipt uses an instrumented counter and 11 named passing checks; no physical test count is implied.",
+    "logical_only_checks": [
+      "Same consumer-visible state cannot decode two distinct required ranks.",
+      "For b/g bits, modulo fields recur after 2^b/2^g, so still-live old work can alias.",
+      "Q+1 distinct retained result entries exceed Q queue slots under no other retention/replay/compression; not an all-AP impossibility proof.",
+      "A permanent unavailable output path cannot fulfill eventual delivery; no deadline or universal recovery assumed.",
+      "An ordered interface can conceptually establish reset association without a separate acknowledgment event; no such physical service is supplied or approved.",
+      "Snapshot eviction before result retention leaves an accepted result unfulfilled when it destroys the sole needed information."
+    ]
+  },
+  "preservation": {
+    "R1": "Exact latest-32 accepted-sample integer sum of squares unchanged.",
+    "R2": "Padding only before initialization/reset; no operational loss/invalid padding.",
+    "R3_A2": "One result per accepted event; nominal 1 ms only, no hard deadline/jitter bound.",
+    "R4": "Deferred complete detection; threshold/duration/boolean/integration unresolved.",
+    "R5_A4": "At most 2048 detector-attributable bytes including owned persistent/scratch/stack, index/transaction/queue and attributable shared state; exclusive upstream ownership exclusions need evidence.",
+    "R6_A3": "No hardware-FPU dependency; hypothetical 32-bit Cortex-M-class MCU, no target/compiler/algorithm selected, no added software-float prohibition.",
+    "A1": "Unsigned accepted samples 0..4095 inclusive.",
+    "PS": "E_n=sum(x_(n-k)^2,k=0..31), paired with exact n>=1 within explicit initialization/reset sequence.",
+    "new_numeric_compute_or_power_threshold": null,
+    "all_realized_H1_H6": {
+      "AP-006-A": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "AP-006-B": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "AP-006-C": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      }
+    },
+    "active_F_axes": [
+      "RAM_peak",
+      "compute_effort",
+      "device_energy_consumption"
+    ],
+    "all_realized_F_values": "UNKNOWN",
+    "F_comparison": "Hard gates first; compatible evidence, workload, target and physical scope only; UNKNOWN is not zero/PASS/tie. Partial symbolic comparisons do not establish full Pareto dominance or device-energy savings. No active flash budget.",
+    "T1": "All nonempty future numeric continuations agree iff padded latest-31 tails agree. Excludes current already-emitted output, indices and full-interface metadata.",
+    "T2": "For each fixed n>=32, deterministic complete retained output-affecting state, no external replay/readable uncounted history, unrestricted continuations: at least 2^372 states, 372 bits/47 whole octets capacity. Not sufficient implementation allocation or detector-local bound with external replay; index/stack/scratch/metadata not discharged.",
+    "PO_003_1": "UNPROVEN",
+    "PO_003_3": "UNPROVEN",
+    "new_theorem_accepted": false,
+    "open_obligations": {
+      "T002-2": "OPEN: realized exact latest-32 behavior against independent specification.",
+      "T002-3": "OPEN: startup/reset/history and exclusion of old work from new sequence.",
+      "T002-4": "OPEN: one exact indexed pair per accepted event; actual consumer association and unpaid result obligations.",
+      "T002-5": "OPEN: invalid-input invariance and observable fault reporting; no new ability to detect unobservable loss.",
+      "T002-6": "OPEN: detector RAM accounting and hardware-FPU independence evidence.",
+      "T002-7": "OPEN: compatible target/workload performance and device-energy evidence.",
+      "T002-8": "OPEN_DEFERRED: full sustained-energy detection criteria/integration.",
+      "R4": "OPEN_DEFERRED before complete sustained-energy detector claim."
+    },
+    "obligation_mapping_limit": "Mappings rely on supplied dispositions and full Stage-7 table; no inaccessible DECISION-TRACE-002 or historical AP/implementation file was read."
+  },
+  "service_status": {
+    "RI": "NOT_APPROVED; actual decoder/state/lifetime unavailable.",
+    "RN": "NOT_APPROVED_UNMEASURED; provider, exact numeral generation/framing, accepted-event binding, retention/availability/reset and growing provider/parser/transport costs due.",
+    "C_HIST": "NOT_APPROVED_UNMEASURED; coherent correct-event pre-tail, retention/release, accepted-event/reset binding, availability/errors and ownership/resource evidence due.",
+    "resource_limit": "External location alone does not prove exclusive ownership, zero detector-attributable sharing or zero whole-device electrical energy."
+  },
+  "source_hash_checks": {
+    "algorithm": "SHA-256",
+    "manifest": "inputs/SHA256SUMS",
+    "manifest_entries": 15,
+    "matched_entries": 15,
+    "all_match": true,
+    "methods": [
+      "sha256sum -c SHA256SUMS within inputs",
+      "Independent hashlib.sha256 comparison of all 15 named payload bytes"
+    ],
+    "instruction_and_manifest_identities": [
+      {
+        "path": "AGENTS.md",
+        "observed_sha256": "4ce5dacfbd6880f41d0f7ee623c0177432b31eba24b42a362f8d21a90186bc8a",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "TASK.md",
+        "observed_sha256": "7c2ce1c52f7e7475ec12984c502e4e6968b4436b2eda48ce5c489fae457cb313",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "inputs/SHA256SUMS",
+        "observed_sha256": "46098f5ee06805495ca7d17c9c81cec17b8b97adce0d0cf0e5102707ff3854ce",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      }
+    ],
+    "meaning": "Internal consistency with supplied manifest only; no independently trusted manifest digest, origin authentication, historical Git validation, OS or connector isolation."
+  },
+  "source_hashes": [
+    {
+      "path": "inputs/D003-PROPOSAL-007.yaml",
+      "expected_sha256": "05166f4db88c512b16d02836ed56554e7da1765fb25eb4b39292c637280c67fd",
+      "observed_sha256": "05166f4db88c512b16d02836ed56554e7da1765fb25eb4b39292c637280c67fd",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/PROOF-DISPOSITION-004.yaml",
+      "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+      "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/DECISION-001.yaml",
+      "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+      "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/adc.md",
+      "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/D003-DISPOSITION-007.yaml",
+      "expected_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+      "observed_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/AS-REV-002.md",
+      "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+      "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/REVIEW-D003-007.md",
+      "expected_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+      "observed_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/AS-ADDENDUM-008.md",
+      "expected_sha256": "86439728d822cfd202ffd0743a87514938b124e8827b6ff78e3530cddbdca80f",
+      "observed_sha256": "86439728d822cfd202ffd0743a87514938b124e8827b6ff78e3530cddbdca80f",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/problem-origin.md",
+      "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+      "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/F-DISPOSITION-003.yaml",
+      "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+      "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/target.md",
+      "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+      "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/BRIEFING-008.md",
+      "expected_sha256": "ca6996957c8772dbbfc0189a54191311aae087a0cd8b0cdc806cb4db4d2b5102",
+      "observed_sha256": "ca6996957c8772dbbfc0189a54191311aae087a0cd8b0cdc806cb4db4d2b5102",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+      "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+      "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/REVIEW-D003-007.json",
+      "expected_sha256": "d1437f5ecef69a794f7a2fff6a94122dc77203aac79b928c76efd5c531877360",
+      "observed_sha256": "d1437f5ecef69a794f7a2fff6a94122dc77203aac79b928c76efd5c531877360",
+      "match": true,
+      "read": true
+    },
+    {
+      "path": "inputs/AS-ACTIVATION-002.yaml",
+      "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+      "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+      "match": true,
+      "read": true
+    }
+  ],
+  "checks_performed": [
+    "Read AGENTS.md, TASK.md, manifest and all 15 supplied payloads; full current Stage-7 report/receipt examined, including limits.",
+    "Compared each R1/R2/R3 clause and all 50 sentences against accepted source hierarchy and bounded D003 disposition.",
+    "Fresh inline exact-integer witness probes and named assertions, plus explicitly labeled trace arguments.",
+    "Validated the two output contents, source identities, required flags, clause coverage, sentence coverage and disposition before final write."
+  ],
+  "not_performed": [
+    "No physical RI/RN/C-HIST, reset/acknowledgment, concurrency, restart, fault-injection or queue service tests.",
+    "No implementation/algorithm selection, compiler/build, target RAM/stack, timing/WCET, power/device-energy or hardware qualification.",
+    "No prior proof-attempt/exhaustive/random AP-test reproduction, new formal theorem or historical Git/authentication checks.",
+    "No OS/connector isolation or externally authenticated author/reviewer separation audit."
+  ],
+  "independence": {
+    "source_allowlist_followed": true,
+    "proposal_authored": false,
+    "delegate_authority_assumed": false,
+    "subagents_used": false,
+    "network_used": false,
+    "connected_apps_used": false,
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "old_solved_Toy1_artifacts_used": false,
+    "hidden_reference_or_evaluator_used": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "external_agent_separation_authenticated": false,
+    "prior_historical_claims_independently_authenticated": false,
+    "limit": "Independent reasoning from this supplied synthetic package only. Positive-allowlist files and directory separation do not prove OS/connector isolation; supplied historical activation, delegation, reviews, execution and source inventories remain assertions beyond current byte consistency."
+  },
+  "next_gate": "Revised addendum source (or explicitly authorized new delegated amendment for any added obligation), distinct independent source review of that exact revision and separate explicit delegated AS-addendum disposition. Any later interface/service/AP feasibility work requires separate authorization. No activation or selection occurs here.",
+  "outputs": [
+    "out/REVIEW-AS-ADDENDUM-008.md",
+    "out/REVIEW-AS-ADDENDUM-008.json"
+  ]
+}
