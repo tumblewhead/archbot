@@ -1,0 +1,909 @@
+{
+  "review_id": "CLN-001-REVIEW-AP-006",
+  "candidate_set": "inputs/AP-CANDIDATES-006.md",
+  "disposition": "READY_FOR_INDEPENDENT_AP_EVALUATION",
+  "disposition_scope": "Candidate-draft/source-quality review only. Later independent evaluation must be separately authorized; this is no AP admission, approval, acceptance or selection.",
+  "disposition_reason": "Distinct conditional proposals preserve the supplied requirements, theorem scope and F/D002 limits; no contradiction in the written proposals found. All realized gates remain unknown and major clarification/evidence dependencies remain open.",
+  "AP_selected": false,
+  "APs_finally_compliant": false,
+  "all_candidate_hard_gate_compliance": "UNKNOWN",
+  "contradicted_candidate_gates": [],
+  "cleanroom_qualified": false,
+  "target_verified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "role": "Independent source-bounded candidate reviewer; neither AP author, evaluator/selector nor sponsor/delegate.",
+  "authority": {
+    "delegation_transferred": false,
+    "requirements_changed": false,
+    "F_changed": false,
+    "theorem_accepted_or_extended": false,
+    "RI_approved": false,
+    "RN_approved": false,
+    "external_services_approved": false,
+    "epoch_or_wrap_approved": false,
+    "valid_event_restrictions_approved": false,
+    "AD_accepted": false,
+    "hardware_feasibility_claimed": false,
+    "implementation_or_contract_authored": false
+  },
+  "source_hash_checks": {
+    "algorithm": "SHA-256",
+    "manifest": "inputs/SHA256SUMS",
+    "manifest_entries": 16,
+    "matched_entries": 16,
+    "command": "sha256sum -c SHA256SUMS (cwd inputs)",
+    "result": "ALL_16_MATCH",
+    "meaning": "Local bytes match supplied manifest; no independent external authenticity or isolation guarantee.",
+    "instruction_and_manifest_identities": [
+      {
+        "path": "AGENTS.md",
+        "observed_sha256": "ab70f21a1742876d740916684cf74b8ea698fe0a18e076d36e75f0ac94611444",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "TASK.md",
+        "observed_sha256": "d820c5a085368c14b7be5c1ac59da6d50150a9d86d27a47a16df4778b26738d4",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "inputs/SHA256SUMS",
+        "observed_sha256": "39e19155c3a4d393d5c59a677bb316351464c82d2df6afc5beb0caf4408ba413",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      }
+    ],
+    "payloads": [
+      {
+        "path": "inputs/PROOF-DISPOSITION-004.yaml",
+        "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "match": true,
+        "read": true,
+        "contribution": "Accepted T1 and conditional T2 scope; exclusions; PO-003-1/3 remain unproven."
+      },
+      {
+        "path": "inputs/AP-BRIEFING-006.md",
+        "expected_sha256": "192fd687a05e3f71e4fce317b0fa33be5d80bcff620a773941be7ff17495430b",
+        "observed_sha256": "192fd687a05e3f71e4fce317b0fa33be5d80bcff620a773941be7ff17495430b",
+        "match": true,
+        "read": true,
+        "contribution": "Prior proposal receipt and evidence/authority limits; prior runtime claims not authenticated."
+      },
+      {
+        "path": "inputs/DECISION-001.yaml",
+        "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "match": true,
+        "read": true,
+        "contribution": "Synthetic requirements R1-R6/A1-A4, lifecycle Q4, delivery/rejection Q6 and nontransferable delegation."
+      },
+      {
+        "path": "inputs/adc.md",
+        "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "match": true,
+        "read": true,
+        "contribution": "Synthetic unsigned 0..4095 domain and nominal cadence, not measurements."
+      },
+      {
+        "path": "inputs/AS-REV-002.md",
+        "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "match": true,
+        "read": true,
+        "contribution": "Accepted observable relation, context, requirements and problem statement through activation."
+      },
+      {
+        "path": "inputs/TASK-AP-006.md",
+        "expected_sha256": "4285644b86ca167b9c2730fb9b701ea04b357614c4fbbf3c906a5725d22f66ec",
+        "observed_sha256": "4285644b86ca167b9c2730fb9b701ea04b357614c4fbbf3c906a5725d22f66ec",
+        "match": true,
+        "read": true,
+        "contribution": "Supplied prior author task; proposal-only authorization and output boundary."
+      },
+      {
+        "path": "inputs/AP-CANDIDATES-006.md",
+        "expected_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "observed_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "match": true,
+        "read": true,
+        "contribution": "Unselected candidate definitions, information boundaries, index refinements and dependencies."
+      },
+      {
+        "path": "inputs/VERIFICATION_AGENT_ROLE.md",
+        "expected_sha256": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+        "observed_sha256": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+        "match": true,
+        "read": true,
+        "contribution": "Independent verification guidance; no expanded authority."
+      },
+      {
+        "path": "inputs/AP-COMPARISON-006.md",
+        "expected_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "observed_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "match": true,
+        "read": true,
+        "contribution": "Candidate hard-gate table, symbolic F worksheet, comparisons and obligation crosswalk."
+      },
+      {
+        "path": "inputs/DECISION-TRACE-002.md",
+        "expected_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "observed_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "match": true,
+        "read": true,
+        "contribution": "T002-2..8 open evidence obligations and deferred R4."
+      },
+      {
+        "path": "inputs/problem-origin.md",
+        "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "match": true,
+        "read": true,
+        "contribution": "Invented original need; later D001 revisions control timing and detection scope."
+      },
+      {
+        "path": "inputs/F-DRAFT-003.md",
+        "expected_sha256": "9b74bac301e917fbee0f28b246b67a39dc308e66ab808353d3097601915b6a59",
+        "observed_sha256": "9b74bac301e917fbee0f28b246b67a39dc308e66ab808353d3097601915b6a59",
+        "match": true,
+        "read": true,
+        "contribution": "H1-H6 and P1-P6 only as scoped by F disposition."
+      },
+      {
+        "path": "inputs/F-DISPOSITION-003.yaml",
+        "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "match": true,
+        "read": true,
+        "contribution": "Accepted scoped F authority, three active axes, evidence limits and comparison rules."
+      },
+      {
+        "path": "inputs/target.md",
+        "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "match": true,
+        "read": true,
+        "contribution": "Hypothetical generic MCU/no-FPU/2048-byte envelope; no target evidence."
+      },
+      {
+        "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+        "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "match": true,
+        "read": true,
+        "contribution": "Disclosure/refinement policy only; no service, encoding or operating restriction approval."
+      },
+      {
+        "path": "inputs/AS-ACTIVATION-002.yaml",
+        "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "match": true,
+        "read": true,
+        "contribution": "Supplied accepted synthetic AS activation; historical authentication not repeated."
+      }
+    ]
+  },
+  "per_candidate_findings": [
+    {
+      "candidate_id": "AP-006-A",
+      "source": "inputs/AP-CANDIDATES-006.md",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "structural_distinction": "LOCAL_RAW_TAIL_RECOMPUTATION",
+      "distinction_assessment": "31 ordered raw values retained locally; fresh full reduction; eviction follows reading expiring value.",
+      "draft_gate_contradictions": [],
+      "realized_hard_gate_compliance": "UNKNOWN",
+      "hard_gates": {
+        "H1": {
+          "status": "UNKNOWN",
+          "rationale": "Conditional reduction uses exact pre-event raw tail plus current value; realized term selection, widths and independent spec comparisons missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H2": {
+          "status": "UNKNOWN",
+          "rationale": "Zero tail/order intended; realized reset, required boundary cases and old-result fencing missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H3": {
+          "status": "UNKNOWN",
+          "rationale": "RI trace map pending D003/AS interpretation and actual no-loss response association.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H4": {
+          "status": "UNKNOWN",
+          "rationale": "Validate-before-mutation intended; actual rejection invariance, reporting and observability evidence missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H5": {
+          "status": "UNKNOWN",
+          "rationale": "31 b_x plus all owned order/transaction/index/scratch/stack/queue/shared costs; no realized upper bound.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H6": {
+          "status": "UNKNOWN",
+          "rationale": "Integer intent; build, execution and dependency evidence missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        }
+      },
+      "finding_ids": [
+        "R006-1",
+        "R006-2",
+        "R006-5",
+        "R006-6",
+        "R006-7"
+      ],
+      "index_refinement": "RI_PENDING",
+      "conditional_ram_peak_bytes": "31 b_x + h_A",
+      "conditional_compute_M0": "32 SQ_x + 31 ADD_E + 31 RD_x + WR_x + ADV_31 + V_A + J_A + D_A + L_A",
+      "actual_RAM_peak": "UNKNOWN",
+      "actual_compute_effort": "UNKNOWN",
+      "actual_device_energy_consumption": "UNKNOWN",
+      "T1_scope": "Nonempty future numeric outputs only; does not cover current energy, exact index or physical interface.",
+      "T2_scope": "Only conditional on complete deterministic closed numeric state, no external replay, unrestricted continuations and fixed n>=32; no sufficient RAM allocation inferred.",
+      "continuing_obligations": [
+        "T002-2",
+        "T002-3",
+        "T002-4",
+        "T002-5",
+        "T002-6",
+        "T002-7",
+        "T002-8"
+      ],
+      "R4": "OPEN_DEFERRED"
+    },
+    {
+      "candidate_id": "AP-006-B",
+      "source": "inputs/AP-CANDIDATES-006.md",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "structural_distinction": "LOCAL_SQUARED_TAIL_INCREMENTAL_TOTAL",
+      "distinction_assessment": "31 ordered squares plus redundant aggregate; insertion squaring and expiration update change state coupling and work.",
+      "draft_gate_contradictions": [],
+      "realized_hard_gate_compliance": "UNKNOWN",
+      "hard_gates": {
+        "H1": {
+          "status": "UNKNOWN",
+          "rationale": "Conditional ordered-tail/S recurrence checked; realized cursor-age invariant, arithmetic safety and spec comparisons missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H2": {
+          "status": "UNKNOWN",
+          "rationale": "Zero tail/S/order intended; coherent reset and old-result fencing missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H3": {
+          "status": "UNKNOWN",
+          "rationale": "RI unresolved; coupled state commit and event/response bijection unestablished.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H4": {
+          "status": "UNKNOWN",
+          "rationale": "All coupled state must remain unchanged on rejection; actual API/reporting evidence missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H5": {
+          "status": "UNKNOWN",
+          "rationale": "31 b_q+b_S plus all owned overhead; no realized ownership/lifetime/peak bound.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H6": {
+          "status": "UNKNOWN",
+          "rationale": "Integer intent; build, execution and dependency evidence missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        }
+      },
+      "finding_ids": [
+        "R006-1",
+        "R006-2",
+        "R006-4",
+        "R006-6",
+        "R006-7"
+      ],
+      "index_refinement": "RI_PENDING",
+      "conditional_ram_peak_bytes": "31 b_q + b_S + h_B",
+      "conditional_compute_M0": "SQ_x + ADD_E + SUB_E + RD_q + WR_q + ADV_31 + V_B + J_B + D_B + L_B",
+      "actual_RAM_peak": "UNKNOWN",
+      "actual_compute_effort": "UNKNOWN",
+      "actual_device_energy_consumption": "UNKNOWN",
+      "T1_scope": "Nonempty future numeric outputs only; does not cover current energy, exact index or physical interface.",
+      "T2_scope": "Only conditional on complete deterministic closed numeric state, no external replay, unrestricted continuations and fixed n>=32; no sufficient RAM allocation inferred.",
+      "continuing_obligations": [
+        "T002-2",
+        "T002-3",
+        "T002-4",
+        "T002-5",
+        "T002-6",
+        "T002-7",
+        "T002-8"
+      ],
+      "R4": "OPEN_DEFERRED"
+    },
+    {
+      "candidate_id": "AP-006-C",
+      "source": "inputs/AP-CANDIDATES-006.md",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "structural_distinction": "UPSTREAM_HISTORY_SNAPSHOT_STREAMING_RECOMPUTATION",
+      "distinction_assessment": "Publisher-side retained history and snapshot lifetime; detector consults external replay; service not approved.",
+      "draft_gate_contradictions": [],
+      "realized_hard_gate_compliance": "UNKNOWN",
+      "hard_gates": {
+        "H1": {
+          "status": "UNKNOWN",
+          "rationale": "Exact reduction depends on correct event-bound snapshot; service fidelity and realization unverified.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H2": {
+          "status": "UNKNOWN",
+          "rationale": "Joint history/index/reset/in-flight fencing not established.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H3": {
+          "status": "UNKNOWN",
+          "rationale": "External exact accepted ordinal service, snapshot binding and one-result guarantee unestablished.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H4": {
+          "status": "UNKNOWN",
+          "rationale": "Rejection must preserve detector/source history/ordinal; service reporting and actual invariance missing.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H5": {
+          "status": "UNKNOWN",
+          "rationale": "Client/shared/pinned/index/queue/scratch/stack attribution unresolved; no local-memory fit or advantage established.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        },
+        "H6": {
+          "status": "UNKNOWN",
+          "rationale": "Integer reduction intent; client/service dependencies and build evidence unresolved.",
+          "evidence_level": "CONDITIONAL_SYMBOLIC_ONLY_NOT_REALIZED"
+        }
+      },
+      "finding_ids": [
+        "R006-1",
+        "R006-2",
+        "R006-3",
+        "R006-5",
+        "R006-6",
+        "R006-7"
+      ],
+      "index_refinement": "RN_UNESTABLISHED_SERVICE",
+      "conditional_ram_peak_bytes": "h_C",
+      "conditional_compute_M0": "32 SQ_x + 31 ADD_E + OPEN_SNAP + 31 FETCH_x + V_C + J_C + D_C + L_C",
+      "actual_RAM_peak": "UNKNOWN",
+      "actual_compute_effort": "UNKNOWN",
+      "actual_device_energy_consumption": "UNKNOWN",
+      "T1_scope": "Nonempty future numeric outputs only; does not cover current energy, exact index or physical interface.",
+      "T2_scope": "Detector-local no-replay hypothesis fails because C-DET reads C-HIST; larger complete closure unestablished.",
+      "continuing_obligations": [
+        "T002-2",
+        "T002-3",
+        "T002-4",
+        "T002-5",
+        "T002-6",
+        "T002-7",
+        "T002-8"
+      ],
+      "R4": "OPEN_DEFERRED"
+    }
+  ],
+  "findings": [
+    {
+      "id": "R006-1",
+      "severity": "HIGH",
+      "kind": "UNRESOLVED_AUTHORITY",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "gates": [
+        "H3",
+        "H5"
+      ],
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:19-27",
+        "inputs/DECISION-001.yaml:interface_and_lifecycle_Q4",
+        "inputs/AS-REV-002.md:PS",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-1,D002-5"
+      ],
+      "finding": "Trace-rank abstraction and conditional external numeral decoding do not establish physical index supply.",
+      "required_followup": "Delegated D003/additive AS clarification of index supply, consumer/reset lifetime, ownership and reviewed external commitments.",
+      "blocks": "Full-interface eligibility and provisional downselection; not conditional draft generation.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-2",
+      "severity": "HIGH",
+      "kind": "UNRESOLVED_CONTRACT",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "gates": [
+        "H2",
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:11,37-39,55,75",
+        "inputs/DECISION-001.yaml:requirements.R3,delivery_and_exceptions_Q6"
+      ],
+      "finding": "Acceptance, state commit, response delivery, reset and stalls lack a reviewed coordination contract.",
+      "required_followup": "Clarify owed outputs and pending events, then independently review event/response bijection without valid-event loss or invented operating restrictions.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-3",
+      "severity": "HIGH",
+      "kind": "EXTERNAL_EVIDENCE_DEPENDENCY",
+      "candidates": [
+        "AP-006-C"
+      ],
+      "gates": [
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "H5"
+      ],
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:69-83",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-2,D002-3,D002-5"
+      ],
+      "finding": "No accepted or demonstrated snapshot/RN service or exclusive source ownership; the draft explicitly discloses this.",
+      "required_followup": "Authorized service scope and reviewed identity, fidelity, consistency, retention, reset fencing, validation, availability and cost evidence before local-memory advantage or feasibility claims.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-4",
+      "severity": "MEDIUM",
+      "kind": "IMPLEMENTATION_EVIDENCE",
+      "candidates": [
+        "AP-006-B"
+      ],
+      "gates": [
+        "H1",
+        "H2",
+        "H4"
+      ],
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:51-59"
+      ],
+      "finding": "The valid algebra depends on cursor age as well as aggregate equality; a stale cursor can evade a sum-of-stored-slots check.",
+      "required_followup": "Review chronological eviction, coherent coupled updates/reset and representation-level operation safety in a later realization.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-5",
+      "severity": "MEDIUM",
+      "kind": "IMPLEMENTATION_EVIDENCE",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-C"
+      ],
+      "gates": [
+        "H1",
+        "H2",
+        "H3"
+      ],
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:33-41,71-79"
+      ],
+      "finding": "Exact term selection, read-before-eviction and requested snapshot identity are essential; width bounds alone do not establish correctness.",
+      "required_followup": "Verify reduction initialization, eviction age and snapshot/current-term binding; exclude mixed reads and duplicate inclusion.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-6",
+      "severity": "HIGH",
+      "kind": "RESOURCE_AND_EVALUATION_EVIDENCE",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "gates": [
+        "H5",
+        "H6"
+      ],
+      "sources": [
+        "inputs/AP-COMPARISON-006.md:24-77",
+        "inputs/F-DISPOSITION-003.yaml:decision"
+      ],
+      "finding": "Owned/shared index, queue, scratch, stack and dependency inventories and compatible device-energy attribution are unestablished.",
+      "required_followup": "Close lifetimes/ownership and cost scopes before comparable realized F values or resource/build claims.",
+      "candidate_contradiction": false
+    },
+    {
+      "id": "R006-7",
+      "severity": "INFORMATIONAL",
+      "kind": "PROVENANCE_LIMIT",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "gates": [],
+      "sources": [
+        "inputs/AP-BRIEFING-006.md:Exact sources read and SHA-256 receipt"
+      ],
+      "finding": "Prior author receipt describes another instruction/12-payload package; current review manifest has 16 payloads. Prior PROPOSAL_AGENT_ROLE is unavailable.",
+      "required_followup": "Use current hashes for this receipt; do not claim independent authentication of prior environment/source-use or historical review claims.",
+      "candidate_contradiction": false
+    }
+  ],
+  "calculations": {
+    "Qmax": 16769025,
+    "tail31_max": 519839775,
+    "window32_max": 536608800,
+    "square_value_bits": 24,
+    "total_value_bits": 29,
+    "B_pre_event_invariant": "Q_n=(q_(n-31),...,q_(n-1)), S_n=sum(Q_n), cursor identifies chronological oldest; q_j=x_j^2 and q_j=0 for j<=0.",
+    "B_output": "E_n=S_n+q_n",
+    "B_next": "S_(n+1)=E_n-q_(n-31); replace oldest by q_n and advance correct order.",
+    "B_review_result": "Conditional algebraic induction checked; not an accepted new theorem or implementation proof.",
+    "B_nonnegative_subtraction": "Valid invariant implies q_old<=S_n<=E_n; next total is nonnegative and <=31 Qmax.",
+    "representation_limit": "Host unbounded integers do not test source promotions, widening, signed overflow, packing, parsing or arithmetic under corrupted state.",
+    "T2_capacity_bits": 372,
+    "T2_capacity_whole_octets": 47,
+    "T2_capacity_is_sufficient_implementation": false,
+    "raw31_information_theoretically_required": false,
+    "RAM_difference_B_minus_A": "31(b_q-b_x)+b_S+h_B-h_A",
+    "C_local_RAM_lower_condition": "h_C < 31 b_x+h_A, with established attribution and lifetimes",
+    "h_definition": "O_c+T_c+max_t(S_c+K_c+G_c) only for fixed-lifetime payload; length-dependent index costs remain length-dependent.",
+    "F_result": "Arithmetic projection only; all realized axes UNKNOWN. Incompatible ownership, workload, target or device scopes incomparable. No Pareto winner."
+  },
+  "counterexamples": [
+    {
+      "id": "CE_B_CURSOR",
+      "scope": "Shortcut violating chronological cursor invariant, not written candidate contradiction",
+      "pre_tail_squares": [
+        1,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "pre_S": 5,
+      "new_square": 0,
+      "wrong_cursor": 1,
+      "current_energy": 5,
+      "next_zero_energy_bad": 1,
+      "next_zero_energy_required": 4,
+      "sum_stored_slots_check_still_holds": true
+    },
+    {
+      "id": "CE_B_STALE_RESET",
+      "scope": "Inconsistent reset state",
+      "S": 0,
+      "new_square": 0,
+      "stale_expiring_square": 1,
+      "mathematical_next_S": -1,
+      "uint32_wrapped_next_S": 4294967295
+    },
+    {
+      "id": "CE_A_EARLY_EVICTION",
+      "scope": "Overwrite before reading expiring term",
+      "pre_raw_tail": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "current": 2,
+      "expected_energy": 5,
+      "bad_energy": 8
+    },
+    {
+      "id": "CE_C_MIXED_SNAPSHOT",
+      "scope": "Unpinned concurrent source update",
+      "pre_raw_tail": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "current": 2,
+      "after_append_tail": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      "read": "First old entry, remaining entries after append; current square then added.",
+      "expected_energy": 5,
+      "bad_energy": 9,
+      "all_values_in_range": true
+    },
+    {
+      "id": "CE_RN_ATTEMPTS",
+      "attempts": [
+        7,
+        4096,
+        8
+      ],
+      "required": "(1,49), rejection, (2,113); final accepted ordinal is not acquisition ordinal 3."
+    },
+    {
+      "id": "CE_RI_CONSUMER_LIFETIME",
+      "description": "Energy-only observation of an all-zero stream after consumer restart does not identify prior rank without retained association/reset context; complete-trace abstraction alone is insufficient evidence."
+    },
+    {
+      "id": "CE_BOUNDED_INDEX",
+      "description": "A b-bit wrapping numeral alone repeats decoded values on an unrestricted sequence; exact n cannot be supplied by that encoding. This is not a proof of universal interface impossibility."
+    }
+  ],
+  "finite_experiments": {
+    "environment": "Inline Python 3, unbounded host integers; no implementation artifact or test file written.",
+    "oracle": "Retain independent accepted history; sum v*v over last 32 accepted values.",
+    "models": "A reduces local raw tail plus current value. B uses 31-slot circular square tail, S, and chronological cursor. Compare both with oracle each valid event and next S with stored squares and latest-31 oracle suffix.",
+    "exhaustive": {
+      "alphabet": [
+        0,
+        1,
+        4095
+      ],
+      "length": 7,
+      "streams": 2187,
+      "accepted_transitions": 15309,
+      "failures": 0,
+      "limit": "Startup exploration only; does not exhaust the 31-slot expiration horizon."
+    },
+    "randomized": {
+      "generator": "Python random.Random(6006)",
+      "actions": 20000,
+      "rule": "r.randrange(100): <2 reset; else <12 invalid r.choice((-1,4096,65536)); else valid r.randrange(4096).",
+      "valid_transitions": 17572,
+      "invalid_attempts": 2034,
+      "resets": 394,
+      "failures": 0
+    },
+    "boundary": {
+      "positions": [
+        1,
+        31,
+        32,
+        33
+      ],
+      "tuples": "(E_n,S_next)",
+      "ones": [
+        [
+          1,
+          1
+        ],
+        [
+          31,
+          31
+        ],
+        [
+          32,
+          31
+        ],
+        [
+          32,
+          31
+        ]
+      ],
+      "all_maximum": [
+        [
+          16769025,
+          16769025
+        ],
+        [
+          519839775,
+          519839775
+        ],
+        [
+          536608800,
+          519839775
+        ],
+        [
+          536608800,
+          519839775
+        ]
+      ],
+      "maximum_impulse_then_zeros": [
+        [
+          16769025,
+          16769025
+        ],
+        [
+          16769025,
+          16769025
+        ],
+        [
+          16769025,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "reset_followed_by_sample_2_energy": 4,
+      "failures": 0
+    },
+    "rejection_check_scope": "Full model sequence-state comparison before/after; model branch check, not evidence about physical API or diagnostic reporting.",
+    "counterexample_calculations": [
+      "CE_B_CURSOR",
+      "CE_B_STALE_RESET",
+      "CE_A_EARLY_EVICTION",
+      "CE_C_MIXED_SNAPSHOT"
+    ],
+    "not_tested": [
+      "Concurrent snapshot service realization",
+      "Physical RI/RN interface",
+      "Compiler and fixed-width representation",
+      "Target execution",
+      "RAM or stack footprint",
+      "Cycles, WCET, electrical energy or service availability"
+    ],
+    "VOs_discharged": []
+  },
+  "next_gate": {
+    "primary": "EXPLICIT_DELEGATED_D003_OR_ADDITIVE_AS_CLARIFICATION",
+    "sources": [
+      "inputs/DECISION-001.yaml:interface_and_lifecycle_Q4,delivery_and_exceptions_Q6,authority",
+      "inputs/AS-REV-002.md:PS",
+      "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-1,D002-2,D002-3,D002-5",
+      "inputs/F-DISPOSITION-003.yaml:decision",
+      "inputs/AP-COMPARISON-006.md:124-133"
+    ],
+    "questions": [
+      "Does RI ordered association supply n, or must an exact numeral cross the interface?",
+      "What reset/consumer lifetime and accepted-event/response guarantees apply?",
+      "How are valid arrivals, acceptance, state commit and owed outputs coordinated through stalls and reset?",
+      "Who may supply RN/snapshot services, under which reviewed retention, consistency, availability and ownership contracts?",
+      "How will local/shared RAM and compatible device-energy scopes be attributed?"
+    ],
+    "subsequent": "Separately authorized independent evidence/feasibility evaluation of all three alternatives, with agreed contracts and compatible F scopes; later selection requires separate authority.",
+    "parallel_scope_limit": "Conditional numeric and service investigations may be evaluated if separately authorized; they cannot settle requirements authority or justify full-interface eligibility/downselection before clarification.",
+    "no_architecture_recommended_as_winner": true
+  },
+  "continuing_obligations": {
+    "T002-2": "OPEN, realized exactness against independent specification for A/B/C",
+    "T002-3": "OPEN, startup/reset/in-flight exclusion for A/B/C",
+    "T002-4": "OPEN, one exact indexed pair and association for A/B/C",
+    "T002-5": "OPEN, rejection invariance and observable reports for A/B/C",
+    "T002-6": "OPEN, complete owned RAM and hardware dependency evidence for A/B/C",
+    "T002-7": "OPEN, scoped target/workload performance and energy evidence for A/B/C",
+    "T002-8": "OPEN_DEFERRED, detection threshold/duration/boolean/integration for A/B/C",
+    "R4": "OPEN_DEFERRED; no whole sustained-energy detector completion claim"
+  },
+  "independence_receipt": {
+    "supplied_source_allowlist_followed": true,
+    "candidate_drafts_authored_by_this_invocation": false,
+    "subagents_used": false,
+    "network_used": false,
+    "connected_apps_used": false,
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "old_solved_Toy1_artifacts_used": false,
+    "hidden_reference_or_evaluator_used": false,
+    "external_agent_separation_authenticated": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "not_independently_authenticated": [
+      "Prior author source-use/runtime/isolation assertions",
+      "Historical AS activation and archived review hash checks",
+      "Historical proof attempt and independent review",
+      "Prior author AGENTS/manifest and unavailable PROPOSAL_AGENT_ROLE",
+      "Delegate provenance and external review-agent identity/separation"
+    ],
+    "qualification_limit": "Directory/terminal separation and positive allowlist are not proof of OS or connector isolation. Local manifest agreement does not authenticate origin, prior claims or formal cleanroom status."
+  },
+  "outputs": [
+    "out/REVIEW-AP-006.md",
+    "out/REVIEW-AP-006.json"
+  ]
+}
