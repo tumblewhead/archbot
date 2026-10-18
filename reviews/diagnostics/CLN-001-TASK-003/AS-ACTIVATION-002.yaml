@@ -1,0 +1,63 @@
+schema: pc-cln-diagnostic-as-activation/v1
+id: CLN-001-AS-ACTIVATION-002
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ACTIVE_ACCEPTED_AS_FOR_SYNTHETIC_DIAGNOSTIC
+decision_authority: HUMAN_SPONSOR_DELEGATED_TO_ASSISTANT_CLN001_ONLY
+basis:
+  requirement_decision: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  disposition: reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml
+  disposition_value: ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION
+  source_AS: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  source_AS_git_blob: fd8f89072f4f90522f8c54a649d6da7fa272cf62
+  source_AS_sha256: 36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830
+  independent_review_json: reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.json
+  independent_review_json_git_blob: dcacb5f0d0135940e7410c735c58d4ecf632394e
+  independent_review_json_sha256: 09ed9606c571d468138b8f7709ada2c625fc7c63b39a2002d1d0a85ece71afca
+  independent_review_md: reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.md
+  independent_review_md_git_blob: 4b5a8006555f49cdb002a89518c0a7ae96c6f1db
+  independent_review_md_sha256: b9f9f4a0c110768592d7999a3d92c272a8acacc779b2c74bc873078a664b0e61
+  review_archival_commit: 82ea7793b15c292e103fcd3d18ab1dc8504abf4f
+  review_disposition: READY_FOR_DELEGATED_AS_DISPOSITION
+  independent_separation_externally_authenticated: false
+activation:
+  activation_condition: "Original REVIEW-002 json/md files match the recorded SHA-256 and Git blob SHA1 on remote experiment branch."
+  evaluated_by: ChatGPT_assistant_as_CLN001_delegate
+  verified: true
+  verified_source_commit: 82ea7793b15c292e103fcd3d18ab1dc8504abf4f
+  activation_kind: ADDITIVE_RECORD_DOES_NOT_REWRITE_CONDITIONAL_DISPOSITION
+  approved_baseline: "CLN-001 synthetic AS=(C,R,PS), exact window-energy computation subsystem only"
+  provenance_clarification: "The author's local earlier UNRESOLVED same-invocation self-review and the actual separately archived READY_FOR_HUMAN_QUESTIONS REVIEW-001 represent distinct review artifacts. This was assessed as MINOR, nonblocking in REVIEW-002 F3. Neither artifact has been rewritten or treated as implementation evidence."
+  rationale:
+    - "Independent diagnostic reviewer identified no blocking BKP/D001 technical fidelity defect."
+    - "R3 nominal sample cadence is distinct from a proven wall-clock completion bound."
+    - "R4 sustained energy detection remains a separately deferred scope obligation."
+    - "The conditional disposition is now satisfied by exact archived reviewer evidence."
+newly_authorized_exploration:
+  - task: CLN-001-PO-SCOUT-003
+    purpose: "Find up to three valuable unproven, representation-independent proof opportunities and trace each to the accepted diagnostic AS."
+    output_classification: DRAFT_OPPORTUNITIES_NOT_PROOFS
+  - task: CLN-001-FOM-003
+    purpose: "Define a fresh candidate Figure-of-Merit vector/decision rule, with explicit hard constraints, unknown measurements and symbolic evidence limitations."
+    output_classification: DRAFT_FOM_NOT_ACCEPTED_OBJECTIVES
+  - "Independent review of proof opportunities and draft FOM may be arranged later, after real source artifacts are pinned."
+scope_exclusions:
+  - "Not acceptance of a whole sustained-energy detector or any detection threshold."
+  - "No algorithm, arithmetic representation, data structure, candidate AP or firmware implementation is approved."
+  - "No real hardware, compiler, RAM, WCET, flash or power qualification."
+  - "No inherited Toy 1 solution, old proof, Figure of Merit or architectural proposal authority."
+  - "No formal cleanroom, FR-005/FR-006 or framework freeze."
+  - "No product verification, historical VO discharge or general user policy change."
+open_obligations:
+  source: reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md
+  local_labels: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+  disposition: ALL_OPEN
+  R4_detection_scope: UNRESOLVED_BEFORE_COMPLETE_DETECTOR_CLAIM
+  old_toy1_VOs_discharged: []
+limits:
+  diagnostic_only: true
+  formal_cleanroom_qualified: false
+  externally_authenticated_agent_independence: false
+  physical_isolation_verified: false
+  product_verified: false
+  vo_discharged: []

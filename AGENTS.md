@@ -57,25 +57,23 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: archive second independent reviewer evidence.**
-The Stage-2 independent reviewer completed and reported
-`READY_FOR_DELEGATED_AS_DISPOSITION` with no blocking technical
-finding. Reviewer outputs were uploaded, but the exact raw bytes have
-**NOT yet been committed to the experiment branch**. The delegated
-CLN-001 decision maker issued scoped
-`ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION` in
-`reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml`.
-AS baseline activation is conditional on exact original reviewer
-artifacts being Git-pinned, so do not call it active prematurely.
-The human runs the precise archival instructions in
-`reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md`.
-On verified remote push, activate the scoped AS and advance to
-fresh diagnostic Proof Scout opportunities and symbolic Figure of Merit
-with distinct agents and no old Toy 1 solution leakage.
-The provenance caveat on local stale self-review is recorded in the
-disposition; do not rewrite the original author-era draft or receipt.
-No product/target qualification, runtime cleanroom certification,
-historical VO discharge or implementation authorization follows.
+**CURRENT PRIORITY: CLN-001 Proof Scout and FOM draft.**
+Original REVIEW-002.md/json were pushed and verified at
+`82ea7793b15c292e103fcd3d18ab1dc8504abf4f`, fulfilling
+the conditional `AS-DISPOSITION-002.yaml` acceptance.
+`reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml`
+records the accepted, scoped **synthetic AS=(C,R,PS)** for the exact
+energy computation primitive. It does NOT accept a complete detector,
+proof, target performance, AP or implementation.
+Run `reviews/diagnostics/CLN-001-TASK-003/prepare_stage3_workspaces.sh`
+from the updated experiment-branch checkout to CREATE two distinct
+fresh workspaces, then new Codex sessions for
+`TASK-PO-SCOUT-003.md` and `TASK-FOM-003.md`. Full user run/push
+details: `STAGE3_HANDOFF.md` in the same directory.
+Both roles produce drafts and stop. No previously solved Toy 1
+proof, F-001 or design may be supplied. No cleanroom qualification,
+historical VO discharge or downstream AP/CON/DE/C follows.
+The stale v1 author-side self-review discrepancy remains documented.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

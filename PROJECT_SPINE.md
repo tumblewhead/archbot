@@ -3,54 +3,60 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 AS disposition issued; review archival pending
+## Current checkpoint: CLN-001 synthetic AS activated; Proof Scout and FOM next
 
-Stage-2 `AS-REV-002.md`, `DECISION-TRACE-002.md`, and
-`BRIEFING-002.md` were archived on
-`experiment/toy1-pipe-cleaner-001` at
-`50abb5f57d4e049825bb565d53f477fc303d08dd`
-with source blob identities and original SHA-256 manifest verified.
+The original AS revision `AS-REV-002.md` was archived at
+`50abb5f57d4e049825bb565d53f477fc303d08dd` from the
+new diagnostic author; its exact bytes and separate D001 requirements
+choices are pinned on `experiment/toy1-pipe-cleaner-001`.
+The second distinct reviewer produced
+[REVIEW-002.json](reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.json)
+and [REVIEW-002.md](reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.md),
+both pushed at `82ea7793b15c292e103fcd3d18ab1dc8504abf4f`.
+The source Git blob identities match the reviewer outputs
+recorded in the earlier conditional AS disposition. Reviewer verdict:
+**READY_FOR_DELEGATED_AS_DISPOSITION** with no blocking technical
+finding, F3 MINOR provenance clarification.
 
-The user separately invoked the second diagnostic AS reviewer. Its
-original two outputs were uploaded to the coordinator; actual verdict
-**READY_FOR_DELEGATED_AS_DISPOSITION**, with no blocking technical
-defects, and one **MINOR** finding on an earlier local self-review
-provenance mismatch. The exact uploaded original REVIEW-002.md/json
-hashes appear in
-[REVIEW002_ARCHIVE_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md).
-Those raw reviewer outputs **have not yet been committed in Git**.
-Reviewer identity, full write/read history and host/connector isolation
-are not independently authenticated.
-
-The human experiment sponsor delegated *CLN-001 synthetic diagnostic
-engineering decisions only* to this assistant via
-[DECISION-001](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml).
-The assistant inspected the uploaded reviewer evidence and issued
+By the human's explicit CLN-001-only synthetic requirements
+delegation, the assistant previously issued
 [AS-DISPOSITION-002](reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml):
-**ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION** for only the
-CLN-001 AS=(C,R,PS) numeric energy computation specification.
-Its baseline **activation is conditional on original REVIEW-002.md
-and REVIEW-002.json being Git-archived and matching the exact original
-SHA-256/Git blob identities**. A user push plus remote verification
-is the next action, not another review.
+`ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION`.
+The *exact reviewer archival condition is now met*, so the additive
+[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml)
+records an **ACTIVE accepted diagnostic AS=(C,R,PS)** for the
+**numeric latest-32 energy primitive only**. It does not approve
+full sustained-energy detection, firmware, real hardware or
+selected architecture, and it discharges no verification obligations.
 
-R3's nominal 1 ms arrival model is not a hard WCET deadline.
-R4 whole-detector detection and threshold/duration criteria remain a
-tracked uncompleted integration requirement. All T002 functional,
-resource, timing and target-evidence obligations remain OPEN.
-The stale `UNRESOLVED` self-review observed in the author's prior
-workspace is distinct from the real first
-`READY_FOR_HUMAN_QUESTIONS` review committed at
-`e01f91177c20e14f3aea3a11d9025821156dd971`;
-this distinction is recorded without editing author-era artifacts.
+The authoring workspace's stale `UNRESOLVED` self-review is separate
+from the real first independent
+`READY_FOR_HUMAN_QUESTIONS` review at
+`e01f91177c20e14f3aea3a11d9025821156dd971`. This provenance
+clarification is preserved in the additive decision rather than
+rewriting the author's draft or either reviewer record. External
+agent identity, physical filesystem isolation and connector
+isolation were NOT authenticated.
 
-**Upon exact remote REVIEW-002 archive**, activate this diagnostic
-baseline and proceed directly to fresh project proof-opportunity
-discovery and symbolic Figure-of-Merit definition, not older solved
-Toy 1 proofs, candidate AP or F-001. No selected AP, measured
-implementation, complete detector, target/product verification,
-legacy VO discharge, or formal cleanroom qualification is implied.
-Keep project migration and multi-project work parked. Main untouched.
+**Next authorized diagnostic stage:** first fresh proof-opportunity
+discovery and candidate Figure-of-Merit definition, using strictly
+the newly accepted AS, original unsolved BKP, D001 and trace.
+Read [STAGE3_HANDOFF](reviews/diagnostics/CLN-001-TASK-003/STAGE3_HANDOFF.md).
+The human pulls this branch and runs the single
+`prepare_stage3_workspaces.sh` script, which creates **both**
+`~/archbot-cln001-proof-003` and
+`~/archbot-cln001-fom-003` after source-pin checks. Run two
+separate new Codex agents. Proof Scout produces **unproven**
+candidate propositions; FOM analyst produces **draft** criteria,
+not automatically approved F or an AP selection. No previous
+Toy 1 solution, proof, F-001, AP, contracts, code, old decisions
+or evaluator is supplied.
+
+Still **pre-freeze diagnostic**, not formal FR-005/FR-006 cleanroom.
+All T002 realization and detection obligations remain OPEN;
+product target qualification, original Toy 1 VOs and AD-003
+remain unaffected. Project-registry, submodules and multi-project
+work remain parked. `main` remains untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
