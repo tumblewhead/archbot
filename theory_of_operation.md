@@ -37,6 +37,15 @@ flowchart TD
     DE --> I["I: Target firmware"]
     CON --> I
     I --> V["Verification and target validation"]
+    AS -. "Accepted claims and scope" .-> ERS["ERS: verification-facing claim inventory"]
+    CON -. "Refined guarantees" .-> ERS
+    DE -. "Refined invariants" .-> ERS
+    I -. "Implementation observations, not authority" .-> ERS
+    ERS --> LAD["Verification ladder: evidence dependency DAG"]
+    LAD --> RUNG["Authorized rungs: models, tests, target evidence"]
+    RUNG --> REV["Independent evidence review"]
+    REV --> V
+    REV -. "Counterexamples and changed assumptions" .-> BKP
     V -. "New evidence" .-> BKP
 ```
 
@@ -59,6 +68,9 @@ The principal progression is **knowledge → obligations → proposals → provi
 | **CON** | Contract | What must components guarantee at their boundaries? |
 | **DE** | Design Element | What independently implementable element fulfills part of the architecture? |
 | **I** | Implementation | How is the design realized on the target hardware? |
+| **ERS** | Engineering Requirements Specification for verification | Which accepted claims, domains, falsifiers, oracles, due stages and explicit non-claims must evidence address? |
+| **VL / rung** | Verification Ladder and evidence rung | What claim-directed investigation is admissible next, given prerequisite evidence, uncertainty and cost? |
+| **EB** | Engineering Briefing | What newly learned facts, changed interpretations, surprises and decisions need human attention after this stage? |
 
 All significant objects should have stable identifiers, versioned content, explicit status, and traceable dependencies. The BKP may contain physical observations, specifications, measurements, stakeholder decisions, assumptions, counterexamples, and citations. A requirement's origin may be a decision or business objective rather than a scientific deduction; its authority must still be traceable.
 
@@ -242,6 +254,96 @@ The implementation specialist receives approved DE specifications, CONs, target 
 
 A gate records one of **PASS**, **FAIL**, or **UNRESOLVED** (with richer dispositions where useful). An LLM's confidence or its ability to produce polished documentation cannot substitute for a reproducible check or independent acceptance. No agent approves its own work.
 
+### 7.1 ERS and the verification ladder are part of the assurance loop
+
+The **Engineering Requirements Specification for verification (ERS)**
+is a *projection of accepted authority into testable, falsifiable claims*,
+not an independent source of product requirements. It maps the applicable
+AS, later accepted CON/DE guarantees, proof assumptions, BKP provenance,
+implementation observations and still-open Verification Obligations into
+claim IDs, quantifiers, admissible operating domains, evidence boundaries,
+oracles, possible falsifiers, acceptance criteria, due stages, and explicit
+**non-claims**. Normative assertions must retain their upstream authority.
+An observed implementation quirk or a newly suspected requirement is
+evidence or a question, **not** a silently binding ERS clause.
+
+ERS coverage is bidirectional: each accepted obligation needs a justified
+verification treatment, and each normative ERS claim needs a source.
+Automated source/hash and selector checks cannot alone certify that every
+English-language requirement has been semantically captured. That gap is
+a reason for distinct independent ERS review and human escalation, not
+permission to label unseen obligations satisfied.
+
+The **Verification Ladder** converts reviewed claims into **an
+evidence-dependent directed acyclic graph (DAG)** of rungs, not a
+compulsory fixed linear test sequence. A rung declares its claim,
+failure hypothesis, prerequisites, admissible parameter domain,
+oracle, method, source/target scope, resource budget, stopping rule,
+expected artifacts and reviewer. Rungs may use exact symbolic bounds,
+finite model checking, mutation, ablation, parameter sweeps,
+adversarial search or target measurements *only when justified by
+the claim*. No fixed number of rungs or statistical tests fits every
+system.
+
+The interaction model is also sparse: typed parameter pairs and
+higher-order hyperedges express plausible coupling mechanisms and
+unknowns. **No recorded edge** is not proof of independence.
+Novel interactions, including those suggested by a human engineer
+or a failed rung, can reprioritize experiments without pretending
+that an unexamined parameter Cartesian product was exhausted.
+
+A rung yields a **claim-indexed evidence increment**, not just PASS:
+the exact subject, conditions, prerequisite receipts, model/build
+and oracle provenance, actual checks, counterexamples, uncertainty,
+non-claims, stopping reason, next-rung rationale and an independent
+review disposition. Later evidence can contradict or narrow an
+earlier scope. Preserve the old receipt and explicitly supersede or
+invalidate affected claims and downstream decisions. A timeout,
+insufficient oracle, unverified model correspondence or exhausted
+experiment budget is **UNRESOLVED**, not success. Verification
+evidence, mathematical proof, code correspondence and physical
+target qualification remain distinct.
+
+```mermaid
+flowchart TD
+    A["Accepted AS / P assumptions / CON / DE / open VOs"] --> E["ERS: sourced claims, falsifiers and non-claims"]
+    E --> ER{"Independent ERS review"}
+    ER -->|Ready for planning| L["Ladder: rung DAG + sparse interaction graph"]
+    ER -->|Gap or contradiction| H["Authority / source clarification"]
+    L --> LR{"Independent ladder review"}
+    LR -->|Approved scope| X["Run eligible evidence rung"]
+    LR -->|Revise| L
+    X --> BR["Engineering Briefing + exact receipt"]
+    BR --> RR{"Independent rung review"}
+    RR -->|Scoped evidence| L
+    RR -->|Surprise or changed assumption| H
+    H --> A
+```
+
+**Verification maturity is stage-sensitive.** ERS claims may be
+drafted as soon as there is authority to project, and enriched
+when CON, DE and implementation make more claims assessable.
+Final target evidence cannot be demanded at an AP gate that is
+authorized to rely on bounded symbolic evidence and tracked
+future VOs. Conversely, a model-only PASS never becomes target
+compliance through orchestration. The authoritative VO ledger
+controls actual obligation status; ERS and rung receipts provide
+traceable evidence and proposals for controlled updates.
+
+**Implementation maturity note (2026-10-17).**
+`docs/THEORY_OF_VERIFICATION.md` and
+`docs/VERIFICATION_FRAMEWORK_REQUIREMENTS.md` specify the
+broader proposed theory. A bounded `VK-001` slice already
+implements `DERIVE_ERS`, `DESIGN_VERIFICATION_LADDER`,
+`EXECUTE_VERIFICATION_LADDER` and corresponding independent
+review routes using `pc-verification/v1`; see
+`docs/VERIFICATION_SLICE_VK001.md`. Its ERS begins from a
+hand-authored source inventory; planning validates supplied
+rungs rather than inventing them; execution is MODEL_ONLY with
+allowlisted adapters. This **does not** implement a fully generic
+adaptive claim-discovery engine, certify all source coverage or
+discharge product VOs.
+
 ## 8. Knowledge representation: OKF and typed links
 
 Use Google's **Open Knowledge Format (OKF) v0.2** as a Markdown-oriented, Git-friendly knowledge substrate. Concepts are readable documents with YAML frontmatter, links, and source/provenance information. An OKF bundle is not itself a graph database or a proof checker: graph traversal and validity checking are provided by our tools.
@@ -323,6 +425,100 @@ A deterministic workflow controller should select eligible roles based on events
 
 **Agent handoffs are versioned artifacts, not remembered conversations.** Each task should record inputs and revisions, outputs, validation results, unresolved obligations, and the reviewing authority. This makes work resumable across different models, agents, and context windows.
 
+### 10.1 Process Orchestrator and human engineering attention (proposed)
+
+The repetitive workflow belongs to a **Process Orchestrator**,
+not to human copy/paste. It has two deliberately distinct parts:
+
+- A **deterministic gate-and-event engine** selects only eligible
+  tasks from accepted authority, required evidence, independent
+  review dispositions and current VO/AD/ERS states. It constructs
+  source-pinned, role-limited context, launches authorized stages,
+  checks and archives original outputs, records Git provenance,
+  resumes interrupted handoffs, and refuses silent acceptance or
+  unauthorized progression.
+- A **process dialogue/briefing agent** communicates *what changed
+  in our understanding* between stages, connects findings to
+  system goals and open assumptions, formulates useful human
+  questions, proposes next experiments and makes the significance
+  of unusual evidence legible. It can recommend a decision but
+  cannot confer engineering authority on itself or bypass the
+  deterministic gate.
+
+**The human is not a final approval button.** The primary human
+contribution is noticing missing knowledge, recognizing an
+unmodeled coupling, connecting discoveries to broader goals,
+challenging interpretation, imagining alternatives and making
+prudent scoped authorizations. The machine should save human
+attention for these tasks, not suppress or substitute for them.
+
+Every substantial **stage boundary** generates a compact,
+source-linked Engineering Briefing, whether the stage succeeds
+or fails. A proposed minimum structure is:
+
+1. **What changed:** new results and deltas from the previous
+   accepted checkpoint, explicitly separated into facts, models,
+   conjectures, agent interpretations and reviewer decisions.
+2. **What matters:** effect on original goals, AS/F, theorem
+   assumptions, ERS claims, ladder coverage, open VOs/AD and
+   any prior commitment needing revalidation.
+3. **What surprised us:** contradictions, counterexamples,
+   provenance gaps, plausible hidden interactions, observation
+   limitations or unexplained findings, including those a
+   task's predefined pass/fail rubric did not anticipate.
+4. **What remains unknown:** scope of the gap, alternatives,
+   credible next experiment, resource cost and possible
+   consequences if the model is wrong.
+5. **What needs human judgment:** the smallest real question,
+   options and tradeoffs, exact proposed authority/decision
+   artifact, and the consequence of approval or deferral.
+6. **What happens next:** next eligible task (or explicit stop),
+   review and source identities, and paths to inspect full
+   arguments, data, negative evidence and previous versions.
+
+The briefing is a **navigation and sensemaking projection**,
+not an alternative authority or an irreversible summary.
+Original artifacts, failures, full provenance and raw evidence
+remain separately retrievable through the project spine.
+A stage cannot be reported as accepted merely because an agent
+produced an articulate briefing.
+
+The orchestrator should distinguish **routine progress** from
+**attention-worthy changes** and **authority-blocking events**.
+A severe counterexample, a potentially missing requirement,
+changed physical premise, irreconcilable reviewer disagreement,
+or unexpected interaction may interrupt *any* stage, including
+late verification after an earlier PASS. Its signal must reach
+the human with supporting and opposing evidence before a
+downstream commitment that depends on it. Noncritical uncertainty
+may be tracked and revisited without pausing unrelated work.
+A human can request deeper evidence, challenge the summary,
+change direction or reopen the smallest affected earlier gate.
+
+```mermaid
+flowchart TD
+    E["Versioned stage event / exact artifacts"] --> G["Deterministic prerequisite and authority gate"]
+    G -->|Authorized| A["Specialized author or independent reviewer"]
+    A --> S["Source-linked stage briefing: delta, surprise, uncertainty"]
+    S --> Q{"New consequence or question?"}
+    Q -->|No blocking issue| E
+    Q -->|Human judgment / surprise| H["Human investigates, connects goals and authorizes"]
+    H -->|Versioned decision / scoped revision| E
+    G -->|Missing authority or evidence| H
+```
+
+Automation is allowed to advance routine **authorized**
+transitions. It must never autonomously approve its own evidence,
+accept architectural debt on the human's behalf, turn an
+ERS-generated suggestion into an AS requirement, manufacture
+an index/epoch policy or call a model-only rung product
+verification. Independent review and human decision are distinct
+events. The proposed event/briefing contract and orchestration
+implementation are developed further in
+[Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md).
+They require separate process review before activation and are
+**not installed runtime behavior** merely because documented here.
+
 ## 11. An illustrative operating cycle
 
 1. The curator records hardware limits, observations, and stakeholder decisions in BKP.
@@ -347,7 +543,7 @@ This cycle can backtrack. A failed proof may reveal an impossible requirement; a
 - **Truth is not inferred from omission.** An unloaded dataset has not been examined.
 - **Changes propagate by dependency.** A passing gate is tied to specific source revisions and assumptions.
 - **No silent weakening.** Any changed requirement, theorem condition, or contract must be explicit and reviewed.
-- **Keep the controller simple initially.** Git, Markdown, YAML, a small graph checker, and role-specific agent instructions are sufficient for early experiments. Automatic orchestration is a later implementation choice.
+- **Keep the process engine inspectable.** Git, Markdown, YAML, typed task/receipt records and deterministic gate checks remain the minimal authority substrate. Process orchestration and human briefings are a proposed implementation layer, not permission to skip gates.
 
 ## 13. What the process is intended to deliver
 
@@ -372,12 +568,16 @@ A successful Progressive Concretization project answers these questions through 
 The proposed post-implementation verification architecture is described in
 [Theory of Verification](docs/THEORY_OF_VERIFICATION.md) and
 [Verification Framework Requirements](docs/VERIFICATION_FRAMEWORK_REQUIREMENTS.md).
-These are **design documents**, not installed process operations or approved
-product requirements. They propose a verification-facing ERS, a
-claim-directed rung dependency graph, sparse parameter-interaction
-hypergraphs, symbolic dimension/polarity/magnitude/temporal screening,
-constrained joint sweeps, ablation and mutation, and independent
-claim-scoped evidence review.
+These specify the **full proposed generic architecture**, not
+approved product requirements or a fully installed adaptive verifier.
+The narrower `VK-001` author/review operations described in
+[Verification Slice VK-001](docs/VERIFICATION_SLICE_VK001.md)
+are already implemented with explicit MODEL_ONLY and source-inventory
+limits. The fuller vision includes a claim-directed rung dependency
+graph, sparse parameter-interaction hypergraphs, symbolic
+dimension/polarity/magnitude/temporal screening, constrained joint
+sweeps, ablation and mutation, and independent claim-scoped evidence
+review. See Section 7.1 for the authority and maturity boundaries.
 
 This extends the Progressive Verification Principle without changing its
 authority model: VOs remain binding, the AS/CON/DE remain authoritative,
@@ -390,4 +590,7 @@ The project-owned Engineering Briefings, source-linked human inquiries,
 and future offline archive are described in
 `docs/PROJECT_INTERACTION_ARCHIVE_PROPOSAL.md`. The verification theory
 uses that provenance model but does not require the future conversational
-UI to be implemented before verification can begin.
+UI to be implemented before verification can begin. Section 10.1
+describes the proposed Process Orchestrator's human-facing
+sensemaking and escalation contract; it is not yet an approved
+or installed agent runtime.

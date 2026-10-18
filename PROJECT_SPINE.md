@@ -3,62 +3,52 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 D002 policy accepted; fresh AP drafts next
+## Current checkpoint: fresh CLN-001 AP drafts archived, independent review next
 
-Original synthetic unsolved BKP, D001, the accepted scoped
-AS-REV-002, accepted F with H1-H6 and three diagnostic
-Pareto axes, and the mathematical T1/T2 disposition remain
-the only accepted engineering sources for the numeric primitive.
-T1 concerns future numeric outputs; conditional T2's
-`2^372` state count requires a complete deterministic
-no-replay information boundary with unrestricted futures.
-It is not a proven detector-owned SRAM allocation. The
-indexed-output interface and PO-003-3 remain unresolved.
+The human's CLN-001-only synthetic diagnostic delegation governs
+accepted AS-REV-002, F, conditional mathematical T1/T2 and
+[D002 disclosure policy](reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml).
+D002 requires candidate authors to disclose history ownership,
+logical-index refinement, full information/replay assumptions,
+resource scope and open verification obligations, **not** to
+assume a history service, epoch cap or 47-byte implementation.
 
-The fresh Stage-5 analyst authored
-[INTERFACE-OPTIONS-005](reviews/diagnostics/CLN-001-TASK-005/INTERFACE-OPTIONS-005.md),
-[DECISION-PROPOSAL-005](reviews/diagnostics/CLN-001-TASK-005/DECISION-PROPOSAL-005.yaml)
-and [BRIEFING-005](reviews/diagnostics/CLN-001-TASK-005/BRIEFING-005.md),
-pushed at `c977e487bd0bce0f726e122ce44a96945f0e2461`.
-A distinct reviewer examined all three, archived at
-`6361abe11795c6e80d1c518eff6a5259f28b2c07`, and returned
-**READY_FOR_DELEGATED_D002_DISPOSITION** with no blocking finding.
-Reviewer R1 MINOR clarified that two illustrative order
-examples refer to exactly **31-entry padded tails**; reading them
-as 32-entry windows would falsify the immediate-next-output
-equality. Original author and reviewer files remain unchanged.
+**Actual new remote authoring evidence:** the fresh Proposal Agent
+pushed three **UNSELECTED** draft alternatives at
+`65ba5bf74347b28464e0ac610eea160bc131971f`:
+[AP-CANDIDATES-006](reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md)
+(raw detector-local tail, squared tail plus incremental total,
+publisher-history snapshot), [AP-COMPARISON-006](reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md)
+and [AP-BRIEFING-006](reviews/diagnostics/CLN-001-TASK-006/AP-BRIEFING-006.md),
+plus output SHA-256 manifest.
+All H1–H6 qualification and measured RAM/compute/device-energy F
+coordinates remain UNKNOWN; T002-2..8 and R4 full detection remain
+OPEN. No independent AP review or selection has occurred. **Next
+eligible engineering task:** prepare and execute distinct independent
+review of these three original AP author artifacts, not a selected
+AP/CON/DE/C or product verification.
 
-Under the user's explicit CLN-001-only diagnostic delegation,
-the assistant now records
-[D002-INTERFACE-DISPOSITION](reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml),
-**ACCEPT_WITH_NONBLOCKING_EXAMPLE_CLARIFICATION**.
-This adopts only six **AP disclosure and refinement policy**
-clauses: preserve accepted abstract (n,E_n), enumerate
-history ownership and any upstream/shared replay, provide
-actual index contract/refinement, justify T1/T2 boundary,
-retain H1-H6, cost/evidence scope and all open T002/R4
-obligations. It does **not** select A/B/C history allocation,
-index I/II/III, concrete external service, epoch cap, wrap,
-new AS requirement or an AP. No candidate fit established.
+**New bounded process-theory proposal, not process approval:** the
+human identified that [Theory of Operation](theory_of_operation.md)
+did not substantively integrate ERS and the verification ladder,
+and emphasized preserving human cognitive attention for
+discoveries, goal connections, interpretation and prudent
+authorization while automating repetitive stage orchestration.
+The theory now includes Section 7.1 on verification-facing ERS
+and claim-indexed rung DAGs, and Section 10.1 on a deterministic
+gate engine with a source-linked human briefing/sensemaking agent.
+[Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
+records proposed alert, stage-briefing, replay and Toy-2
+qualification behavior. **Not yet implemented, reviewed or
+activated as a general process change.** Bounded VK-001 author,
+plan and model-only execution routes already exist, but do not
+satisfy the full adaptive verification/orchestration design.
 
-**Next authorized task:** draft **competing APs without
-selection** using
-[TASK-AP-006](reviews/diagnostics/CLN-001-TASK-006/TASK-AP-006.md).
-[prepare_ap006.sh](reviews/diagnostics/CLN-001-TASK-006/prepare_ap006.sh)
-CREATES `~/archbot-cln001-ap-006/` with positive-allowlisted
-original BKP, accepted AS/F/D001/D002, theorem scope and
-generic proposal-agent role, excluding old solved Toy 1.
-New Codex Proposal Agent writes at least two candidate APs,
-symbolic H1-H6/F comparison and briefing. Only afterward
-does a distinct AP reviewer evaluate the actual source.
-[archive_ap006.sh](reviews/diagnostics/CLN-001-TASK-006/archive_ap006.sh)
-is restartable and preserves exact source-byte evidence.
-Read [STAGE6_HANDOFF](reviews/diagnostics/CLN-001-TASK-006/STAGE6_HANDOFF.md).
-
-Still pre-freeze **diagnostic**, not formal cleanroom FR-005/006;
-no real hardware performance/memory/power, selected AP,
-CON/DE/C, completed detector, legacy VO discharge or
-framework/submodule migration. Main untouched.
+The current CLN-001 experiment remains **pre-freeze diagnostic**,
+not FR-005/FR-006 formal cleanroom. No original Toy 1 accepted
+source/VO/AD was modified, no target/whole-detector compliance
+or physical isolation established, and general migration/submodule
+work stays parked. `main` remains unchanged.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
