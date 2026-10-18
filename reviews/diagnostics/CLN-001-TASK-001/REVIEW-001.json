@@ -1,0 +1,163 @@
+{
+  "schema": "pc-as-review/v1",
+  "review_id": "REVIEW-001",
+  "gate": "AS_REVIEW",
+  "candidate": "inputs/AS-DRAFT-001.md",
+  "disposition": "READY_FOR_HUMAN_QUESTIONS",
+  "disposition_scope": "Initial diagnostic C/R/PS draft suitable for human questions; no approved baseline or downstream authorization.",
+  "reviewer_independence": {
+    "role": "Independent architecture reviewer",
+    "independent_of_authoring_invocation": true,
+    "authored_candidate": false,
+    "basis": "Separate review invocation; assigned non-author role; only supplied inputs used.",
+    "externally_authenticated": false
+  },
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "stakeholder_approval_claimed": false,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "INFO",
+      "claim": "The initial C/R/PS draft faithfully represents all three BKP inputs.",
+      "assessment": "R1\u2013R6 preserve the exact window, startup padding, update statement, qualitative detection/resource objectives, and absence of a floating-point hardware dependency. A1\u2013A4 preserve the synthetic sample and target models. The conditional PS specifies behavior without selecting an implementation.",
+      "sources": [
+        "inputs/problem-origin.md:5-10",
+        "inputs/adc.md:5-12",
+        "inputs/target.md:5-10",
+        "inputs/AS-DRAFT-001.md:22-59"
+      ],
+      "action": "No correction required for the human-question gate."
+    },
+    {
+      "id": "F2",
+      "severity": "OPEN_DECISION",
+      "claim": "Timing authority and operational semantics remain unresolved and are correctly exposed.",
+      "assessment": "R3 comes from the brief; A2 is a separate arrival assumption. Neither establishes a completion deadline, jitter bound, publication rule, or demonstrated feasibility. Q1\u2013Q2 request these decisions without inventing or relaxing a hard deadline.",
+      "sources": [
+        "inputs/problem-origin.md:10",
+        "inputs/adc.md:10",
+        "inputs/AS-DRAFT-001.md:34-49",
+        "inputs/QUESTIONS-001.md:5-11",
+        "inputs/BRIEFING-001.md:17"
+      ],
+      "action": "A human must identify the responsible authority and record timing disposition and acceptance criteria before adopting a timing baseline."
+    },
+    {
+      "id": "F3",
+      "severity": "OPEN_DECISION",
+      "claim": "Engineering decisions are incomplete, as expected for this initial draft.",
+      "assessment": "Q1\u2013Q7 cover authority, sustained-energy scope and criteria, initialization/reset/output, target and SRAM accounting, measurable compute goals, arithmetic restrictions, acquisition ownership, delivery irregularities, invalid values, and review/disposition. No missing decision area requiring draft revision was identified within the three BKP inputs. Concrete owners and verification methods are not yet assigned.",
+      "sources": [
+        "inputs/AS-DRAFT-001.md:61-73",
+        "inputs/QUESTIONS-001.md:5-31",
+        "inputs/BRIEFING-001.md:19-29"
+      ],
+      "action": "Resolve or explicitly defer each question with an accountable human owner and due stage before adopting the affected baseline; derive verification obligations from adopted requirements."
+    },
+    {
+      "id": "F4",
+      "severity": "MINOR",
+      "claim": "Technical traceability is recoverable, but original process provenance cannot be verified from this review package.",
+      "assessment": "S1\u2013S3 identify the supplied BKP files by basename and ID, but list original paths outside inputs/. G1\u2013G3, TASK-001, and the authoring receipt are not supplied. Claims about the project spine, prior authority state, authoring read history, and original task compliance are therefore unverified. The available BKP metadata independently supports treating the sources as draft/synthetic; no authenticated approval is supplied.",
+      "sources": [
+        "inputs/AS-DRAFT-001.md:7-20",
+        "inputs/AS-DRAFT-001.md:47",
+        "inputs/AS-DRAFT-001.md:75-77",
+        "inputs/BRIEFING-001.md:7",
+        "inputs/BRIEFING-001.md:23-31"
+      ],
+      "action": "Preserve the supplied-file mapping and hashes in this receipt. Authenticate original provenance before any controlled baseline disposition; this does not block asking human questions."
+    },
+    {
+      "id": "F5",
+      "severity": "INFO",
+      "claim": "The submitted artifacts stop before downstream design and do not claim acceptance.",
+      "assessment": "The mathematical sum is a conditional specification, not a chosen algorithm, data structure, or numeric representation. No proof, architecture selection, contract, firmware, resource fit, timing feasibility, or stakeholder approval is asserted. Review readiness does not authorize those activities.",
+      "sources": [
+        "inputs/AS-DRAFT-001.md:3-5",
+        "inputs/AS-DRAFT-001.md:51-59",
+        "inputs/AS-DRAFT-001.md:75-77",
+        "inputs/BRIEFING-001.md:23-31"
+      ],
+      "action": "Proceed only to human questions and recorded AS disposition/revision within separately authorized scope."
+    }
+  ],
+  "checks": [
+    {
+      "kind": "manual_source_comparison",
+      "result": "All R1\u2013R6 and A1\u2013A4 traced to the three supplied BKP inputs; C/R/PS, questions and briefing checked for consistency."
+    },
+    {
+      "kind": "conditional_arithmetic",
+      "expression": "32 * 4095**2",
+      "result": 536608800,
+      "support": "inputs/adc.md:10; inputs/problem-origin.md:10",
+      "interpretation": "0 <= E <= 536608800 < 2**29 for the assumed domain and window; no representation selected or implementation verified."
+    },
+    {
+      "kind": "provenance",
+      "result": "SHA-256 computed over all eight supplied input files; original source paths mapped by basename and BKP ID."
+    }
+  ],
+  "sources": [
+    {
+      "path": "inputs/AS-DRAFT-001.md",
+      "sha256": "e231a55be07631c3c089434ec7502bc9cad833340ef5cd97813d5852372aa9e3"
+    },
+    {
+      "path": "inputs/BRIEFING-001.md",
+      "sha256": "8f30a6f672cc6883fe74cc246bcffa9935ce258a4c639ae834c9b9eda32402de"
+    },
+    {
+      "path": "inputs/QUESTIONS-001.md",
+      "sha256": "6d30b661f3e1542a779ef2a9fdad3eafc8aa6d87cb7e3290f8ac7624162c4fce"
+    },
+    {
+      "path": "inputs/REVIEW_AS.md",
+      "sha256": "6f08ad6ddf98a0c25c08bb695da5207a2564631f6eed560499c1efc04b7b0bfa"
+    },
+    {
+      "path": "inputs/adc.md",
+      "sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7"
+    },
+    {
+      "path": "inputs/problem-origin.md",
+      "sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333"
+    },
+    {
+      "path": "inputs/target.md",
+      "sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64"
+    },
+    {
+      "path": "inputs/verification-agent.md",
+      "sha256": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3"
+    }
+  ],
+  "continuing_obligations": {
+    "inherited_ledger_status": "Not supplied; no inherited VO or architectural-debt continuity determination possible. No obligation is removed, superseded, or discharged.",
+    "decision_followup": [
+      {
+        "questions": "Q1 and Q7",
+        "owner": "Human authority/reviewer appointments unresolved",
+        "method": "Record authority, provenance and draft disposition",
+        "due_stage": "Before controlled baseline adoption"
+      },
+      {
+        "questions": "Q2\u2013Q6",
+        "owner": "Responsible human engineering owners to be appointed through Q1",
+        "method": "Record requirement decisions and define acceptance criteria and verification ownership/methods for adopted clauses",
+        "due_stage": "Before adopting affected requirements and progressing to dependent design"
+      }
+    ]
+  },
+  "limitations": [
+    "Only inputs/ supplied evidence was examined; AGENTS.md and TASK-REVIEW-001.md were read as review instructions. No prior Toy 1 solutions or decisions were retrieved.",
+    "Independence is based on this separate review invocation and the assigned non-author role; no authenticated authoring receipt or external authorship audit was available.",
+    "Original process documents G1\u2013G3, TASK-001, an authority record, accepted baseline, proofs, VP/VO ledger, and architectural decision/debt records were not supplied and were not inspected. Their existence, absence, or status outside this package is not established.",
+    "No hardware tests, WCET or resource measurements, firmware tests, formal proofs, or feasibility analysis were performed. The arithmetic check is conditional on the synthetic model and is not product verification.",
+    "This review neither authenticates stakeholder authority nor accepts or activates the draft, approves downstream design, grants cleanroom qualification, or discharges any verification obligation."
+  ],
+  "next_step": "Present Q1\u2013Q7 for human engineering decisions, then record AS disposition/revision. Stop after this review."
+}
