@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE7_D003_PROPOSAL_PREPARED_INDEPENDENT_REVIEW_PENDING
+  status: STAGE8_ADDITIVE_AS_DRAFT_REVIEW_PREPARED_NOT_ACTIVE
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -399,7 +399,7 @@ stage6_independent_ap_review:
   source_isolation_qualified: false
   vos_discharged: []
 stage7_d003_clarification_proposal:
-  status: PROPOSED_NOT_EFFECTIVE_INDEPENDENT_REVIEW_PENDING
+  status: REVIEWED_DELEGATED_SCOPE_DISPOSITION_ISSUED_AS_ADDENDUM_PENDING
   proposal: reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml
   briefing: reviews/diagnostics/CLN-001-TASK-007/D003-BRIEFING-007.md
   reviewer_task: reviews/diagnostics/CLN-001-TASK-007/TASK-REVIEW-D003-007.md
@@ -415,28 +415,57 @@ stage7_d003_clarification_proposal:
   D003_accepted: false
   AP_evaluation_completed: false
   AP_selected: false
-next_eligible_action:
-  type: CLN001_STAGE7_INDEPENDENT_D003_PROPOSAL_REVIEW
-  subject: "Review proposed exact index supply and acceptance/commit/publication/reset semantics for AS fidelity; do not accept D003."
-  branch: experiment/toy1-pipe-cleaner-001
-  source_review_commit: 45d85dad82aaf3b1a74b856138d4bc0ccd8e4b47
-  source_review_disposition: READY_FOR_INDEPENDENT_AP_EVALUATION
-  proposal: reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml
-  reviewer_task: reviews/diagnostics/CLN-001-TASK-007/TASK-REVIEW-D003-007.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-007/prepare_d003_review007.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-007/archive_d003_review007.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-007/STAGE7_HANDOFF.md
-  expected_outputs: [REVIEW-D003-007.md, REVIEW-D003-007.json]
-  instruction: "Human pulls experiment branch, checks bash syntax, runs source-pinned prepare script, launches a fresh independent Codex session, then archives raw reviewer evidence with restartable script."
-  stop_on: [SOURCE_BLOB_MISMATCH, FAILED_OR_MISSING_REVIEW, UNCLEAR_REQUIREMENT_AUTHORITY, REVIEW_REVISION_OR_UNRESOLVED]
-  D003_accepted: false
+stage7_d003_review_and_delegated_disposition:
+  archive_commit: eb491accb86b12dad783d8ce02b4dff19b490079
+  independent_report: reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.md
+  independent_receipt: reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.json
+  evidence_manifest: reviews/diagnostics/CLN-001-TASK-007/REVIEW_D003007_SHA256SUMS
+  disposition: READY_FOR_DELEGATED_D003_DISPOSITION
+  scope: PROPOSED_SOURCE_AUTHORITY_REVIEW_ONLY
+  source_hashes: REPORTED_15_OF_15_MATCH
+  decision: reviews/diagnostics/CLN-001-TASK-008/D003-DISPOSITION-007.yaml
+  decision_kind: ACCEPT_PROPOSAL_SCOPE_FOR_ADDITIVE_AS_CLARIFICATION_ONLY
+  finding_ids: [R007-1, R007-2, R007-3, R007-4, R007-5, R007-6]
+  D003_P1_RI_eligibility_effective: false
+  AS_amended: false
+  RI_RN_C_HIST_approved: false
   AP_selected: false
-  forbid:
-    - "No unconditional claim that mathematical trace rank provides consumer index."
-    - "No invented reset cadence, finite wrap/epoch, backpressure or dropping accepted valid events."
-    - "No RN/snapshot service assumption or zero-cost upstream history."
-    - "No hard H1-H6 PASS, final F comparison, target qualification or AP selection."
-    - "No cleanroom/product/legacy VO discharge or diversion to parked orchestrator/spine builder."
+stage8_additive_AS_review:
+  status: PROPOSED_NOT_ACTIVE_INDEPENDENT_REVIEW_PREPARED
+  proposed_addendum: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
+  engineering_briefing: reviews/diagnostics/CLN-001-TASK-008/BRIEFING-008.md
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008.md
+  preparation: reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008.sh
+  archive: reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-008/STAGE8_HANDOFF.md
+  expected_outputs: [REVIEW-AS-ADDENDUM-008.md, REVIEW-AS-ADDENDUM-008.json, REVIEW_AS_ADDENDUM008_SHA256SUMS]
+  D003_issued_conditional: true
+  addendum_effective: false
+  AS_activation_required_after_review: true
+  scope: "Accepted event index supplied to actual consumer, output debt, reset association; review material-change risk."
+  all_APs_unselected: true
+next_eligible_action:
+  type: CLN001_STAGE8_INDEPENDENT_AS_ADDENDUM_SOURCE_REVIEW
+  subject: "Check index supply and lifecycle addendum for fidelity to D001, activated AS and guarded D003 disposition."
+  branch: experiment/toy1-pipe-cleaner-001
+  review_basis_commit: eb491accb86b12dad783d8ce02b4dff19b490079
+  delegated_disposition: reviews/diagnostics/CLN-001-TASK-008/D003-DISPOSITION-007.yaml
+  proposal: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-008/TASK-REVIEW-AS-ADDENDUM-008.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-008/STAGE8_HANDOFF.md
+  expected_outputs: [REVIEW-AS-ADDENDUM-008.md, REVIEW-AS-ADDENDUM-008.json]
+  stop_on: [UNEXPECTED_SOURCE_IDENTITY, REVIEW_REVISE, REVIEW_UNRESOLVED, UNAUTHORIZED_AS_CHANGE]
+  instruction: "Human pulls experiment branch, runs source-pinned preparation, launches new independent Codex, archives exact MD/JSON review and pushes evidence. No AS activation by reviewer."
+  AS_active_baseline_changed: false
+  AP_selected: false
+  all_realized_H1_H6: UNKNOWN
+  prohibit:
+    - "No observer-only rank passed off as a consumer-supplied exact n."
+    - "No unapproved finite epoch/wrap, dropped valid events or reset/fault cancellation of result debt."
+    - "No RN/C-HIST service or upstream-cost exemption by assertion."
+    - "No unreviewed addendum activation, target/product qualification or formal cleanroom claims."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
