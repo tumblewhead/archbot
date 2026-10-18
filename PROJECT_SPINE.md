@@ -3,54 +3,51 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 AS-REV-002 authored, user archive/pin next
+## Current checkpoint: CLN-001 AS-REV-002 archived; independent reviewer next
 
-This branch `experiment/toy1-pipe-cleaner-001` is the **pre-freeze
-diagnostic** of Progressive Concretization from the original Toy 1
-unsolved BKP. The human delegated synthetic CLN-001 engineering
-requirements decisions to this assistant, only for the diagnostic,
-recorded in [DECISION-001](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml).
-The distinct first AS reviewer returned `READY_FOR_HUMAN_QUESTIONS`
-at `e01f91177c20e14f3aea3a11d9025821156dd971` (NOT accepted AS).
+The diagnostic source revision from Task 2 was pushed to
+`experiment/toy1-pipe-cleaner-001` at
+`50abb5f57d4e049825bb565d53f477fc303d08dd`.
+Its three *original* output files are now in
+`reviews/diagnostics/CLN-001-TASK-002/` with matching Git blob
+SHA-1 and original SHA-256 manifest:
+[AS-REV-002](reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md),
+[DECISION-TRACE-002](reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md),
+and [BRIEFING-002](reviews/diagnostics/CLN-001-TASK-002/BRIEFING-002.md).
 
-**Stage-2 authoring result received as user-uploaded originals, not
-yet archived in Git:** `AS-REV-002.md`,
-`DECISION-TRACE-002.md`, `BRIEFING-002.md`. The author
-completed [TASK-002](reviews/diagnostics/CLN-001-TASK-001/TASK-002.md)
-and stopped before proof/AP/CON/DE/C. These sources are **drafts, not
-independently reviewed or accepted**. Exact uploaded original
-SHA-256 values and safe copy/commit/push commands are in
-[STAGE2_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md).
+The author carried R1/R2 exactness/startup, revised R3 to one result
+per accepted sample instead of an invented hard 1 ms deadline,
+deferred full sustained-energy detection R4 with a due claim boundary,
+and defined synthetic 2048-byte detector RAM accounting, reset,
+indexed output and invalid input behavior under delegated
+[DECISION-001](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml).
+The author stopped before proof/AP/CON/DE/C. These are **draft
+authoring outcomes**, not accepted AS or independent verification.
 
-Preliminary inspection found R1/R2/R6 adopted with BKP and D001 trace;
-R3 explicitly changed to logical per-accepted-sample updates with
-nominal 1 ms arrival not a hard deadline; R4 whole-detector behavior
-deferred as an unresolved integration obligation; input/reset,
-logical output indexing and synthetic RAM boundary specified without
-prescribing architecture or implementation. No measurements, proof,
-review verdict or VO discharge is claimed.
+**Next eligible action:** use
+[INDEPENDENT_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md).
+It constructs `$HOME/archbot-as-review-002` with only original
+three BKP, D001, prior author artifacts and real independent v1 review,
+pinned stage-2 outputs, generic reviewer role/playbook, and fresh
+reviewer instructions. Distinct Codex invocation writes
+`REVIEW-002.md` and `REVIEW-002.json`; human selectively pushes
+those exact files. The delegate may dispose AS-REV-002 only after
+actual independent review disposition is inspected.
 
-**Provenance issue deliberately preserved:** the Stage-2 author had
-an older `out/REVIEW-001.json` from an `UNRESOLVED`
-self-review, while the *actual distinct* independent
-`READY_FOR_HUMAN_QUESTIONS` review is pinned in Git on this branch.
-The Stage-2 author disclosed this discrepancy. Do not rewrite its
-submitted files or treat the stale self-review as a valid gate.
-A subsequent independent reviewer should check actual TASK-002
-authorization and classify this distinction.
+**Provenance caveat:** Task-2 authoring workspace also contained
+stale `out/REVIEW-001.json` marked `UNRESOLVED` self-review.
+The *real* separately invoked v1 diagnostic review is versioned at
+`e01f91177c20e14f3aea3a11d9025821156dd971` with
+`READY_FOR_HUMAN_QUESTIONS`, not AS acceptance. The v2 author
+disclosed this discrepancy. Keep both facts intact and let the
+independent v2 reviewer classify its effect, without fabricating
+historical authoring evidence.
 
-**Next:** human copies the three exact **original bytes** from external
-`~/archbot-toy1-Q9RnZlCE/package/workspace/projects/CLN-001/out/`
-into `reviews/diagnostics/CLN-001-TASK-002/` and pushes with a
-SHA256SUMS manifest. Once verified remotely, prepare an independent
-reviewer workspace with original BKP, D001, first draft, REAL
-first review and new candidate only. After the v2 independent verdict,
-the delegated decision maker considers AS disposition.
-
-No original Toy 1 historical source or accepted records were changed.
-Project-registry/submodule and dual-project work remains parked.
-Formal cleanroom FR-005/006, product target, final F-001, legacy VOs
-002–006 and AD-003 remain unqualified/unresolved.
+This remains a **pre-freeze diagnostic**, not FR-005 qualified
+cleanroom: external filesystem and connector isolation remain
+unverified. No formal AS acceptance, Toy 1 historical VO discharge,
+target/product qualification or framework freeze. Keep
+dual-project/submodule work parked, and preserve old Toy 1 artifacts.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

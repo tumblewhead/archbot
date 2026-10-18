@@ -57,24 +57,22 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 delegated synthetic diagnostic AS revision.**
-Human experiment sponsor explicitly delegated requirements decisions
-for the CLN-001 diagnostic to this assistant; no authority for
-old Toy 1, formal cleanroom or independent review was delegated.
-See `reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml`.
-Assistant made explicit new synthetic decisions Q1-Q7 grounded in
-original BKP and fresh AS questions, including versioned changes
-to timing semantics and a deferred whole-detector scope obligation.
-Neither the earlier `READY_FOR_HUMAN_QUESTIONS` review nor these
-decisions constitute an independently accepted AS.
-**Next:** `reviews/diagnostics/CLN-001-TASK-001/TASK-002.md`
-and `DELEGATED_DECISION_HANDOFF.md`: human transfers only stage-2
-authorized inputs into the external author workspace; fresh agent
-writes an AS revision + decision trace + briefing and stops.
-Keep all earlier Toy 1 solutions, Git history and evaluator oracles
-out of the author workspace. The coordinating assistant is familiar
-with historical Toy 1 and does not claim sponsor blindness.
-Physical runtime/connector isolation still is not qualified.
+**CURRENT PRIORITY: CLN-001 AS-REV-002 independent review.**
+Stage-2 authoring outputs have been pushed at
+`50abb5f57d4e049825bb565d53f477fc303d08dd`,
+with original SHA-256 and Git blob SHA1 identities verified. The
+candidate follows delegated CLN-001 D001 choices, but remains
+**DRAFT and not independently accepted**.
+Read `reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md`.
+The human must prepare `$HOME/archbot-as-review-002` with **only**
+original BKP, D001, v1 authoring/review, stage-2 drafts and neutral
+review guidance; a separate Codex reviewer writes REVIEW-002.md/json.
+The author saw a stale same-conversation REVIEW-001 self-review,
+but actual independent v1 REVIEW-001 is versioned and was not
+seen inside stage-2 authoring workspace. Preserve this disclosure.
+Do not accept AS-REV-002 or begin proof/AP/CON/DE/C before v2
+independent review and delegated AS disposition. Runtime cleanroom
+isolation remains unverified; no FR-005/FR-006 qualification follows.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: AS_REV_002_AUTHORING_RECEIVED_ARCHIVE_PENDING
+  status: AS_REV_002_ARCHIVED_INDEPENDENT_REVIEW_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -260,7 +260,10 @@ cleanroom_pipe_cleaner:
   stage2_handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
   stage2_expected_output: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
   stage2_independent_review: PENDING_REMOTE_SOURCE_ARCHIVE
-  stage2_authoring_source: USER_UPLOADED_FILES_NOT_YET_COMMITTED
+  stage2_authoring_source: GIT_ARCHIVED_EXACT_SOURCE_BYTES
+  stage2_archival_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
+  stage2_sources_verified: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
+  stage2_review_input_handoff: reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md
   stage2_review_handoff: reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md
   stage2_original_sha256:
     AS-REV-002.md: 36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830
@@ -285,22 +288,22 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: HUMAN_PUBLISH_STAGE2_AUTHORING_EVIDENCE
-  subject: CLN-001 AS-REV-002 revision output under D001
+  type: INDEPENDENT_DIAGNOSTIC_AS_REVISION_REVIEW
+  subject: CLN-001 AS-REV-002 against original BKP and delegated D001
   branch: experiment/toy1-pipe-cleaner-001
-  handoff: reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md
-  source_workspace: "/home/easy/archbot-toy1-Q9RnZlCE/package/workspace/projects/CLN-001/out/"
-  destination: reviews/diagnostics/CLN-001-TASK-002/
-  instruction: "Copy the exact three original output files, verify their uploaded SHA-256 values, selectively stage/commit/push them and SHA256SUMS. Then distinct reviewer with only positive-allowlist inputs."
+  authored_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
+  task_handoff: reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md
+  required_outputs: [REVIEW-002.md, REVIEW-002.json]
+  instruction: "Human creates distinct positive-allowlist reviewer workspace, verifies pinned v1/v2 sources, launches fresh Codex reviewer, then selectively commits/pushes actual review outputs. Delegate handles AS disposition after observing verdict."
   stage2_AS_accepted: false
   stage2_independent_review: PENDING
   physical_isolation_qualified: false
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not normalize or reconstruct user-uploaded original output bytes from extracted text."
-    - "Do not claim the author's self-review is the prior independent review."
-    - "Do not modify initial AS, initial review, original BKP or delegated D001."
-    - "Do not authorize proof/AP/CON/DE/implementation or restart parked migration tasks."
+    - "Do not reuse original author Codex conversation or treat stale self-review as independent."
+    - "Do not expose previous solved Toy 1 project, old accepted decisions or hidden evaluator oracle."
+    - "Do not grant automatic AS approval or start downstream proof/AP/CON/DE/C before a distinct favorable review and delegated disposition."
+    - "Do not restart parked multi-project/submodule work."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
