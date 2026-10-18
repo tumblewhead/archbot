@@ -57,27 +57,32 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: run independent CLN-001 AP candidate review.**
-The three source-pinned, unselected Stage-6 APs were pushed
-at `65ba5bf74347b28464e0ac610eea160bc131971f`.
-Fresh alternatives: detector raw-tail recomputation, squared-tail
-incremental sum, or conditional publisher snapshot/replay. All
-candidate H1–H6 and measured F evidence remain UNKNOWN.
-RI/RN index/refinement and history service remain unapproved
-dependency proposals.
-Read `reviews/diagnostics/CLN-001-TASK-006/AP_REVIEW_HANDOFF.md`.
-Human pulls current experiment branch, executes
-`prepare_ap_review006.sh` to CREATE a new independent
-reviewer workspace, starts fresh Codex, then executes
-`archive_ap_review006.sh` to restartably copy, selectively
-stage/commit/push original review files. Candidate-quality
-review is **not** a full AP evaluation or selection. Do not
-start CON/DE/C, call T2 47-byte SRAM fit or use older
-solved Toy 1 sources.
-The previously documented ERS/Process Orchestrator concept
-and Goblin Graph-derived BKP spine builder remain parked,
-unreviewed framework ideas, without diversion. Cleanroom
-and product qualification remain false.
+**CURRENT PRIORITY: independently review CLN-001 Stage-9 AP feasibility evidence.**
+The synthetic pre-freeze diagnostic advanced beyond the Stage-6
+candidate-draft review. The independent Stage-9 evaluator's reports
+were archived at `0783a3b95a384e4e24b89a68740555055b2383f6`.
+The independently reviewed and separately delegated-accepted
+`AS-ADDENDUM-008-R1` clarifies exact consumer-visible logical
+event rank, accepted-result debt and reset association; distinct
+acknowledgment is OPTIONAL. It does not approve RI/RN/C-HIST,
+publisher backpressure or a complete physical interface.
+All three AP-006-A/B/C remain UNSELECTED; all realized H1–H6
+and measured F values remain UNKNOWN. Finite model agreement is
+not target feasibility and T2 is not a sufficient 47-byte SRAM
+implementation. T002-2..8 and deferred R4 remain OPEN.
+
+**Next eligible gate:** Stage-10 independent source/evidence audit
+of Stage-9 evaluation, including replay of embedded numeric models.
+Read `reviews/diagnostics/CLN-001-TASK-010/STAGE10_HANDOFF.md`.
+The human pulls the experiment branch, runs
+`prepare_ap_evaluation_review010.sh`, invokes a fresh separate
+Codex reviewer and restartably archives original output with
+`archive_ap_evaluation_review010.sh`. A favorable review
+enables a **separate** delegated AP-evidence disposition, NOT an
+automatic AP selection or acceptance. Never start CON/DE/C, import
+old solved Toy 1 artifacts or claim target/product/formal cleanroom
+qualification. Process Orchestrator and Goblin Graph spine-builder
+proposals stay parked.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
