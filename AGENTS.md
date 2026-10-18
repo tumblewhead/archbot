@@ -57,28 +57,27 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: independent CLN-001 Stage-6 AP review.**
-The fresh Proposal Agent has now pushed three UNSELECTED AP
-candidates and symbolic F comparison at
-`65ba5bf74347b28464e0ac610eea160bc131971f`.
-All hard gate/target evidence remains UNKNOWN; next create
-a distinct independent AP review from pinned candidate sources
-before any candidate selection or CON/DE/C. No older solved
-Toy 1 AP/code/proof material may enter the review.
-
-A separate **proposed conceptual process integration** updates
-`theory_of_operation.md` to include verification-facing ERS,
-the evidence-rung DAG, and a human-stage Engineering Briefing
-and Process Orchestrator architecture. Details:
-`docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md`.
-This preserves human capacity for unexpected insights and scoped
-authorizations while proposing automation of repetitive handoffs.
-These sections are **not a process acceptance, implemented runtime,
-automatic agent approval or qualification claim**. Actual bounded
-VK-001 operations must retain their stated limitations.
-Do not detour into orchestration implementation before separate
-scope review and authorization. Formal cleanroom, target compliance,
-old VOs and framework migrations remain unaffected.
+**CURRENT PRIORITY: run independent CLN-001 AP candidate review.**
+The three source-pinned, unselected Stage-6 APs were pushed
+at `65ba5bf74347b28464e0ac610eea160bc131971f`.
+Fresh alternatives: detector raw-tail recomputation, squared-tail
+incremental sum, or conditional publisher snapshot/replay. All
+candidate H1–H6 and measured F evidence remain UNKNOWN.
+RI/RN index/refinement and history service remain unapproved
+dependency proposals.
+Read `reviews/diagnostics/CLN-001-TASK-006/AP_REVIEW_HANDOFF.md`.
+Human pulls current experiment branch, executes
+`prepare_ap_review006.sh` to CREATE a new independent
+reviewer workspace, starts fresh Codex, then executes
+`archive_ap_review006.sh` to restartably copy, selectively
+stage/commit/push original review files. Candidate-quality
+review is **not** a full AP evaluation or selection. Do not
+start CON/DE/C, call T2 47-byte SRAM fit or use older
+solved Toy 1 sources.
+The previously documented ERS/Process Orchestrator concept
+and Goblin Graph-derived BKP spine builder remain parked,
+unreviewed framework ideas, without diversion. Cleanroom
+and product qualification remain false.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

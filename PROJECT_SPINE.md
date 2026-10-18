@@ -3,52 +3,59 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: fresh CLN-001 AP drafts archived, independent review next
+## Current checkpoint: CLN-001 independent Stage-6 AP review prepared
 
-The human's CLN-001-only synthetic diagnostic delegation governs
-accepted AS-REV-002, F, conditional mathematical T1/T2 and
-[D002 disclosure policy](reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml).
-D002 requires candidate authors to disclose history ownership,
-logical-index refinement, full information/replay assumptions,
-resource scope and open verification obligations, **not** to
-assume a history service, epoch cap or 47-byte implementation.
+The user-sponsored, **CLN-001-only** synthetic diagnostic has an
+accepted scoped AS/F, D001 and D002, and mathematical T1 plus
+conditional T2. The latter's `2^372` state requirement applies
+only to a deterministic complete retained-information no-replay
+boundary with unrestricted futures, **not** automatically to
+detector SRAM. Full event-index implementation and theorem
+applicability to actual resources remain unresolved.
 
-**Actual new remote authoring evidence:** the fresh Proposal Agent
-pushed three **UNSELECTED** draft alternatives at
+The fresh Proposal Agent authored three **unselected**
+alternatives, pushed at
 `65ba5bf74347b28464e0ac610eea160bc131971f`:
-[AP-CANDIDATES-006](reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md)
-(raw detector-local tail, squared tail plus incremental total,
-publisher-history snapshot), [AP-COMPARISON-006](reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md)
-and [AP-BRIEFING-006](reviews/diagnostics/CLN-001-TASK-006/AP-BRIEFING-006.md),
-plus output SHA-256 manifest.
-All H1–H6 qualification and measured RAM/compute/device-energy F
-coordinates remain UNKNOWN; T002-2..8 and R4 full detection remain
-OPEN. No independent AP review or selection has occurred. **Next
-eligible engineering task:** prepare and execute distinct independent
-review of these three original AP author artifacts, not a selected
-AP/CON/DE/C or product verification.
+[AP-CANDIDATES-006](reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md),
+[AP-COMPARISON-006](reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md)
+and [AP-BRIEFING-006](reviews/diagnostics/CLN-001-TASK-006/AP-BRIEFING-006.md)
+with output hashes. AP A retains local raw-tail samples and
+recomputes; AP B retains local squares plus an incremental sum;
+AP C requires prospective publisher-owned history readback.
+A/B's RI event-rank index interpretation and C's RN external
+numeral service are **not** yet accepted physical-interface
+contracts. All H1..H6 candidate gates and realized RAM,
+compute, device-energy costs are UNKNOWN. No AP selected.
 
-**New bounded process-theory proposal, not process approval:** the
-human identified that [Theory of Operation](theory_of_operation.md)
-did not substantively integrate ERS and the verification ladder,
-and emphasized preserving human cognitive attention for
-discoveries, goal connections, interpretation and prudent
-authorization while automating repetitive stage orchestration.
-The theory now includes Section 7.1 on verification-facing ERS
-and claim-indexed rung DAGs, and Section 10.1 on a deterministic
-gate engine with a source-linked human briefing/sensemaking agent.
-[Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
-records proposed alert, stage-briefing, replay and Toy-2
-qualification behavior. **Not yet implemented, reviewed or
-activated as a general process change.** Bounded VK-001 author,
-plan and model-only execution routes already exist, but do not
-satisfy the full adaptive verification/orchestration design.
+**Next eligible task: independent source and candidate-quality
+review of AP-006-A/B/C**, not a winning AP decision:
+[TASK-REVIEW-AP-006](reviews/diagnostics/CLN-001-TASK-006/TASK-REVIEW-AP-006.md)
+and [AP_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-006/AP_REVIEW_HANDOFF.md).
+Human pulls the experiment branch and executes
+[prepare_ap_review006.sh](reviews/diagnostics/CLN-001-TASK-006/prepare_ap_review006.sh),
+which CREATEs `~/archbot-cln001-ap-review-006` with
+source-pinned BKP/AS/D001/D002/F/proof and only the three new
+AP drafts. A fresh, separate Codex reviewer writes
+`REVIEW-AP-006.md` and `REVIEW-AP-006.json`. Human runs
+restartable
+[archive_ap_review006.sh](reviews/diagnostics/CLN-001-TASK-006/archive_ap_review006.sh)
+from its real Git checkout to preserve and selectively push
+raw reviewer output. Then source-specific AP evaluation or
+revision may be authorized, separately from selection.
 
-The current CLN-001 experiment remains **pre-freeze diagnostic**,
-not FR-005/FR-006 formal cleanroom. No original Toy 1 accepted
-source/VO/AD was modified, no target/whole-detector compliance
-or physical isolation established, and general migration/submodule
-work stays parked. `main` remains unchanged.
+**Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
+and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
+are design proposals, not authorized framework implementations.
+`theory_of_operation.md` now includes ERS, verification ladder
+and human-briefing orchestration concept; its adaptive pieces are
+not installed. No diversion into these tasks until separately
+authorized; protect the user's Toy-1 progress.
+
+This is **pre-freeze diagnostic**, not FR-005/FR-006 formal
+cleanroom or qualified target. T002-2..8 and R4 sustained-energy
+detector remain OPEN; no implementation/CON/DE/C, legacy Toy 1
+VO discharge, AP selection, submodule or framework freeze. Main
+untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
