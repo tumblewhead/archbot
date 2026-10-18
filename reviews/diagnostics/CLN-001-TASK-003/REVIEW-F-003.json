@@ -1,0 +1,117 @@
+{
+  "source_hashes": {
+    "PO-OPPORTUNITIES-003.md": "088f079a0d1476f65722eb3bd6e207333412dbbec985764e1864171495c3ccd9",
+    "PO-BRIEFING-003.md": "1d45d40c5328b16514fc1bd5a1396110cb8be055c4a80a88b1c2bef09644d9e2",
+    "DECISION-001.yaml": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+    "adc.md": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+    "TASK-FOM-003.md": "318e5abed7b31cd453ed9b99ab707477f1312f313827aa95d74ecbba93cd8b58",
+    "TASK-PO-SCOUT-003.md": "320f14fc20e3aabc35a09ad09c6c2e59458e60674ddc9e80adcb0ed6739a3ee3",
+    "AS-REV-002.md": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+    "verification-agent.md": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+    "DECISION-TRACE-002.md": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+    "problem-origin.md": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+    "F-TRACE-003.md": "9855a2d82f707257e5870dfe53738a13c86ee7810ee5ba9cda1065622952c67e",
+    "F-DRAFT-003.md": "9b74bac301e917fbee0f28b246b67a39dc308e66ab808353d3097601915b6a59",
+    "target.md": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+    "AS-ACTIVATION-002.yaml": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c"
+  },
+  "source_hash_algorithm": "SHA-256",
+  "source_hash_receipt": "All 14 supplied manifest entries checked with sha256sum -c SHA256SUMS: OK. Hashes establish byte consistency, not authenticated isolation.",
+  "reviewer_independence_limits": [
+    "Single independent Stage-3 review invocation; neither candidate authored here; no Proof Engineer, sponsor-delegate or AS reviewer role assumed.",
+    "Read only AGENTS.md, TASK.md and the positive-allowlisted inputs; no Git history, earlier Toy 1 solutions, other workspaces, network, connected systems or hidden evaluator accessed.",
+    "ACT-002 activation accepted as supplied diagnostic authority; referenced archival artifacts and activation checks not independently authenticated.",
+    "Manifest verification establishes local byte consistency only; runtime isolation and externally authenticated independence not established. No formal cleanroom or real-product qualification."
+  ],
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "proofs_accepted": false,
+  "review_id": "CLN-001-REVIEW-F-003",
+  "candidate": [
+    "F-DRAFT-003.md",
+    "F-TRACE-003.md"
+  ],
+  "disposition": "READY_FOR_DELEGATED_F_DISPOSITION",
+  "disposition_scope": "Draft readiness for authorized sponsor-delegate disposition only. Energy and RAM preferences require explicit objective decisions; review supplies no F acceptance or transferred authority.",
+  "f_accepted": false,
+  "findings": [
+    {
+      "id": "F-R1",
+      "severity": "INFO",
+      "source_refs": [
+        "F-DRAFT-003.md: H1-H6",
+        "DECISION-001.yaml: requirements.R1-R6, Q4/Q6",
+        "AS-REV-002.md: R and lifecycle"
+      ],
+      "finding": "H1-H6 inherit exactness, startup/reset, per-accepted-event indexed output, rejection/state invariance, applicable observable-fault reporting, 2048-byte owned-RAM ceiling and no hardware-FPU dependency. No hard WCET, software-FP ban, target performance threshold or delivery recovery policy is added.",
+      "required_action": "Preserve these constraints and evidence limits through any delegated F disposition."
+    },
+    {
+      "id": "F-R2",
+      "severity": "AUTHORITY_REQUIRED",
+      "source_refs": [
+        "F-DRAFT-003.md: P1 energy coordinate",
+        "F-TRACE-003.md: proposed-versus-authorized boundary and reviewer gate",
+        "problem-origin.md",
+        "DECISION-001.yaml: requirements.R5",
+        "TASK-FOM-003.md: tasks 1/6"
+      ],
+      "finding": "P1 explicitly proposes F=(RAM_peak, compute_effort, energy). BKP conservation concerns RAM and compute; window signal energy is not device energy consumption. Absence of a power threshold is not positive authority for an energy objective. TASK-FOM authorizes drafting qualitative energy/resource aims, not accepting an active objective. Draft labels and later objective-authority gate prevent silent elevation.",
+      "required_action": "Before F becomes binding, authorized sponsor-delegate must explicitly adopt, revise or defer energy as an active objective and record its scope/model. If deferred, revise/version the active vector and comparisons. Reviewer cannot make this decision."
+    },
+    {
+      "id": "F-R3",
+      "severity": "AUTHORITY_REQUIRED",
+      "source_refs": [
+        "F-DRAFT-003.md: P1 RAM_peak",
+        "F-TRACE-003.md: P1 authority boundary",
+        "problem-origin.md",
+        "DECISION-001.yaml: requirements.R5"
+      ],
+      "finding": "RAM minimization within 2048 bytes has direct qualitative BKP conservation support, but an active Pareto preference is still a new F formalization requiring explicit delegated F disposition. It is not an additional authorized hard limit or an already approved ranking. Adoption within this ceiling need not amend R5.",
+      "required_action": "Authorized decision maker must explicitly settle the RAM minimization preference and active F coordinates; retain the existing 2048-byte gate separately."
+    },
+    {
+      "id": "F-R4",
+      "severity": "INFO",
+      "source_refs": [
+        "F-DRAFT-003.md: P1-P4",
+        "F-TRACE-003.md: unresolved choices"
+      ],
+      "finding": "Units and directions are explicit: peak bytes, operation-class counts or target cycles/time per accepted sample, and proposed joules per accepted sample under a defined workload. Workload, cost coefficients, attribution, baseline, lifecycle/fault costs and statistics remain unknown. Peak live RAM includes persistent/scratch/owned stack and callee/library costs with justified overlap. No fabricated measurements appear.",
+      "required_action": "Fix compatible model, workload/statistics and accounting before numeric comparison; unknown stack/lifetimes remain UNKNOWN. Operation-count reduction cannot establish energy reduction."
+    },
+    {
+      "id": "F-R5",
+      "severity": "INFO",
+      "source_refs": [
+        "F-DRAFT-003.md: P2-P4",
+        "F-TRACE-003.md: P2-P4 boundary"
+      ],
+      "finding": "Constraints-first evidence-scoped SUPPORTED/CONTRADICTED/UNKNOWN and proposed Pareto dominance retain missing values, parameter domains and uncertainty. Incompatible workloads and host/target scopes cannot be ranked together. Symbolic results are conditional; target observations are not universal bounds. No scalar weights or overall rankings are invented.",
+      "required_action": "Preserve UNKNOWN and partial projections; any definition change requires versioned disposition and recomparison. Use the rule only after active objectives and comparison scope are authorized."
+    },
+    {
+      "id": "F-R6",
+      "severity": "INFO",
+      "source_refs": [
+        "F-DRAFT-003.md: P6 and R4 exclusion",
+        "F-TRACE-003.md: open obligation register",
+        "DECISION-TRACE-002.md: T002-2 through T002-8",
+        "AS-ACTIVATION-002.yaml: open_obligations"
+      ],
+      "finding": "Crosswalk covers T002-2 exactness, -3 lifecycle, -4 association, -5 exceptions/faults, -6 RAM/dependency, -7 target/performance and -8 deferred full detection. All remain open. Energy characterization under -7 is conditional support for an energy claim, not a preexisting mandatory power acceptance test.",
+      "required_action": "Retain R4 criteria/integration as unresolved before whole-detector completion, and obtain whole-detector resource evidence separately at that later boundary."
+    }
+  ],
+  "checks_actually_performed": [
+    "Verified all 14 supplied SHA-256 entries and read the allowlisted baseline and candidate documents.",
+    "Compared H1-H6 clause by clause with D001/AS lifecycle, domain, RAM boundary, hardware independence and revised R3.",
+    "Audited active vector, units, optimization directions, authority distinctions for energy and RAM minimization, and absence of approved thresholds.",
+    "Inspected lifetime/owned-stack RAM expression, compute cost comparability, proposed energy attribution and current UNKNOWN values.",
+    "Checked constraints-first partial-order conditions, incompatible workloads/evidence scopes, symbolic parameter domains, uncertainty handling, no fabricated weights and versioning policy.",
+    "Cross-checked T002-2 through T002-8 individually, especially R4 detection deferral. No numeric measurements, target tests or candidate architecture comparisons performed."
+  ],
+  "next_gate": "Authorized diagnostic sponsor-delegate explicitly adopts, revises or defers active objectives (especially energy and within-ceiling RAM minimization) and issues versioned F disposition. This reviewer cannot grant itself that role. No AP selection or implementation authorized by this review."
+}

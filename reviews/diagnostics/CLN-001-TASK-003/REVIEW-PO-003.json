@@ -1,0 +1,120 @@
+{
+  "source_hashes": {
+    "PO-OPPORTUNITIES-003.md": "088f079a0d1476f65722eb3bd6e207333412dbbec985764e1864171495c3ccd9",
+    "PO-BRIEFING-003.md": "1d45d40c5328b16514fc1bd5a1396110cb8be055c4a80a88b1c2bef09644d9e2",
+    "DECISION-001.yaml": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+    "adc.md": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+    "TASK-FOM-003.md": "318e5abed7b31cd453ed9b99ab707477f1312f313827aa95d74ecbba93cd8b58",
+    "TASK-PO-SCOUT-003.md": "320f14fc20e3aabc35a09ad09c6c2e59458e60674ddc9e80adcb0ed6739a3ee3",
+    "AS-REV-002.md": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+    "verification-agent.md": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+    "DECISION-TRACE-002.md": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+    "problem-origin.md": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+    "F-TRACE-003.md": "9855a2d82f707257e5870dfe53738a13c86ee7810ee5ba9cda1065622952c67e",
+    "F-DRAFT-003.md": "9b74bac301e917fbee0f28b246b67a39dc308e66ab808353d3097601915b6a59",
+    "target.md": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+    "AS-ACTIVATION-002.yaml": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c"
+  },
+  "source_hash_algorithm": "SHA-256",
+  "source_hash_receipt": "All 14 supplied manifest entries checked with sha256sum -c SHA256SUMS: OK. Hashes establish byte consistency, not authenticated isolation.",
+  "reviewer_independence_limits": [
+    "Single independent Stage-3 review invocation; neither candidate authored here; no Proof Engineer, sponsor-delegate or AS reviewer role assumed.",
+    "Read only AGENTS.md, TASK.md and the positive-allowlisted inputs; no Git history, earlier Toy 1 solutions, other workspaces, network, connected systems or hidden evaluator accessed.",
+    "ACT-002 activation accepted as supplied diagnostic authority; referenced archival artifacts and activation checks not independently authenticated.",
+    "Manifest verification establishes local byte consistency only; runtime isolation and externally authenticated independence not established. No formal cleanroom or real-product qualification."
+  ],
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "proofs_accepted": false,
+  "review_id": "CLN-001-REVIEW-PO-003",
+  "candidate": [
+    "PO-OPPORTUNITIES-003.md",
+    "PO-BRIEFING-003.md"
+  ],
+  "disposition": "READY_FOR_PROOF_ENGINEER",
+  "disposition_scope": "Opportunity-quality readiness only: permits consideration of a later separately authorized distinct proof task; no proposition proved or accepted, no implementation applicability established.",
+  "findings": [
+    {
+      "id": "PO-R1",
+      "severity": "INFO",
+      "source_refs": [
+        "PO-OPPORTUNITIES-003.md: PO-003-1",
+        "AS-REV-002.md: R1/R2/A1/PS",
+        "DECISION-001.yaml: requirements.R1/R2"
+      ],
+      "finding": "No obvious counterexample found to the integer envelope and recurrence under exact epoch-local history. M=16769025; 31M=519839775; 32M=536608800; 33M=553377825. Square, energy, addition-first value widths are respectively 24, 29, 30 unsigned bits. All displayed values fit signed 32-bit range. This is opportunity screening, not theorem acceptance.",
+      "required_action": "Later distinct proof task must check all quantified cases, startup indexing and extremal attainability; retain separate realization-level arithmetic obligations."
+    },
+    {
+      "id": "PO-R2",
+      "severity": "INFO",
+      "source_refs": [
+        "PO-OPPORTUNITIES-003.md: PO-003-1 assumptions and adversarial case",
+        "DECISION-TRACE-002.md: T002-6"
+      ],
+      "finding": "Mathematical containment does not establish language safety. Multiplication may overflow or narrow before accumulation; signedness, promotions, operand widths and evaluation order remain unknown. A 29-bit addition-first temporary is insufficient for 33M.",
+      "required_action": "For any later realization, analyze actual multiplication and intermediate types plus evaluation semantics; do not infer safety from MCU word size."
+    },
+    {
+      "id": "PO-R3",
+      "severity": "INFO",
+      "source_refs": [
+        "PO-OPPORTUNITIES-003.md: PO-003-2 definition, proposition, assumptions",
+        "PO-BRIEFING-003.md: recommended next proof task"
+      ],
+      "finding": "No obvious counterexample found to future-output equivalence as stated for nonempty continuations. With oldest-to-newest tail t1..t31, observations yj=F_h(0^j), j=1..31, leave suffix squares tj..t31. Differences yj-y(j+1), j=1..30, and y31 test recovery of all squares. Nonnegative-domain square injectivity is essential. Current energy is excluded intentionally.",
+      "required_action": "Prioritize a distinct proof task checking necessity, sufficiency for every nonempty continuation, padded startup histories, same-length reachability and the no-replay model; keep the proposition UNPROVEN until separately reviewed."
+    },
+    {
+      "id": "PO-R4",
+      "severity": "INFO",
+      "source_refs": [
+        "PO-OPPORTUNITIES-003.md: PO-003-2 state bound and missing facts",
+        "AS-REV-002.md: C and R5"
+      ],
+      "finding": "At each fixed n>=32, arbitrary 31-tails can be reached using an n-31-length zero prefix followed by that tail. Claimed 4096^31=2^372 distinguishability concerns all retained information in the no-replay model. A 47-octet information payload excludes index/control/working storage and is not a target RAM footprint. External replay defeats application of this retained-state bound if left uncounted.",
+      "required_action": "Review actual permitted historical access and ownership before applying the lower bound. Do not infer 32 stored samples are necessary, full-interface sufficiency, or 2048-byte compliance."
+    },
+    {
+      "id": "PO-R5",
+      "severity": "INFO",
+      "source_refs": [
+        "PO-OPPORTUNITIES-003.md: PO-003-3",
+        "AS-REV-002.md: PS",
+        "DECISION-001.yaml: interface_and_lifecycle_Q4",
+        "DECISION-TRACE-002.md: T002-4/6"
+      ],
+      "finding": "Finite-state repetition is an appropriate prospective challenge to exact unbounded index generation when lambda depends only on finite Q and current input. Finite detector RAM alone does not close all information sources. No maximum epoch length follows from nominal 1 ms arrivals or optional resets. Potential full-interface interpretation gap remains conditional, not an unconditional AS defect.",
+      "required_action": "Keep closed-machine assumptions explicit. Later interface interpretation must resolve epoch/index/external-information scope without silently inventing a lifetime, wrap rule or index mechanism."
+    }
+  ],
+  "checks_actually_performed": [
+    "Read the three original BKP documents, D001, AS/TRACE/ACT, both author tasks, both PO drafts, both F drafts and supplied verification-role instructions; compared source clauses without opening cited historical paths.",
+    "Verified all 14 supplied SHA-256 entries.",
+    "Independently recalculated M, 31M, 32M, 33M, bit lengths, 372-bit cardinality exponent and 47-octet ceiling.",
+    "Executed in-memory integer spot checks on four histories (empty, 34 maximum samples, 0..33, alternating maximum/zero): 102 event checks of specification sum, outgoing index, recurrence and intermediate bounds; no files or implementation emitted.",
+    "Executed 31-zero recovery checks for 243 tails padded from five positions over {0,1,4095}, checking distinct observation vectors, plus all 31 single-maximum impulse positions. These are bounded checks, not exhaustive domain evidence or a proof.",
+    "Checked equal-current-energy histories (1,0)/(0,1): F(0^31)=0/1; examined oldest-only length-32 differences and the exclusion of empty continuation.",
+    "Inspected sufficiency for continuation lengths 1..31 and >=32, same-length tail reachability, square injectivity scope, retained-state/no-replay assumptions and finite-state repeated-output challenge.",
+    "Compared all opportunities with open T002 obligations and deferred R4; assessed priority independently."
+  ],
+  "next_proof_roi": [
+    {
+      "priority": 1,
+      "opportunity": "PO-003-2",
+      "rationale": "Highest representation-independent comparison value for moderate proof effort: resolve 31 versus 32 historical values and prevent misleading state/energy-only claims. Risks: empty/current-output confusion, square injectivity, same-length reachability and uncounted replay."
+    },
+    {
+      "priority": 2,
+      "opportunity": "PO-003-1",
+      "rationale": "Low proof cost and direct arithmetic risk reduction, but less comparative information; language-level overflow remains outside its mathematical bounds."
+    },
+    {
+      "priority": 3,
+      "opportunity": "PO-003-3",
+      "rationale": "Useful interface clarification signal, but actual applicability depends on extra closed-machine hypotheses; do not turn this into an AS defect finding."
+    }
+  ],
+  "next_gate": "Separately authorize a distinct Proof Engineer task, preferably PO-003-2, followed by independent proof review and applicability review. Keep every T002-2..8 obligation open."
+}
