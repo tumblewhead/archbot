@@ -1,0 +1,2075 @@
+{
+  "review_id": "CLN-001-REVIEW-AP-EVALUATION-010",
+  "schema": "pc-cln-independent-ap-evaluation-review/v1",
+  "disposition": "READY_FOR_DELEGATED_AP_EVIDENCE_DISPOSITION",
+  "scope": "Independent current-source evidence-quality review of all three original Stage-9 outputs; synthetic pre-freeze diagnostic only.",
+  "disposition_limits": "Separate delegated evidence disposition only. No AP selection, service/contract approval, implementation authorization, qualification or verification discharge.",
+  "material_uncorrected_source_defects": [],
+  "material_cross_artifact_contradictions": [],
+  "source_review_suitable_for_separate_evidence_disposition": true,
+  "source_hash_checks": {
+    "tool_commands": [
+      {
+        "command": "sha256sum -c SHA256SUMS && sha256sum -c AP_EVALUATION009_SHA256SUMS && sha256sum -c REVIEW_AS_ADDENDUM008_R1_SHA256SUMS",
+        "cwd": "/home/easy/archbot-cln001-ap-eval-review-010/inputs",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 -B - <<'PY'\nimport json,hashlib,pathlib\nroot=pathlib.Path('inputs'); p=json.loads((root/'AP-EVALUATION-009.json').read_text())\nchecks=[]\nfor name in ('SHA256SUMS','AP_EVALUATION009_SHA256SUMS','REVIEW_AS_ADDENDUM008_R1_SHA256SUMS'):\n entries=[]\n for line in (root/name).read_text().splitlines():\n  expected,filename=line.split(maxsplit=1); filename=filename.lstrip('*'); path=root/filename\n  actual=hashlib.sha256(path.read_bytes()).hexdigest(); entries.append(dict(path=str(path),expected_sha256=expected,observed_sha256=actual,match=expected==actual,bytes=path.stat().st_size))\n checks.append(dict(manifest=str(root/name),sha256=hashlib.sha256((root/name).read_bytes()).hexdigest(),entries=entries,all_match=all(x['match'] for x in entries)))\noriginal=p['source_hash_checks']['payloads']; availability=[]\nfor r in original:\n path=pathlib.Path(r['path']); actual=hashlib.sha256(path.read_bytes()).hexdigest()\n availability.append(dict(path=str(path),recorded_sha256=r['observed_sha256'],actual_sha256=actual,match=actual==r['expected_sha256']==r['observed_sha256']))\nreconstructed=''.join(f\"{r['expected_sha256']}  {pathlib.Path(r['path']).name}\\n\" for r in original)\nprint(json.dumps(dict(manifests=checks,instructions=[dict(path=s,sha256=hashlib.sha256(pathlib.Path(s).read_bytes()).hexdigest()) for s in ('AGENTS.md','TASK.md')],stage9_source_availability=availability,reconstructed_stage9_manifest_sha256=hashlib.sha256(reconstructed.encode()).hexdigest(),recorded_stage9_manifest_sha256=p['source_hash_checks']['instructions_and_manifest'][2]['observed_sha256'],stage9_task_copy_matches=hashlib.sha256((root/'TASK-AP-EVALUATION-009.md').read_bytes()).hexdigest()==p['source_hash_checks']['instructions_and_manifest'][1]['observed_sha256'])))\nPY",
+        "exit_code": 0
+      }
+    ],
+    "manifests": [
+      {
+        "manifest": "inputs/SHA256SUMS",
+        "sha256": "9f71b90fcdfdb81bc4bf6ceb04d7b2be41700429534d5ebd1838df35b8ada8c1",
+        "entries": [
+          {
+            "path": "inputs/PROOF-DISPOSITION-004.yaml",
+            "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+            "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+            "match": true,
+            "bytes": 3639
+          },
+          {
+            "path": "inputs/DECISION-001.yaml",
+            "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+            "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+            "match": true,
+            "bytes": 8061
+          },
+          {
+            "path": "inputs/AP-EVALUATION-SCOPE-009.yaml",
+            "expected_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+            "observed_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+            "match": true,
+            "bytes": 4589
+          },
+          {
+            "path": "inputs/AP-EVALUATION-009.md",
+            "expected_sha256": "25b028f1181fd6f597ee1e76b4b2de79bbd7bd61ad35d88a68f36686bf9c6c78",
+            "observed_sha256": "25b028f1181fd6f597ee1e76b4b2de79bbd7bd61ad35d88a68f36686bf9c6c78",
+            "match": true,
+            "bytes": 39185
+          },
+          {
+            "path": "inputs/adc.md",
+            "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+            "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+            "match": true,
+            "bytes": 403
+          },
+          {
+            "path": "inputs/STAGE9_BRIEFING.md",
+            "expected_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+            "observed_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+            "match": true,
+            "bytes": 2597
+          },
+          {
+            "path": "inputs/TASK-AP-EVALUATION-009.md",
+            "expected_sha256": "2c3b587dabb045ab9ef16045cfbc073da8c9f0941c67d3bf62064db7982ff2d4",
+            "observed_sha256": "2c3b587dabb045ab9ef16045cfbc073da8c9f0941c67d3bf62064db7982ff2d4",
+            "match": true,
+            "bytes": 5631
+          },
+          {
+            "path": "inputs/D003-DISPOSITION-007.yaml",
+            "expected_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+            "observed_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+            "match": true,
+            "bytes": 5782
+          },
+          {
+            "path": "inputs/AS-REV-002.md",
+            "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+            "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+            "match": true,
+            "bytes": 10610
+          },
+          {
+            "path": "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml",
+            "expected_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+            "observed_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+            "match": true,
+            "bytes": 5359
+          },
+          {
+            "path": "inputs/REVIEW-AP-006.md",
+            "expected_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+            "observed_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+            "match": true,
+            "bytes": 29294
+          },
+          {
+            "path": "inputs/STAGE10_BRIEFING.md",
+            "expected_sha256": "52d7c3cea8398de017fd975f34ac1f40d9b65b5d062888139b2ab9b3c5d3aa1e",
+            "observed_sha256": "52d7c3cea8398de017fd975f34ac1f40d9b65b5d062888139b2ab9b3c5d3aa1e",
+            "match": true,
+            "bytes": 2447
+          },
+          {
+            "path": "inputs/REVIEW-D003-007.md",
+            "expected_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+            "observed_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+            "match": true,
+            "bytes": 22866
+          },
+          {
+            "path": "inputs/AP-EVALUATION-009.json",
+            "expected_sha256": "58b3b69dad323296cf218ff7247b4145784f03782afb66642c85592326710d89",
+            "observed_sha256": "58b3b69dad323296cf218ff7247b4145784f03782afb66642c85592326710d89",
+            "match": true,
+            "bytes": 101509
+          },
+          {
+            "path": "inputs/REVIEW_AS_ADDENDUM008_R1_SHA256SUMS",
+            "expected_sha256": "5d331da98ee08053d7222e5d7e354ec5aa560a6f6d40eaa5b908c6f80130d913",
+            "observed_sha256": "5d331da98ee08053d7222e5d7e354ec5aa560a6f6d40eaa5b908c6f80130d913",
+            "match": true,
+            "bytes": 192
+          },
+          {
+            "path": "inputs/AP-EVALUATION-BRIEFING-009.md",
+            "expected_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+            "observed_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+            "match": true,
+            "bytes": 10233
+          },
+          {
+            "path": "inputs/AP-CANDIDATES-006.md",
+            "expected_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+            "observed_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+            "match": true,
+            "bytes": 20197
+          },
+          {
+            "path": "inputs/AP-COMPARISON-006.md",
+            "expected_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+            "observed_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+            "match": true,
+            "bytes": 21937
+          },
+          {
+            "path": "inputs/AP_EVALUATION009_SHA256SUMS",
+            "expected_sha256": "85bd828efa2632ff2754640081f0c23a7097685d6b62c7cecb9939e95882d1d1",
+            "observed_sha256": "85bd828efa2632ff2754640081f0c23a7097685d6b62c7cecb9939e95882d1d1",
+            "match": true,
+            "bytes": 272
+          },
+          {
+            "path": "inputs/DECISION-TRACE-002.md",
+            "expected_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+            "observed_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+            "match": true,
+            "bytes": 10459
+          },
+          {
+            "path": "inputs/problem-origin.md",
+            "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+            "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+            "match": true,
+            "bytes": 407
+          },
+          {
+            "path": "inputs/F-DISPOSITION-003.yaml",
+            "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+            "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+            "match": true,
+            "bytes": 5376
+          },
+          {
+            "path": "inputs/target.md",
+            "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+            "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+            "match": true,
+            "bytes": 358
+          },
+          {
+            "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+            "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+            "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+            "match": true,
+            "bytes": 4357
+          },
+          {
+            "path": "inputs/AS-ADDENDUM-008-R1.md",
+            "expected_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+            "observed_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+            "match": true,
+            "bytes": 6826
+          },
+          {
+            "path": "inputs/AS-ACTIVATION-002.yaml",
+            "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+            "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+            "match": true,
+            "bytes": 4224
+          },
+          {
+            "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.md",
+            "expected_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+            "observed_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+            "match": true,
+            "bytes": 17525
+          },
+          {
+            "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.json",
+            "expected_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+            "observed_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+            "match": true,
+            "bytes": 30820
+          }
+        ],
+        "all_match": true
+      },
+      {
+        "manifest": "inputs/AP_EVALUATION009_SHA256SUMS",
+        "sha256": "85bd828efa2632ff2754640081f0c23a7097685d6b62c7cecb9939e95882d1d1",
+        "entries": [
+          {
+            "path": "inputs/AP-EVALUATION-009.md",
+            "expected_sha256": "25b028f1181fd6f597ee1e76b4b2de79bbd7bd61ad35d88a68f36686bf9c6c78",
+            "observed_sha256": "25b028f1181fd6f597ee1e76b4b2de79bbd7bd61ad35d88a68f36686bf9c6c78",
+            "match": true,
+            "bytes": 39185
+          },
+          {
+            "path": "inputs/AP-EVALUATION-009.json",
+            "expected_sha256": "58b3b69dad323296cf218ff7247b4145784f03782afb66642c85592326710d89",
+            "observed_sha256": "58b3b69dad323296cf218ff7247b4145784f03782afb66642c85592326710d89",
+            "match": true,
+            "bytes": 101509
+          },
+          {
+            "path": "inputs/AP-EVALUATION-BRIEFING-009.md",
+            "expected_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+            "observed_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+            "match": true,
+            "bytes": 10233
+          }
+        ],
+        "all_match": true
+      },
+      {
+        "manifest": "inputs/REVIEW_AS_ADDENDUM008_R1_SHA256SUMS",
+        "sha256": "5d331da98ee08053d7222e5d7e354ec5aa560a6f6d40eaa5b908c6f80130d913",
+        "entries": [
+          {
+            "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.md",
+            "expected_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+            "observed_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+            "match": true,
+            "bytes": 17525
+          },
+          {
+            "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.json",
+            "expected_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+            "observed_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+            "match": true,
+            "bytes": 30820
+          }
+        ],
+        "all_match": true
+      }
+    ],
+    "instructions": [
+      {
+        "path": "AGENTS.md",
+        "sha256": "ae1cd60e6377b02a244ec16c263dd6342dd48941cbb3f3c021519fac97d7b3b9"
+      },
+      {
+        "path": "TASK.md",
+        "sha256": "dea97bec8a0a9e89ca5f9a45aad38e6863c7f65f910cadcbfd036917b6396e90"
+      }
+    ],
+    "stage9_source_availability": [
+      {
+        "path": "inputs/PROOF-DISPOSITION-004.yaml",
+        "recorded_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "actual_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "match": true
+      },
+      {
+        "path": "inputs/DECISION-001.yaml",
+        "recorded_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "actual_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "match": true
+      },
+      {
+        "path": "inputs/AP-EVALUATION-SCOPE-009.yaml",
+        "recorded_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+        "actual_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+        "match": true
+      },
+      {
+        "path": "inputs/adc.md",
+        "recorded_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "actual_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "match": true
+      },
+      {
+        "path": "inputs/STAGE9_BRIEFING.md",
+        "recorded_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+        "actual_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+        "match": true
+      },
+      {
+        "path": "inputs/D003-DISPOSITION-007.yaml",
+        "recorded_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+        "actual_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+        "match": true
+      },
+      {
+        "path": "inputs/AS-REV-002.md",
+        "recorded_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "actual_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "match": true
+      },
+      {
+        "path": "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml",
+        "recorded_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "actual_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "match": true
+      },
+      {
+        "path": "inputs/REVIEW-AP-006.md",
+        "recorded_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+        "actual_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+        "match": true
+      },
+      {
+        "path": "inputs/REVIEW-D003-007.md",
+        "recorded_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+        "actual_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+        "match": true
+      },
+      {
+        "path": "inputs/AP-CANDIDATES-006.md",
+        "recorded_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "actual_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "match": true
+      },
+      {
+        "path": "inputs/AP-COMPARISON-006.md",
+        "recorded_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "actual_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "match": true
+      },
+      {
+        "path": "inputs/DECISION-TRACE-002.md",
+        "recorded_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "actual_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "match": true
+      },
+      {
+        "path": "inputs/problem-origin.md",
+        "recorded_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "actual_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "match": true
+      },
+      {
+        "path": "inputs/F-DISPOSITION-003.yaml",
+        "recorded_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "actual_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "match": true
+      },
+      {
+        "path": "inputs/target.md",
+        "recorded_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "actual_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "match": true
+      },
+      {
+        "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+        "recorded_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "actual_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "match": true
+      },
+      {
+        "path": "inputs/AS-ADDENDUM-008-R1.md",
+        "recorded_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "actual_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "match": true
+      },
+      {
+        "path": "inputs/AS-ACTIVATION-002.yaml",
+        "recorded_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "actual_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "match": true
+      },
+      {
+        "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.md",
+        "recorded_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+        "actual_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+        "match": true
+      },
+      {
+        "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.json",
+        "recorded_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+        "actual_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+        "match": true
+      }
+    ],
+    "reconstructed_stage9_manifest_sha256": "f12cad24c1cdfc4dae81c3c36a6936ccd8b10fdeeec9091f72dee1b58b542d8e",
+    "recorded_stage9_manifest_sha256": "f12cad24c1cdfc4dae81c3c36a6936ccd8b10fdeeec9091f72dee1b58b542d8e",
+    "stage9_task_copy_matches": true,
+    "meaning": "Current supplied-byte consistency only; no historical authentication or runtime/OS/connector isolation established."
+  },
+  "authority": {
+    "AS": "inputs/AS-REV-002.md through inputs/AS-ACTIVATION-002.yaml",
+    "additive_AS": "inputs/AS-ADDENDUM-008-R1.md through inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml",
+    "F": "inputs/F-DISPOSITION-003.yaml",
+    "interface_policy": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+    "proof_scope": "inputs/PROOF-DISPOSITION-004.yaml",
+    "D003": "Proposal referral only; neither operative service nor sufficient activation.",
+    "older_labels": "Preserved authoring-time DRAFT/PROPOSED/pending text governed by later supplied dispositions.",
+    "historical_claims_authenticated": false
+  },
+  "replay": {
+    "status": "REPRODUCED",
+    "tool": "functions.exec -> exec_command, write_stdin",
+    "command": "python3 -B - <<'PY'\nimport json,subprocess,sys,hashlib,ast,os\np=json.load(open('inputs/AP-EVALUATION-009.json'))\nrecords=[]\nfor key,field in [('numeric','source'),('races','source'),('setup_correction','initial_source')]:\n source=p['experiments'][key][field]\n ast.parse(source)\n r=subprocess.run([sys.executable,'-B','-c',source],capture_output=True,text=True,timeout=180)\n record=dict(key=key,source_sha256=hashlib.sha256(source.encode()).hexdigest(),exit_code=r.returncode,stderr=r.stderr,stdout_sha256=hashlib.sha256(r.stdout.encode()).hexdigest())\n if r.returncode==0:\n  result=json.loads(r.stdout); expected=p['experiments'][key]['results']; differences=[]\n  for k in sorted(set(result)|set(expected)):\n   if result.get(k)!=expected.get(k): differences.append(dict(key=k,observed=result.get(k),recorded=expected.get(k)))\n  record.update(results=result,differences=differences,all_non_version_fields_equal=all(d['key']=='python' for d in differences))\n records.append(record)\nprint(json.dumps(dict(interpreter=sys.version,executable=sys.executable,assertions_enabled=__debug__,records=records)))\nPY",
+    "shell": "bash",
+    "login": false,
+    "wrapper_exit_code": 0,
+    "interpreter": "3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]",
+    "executable": "/usr/sbin/python3",
+    "assertions_enabled": true,
+    "child_invocation": "[sys.executable, '-B', '-c', exact_inspected_source]",
+    "timeout_seconds_per_child": 180,
+    "source_inspected_before_execution": true,
+    "inspected_sources": [
+      "inputs/AP-EVALUATION-009.json#/experiments/numeric/source",
+      "inputs/AP-EVALUATION-009.json#/experiments/races/source",
+      "inputs/AP-EVALUATION-009.json#/experiments/setup_correction/initial_source"
+    ],
+    "safety_assessment": "Finite loops, in-memory arithmetic/state, standard-library imports, JSON stdout; no explicit embedded filesystem mutation, network or process calls. Preliminary source reviewed by complete-source comparison before execution.",
+    "records": [
+      {
+        "key": "numeric",
+        "source_sha256": "8f1227441436f96e0a279d879448c40a1224e4c9093ef0fae5675826eade5d72",
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_sha256": "ceb2035a4aded9634a32b280de2c70c16ae4c72295406b50e9a702b85a620581",
+        "results": {
+          "arithmetic": {
+            "Qmax": 16769025,
+            "conditional_capacity_octets": 47,
+            "conditional_information_bits": 372,
+            "energy_max": 536608800,
+            "raw_value_bits": 12,
+            "square_value_bits": 24,
+            "tail_max": 519839775,
+            "total_value_bits": 29
+          },
+          "boundaries": {
+            "alternating": {
+              "1": {
+                "E": 0,
+                "S_next": 0
+              },
+              "31": {
+                "E": 251535375,
+                "S_next": 251535375
+              },
+              "32": {
+                "E": 268304400,
+                "S_next": 268304400
+              },
+              "33": {
+                "E": 268304400,
+                "S_next": 251535375
+              },
+              "63": {
+                "E": 268304400,
+                "S_next": 251535375
+              },
+              "64": {
+                "E": 268304400,
+                "S_next": 268304400
+              },
+              "65": {
+                "E": 268304400,
+                "S_next": 251535375
+              }
+            },
+            "distinct_expiry": {
+              "1": {
+                "E": 0,
+                "S_next": 0
+              },
+              "31": {
+                "E": 9455,
+                "S_next": 9455
+              },
+              "32": {
+                "E": 10416,
+                "S_next": 10416
+              },
+              "33": {
+                "E": 11440,
+                "S_next": 11439
+              },
+              "63": {
+                "E": 71920,
+                "S_next": 70959
+              },
+              "64": {
+                "E": 74928,
+                "S_next": 73904
+              },
+              "65": {
+                "E": 78000,
+                "S_next": 76911
+              }
+            },
+            "impulse": {
+              "1": {
+                "E": 16769025,
+                "S_next": 16769025
+              },
+              "31": {
+                "E": 16769025,
+                "S_next": 16769025
+              },
+              "32": {
+                "E": 16769025,
+                "S_next": 0
+              },
+              "33": {
+                "E": 0,
+                "S_next": 0
+              },
+              "63": {
+                "E": 0,
+                "S_next": 0
+              },
+              "64": {
+                "E": 0,
+                "S_next": 0
+              },
+              "65": {
+                "E": 0,
+                "S_next": 0
+              }
+            },
+            "maxima": {
+              "1": {
+                "E": 16769025,
+                "S_next": 16769025
+              },
+              "31": {
+                "E": 519839775,
+                "S_next": 519839775
+              },
+              "32": {
+                "E": 536608800,
+                "S_next": 519839775
+              },
+              "33": {
+                "E": 536608800,
+                "S_next": 519839775
+              },
+              "63": {
+                "E": 536608800,
+                "S_next": 519839775
+              },
+              "64": {
+                "E": 536608800,
+                "S_next": 519839775
+              },
+              "65": {
+                "E": 536608800,
+                "S_next": 519839775
+              }
+            },
+            "ones": {
+              "1": {
+                "E": 1,
+                "S_next": 1
+              },
+              "31": {
+                "E": 31,
+                "S_next": 31
+              },
+              "32": {
+                "E": 32,
+                "S_next": 31
+              },
+              "33": {
+                "E": 32,
+                "S_next": 31
+              },
+              "63": {
+                "E": 32,
+                "S_next": 31
+              },
+              "64": {
+                "E": 32,
+                "S_next": 31
+              },
+              "65": {
+                "E": 32,
+                "S_next": 31
+              }
+            }
+          },
+          "evidence_level": "FINITE_MODEL",
+          "mismatch_count": 0,
+          "physical_interface_tested": false,
+          "python": "3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]",
+          "runs": [
+            {
+              "energy_comparisons": 157464,
+              "id": "E01",
+              "kind": "exhaustive startup",
+              "length": 8,
+              "max_sequence_length": 8,
+              "rejected": 0,
+              "resets": 6561,
+              "streams": 6561,
+              "valid": 52488
+            },
+            {
+              "actions": 120000,
+              "energy_comparisons": 316899,
+              "id": "E02",
+              "kind": "random actions",
+              "max_sequence_length": 335,
+              "rejected": 12001,
+              "resets": 2366,
+              "seed": 9009,
+              "valid": 105633
+            },
+            {
+              "actions": 120000,
+              "energy_comparisons": 316380,
+              "id": "E02",
+              "kind": "random actions",
+              "max_sequence_length": 380,
+              "rejected": 12155,
+              "resets": 2385,
+              "seed": 9010,
+              "valid": 105460
+            },
+            {
+              "energy_comparisons": 195,
+              "id": "E03",
+              "kind": "ones",
+              "max_sequence_length": 65,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 65
+            },
+            {
+              "energy_comparisons": 195,
+              "id": "E03",
+              "kind": "maxima",
+              "max_sequence_length": 65,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 65
+            },
+            {
+              "energy_comparisons": 195,
+              "id": "E03",
+              "kind": "impulse",
+              "max_sequence_length": 65,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 65
+            },
+            {
+              "energy_comparisons": 198,
+              "id": "E03",
+              "kind": "alternating",
+              "max_sequence_length": 66,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 66
+            },
+            {
+              "energy_comparisons": 195,
+              "id": "E03",
+              "kind": "distinct_expiry",
+              "max_sequence_length": 65,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 65
+            },
+            {
+              "energy_comparisons": 98304,
+              "id": "E04",
+              "kind": "all domain values eight times without reset",
+              "max_sequence_length": 32768,
+              "rejected": 0,
+              "resets": 0,
+              "valid": 32768
+            },
+            {
+              "cases": 31,
+              "energy_comparisons": 7254,
+              "id": "E05",
+              "kind": "reset from every pre-reset cursor",
+              "max_sequence_length": 92,
+              "rejected": 0,
+              "resets": 62,
+              "valid": 2418
+            },
+            {
+              "cases": 6,
+              "energy_comparisons": 609,
+              "id": "E06",
+              "kind": "reject around boundary resets",
+              "max_sequence_length": 100,
+              "rejected": 36,
+              "resets": 12,
+              "valid": 203
+            }
+          ],
+          "seeds": [
+            9009,
+            9010
+          ],
+          "shortcut_falsifications": 20,
+          "totals": {
+            "energy_comparisons": 897888,
+            "rejected": 24192,
+            "resets": 11386,
+            "valid": 299296
+          },
+          "witness_groups": 21,
+          "witnesses": [
+            {
+              "id": "M01",
+              "required": 5,
+              "shortcut": 8,
+              "shortcut_falsified": true,
+              "topic": "A overwrite before reduction"
+            },
+            {
+              "id": "M02",
+              "required": 4,
+              "shortcut": 1,
+              "shortcut_falsified": true,
+              "topic": "A wrong-age eviction, next zero"
+            },
+            {
+              "id": "M03",
+              "required": 4,
+              "shortcut": 1,
+              "shortcut_falsified": true,
+              "topic": "B wrong-age eviction, next zero"
+            },
+            {
+              "id": "M04",
+              "required": 0,
+              "shortcut": 4,
+              "shortcut_falsified": true,
+              "topic": "B stale cursor (not advanced) corrupts future S"
+            },
+            {
+              "id": "M05",
+              "required": 0,
+              "shortcut": 9,
+              "shortcut_falsified": true,
+              "topic": "B reset tail/cursor but stale aggregate"
+            },
+            {
+              "id": "M06",
+              "required": 0,
+              "shortcut": -1,
+              "shortcut_falsified": true,
+              "topic": "B reset aggregate but stale expiring square"
+            },
+            {
+              "id": "M07",
+              "required": 4,
+              "shortcut": 0,
+              "shortcut_falsified": true,
+              "topic": "B interrupted update: tail changed, S not committed"
+            },
+            {
+              "id": "M08",
+              "required": 0,
+              "shortcut": 4,
+              "shortcut_falsified": true,
+              "topic": "B interrupted update: S changed, tail not committed (future expiry)"
+            },
+            {
+              "id": "M09",
+              "required": 5,
+              "shortcut": 9,
+              "shortcut_falsified": true,
+              "topic": "C mixed pre/post snapshot"
+            },
+            {
+              "id": "M10",
+              "required": 5,
+              "shortcut": 8,
+              "shortcut_falsified": true,
+              "topic": "C coherent wrong-event post snapshot"
+            },
+            {
+              "id": "M11",
+              "required": 4,
+              "shortcut": 5,
+              "shortcut_falsified": true,
+              "topic": "C stale prior-sequence snapshot after reset, current 2"
+            },
+            {
+              "expected": 5,
+              "id": "M12",
+              "limit": "Does not validate chronology, event binding or future expiration.",
+              "observed": 5,
+              "shortcut_falsified": false,
+              "topic": "permutation of correct term set leaves current energy unchanged"
+            },
+            {
+              "id": "M13",
+              "required": "REJECT",
+              "shortcut": 0,
+              "shortcut_falsified": true,
+              "topic": "validate after 16-bit narrowing accepts invalid 65536"
+            },
+            {
+              "id": "M14",
+              "required": [
+                32,
+                1
+              ],
+              "shortcut": [
+                33,
+                0
+              ],
+              "shortcut_falsified": true,
+              "topic": "invalid-as-zero ages accepted history"
+            },
+            {
+              "id": "M15",
+              "required": [
+                2,
+                1
+              ],
+              "shortcut": [
+                1,
+                0
+              ],
+              "shortcut_falsified": true,
+              "topic": "consumer restart with no detector reset"
+            },
+            {
+              "id": "M16",
+              "required": [
+                2,
+                5
+              ],
+              "shortcut": [
+                2,
+                2
+              ],
+              "shortcut_falsified": true,
+              "topic": "retry old sample as a new accepted event"
+            },
+            {
+              "id": "M17",
+              "required": [
+                1,
+                0
+              ],
+              "shortcut": [
+                2,
+                0
+              ],
+              "shortcut_falsified": true,
+              "topic": "RI energy-only restarted consumer cannot infer rank"
+            },
+            {
+              "id": "M18",
+              "required": [
+                1,
+                4
+              ],
+              "shortcut": [
+                1,
+                1
+              ],
+              "shortcut_falsified": true,
+              "topic": "delayed old result must not be relabeled after reset"
+            },
+            {
+              "id": "M19",
+              "required": [
+                1,
+                1
+              ],
+              "shortcut": [
+                1,
+                4
+              ],
+              "shortcut_falsified": true,
+              "topic": "same final numeric state does not recover old debt"
+            },
+            {
+              "generation_fields": [
+                0,
+                0
+              ],
+              "generation_pair": [
+                0,
+                4
+              ],
+              "id": "M20",
+              "rank_fields": [
+                1,
+                1
+              ],
+              "rank_pair": [
+                1,
+                5
+              ],
+              "shortcut_falsified": true,
+              "topic": "two-bit rank and reset-generation collisions"
+            },
+            {
+              "boundary": "No other retention, replay, compression or acceptance coordination.",
+              "id": "M21",
+              "retained": [
+                [
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  5
+                ]
+              ],
+              "shortcut_falsified": true,
+              "topic": "Q+1 accepted debts with only Q=2 entry slots",
+              "unretained_owed": [
+                [
+                  3,
+                  14
+                ]
+              ]
+            }
+          ]
+        },
+        "differences": [],
+        "all_non_version_fields_equal": true
+      },
+      {
+        "key": "races",
+        "source_sha256": "a09a57175984f941d85e811e79b014c0853fc4054b02ffef0c4752ee9fa9cd1d",
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_sha256": "24b8169d75dce65c12e52cedb802138d698cf04bdd71320726dba0ceb5781ef5",
+        "results": {
+          "evidence_level": "FINITE_MODEL",
+          "legal_reset_publication_schedules": 8,
+          "limit": "Observer ledger and vulnerable shortcut models only; no RI/RN/service protocol, liveness, arbitrary crash recovery or concurrency implementation.",
+          "physical_interface_tested": false,
+          "schedules": [
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": false,
+              "order": [
+                "accept_old",
+                "reset",
+                "accept_new",
+                "publish_old",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                2
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": false,
+              "order": [
+                "accept_old",
+                "reset",
+                "accept_new",
+                "publish_new",
+                "publish_old"
+              ],
+              "values": [
+                1,
+                2
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": false,
+              "order": [
+                "accept_old",
+                "reset",
+                "publish_old",
+                "accept_new",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                2
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [],
+              "current_sequence_relabel_aliases": [],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": false,
+              "order": [
+                "accept_old",
+                "publish_old",
+                "reset",
+                "accept_new",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                2
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": true,
+              "order": [
+                "accept_old",
+                "reset",
+                "accept_new",
+                "publish_old",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                1
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": true,
+              "order": [
+                "accept_old",
+                "reset",
+                "accept_new",
+                "publish_new",
+                "publish_old"
+              ],
+              "values": [
+                1,
+                1
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [
+                "old"
+              ],
+              "current_sequence_relabel_aliases": [
+                "old"
+              ],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": true,
+              "order": [
+                "accept_old",
+                "reset",
+                "publish_old",
+                "accept_new",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                1
+              ]
+            },
+            {
+              "clear_on_reset_cancels": [],
+              "current_sequence_relabel_aliases": [],
+              "observer_debts_preserved": true,
+              "old_new_nE_equal": true,
+              "order": [
+                "accept_old",
+                "publish_old",
+                "reset",
+                "accept_new",
+                "publish_new"
+              ],
+              "values": [
+                1,
+                1
+              ]
+            }
+          ],
+          "schedules_with_relabel_failure": 6,
+          "schedules_with_reset_cancel_failure": 6,
+          "snapshot_append_read_cut_points": 32,
+          "snapshot_cut_points_with_wrong_energy": 31,
+          "snapshot_cuts": [
+            {
+              "E": 8,
+              "entries_read_before_append": 0,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 1,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 2,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 3,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 4,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 5,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 6,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 7,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 8,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 9,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 10,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 11,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 12,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 13,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 14,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 15,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 16,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 17,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 18,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 19,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 20,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 21,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 22,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 23,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 24,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 25,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 26,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 27,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 28,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 29,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 9,
+              "entries_read_before_append": 30,
+              "required": 5,
+              "wrong": true
+            },
+            {
+              "E": 5,
+              "entries_read_before_append": 31,
+              "required": 5,
+              "wrong": false
+            }
+          ]
+        },
+        "differences": [],
+        "all_non_version_fields_equal": true
+      },
+      {
+        "key": "setup_correction",
+        "source_sha256": "044b312b8404602f0865e70dbfaf765ff176f72d64e9f3bbb63164582cb747b6",
+        "exit_code": 1,
+        "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 141, in <module>\n    witness(\"M04\",\"B stale cursor (not advanced) corrupts future S\",0,old_step(0))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 120, in witness\n    assert expected!=shortcut,(id,expected,shortcut)\n           ^^^^^^^^^^^^^^^^^^\nAssertionError: ('M04', 0, 0)\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "counts_from_completed_final_run_only": {
+      "energy_comparisons": 897888,
+      "rejected": 24192,
+      "resets": 11386,
+      "valid": 299296
+    },
+    "seeds": [
+      9009,
+      9010
+    ],
+    "counts_include_preliminary_execution": false,
+    "counts_include_witness_operations": false,
+    "physical_interface_tested": false,
+    "target_execution_tested": false,
+    "limits": [
+      "Exhaustive enumeration covers length-8 startup only, not arbitrary 31-tail expiry.",
+      "Random sequence maxima 335/380; uninterrupted sequence 32768; no unrestricted lifetime proof.",
+      "Python exact integers do not establish source-language promotions, width safety, target timing, RAM/stack or electrical consumption.",
+      "Oracle and observer state are harness information; C service is supplied as an assumption.",
+      "Printed mismatch_count=0 is reached after successful assertions, not separately accumulated."
+    ]
+  },
+  "scope_checks": {
+    "command": "python3 -B - <<'PY'\nimport json,ast,hashlib\np=json.load(open('inputs/AP-EVALUATION-009.json'))\ngates=[g for c in p['candidates'].values() for g in c['gates'].values()]\nassert len(gates)==18\nassert all(g['realized_status']=='UNKNOWN' and not g['compatibility_grade_PASS'] and g['HOST_SPECIFIC'] is None and g['TARGET_SPECIFIC'] is None for g in gates)\nassert all(all(v=='UNKNOWN' for v in c['realized_F'].values()) for c in p['candidates'].values())\nassert all(p[k] is False for k in ('AP_selected','all_full_interface_gate_PASS','target_verified','product_verified','formal_cleanroom_qualified','contract_approved','AD_accepted','RI_approved','RN_approved','C_HIST_approved'))\nassert p['vo_discharged']==[]\nchecks=[]\nfor key in ('numeric','races'):\n e=p['experiments'][key]; source=e['source']; tree=ast.parse(source)\n imports=[n.name for x in ast.walk(tree) if isinstance(x,ast.Import) for n in x.names]\n assert hashlib.sha256(source.encode()).hexdigest()==e['source_sha256']\n assert e['command']==\"python3 -B - <<'PY'\\n\"+source+\"\\nPY\"\n checks.append(dict(key=key,imports=imports,source_digest_and_recorded_inline_command_match=True))\nprint(json.dumps(dict(unknown_realized_gates=18,realized_F_all_unknown=True,approval_flags_false=True,vo_discharged=[],programs=checks)))\nPY",
+    "exit_code": 0,
+    "output": "{\"unknown_realized_gates\": 18, \"realized_F_all_unknown\": true, \"approval_flags_false\": true, \"vo_discharged\": [], \"programs\": [{\"key\": \"numeric\", \"imports\": [\"itertools\", \"random\", \"json\", \"sys\", \"hashlib\"], \"source_digest_and_recorded_inline_command_match\": true}, {\"key\": \"races\", \"imports\": [\"itertools\", \"json\"], \"source_digest_and_recorded_inline_command_match\": true}]}\n"
+  },
+  "oracle_audit": {
+    "independence": "Full accepted history/latest32 recomputation independent of candidate tail/cursor/S; no candidate output used to form expected numeric energy.",
+    "chronology": "A raw ring and B square ring are rotated at cursor and compared to oracle latest31 suffix at each valid transition.",
+    "B_aggregate": "Checked against both chronological oracle suffix and stored slots; sum(slots) alone is insufficient.",
+    "C": "Exact immutable correct-event pre-tail, accepted service rank and reset are assumed model scaffolding, not RN/C-HIST evidence.",
+    "rejection": "Harness branch preserves entire represented oracle/A/B/service state and skips all steps; no physical API/pending-association test.",
+    "authorship_or_historical_independence_authenticated": false
+  },
+  "witness_review": {
+    "groups": 21,
+    "shortcut_refutations": 20,
+    "confirming_permutation": 1,
+    "groups_reviewed": [
+      {
+        "id": "M01",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "A premature overwrite gives 8 rather than 5; read before eviction."
+      },
+      {
+        "id": "M02",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "A wrong oldest cursor gives correct current 5, next 1 rather than 4."
+      },
+      {
+        "id": "M03",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "B same age error; S=sum(slots)=1 still holds, next 1 rather than 4."
+      },
+      {
+        "id": "M04",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Frozen cursor: event32=5, event33=4, event34 faulty 4 rather than 0."
+      },
+      {
+        "id": "M05",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Cleared tail/cursor with stale S=9 emits 9 rather than 0."
+      },
+      {
+        "id": "M06",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Cleared S with stale expiring 1: first zero looks correct, next -1; unsigned wrap would be 4294967295."
+      },
+      {
+        "id": "M07",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Injected tail-updated/S-stale state emits 0 rather than 4; no actual interrupt schedule tested."
+      },
+      {
+        "id": "M08",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Injected S=4/zero-tail state never expires contribution; 33rd zero emits 4 rather than 0; no crash recovery realization."
+      },
+      {
+        "id": "M09",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Mixed pre/post snapshot emits 9 rather than 5."
+      },
+      {
+        "id": "M10",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Coherent post-event snapshot emits 8 rather than 5; atomicity alone is insufficient."
+      },
+      {
+        "id": "M11",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Prior-sequence snapshot after reset emits 5 rather than 4."
+      },
+      {
+        "id": "M12",
+        "classification": "PERMUTATION_CONFIRMED",
+        "scope": "Correct-set reversal keeps current energy 5; does not prove chronology or future expiry."
+      },
+      {
+        "id": "M13",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "65536 narrowed to 16 bits becomes accepted zero rather than REJECT."
+      },
+      {
+        "id": "M14",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Invalid-as-zero changes final (32,1) to (33,0)."
+      },
+      {
+        "id": "M15",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Consumer restart is not detector reset: required (2,1), reset shortcut (1,0)."
+      },
+      {
+        "id": "M16",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Freshly accepting retry changes required (2,5) to (2,2); no physical retry protocol tested."
+      },
+      {
+        "id": "M17",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Same energy-only restarted observation 0 needs n=1 versus n=2; narrow information impossibility, not universal AP impossibility."
+      },
+      {
+        "id": "M18",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Old (1,1) cannot substitute for new (1,4); equal-energy ambiguity separately covered by race suite."
+      },
+      {
+        "id": "M19",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "1 or 2 followed by 32 zeros have equal current numeric state/(33,0), but old debt differs (1,1)/(1,4)."
+      },
+      {
+        "id": "M20",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Two-bit rank/generation fields collide at 1/5 and 0/4; no safe reuse theorem without lifetime evidence."
+      },
+      {
+        "id": "M21",
+        "classification": "SHORTCUT_REFUTED",
+        "scope": "Q=2 entry-only stalled queue loses owed third (3,14), excluding other retention, replay, compression and acceptance coordination."
+      }
+    ],
+    "race_schedules": 8,
+    "relabel_failure_schedules": 6,
+    "reset_cancel_failure_schedules": 6,
+    "read_cuts": 32,
+    "wrong_read_cuts": 31,
+    "limits": [
+      "Eight schedules are four legal orders times two sample pairs, not arbitrary lifecycle schedules.",
+      "Reset-cancellation loss is inferred from pending list; true observer ledger is preserved.",
+      "Torn B states are injected; no real interrupts or crash recovery tested.",
+      "Read cuts model a logical shifted tail with an atomic append between reads, not all physical ring accesses.",
+      "31/32 is a witness enumeration, not a failure probability.",
+      "No observer ledger or harness state supplies an actual decoder/provider."
+    ]
+  },
+  "preliminary_run": {
+    "status": "EXPECTED_FAILURE_REPRODUCED",
+    "source_pointer": "/experiments/setup_correction/initial_source",
+    "exit_code": 1,
+    "assertion": "AssertionError: ('M04', 0, 0)",
+    "source_defect": "Nondiscriminating single-impulse stale-cursor witness.",
+    "correction": "Only prefix [1]+[0]*30 -> [1,2]+[0]*29 and intermediate expected outputs 1/0 -> 5/4 differ.",
+    "complete_final_rerun_performed": true,
+    "preliminary_counts_pooled": false,
+    "disclosed_in_all_three_outputs": true,
+    "formal_verification_claim": false
+  },
+  "candidates": {
+    "AP-006-A": {
+      "status": "UNSELECTED",
+      "gates": {
+        "H1": {
+          "requirement": "Exact latest-32 accepted-sample sum of squares",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Read the ordered raw31 pre-tail plus current value, reduce before eviction, then append.",
+          "FINITE_MODEL": "299296 outputs equal independent full-history oracle; ordered next-tail assertions after each accepted event.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Chosen widths, full realized transition and decoder/service integration untested.",
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "requirement": "Startup zeros and explicit reset with coherent history/old-work exclusion",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Reset establishes raw31 zeros and a consistent cursor; old debt needs separate identity.",
+          "FINITE_MODEL": "Numeric startup, 11386 resets in shared harness, all pre-reset cursor positions and boundary-prefix rejection cases.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "No physical reset linearization, in-flight exclusion, consumer restart or debt handling.",
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "requirement": "One correct actual-consumer-decodable (n,E_n) per accepted valid event",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "RI can refine only with an identified consumer's exact accepted-rank decoder and reset association.",
+          "FINITE_MODEL": "M15-M21 and observer race ledger are shortcut falsifiers only; no positive physical H3 evidence.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Actual consumer/state/decoder, acceptance/result bijection, no-loss retention and unrestricted lifetime.",
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "requirement": "Invalid rejection without sequence/association advance and applicable observable-fault reporting",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Validate before narrowing or mutation; invalid attempts are not accepted zero samples.",
+          "FINITE_MODEL": "24192 whole represented-state rejection checks plus M13/M14.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Physical API, complete pending/association state and observable-fault reporting absent.",
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "requirement": "Complete detector-attributable peak-live RAM <=2048 bytes",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Fixed numeric payload 31*b_x; total max_t[P+S+K+G].",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Representation, lifetime, stack/callees, queues, index and shared ownership bound.",
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "requirement": "No hardware-FPU dependence in the claimed realization",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Exact integer kernel has no abstract FPU need.",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Dependency/build/disassembly or execution evidence for entire claimed boundary absent.",
+          "compatibility_grade_PASS": false
+        }
+      },
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "whole_candidate_contradiction_demonstrated": false
+    },
+    "AP-006-B": {
+      "status": "UNSELECTED",
+      "gates": {
+        "H1": {
+          "requirement": "Exact latest-32 accepted-sample sum of squares",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Chronological square31, S=sum(tail), correct oldest cursor; E=S+x^2; S_next=E-q_old.",
+          "FINITE_MODEL": "299296 outputs equal independent oracle; both chronological square-tail and S versus oracle suffix/stored slots asserted.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Chosen-width safety and coherent tail/S/cursor/acceptance realization.",
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "requirement": "Startup zeros and explicit reset with coherent history/old-work exclusion",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Reset must establish tail, aggregate and age together, while fencing old work.",
+          "FINITE_MODEL": "Numeric startup/reset/cursor checks; M05/M06 expose inconsistent reset shortcuts.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "No actual interrupted/reset transaction, old debt or consumer ordering evidence.",
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "requirement": "One correct actual-consumer-decodable (n,E_n) per accepted valid event",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Same RI decoder obligations plus coherent numeric commit and owed response.",
+          "FINITE_MODEL": "Negative ambiguity/debt/tag/queue witnesses only; observer n is not supplied to consumer.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Actual decoder, bijection, retention, reset/restart and unrestricted rank.",
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "requirement": "Invalid rejection without sequence/association advance and applicable observable-fault reporting",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Validate before all coupled state changes and before narrowing.",
+          "FINITE_MODEL": "24192 modeled invariant rejection checks; M13/M14.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Actual rejection/reporting and all pending association state untested.",
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "requirement": "Complete detector-attributable peak-live RAM <=2048 bytes",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Fixed numeric payload 31*b_q+b_S; all overhead remains additional.",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Chosen widths, allocations, stack, queues, exact rank, shared attribution and peak bound.",
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "requirement": "No hardware-FPU dependence in the claimed realization",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Integer recurrence requires no FPU mathematically.",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Realized dependencies, build, callees and target execution evidence absent.",
+          "compatibility_grade_PASS": false
+        }
+      },
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "whole_candidate_contradiction_demonstrated": false
+    },
+    "AP-006-C": {
+      "status": "UNSELECTED",
+      "gates": {
+        "H1": {
+          "requirement": "Exact latest-32 accepted-sample sum of squares",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Reduction correct only if exact correct-event pre-tail, current sample, ordinal and reset agree.",
+          "FINITE_MODEL": "299296 outputs equal oracle under ASSUMED immutable pre-tail service; service tail/rank asserted.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "No actual provider/fidelity, concurrency, event binding, availability or chosen-width realization.",
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "requirement": "Startup zeros and explicit reset with coherent history/old-work exclusion",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Provider and client must reset coherently and keep old snapshots/results distinguishable.",
+          "FINITE_MODEL": "Hypothetical service zero-tail/rank reset; M11 and race counterexamples only.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Real cross-component reset/restart fencing and retained old debt untested.",
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "requirement": "One correct actual-consumer-decodable (n,E_n) per accepted valid event",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Correct framed RN numeral would decode n; accepted ordinal must exclude attempts/retries.",
+          "FINITE_MODEL": "No RN emission, framing/parser or consumer protocol tested; harness rank is instrumentation.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Provider, transport, exact decoder, event/result binding and no-loss lifetime.",
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "requirement": "Invalid rejection without sequence/association advance and applicable observable-fault reporting",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Reject before joint history append/ordinal advance; range validation cannot establish snapshot truth.",
+          "FINITE_MODEL": "24192 harness rejection checks with no service step/rank advance; mixed/wrong-event witnesses.",
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Actual coordinated rejection, framing/error behavior and detectable service faults.",
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "requirement": "Complete detector-attributable peak-live RAM <=2048 bytes",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "No retained local numeric tail only under proposed ownership boundary; local total h_C is not zero.",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Client/transport/parser/queue/stack/shared/pinned attribution and external retention ownership.",
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "requirement": "No hardware-FPU dependence in the claimed realization",
+          "realized_status": "UNKNOWN",
+          "CONDITIONAL_SYMBOLIC": "Integer reduction has no abstract FPU requirement.",
+          "FINITE_MODEL": null,
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "missing_evidence": "Client/library/provider dependencies and claimed build/hardware boundary unverified.",
+          "compatibility_grade_PASS": false
+        }
+      },
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "whole_candidate_contradiction_demonstrated": false
+    }
+  },
+  "theorem_audit": {
+    "T1": "Latest31-tail equivalence for all nonempty future numeric continuations only; excludes current output, exact index, old result debt and full interface metadata.",
+    "T2": {
+      "status": "CONDITIONAL",
+      "fixed_n_minimum": 32,
+      "distinguishable_states": "2^372",
+      "information_bits": 372,
+      "whole_octets_of_capacity": 47,
+      "hypotheses": [
+        "Complete retained output-affecting state",
+        "Determinism",
+        "No external replay/readable uncounted history",
+        "Unrestricted continuations"
+      ],
+      "sufficient_implementation_allocation": false,
+      "detector_local_C_bound": false,
+      "A_B_closure_established": false,
+      "C_larger_joint_closure_established": false,
+      "index_debt_stack_scratch_accounting_discharged": false
+    },
+    "PO_003_1": "UNPROVEN",
+    "PO_003_3": "UNPROVEN",
+    "new_theorem_accepted": false
+  },
+  "F_audit": {
+    "active_axes": [
+      "RAM_peak",
+      "compute_effort",
+      "device_energy_consumption"
+    ],
+    "realized_values": "UNKNOWN_ALL",
+    "eligibility_before_comparison": true,
+    "RAM_peak": {
+      "general": "max_t[P(t)+S(t)+K(t)+G(t)]",
+      "P": "Owned persistent numeric/control/transaction/index/reset/debt state",
+      "S": "Non-stack live scratch/buffers",
+      "K": "Owned stack/callees including stack locals",
+      "G": "Other attributable shared/pinned allocations not already counted",
+      "fixed_complete_payload_only": {
+        "A": "31*b_x+h_A",
+        "B": "31*b_q+b_S+h_B",
+        "C": "h_C",
+        "h": "O_c+T_c+max_t[S_c+K_c+G_c]"
+      },
+      "conditional_difference_B_minus_A": "31*(b_q-b_x)+b_S+h_B-h_A",
+      "conditional_C_less_A": "h_C<31*b_x+h_A",
+      "conditional_C_less_B": "h_C<31*b_q+b_S+h_B",
+      "allocation_lifetimes": "Simultaneous peak, once per allocation; separate maxima not exact; no overlap savings without evidence.",
+      "growth": [
+        "Binary numeral length floor(log2(n))+1",
+        "Pending result debt",
+        "Concurrent pinned/copied/versioned snapshots",
+        "Retry/interference state",
+        "Outstanding old reset contexts",
+        "Trace retention and variable allocation overhead"
+      ],
+      "ownership": "Unknown attribution is not zero. Exclusion requires established exclusive upstream ownership; local/shared/pinned/client/stack costs remain visible.",
+      "ceiling_bytes": 2048,
+      "verified": false
+    },
+    "compute_effort": {
+      "common_model": "M0 serial quiescent valid event, padded31, A/C full reduction seeded with first/current term, coherent B invariant.",
+      "A": "32 SQ_x+31 ADD_E+31 RD_x+WR_x+ADV_31+V_A+J_A+D_A+L_A",
+      "B": "SQ_x+ADD_E+SUB_E+RD_q+WR_q+ADV_31+V_B+J_B+D_B+L_B",
+      "C": "32 SQ_x+31 ADD_E+OPEN_SNAP+31 FETCH_x+V_C+J_C+D_C+L_C",
+      "arithmetic_difference_A_minus_B": "31 SQ_x+30 ADD_E-SUB_E",
+      "sensitivity_inequality_B_lower": "31*c_SQ+30*c_ADD-c_SUB+31*c_RDx-c_RDq+c_WRx-c_WRq+Delta_overhead(A-B)>0",
+      "coefficients": "UNKNOWN; hypothetical scalar sensitivity only, not adopted F weighting",
+      "literal_Python_operation_measurement": false,
+      "additional_work": "Initialization, resets/fencing, reject/report, faults/stalls/retries, pending debt, S/result/cursor traffic, widening/packing/addressing, validation/index/delivery and C provider work.",
+      "comparison_prerequisites": "Common workload, model/build/target, work attribution and equivalent opening/closing debt or complete equivalent owed work; N=0 interval totals only."
+    },
+    "device_energy_consumption": {
+      "not_signal_energy": true,
+      "measured_values": null,
+      "conditional_model": "[sum_j epsilon_j*N_c,j+E_baseline_attr+E_wait_attr+E_transport_attr+E_other_attr]/N",
+      "coefficients": "UNKNOWN",
+      "same_device_upstream": "Attributable electrical and compute costs cannot disappear under RAM ownership exclusion.",
+      "external_service_cost": "Report separately; not zero.",
+      "compatibility": "Same pinned device/build/workload/interval/attribution, lifecycle coverage and equivalent pending debt; reconcile detector-only/whole-device/multi-device scopes and avoid double counting.",
+      "numeric_target": null
+    },
+    "full_Pareto_comparison_available": false,
+    "ranking_or_downselection": false,
+    "flash": "INACTIVE_UNKNOWN",
+    "criteria_changed": false
+  },
+  "findings": [
+    {
+      "id": "R010-1",
+      "severity": "INFORMATIONAL",
+      "classification": "REPRODUCED_EVIDENCE",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AP-EVALUATION-009.json#/experiments/numeric",
+        "inputs/AP-EVALUATION-009.md:33",
+        "inputs/AP-EVALUATION-BRIEFING-009.md:15"
+      ],
+      "finding": "Exact completed numeric source replay exited 0; every result field, including interpreter version, equals the receipt. 299296 valid, 24192 rejected, 11386 resets, 897888 energy comparisons, 0 assertion-detected mismatches.",
+      "follow_up": "Keep FINITE_MODEL scope and assertions enabled. No realized gate or obligation is discharged."
+    },
+    {
+      "id": "R010-2",
+      "severity": "LOW",
+      "classification": "DISCLOSED_PRELIMINARY_WITNESS_DEFECT_CORRECTED",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AP-EVALUATION-009.json#/experiments/setup_correction",
+        "inputs/AP-EVALUATION-009.md:73",
+        "inputs/AP-EVALUATION-BRIEFING-009.md:25"
+      ],
+      "finding": "Original M04 nondiscriminating witness reproduced exit 1 with AssertionError: ('M04', 0, 0). Final source changes the prefix and its two expected intermediate energies only. The completed corrected source was independently replayed in full.",
+      "follow_up": "Preserve both sources/exits. Do not pool preliminary run counts or promote the corrected witness to formal verification."
+    },
+    {
+      "id": "R010-3",
+      "severity": "INFORMATIONAL",
+      "classification": "FINITE_WITNESS_SCOPE",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AP-EVALUATION-009.json#/experiments/numeric/results/witnesses",
+        "inputs/AP-EVALUATION-009.json#/experiments/races",
+        "inputs/AP-EVALUATION-009.md:69"
+      ],
+      "finding": "21 witness groups, 20 shortcut refutations, 1 permutation confirmation; 8 schedules with 6 relabel and 6 reset-cancel failures; 31/32 vulnerable read cuts reproduced. State injection and observer bookkeeping are abstract falsifiers, not protocol/fault-injection implementations or statistical probabilities.",
+      "follow_up": "Require concrete lifecycle and chosen-representation evidence after separate authorization."
+    },
+    {
+      "id": "R010-4",
+      "severity": "HIGH",
+      "classification": "OPEN_CONSUMER_AND_LIFECYCLE_DEPENDENCY",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AS-ADDENDUM-008-R1.md:20",
+        "inputs/AS-ADDENDUM-008-R1.md:38",
+        "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml#/accepted_clarifications",
+        "inputs/AP-EVALUATION-009.json#/interface_dependencies"
+      ],
+      "finding": "Actual consumer/state/decoder, exact accepted-rank association, acceptance/publication contract, debt retention, restart/reset ordering and safe identity reuse remain unsupplied for A/B/C. This blocks realized H3 and related H2/H4/H5 claims, not this bounded evidence referral.",
+      "follow_up": "Identify actual consumer information and lifecycle first; require explicit decoder and event/result bijection without new epoch, forced reset, dropping, publisher pause or recovery assumptions."
+    },
+    {
+      "id": "R010-5",
+      "severity": "HIGH",
+      "classification": "OPEN_SERVICE_AND_OWNERSHIP_DEPENDENCY",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AP-CANDIDATES-006.md:65",
+        "inputs/AP-EVALUATION-009.md:101",
+        "inputs/AP-EVALUATION-009.json#/experiments/numeric/source",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml#/decision/clauses"
+      ],
+      "finding": "C arithmetic success uses an assumed exact immutable pre-tail/rank/reset service. No RN/C-HIST provider, accepted-event binding, retention, availability or exclusive ownership is established. Coherence and in-range data do not prove correct-event history.",
+      "follow_up": "Only a separately authorized capability/ownership inquiry may establish whether suitable services exist; do not construct or approve one from this review."
+    },
+    {
+      "id": "R010-6",
+      "severity": "HIGH",
+      "classification": "OPEN_REALIZATION_AND_COMPARABLE_F_DEPENDENCY",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/AP-EVALUATION-009.md:171",
+        "inputs/AP-EVALUATION-009.md:204",
+        "inputs/AP-EVALUATION-009.md:235",
+        "inputs/F-DISPOSITION-003.yaml#/decision",
+        "inputs/PROOF-DISPOSITION-004.yaml#/accepted_mathematical_claims"
+      ],
+      "finding": "All realized gates and F values remain UNKNOWN. No complete allocation/stack/queue/index bound, chosen-width build, dependency evidence, target timing or device-energy measurement exists. Conditional T2 capacity and arithmetic counts supply none.",
+      "follow_up": "Close information/ownership/lifetime boundaries before authorized realization and compatible debt-closed measurements; no AP ordering or target qualification."
+    },
+    {
+      "id": "R010-7",
+      "severity": "INFORMATIONAL",
+      "classification": "PROVENANCE_AND_ISOLATION_LIMIT",
+      "blocks_evidence_disposition": false,
+      "sources": [
+        "inputs/SHA256SUMS",
+        "inputs/AP_EVALUATION009_SHA256SUMS",
+        "inputs/AP-EVALUATION-009.json#/source_hash_checks",
+        "inputs/AP-EVALUATION-009.json#/independence"
+      ],
+      "finding": "28/28 current manifest entries, 3/3 Stage-9 output entries, and 2/2 R1-review manifest entries match. All 21 Stage-9 inventoried payloads are supplied with matching hashes; reconstructed Stage-9 manifest digest also matches. Current byte consistency does not authenticate historical source use, execution, delegation, reviewer separation or OS/connector isolation.",
+      "follow_up": "Keep provenance and isolation unverified; do not retrieve unavailable historical artifacts under this task."
+    }
+  ],
+  "open_dependencies": [
+    {
+      "id": "CONSUMER_INDEX",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "status": "UNSUPPLIED",
+      "needed": "Actual consumer/state inventory, exact accepted-rank decoder, event/result bijection and unrestricted reset/restart lifetime."
+    },
+    {
+      "id": "ACCEPTANCE_DELIVERY",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "status": "UNSUPPLIED",
+      "needed": "Prospective acceptance/commit/publication, retained old debt, retries, capacity, reset ordering and safe identity reuse; no retrospective unacceptance."
+    },
+    {
+      "id": "RN_C_HIST",
+      "candidates": [
+        "AP-006-C"
+      ],
+      "status": "UNSUPPLIED_UNAPPROVED",
+      "needed": "Provider, exact event-bound history/ordinal, framing, coherent correct-event snapshot, retention/release, reset/restart, availability/errors, ownership and costs."
+    },
+    {
+      "id": "RESOURCES_REALIZATION_F",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "status": "UNKNOWN",
+      "needed": "Complete live resource/stack/dependency/chosen-width evidence followed by compatible debt-closed target measurements after separate authorization."
+    }
+  ],
+  "obligations": [
+    {
+      "id": "T002-2",
+      "status": "OPEN",
+      "gate": "H1",
+      "due": "Later authorized realized functional verification before correctness claims: representation and transitions versus independent specification."
+    },
+    {
+      "id": "T002-3",
+      "status": "OPEN",
+      "gate": "H2",
+      "due": "Later authorized lifecycle verification: startup, reset, prior history/snapshot/result exclusion and consumer-visible ordering."
+    },
+    {
+      "id": "T002-4",
+      "status": "OPEN",
+      "gate": "H3",
+      "due": "Later physical interface verification: actual exact rank decoder, event/result bijection, retained debt through stall/retry/restart/reset."
+    },
+    {
+      "id": "T002-5",
+      "status": "OPEN",
+      "gate": "H4",
+      "due": "Before input-contract compliance claims: physical rejection invariance and applicable fault reports, with detection limits."
+    },
+    {
+      "id": "T002-6",
+      "status": "OPEN",
+      "gate": "H5,H6",
+      "due": "Later realization/verification: complete owned/shared peak RAM and stack plus dependency/build/no-FPU evidence; target evidence before target claims."
+    },
+    {
+      "id": "T002-7",
+      "status": "OPEN",
+      "gate": "F",
+      "due": "Before real-hardware claims: common target/build/workload/interval/attribution and equivalent pending work, timing/compute/device-energy evidence."
+    },
+    {
+      "id": "T002-8",
+      "status": "OPEN_DEFERRED",
+      "gate": "R4",
+      "due": "Before whole-detector claims: threshold/duration/boolean/integration criteria and verification."
+    },
+    {
+      "id": "R4",
+      "status": "OPEN_DEFERRED",
+      "gate": null,
+      "due": "Full sustained-energy detection remains outside the numeric primitive scope."
+    },
+    {
+      "id": "PO-003-1",
+      "status": "UNPROVEN",
+      "gate": null,
+      "due": "No proof accepted or discharged."
+    },
+    {
+      "id": "PO-003-3",
+      "status": "UNPROVEN",
+      "gate": null,
+      "due": "Narrow finite-state ambiguity does not establish an all-AP theorem."
+    }
+  ],
+  "follow_up": {
+    "immediate_gate": "SEPARATE_DELEGATED_AP_EVIDENCE_DISPOSITION",
+    "smallest_new_evidence_gate": "Actual consumer information and acceptance/lifecycle inventory with explicit decoder/refinement and retained-debt/reset association evidence for all alternatives.",
+    "falsifiers": [
+      "Hidden zero prefixes with identical consumer information but distinct required ranks",
+      "Invalid or retry attempt counted as accepted rank",
+      "Old/new equal rank and energy relabeled or old debt canceled",
+      "Unsafe generation reuse",
+      "Q+1 debts beyond only Q entry slots without an authorized preservation path"
+    ],
+    "conditional_C_next": "Separately authorized provider capability/ownership inquiry; does not approve, invent or construct RN/C-HIST.",
+    "later": "Only after separate authorization: chosen-width realized lifecycle/build/stack evidence and common debt-closed target compute/energy measurements; detection criteria before whole-detector claims.",
+    "candidate_ordering": false,
+    "provisional_commitment": false
+  },
+  "independence": {
+    "supplied_sources_only": true,
+    "network_used": false,
+    "connected_apps_used": false,
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "old_solved_Toy1_artifacts_used": false,
+    "hidden_reference_or_evaluator_used": false,
+    "subagents_used": false,
+    "delegate_authority_assumed": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "historical_execution_authenticated": false,
+    "historical_source_use_authenticated": false,
+    "external_agent_separation_authenticated": false,
+    "positive_allowlist_proves_isolation": false
+  },
+  "tool_environment_note": "An early login shell emitted denied pyenv rehash diagnostic. Subsequent execution used login:false. No embedded source filesystem/network/process operations; no successful task artifact writes beyond the requested two outputs.",
+  "not_performed": [
+    "No physical consumer decoder, RI/RN/C-HIST service or concurrent/crash/recovery protocol realization.",
+    "No target/compiler choice, firmware implementation, allocation/stack/dependency measurement, timing/WCET or electrical-device-energy measurement.",
+    "No historical Git/archive/agent-identity/OS/connector isolation authentication.",
+    "No AP selection, AD/contract/service approval, CON/DE/C or VO discharge."
+  ],
+  "AP_selected": false,
+  "APs_finally_compliant": false,
+  "target_verified": false,
+  "product_verified": false,
+  "formal_cleanroom_qualified": false,
+  "vo_discharged": [],
+  "all_full_interface_gate_PASS": false,
+  "contract_approved": false,
+  "RI_approved": false,
+  "RN_approved": false,
+  "C_HIST_approved": false,
+  "CON_DE_C_started": false,
+  "outputs": [
+    "out/REVIEW-AP-EVALUATION-010.md",
+    "out/REVIEW-AP-EVALUATION-010.json"
+  ]
+}
+
