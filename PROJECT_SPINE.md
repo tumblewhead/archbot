@@ -3,63 +3,54 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 delegated diagnostic authority; AS revision next
+## Current checkpoint: CLN-001 AS-REV-002 authored, user archive/pin next
 
-**Human delegation:** the human experiment sponsor explicitly stated
-"ill empower you, and yes limited to this diagnostic project. We
-already know what we want to end up with, we are just testing the
-system." This grants ChatGPT assistant **synthetic requirements
-decision authority for CLN-001 only**, not independent reviewer
-authority, formal cleanroom approval or real product acceptance.
+This branch `experiment/toy1-pipe-cleaner-001` is the **pre-freeze
+diagnostic** of Progressive Concretization from the original Toy 1
+unsolved BKP. The human delegated synthetic CLN-001 engineering
+requirements decisions to this assistant, only for the diagnostic,
+recorded in [DECISION-001](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml).
+The distinct first AS reviewer returned `READY_FOR_HUMAN_QUESTIONS`
+at `e01f91177c20e14f3aea3a11d9025821156dd971` (NOT accepted AS).
 
-The prior fresh author produced [AS-DRAFT-001](reviews/diagnostics/CLN-001-TASK-001/AS-DRAFT-001.md),
-[QUESTIONS-001](reviews/diagnostics/CLN-001-TASK-001/QUESTIONS-001.md)
-and [BRIEFING-001](reviews/diagnostics/CLN-001-TASK-001/BRIEFING-001.md)
-at `57c49628dfca12e30315eb7b08f63c478379cc68`, stopping
-at initial C/R/PS. A separately invoked reviewer returned
-**READY_FOR_HUMAN_QUESTIONS** in
-[REVIEW-001.json](reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json)
-pushed at `e01f91177c20e14f3aea3a11d9025821156dd971`.
-This is source-fidelity/question readiness, not AS acceptance.
-External reviewer independence and physical runtime isolation
-were not authenticated.
+**Stage-2 authoring result received as user-uploaded originals, not
+yet archived in Git:** `AS-REV-002.md`,
+`DECISION-TRACE-002.md`, `BRIEFING-002.md`. The author
+completed [TASK-002](reviews/diagnostics/CLN-001-TASK-001/TASK-002.md)
+and stopped before proof/AP/CON/DE/C. These sources are **drafts, not
+independently reviewed or accepted**. Exact uploaded original
+SHA-256 values and safe copy/commit/push commands are in
+[STAGE2_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md).
 
-**NEW synthetic requirements decisions:**
-[DECISION-001.yaml](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml)
-records the user-delegated role and new Q1-Q7 decisions. R1 latest-32
-exact sum, R2 startup zeros and R6 no hardware FPU dependency are
-adopted for this synthetic exercise. R3's ambiguous 1 ms statement is
-**explicitly revised** to one logical result per accepted ordered
-sample; nominal 1 ms arrival is a model assumption, not an invented
-hard WCET deadline. R4's whole-detector decision is distinguished
-from the current numerical primitive and remains a tracked deferred
-integration obligation. Other decisions define synthetic SRAM scope,
-init/reset, error boundary and publisher assumptions. These are newly
-authored decisions under user delegation, **not imported historical
-Toy 1 approvals**. This coordinating assistant knows the earlier
-Toy 1 program; blinding applies to fresh author, not sponsor delegate.
+Preliminary inspection found R1/R2/R6 adopted with BKP and D001 trace;
+R3 explicitly changed to logical per-accepted-sample updates with
+nominal 1 ms arrival not a hard deadline; R4 whole-detector behavior
+deferred as an unresolved integration obligation; input/reset,
+logical output indexing and synthetic RAM boundary specified without
+prescribing architecture or implementation. No measurements, proof,
+review verdict or VO discharge is claimed.
 
-**Next eligible task:** [TASK-002](reviews/diagnostics/CLN-001-TASK-001/TASK-002.md),
-with [stage-2 handoff](reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md).
-Human copies only the new DECISION-001 and TASK-002 into the existing
-isolated authoring workspace. The authoring agent creates
-`AS-REV-002.md`, `DECISION-TRACE-002.md`, `BRIEFING-002.md`
-and **stops before proof/AP/CON/DE/implementation**. These files
-are new Stage-2 package inputs, so the frozen initial Stage-1
-allowlist is not a valid post-transition PASS oracle. Preserve its
-manifest and record new file digests separately.
+**Provenance issue deliberately preserved:** the Stage-2 author had
+an older `out/REVIEW-001.json` from an `UNRESOLVED`
+self-review, while the *actual distinct* independent
+`READY_FOR_HUMAN_QUESTIONS` review is pinned in Git on this branch.
+The Stage-2 author disclosed this discrepancy. Do not rewrite its
+submitted files or treat the stale self-review as a valid gate.
+A subsequent independent reviewer should check actual TASK-002
+authorization and classify this distinction.
 
-After Stage-2 output, a distinct independent reviewer checks
-source-decision fidelity; only then can the delegated decision
-maker dispose the revised AS. No automatic acceptance is asserted
-now. Keep previous source AS and all independent review receipts
-untouched.
+**Next:** human copies the three exact **original bytes** from external
+`~/archbot-toy1-Q9RnZlCE/package/workspace/projects/CLN-001/out/`
+into `reviews/diagnostics/CLN-001-TASK-002/` and pushes with a
+SHA256SUMS manifest. Once verified remotely, prepare an independent
+reviewer workspace with original BKP, D001, first draft, REAL
+first review and new candidate only. After the v2 independent verdict,
+the delegated decision maker considers AS disposition.
 
-**Still parked:** dual projects, submodule migration, framework
-polish and unrelated registry review. **Still unqualified:** formal
-FR-005 cleanroom, FR-006 freeze, product/target evidence, final F-001,
-VO-002..VO-006, AD-003. `main` and the old Toy 1 accepted project
-remain unchanged.
+No original Toy 1 historical source or accepted records were changed.
+Project-registry/submodule and dual-project work remains parked.
+Formal cleanroom FR-005/006, product target, final F-001, legacy VOs
+002–006 and AD-003 remain unqualified/unresolved.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

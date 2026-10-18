@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: SYNTHETIC_Q1_Q7_DECISIONS_ISSUED_AS_REVISION_PENDING
+  status: AS_REV_002_AUTHORING_RECEIVED_ARCHIVE_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -259,7 +259,14 @@ cleanroom_pipe_cleaner:
   stage2_author_task: reviews/diagnostics/CLN-001-TASK-001/TASK-002.md
   stage2_handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
   stage2_expected_output: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
-  stage2_independent_review: PENDING_OUTPUT
+  stage2_independent_review: PENDING_REMOTE_SOURCE_ARCHIVE
+  stage2_authoring_source: USER_UPLOADED_FILES_NOT_YET_COMMITTED
+  stage2_review_handoff: reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md
+  stage2_original_sha256:
+    AS-REV-002.md: 36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830
+    DECISION-TRACE-002.md: 90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2
+    BRIEFING-002.md: 5761ba769da25df216779e443136e4a9f501e70735369e4e80e62641079589d2
+  stage2_authoring_discrepancy: "Local out/REVIEW-001.json was stale UNRESOLVED self-review; actual separately invoked READY_FOR_HUMAN_QUESTIONS review is archived in experiment branch, not read by Stage-2 author. Preserve and review provenance."
   as_acceptance: PENDING_INDEPENDENT_REVIEW_AND_EXPLICIT_DISPOSITION
   reviewer_findings:
     - "F1 source fidelity OK within diagnostic scope"
@@ -278,22 +285,22 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: FRESH_AGENT_AS_REVISION_AUTHORING
-  subject: CLN-001 first versioned AS revision under delegated diagnostic authority
+  type: HUMAN_PUBLISH_STAGE2_AUTHORING_EVIDENCE
+  subject: CLN-001 AS-REV-002 revision output under D001
   branch: experiment/toy1-pipe-cleaner-001
-  decision: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
-  task: reviews/diagnostics/CLN-001-TASK-001/TASK-002.md
-  handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
-  instruction: "Human copies only DECISION-001 and TASK-002 into existing external workspace, pins their hashes; launches a fresh author agent restricted to workspace to create AS-REV-002, DECISION-TRACE-002, BRIEFING-002; stops. Separate review follows."
-  independent_AS_review_required: true
-  AS_accepted: false
-  diagnostic_only: true
+  handoff: reviews/diagnostics/CLN-001-TASK-002/STAGE2_REVIEW_HANDOFF.md
+  source_workspace: "/home/easy/archbot-toy1-Q9RnZlCE/package/workspace/projects/CLN-001/out/"
+  destination: reviews/diagnostics/CLN-001-TASK-002/
+  instruction: "Copy the exact three original output files, verify their uploaded SHA-256 values, selectively stage/commit/push them and SHA256SUMS. Then distinct reviewer with only positive-allowlist inputs."
+  stage2_AS_accepted: false
+  stage2_independent_review: PENDING
+  physical_isolation_qualified: false
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not claim user approved each assistant-authored technical decision personally; they delegated CLN-001 authority."
-    - "Do not import previous Toy 1 solved artifacts, code, legacy decision receipts or hidden evaluator target."
-    - "Do not overwrite initial AS-DRAFT-001, QUESTIONS-001, BRIEFING-001 or REVIEW-001."
-    - "Do not start proof/AP/CON/DE/C or parked submodule work before revised AS review/disposition."
+    - "Do not normalize or reconstruct user-uploaded original output bytes from extracted text."
+    - "Do not claim the author's self-review is the prior independent review."
+    - "Do not modify initial AS, initial review, original BKP or delegated D001."
+    - "Do not authorize proof/AP/CON/DE/implementation or restart parked migration tasks."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
