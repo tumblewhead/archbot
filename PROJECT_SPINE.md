@@ -3,60 +3,64 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 synthetic AS activated; Proof Scout and FOM next
+## Current checkpoint: Stage-3 draft proofs and F received; combined review next
 
-The original AS revision `AS-REV-002.md` was archived at
-`50abb5f57d4e049825bb565d53f477fc303d08dd` from the
-new diagnostic author; its exact bytes and separate D001 requirements
-choices are pinned on `experiment/toy1-pipe-cleaner-001`.
-The second distinct reviewer produced
-[REVIEW-002.json](reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.json)
-and [REVIEW-002.md](reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.md),
-both pushed at `82ea7793b15c292e103fcd3d18ab1dc8504abf4f`.
-The source Git blob identities match the reviewer outputs
-recorded in the earlier conditional AS disposition. Reviewer verdict:
-**READY_FOR_DELEGATED_AS_DISPOSITION** with no blocking technical
-finding, F3 MINOR provenance clarification.
+The diagnostic AS-REV-002 was **accepted and activated for the
+synthetic CLN-001 energy-computation primitive only** by the human
+sponsor's scoped delegation, after the separate reviewer receipt and
+its conditional disposition were archived. The additive activation
+record is
+[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml).
+This is not whole-detector, real-hardware or formal cleanroom
+qualification; legacy Toy 1 obligations remain unaffected.
 
-By the human's explicit CLN-001-only synthetic requirements
-delegation, the assistant previously issued
-[AS-DISPOSITION-002](reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml):
-`ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION`.
-The *exact reviewer archival condition is now met*, so the additive
-[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml)
-records an **ACTIVE accepted diagnostic AS=(C,R,PS)** for the
-**numeric latest-32 energy primitive only**. It does not approve
-full sustained-energy detection, firmware, real hardware or
-selected architecture, and it discharges no verification obligations.
+The human created the two fresh source-only Stage-3 author
+workspaces and pushed their **four original outputs plus a SHA-256
+manifest** at
+`1f7645135581ede5696596ab8abc1034e75a53cd`:
+[PO-OPPORTUNITIES-003](reviews/diagnostics/CLN-001-TASK-003/PO-OPPORTUNITIES-003.md),
+[PO-BRIEFING-003](reviews/diagnostics/CLN-001-TASK-003/PO-BRIEFING-003.md),
+[F-DRAFT-003](reviews/diagnostics/CLN-001-TASK-003/F-DRAFT-003.md),
+[F-TRACE-003](reviews/diagnostics/CLN-001-TASK-003/F-TRACE-003.md).
 
-The authoring workspace's stale `UNRESOLVED` self-review is separate
-from the real first independent
-`READY_FOR_HUMAN_QUESTIONS` review at
-`e01f91177c20e14f3aea3a11d9025821156dd971`. This provenance
-clarification is preserved in the additive decision rather than
-rewriting the author's draft or either reviewer record. External
-agent identity, physical filesystem isolation and connector
-isolation were NOT authenticated.
+**All three proof opportunities are UNPROVEN.**
+PO-003-1 proposes 29-bit exact energy/output bound plus conditional
+30-bit addition-first intermediate bound.
+PO-003-2 proposes `2^372` distinguishable futures / a 31-sample
+tail minimality result under a deterministic **no replay** model,
+separate from full-interface output index.
+PO-003-3 proposes conditional impossibility of indefinitely growing
+internally generated exact logical indices from a closed finite-state
+machine. The latter may reveal an AS-to-interface lifetime/ownership
+question, not an unconditional AS contradiction.
 
-**Next authorized diagnostic stage:** first fresh proof-opportunity
-discovery and candidate Figure-of-Merit definition, using strictly
-the newly accepted AS, original unsolved BKP, D001 and trace.
-Read [STAGE3_HANDOFF](reviews/diagnostics/CLN-001-TASK-003/STAGE3_HANDOFF.md).
-The human pulls this branch and runs the single
-`prepare_stage3_workspaces.sh` script, which creates **both**
-`~/archbot-cln001-proof-003` and
-`~/archbot-cln001-fom-003` after source-pin checks. Run two
-separate new Codex agents. Proof Scout produces **unproven**
-candidate propositions; FOM analyst produces **draft** criteria,
-not automatically approved F or an AP selection. No previous
-Toy 1 solution, proof, F-001, AP, contracts, code, old decisions
-or evaluator is supplied.
+**The F draft is NOT accepted.** It proposes H1–H6 hard gates and
+`F=(RAM_peak,compute_effort,energy)`, with UNKNOWN measured costs
+and a Pareto partial ordering. The first two optimization interests
+trace to RAM/compute conservation; the *active energy coordinate* is
+a new proposed choice, not stakeholder-granted objective authority.
+R4 whole-detector detection is still deferred with open T002-8.
 
-Still **pre-freeze diagnostic**, not formal FR-005/FR-006 cleanroom.
-All T002 realization and detection obligations remain OPEN;
-product target qualification, original Toy 1 VOs and AD-003
-remain unaffected. Project-registry, submodules and multi-project
-work remain parked. `main` remains untouched.
+**Next:** [REVIEW003_HANDOFF](reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md)
+runs one
+[prepare_review003.sh](reviews/diagnostics/CLN-001-TASK-003/prepare_review003.sh)
+script from the experiment-branch checkout to CREATE
+`~/archbot-cln001-review-003` with only the pinned accepted AS,
+original BKP/D001 and Stage-3 authored outputs. A distinct new
+reviewer session follows
+[TASK-REVIEW-003](reviews/diagnostics/CLN-001-TASK-003/TASK-REVIEW-003.md)
+and emits four files: separate PO and F JSON/Markdown verdicts.
+A review is not proof or F acceptance. After archival, the
+CLN-001-only sponsor delegate considers F and independent Proof
+Engineer task authorization.
+
+Stale author-side self-review vs actual independent REVIEW-001
+remain preserved in historical documents. Neither fresh source
+allowlists nor a different `cd` establish OS/connector isolation.
+This is still a **pre-freeze diagnostic**, NOT formal FR-005/FR-006.
+No product verification, historical VO discharge, selected AP,
+CON/DE/C, submodule migration or framework freeze is implied.
+`main` stays untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

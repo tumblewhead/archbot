@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: ACCEPTED_SCOPED_DIAGNOSTIC_AS_STAGE3_DRAFTS_AUTHORIZED
+  status: STAGE3_PO_F_DRAFTS_ARCHIVED_INDEPENDENT_REVIEW_NEXT
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -277,7 +277,18 @@ cleanroom_pipe_cleaner:
   stage3_handoff: reviews/diagnostics/CLN-001-TASK-003/STAGE3_HANDOFF.md
   stage3_po_task: reviews/diagnostics/CLN-001-TASK-003/TASK-PO-SCOUT-003.md
   stage3_fom_task: reviews/diagnostics/CLN-001-TASK-003/TASK-FOM-003.md
-  stage3_status: AWAITING_LOCAL_FRESH_AGENT_EXECUTIONS
+  stage3_status: DRAFT_SOURCES_PINNED_AWAITING_INDEPENDENT_REVIEW
+  stage3_draft_commit: 1f7645135581ede5696596ab8abc1034e75a53cd
+  stage3_PO_source: reviews/diagnostics/CLN-001-TASK-003/PO-OPPORTUNITIES-003.md
+  stage3_F_source: reviews/diagnostics/CLN-001-TASK-003/F-DRAFT-003.md
+  stage3_output_manifest: reviews/diagnostics/CLN-001-TASK-003/OUTPUT_SHA256SUMS
+  stage3_PO_status: UNPROVEN_3_OPPORTUNITIES
+  stage3_F_status: DRAFT_NOT_ACCEPTED
+  stage3_F_proposed_active_energy_axis: NEEDS_DELEGATED_DISPOSITION
+  stage3_review_task: reviews/diagnostics/CLN-001-TASK-003/TASK-REVIEW-003.md
+  stage3_review_prepare_script: reviews/diagnostics/CLN-001-TASK-003/prepare_review003.sh
+  stage3_review_handoff: reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md
+  stage3_review_outputs_expected: [REVIEW-PO-003.md, REVIEW-PO-003.json, REVIEW-F-003.md, REVIEW-F-003.json]
   stage2_provenance_clarification: "Stale local UNRESOLVED self-review is separate from real archived READY_FOR_HUMAN_QUESTIONS review. Reviewer F3 MINOR nonblocking, no rewrite."
   stage2_next_after_archive: [PROOF_SCOUT_OPPORTUNITIES, FOM_SYMBOLIC_SCOPE]
   stage2_authoring_source: GIT_ARCHIVED_EXACT_SOURCE_BYTES
@@ -308,26 +319,24 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: FRESH_DIAGNOSTIC_PROOF_SCOUT_AND_FOM_DRAFTS
-  subject: CLN-001 first post-AS proof opportunities and Figure of Merit
+  type: INDEPENDENT_PO_OPPORTUNITY_AND_FOM_REVIEW
+  subject: CLN-001 Stage3 unproven math proposals and draft F
   branch: experiment/toy1-pipe-cleaner-001
-  AS: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
-  AS_activation: reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
-  proof_task: reviews/diagnostics/CLN-001-TASK-003/TASK-PO-SCOUT-003.md
-  fom_task: reviews/diagnostics/CLN-001-TASK-003/TASK-FOM-003.md
-  preparation_script: reviews/diagnostics/CLN-001-TASK-003/prepare_stage3_workspaces.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-003/STAGE3_HANDOFF.md
-  instruction: "Human pulls latest experiment branch and runs single prepare_stage3_workspaces.sh to create both fresh source-pinned workspaces; launches two distinct Codex roles; selectively commits actual draft results. Do not supply earlier solved Toy1 resources."
-  AS_accepted: true
-  acceptance_scope: CLN001_SYNTHETIC_NUMERIC_ENERGY_PRIMITIVE_ONLY
-  proof_opportunities_status: DRAFT_NOT_EXECUTED
-  FOM_status: DRAFT_NOT_EXECUTED
+  authoring_commit: 1f7645135581ede5696596ab8abc1034e75a53cd
+  review_handoff: reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md
+  task: reviews/diagnostics/CLN-001-TASK-003/TASK-REVIEW-003.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-003/prepare_review003.sh
+  expected_outputs: [REVIEW-PO-003.md, REVIEW-PO-003.json, REVIEW-F-003.md, REVIEW-F-003.json]
+  instruction: "Human pulls experiment branch, runs prepare_review003.sh to create fresh reviewer workspace, launches one distinct Codex reviewer to produce separate PO and F verdicts, selectively pushes actual outputs. Coordinator evaluates results and makes scoped next decisions."
+  accepted_AS: true
+  proof_accepted: false
+  F_accepted: false
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not treat draft PO as proof or draft F as accepted decision."
-    - "Do not import historical solved Toy 1 F-001, AP, proofs, code, accepted decisions or reviewer oracles."
-    - "Do not select AP/CON/DE/C or claim real target compliance and VO discharge."
-    - "Do not restart parked submodule or framework migrations."
+    - "Do not call opportunity propositions proved or F proposal accepted."
+    - "Do not silently promote energy minimization to delegated hard objective; review and disposition required."
+    - "Do not import prior solved Toy 1 proofs, F-001, AP or implementation."
+    - "Do not begin AP/CON/DE/C or qualified cleanroom, nor old submodule work."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

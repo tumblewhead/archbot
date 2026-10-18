@@ -57,23 +57,23 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 Proof Scout and FOM draft.**
-Original REVIEW-002.md/json were pushed and verified at
-`82ea7793b15c292e103fcd3d18ab1dc8504abf4f`, fulfilling
-the conditional `AS-DISPOSITION-002.yaml` acceptance.
-`reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml`
-records the accepted, scoped **synthetic AS=(C,R,PS)** for the exact
-energy computation primitive. It does NOT accept a complete detector,
-proof, target performance, AP or implementation.
-Run `reviews/diagnostics/CLN-001-TASK-003/prepare_stage3_workspaces.sh`
-from the updated experiment-branch checkout to CREATE two distinct
-fresh workspaces, then new Codex sessions for
-`TASK-PO-SCOUT-003.md` and `TASK-FOM-003.md`. Full user run/push
-details: `STAGE3_HANDOFF.md` in the same directory.
-Both roles produce drafts and stop. No previously solved Toy 1
-proof, F-001 or design may be supplied. No cleanroom qualification,
-historical VO discharge or downstream AP/CON/DE/C follows.
-The stale v1 author-side self-review discrepancy remains documented.
+**CURRENT PRIORITY: independent Stage-3 PO and F review.**
+Two distinct fresh authors produced four pinned Stage-3 draft files
+pushed at `1f7645135581ede5696596ab8abc1034e75a53cd`.
+Proofs PO-003-1/2/3 are **unproven**; F-DRAFT-003 is **not
+accepted**. See
+`reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md`.
+Human pulls experiment branch and executes
+`prepare_review003.sh`, which **creates** the reviewer directory,
+then starts a new Codex review session. Reviewer writes PO review
+md/json and F review md/json, two distinct verdicts.
+Priority checks: 31-sample no-replay information minimality,
+finite-state exact-index impossibility's additional assumptions,
+new proposed F energy axis, no invented hard 1ms deadline, deferred
+R4 and UNKNOWN resource evidence. Reviewer cannot prove a theorem or
+accept F; delegate handles F disposition only after actual review.
+No AP/CON/DE/C yet. Older solved Toy 1 evidence is excluded; formal
+cleanroom and physical isolation remain unqualified.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
