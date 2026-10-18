@@ -1,0 +1,81 @@
+schema: pc-cln-delegated-ap-evidence-disposition/v1
+id: CLN-001-AP-EVIDENCE-DISPOSITION-010
+project: CLN-001
+status: ACCEPT_REPRODUCED_MODEL_EVIDENCE_WITH_FEASIBILITY_BLOCKERS_OPEN
+scope: CLN001_SYNTHETIC_PREFREEZE_DIAGNOSTIC_ONLY
+delegated_authority:
+  source: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  role: ChatGPT_assistant_as_CLN001_sponsor_delegate
+  authority_not_transferred_to_evaluator_or_reviewer: true
+review_basis:
+  evaluation_commit: 0783a3b95a384e4e24b89a68740555055b2383f6
+  independent_review_commit: e5d2cfde2c856cc84192b294ac8c42a8746ba5aa
+  review_report: reviews/diagnostics/CLN-001-TASK-010/REVIEW-AP-EVALUATION-010.md
+  review_receipt: reviews/diagnostics/CLN-001-TASK-010/REVIEW-AP-EVALUATION-010.json
+  review_disposition: READY_FOR_DELEGATED_AP_EVIDENCE_DISPOSITION
+  code_replay: REPRODUCED_EXACT_EMBEDDED_FINITE_MODELS
+  provenance_limit: SOURCE_BYTES_AND_DECLARED_MODEL_SCOPE_NOT_PHYSICAL_ISOLATION
+accepted_evidence:
+  - "Conditional A/B numeric algorithms agree with independent full-stream finite oracle under tested streams."
+  - "Conditional C numeric model agrees with oracle only with externally supplied perfect event-bound snapshot/rank."
+  - "21 documented witness groups and bounded races support identified shortcut failure modes."
+  - "T1 future numeric theorem and conditional T2 information bound retain original applicability limits."
+not_accepted:
+  - "No AP A/B/C selected, admitted as full-interface compliant or given a measured Pareto rank."
+  - "No actual consumer index decoder or accepted-event/debt/reset contract."
+  - "No C-HIST or RN provider, ownership, availability, consistency or cost guarantees."
+  - "No end-to-end 2048-byte allocation/stack, complete compute effort, or electrical device-energy result."
+  - "No target/build or full hardware verification; no old Toy1 VO discharge."
+evidence_acquisition_direction:
+  decision: AUTHORIZE_NEXT_BOUNDED_STAGE11_INTERFACE_FEASIBILITY_AND_KERNEL_WITNESSES
+  owner: CLN001_synthetic_engineering_delegate
+  objective: >-
+    Acquire NEW, decision-relevant feasibility evidence rather than
+    commissioning another review of unchanged UNKNOWNs.
+  work_packages:
+    - id: IF11
+      priority: FIRST
+      purpose: >-
+        Construct an explicit hypothetical producer/detector/consumer
+        interface model with actual consumer-visible event and reset
+        information, acceptance, output debt and reset sequencing.
+        Show positive refinements only under separately named
+        assumptions, negative witness traces and unavoidable resource/
+        lifetime/availability demands under accepted unrestricted
+        behavior. Distinguish actual available source contracts
+        from proposed ones. Never silently cap indices, force resets,
+        drop valid events or presume infinite storage.
+      output: "Runnable interface trace model, proof/counterexample dossier, unsupplied contract ledger"
+    - id: NUM11
+      priority: PARALLEL_OR_NEXT
+      purpose: >-
+        Build small portable fixed-width C numerical kernel witnesses
+        for A/B only, with independent oracle comparison, compile,
+        measurement of chosen type/layout sizes and stated stack/toolchain
+        limits. These are nonbinding prototypes, not CON/DE/C firmware.
+      output: "Inspectable host C microprototype source/tests and exact build/run evidence"
+    - id: SVC11
+      priority: PARALLEL_INQUIRY
+      purpose: >-
+        Analyze what provider capabilities C would require, what
+        exact evidence could establish them, and what memory/energy
+        attribution must be counted. Do not implement or assume RN/C-HIST.
+      output: "Provider capability/ownership requirements and bounded falsifiers"
+  next_independent_review: REQUIRED_AFTER_NEW_EVIDENCE
+  separate_AP_commitment: REQUIRED_LATER_IF_JUSTIFIED
+protected:
+  AS_and_F_unchanged: true
+  R1_interface_clarification_active: true
+  AP_A_B_C_unselected: true
+  H1_H6_realized: UNKNOWN_ALL
+  realized_F: UNKNOWN_ALL
+  T002_2_through_T002_8: OPEN
+  R4: OPEN_DEFERRED
+  PO_003_1_and_3: UNPROVEN
+  explicit_2000_byte_RAM_approval: false
+  con_de_c_authorized: false
+  orchestrator_implementation_approved_by_this_decision: false
+  framework_policy_rewritten: false
+  formal_cleanroom_qualified: false
+  target_or_product_verified: false
+  vo_discharged: []
