@@ -1,0 +1,89 @@
+schema: pc-cln-diagnostic-as-disposition/v1
+id: CLN-001-AS-DISPOSITION-002
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+authority:
+  holder: ChatGPT_assistant
+  role: human_sponsor_delegated_synthetic_engineering_decision_maker
+  scope: CLN-001_DIAGNOSTIC_ONLY
+  source_decision: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  no_real_product_or_general_framework_authority: true
+decision:
+  # The delegated decision is issued based on original uploaded REVIEW-002 bytes.
+  disposition: ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION
+  decision_issued: true
+  acceptance_scope: "AS=(C,R,PS) as the synthetic CLN-001 energy-computation primitive requirements baseline, including stated assumptions, exclusions, and open obligations."
+  acceptance_activation: PENDING_REVIEW002_GIT_ARCHIVAL
+  activation_rule: "Review-002 original .md and .json must be versioned under reviews/diagnostics/CLN-001-TASK-002 and match the recorded SHA-256 and Git blob SHA1 before this disposition is treated as an active Git-pinned AS baseline or used to initiate downstream agents."
+  acceptance_is_not:
+    - "Target/hardware/firmware feasibility or performance qualification"
+    - "Completion of whole sustained-energy detection"
+    - "Proof of any theorem or validation of an implementation"
+    - "An approved architecture proposal, contract, DE, C source or AP selection"
+    - "Formal cleanroom, FR-005/FR-006 or framework freeze"
+    - "Discharge of any current or historical verification obligation"
+evidence:
+  accepted_candidate: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  candidate_sha256: 36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830
+  candidate_git_blob_sha1: fd8f89072f4f90522f8c54a649d6da7fa272cf62
+  candidate_archival_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
+  companion_trace: reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md
+  companion_briefing: reviews/diagnostics/CLN-001-TASK-002/BRIEFING-002.md
+  prior_review_path: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json
+  prior_review_disposition: READY_FOR_HUMAN_QUESTIONS
+  prior_review_commit: e01f91177c20e14f3aea3a11d9025821156dd971
+  independent_review_id: REVIEW-002
+  independent_review_disposition: READY_FOR_DELEGATED_AS_DISPOSITION
+  independent_review_received: USER_UPLOADED_NOT_YET_GIT_PINNED
+  review_md_path: reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.md
+  review_md_sha256: b9f9f4a0c110768592d7999a3d92c272a8acacc779b2c74bc873078a664b0e61
+  review_md_git_blob_sha1: 4b5a8006555f49cdb002a89518c0a7ae96c6f1db
+  review_json_path: reviews/diagnostics/CLN-001-TASK-002/REVIEW-002.json
+  review_json_sha256: 09ed9606c571d468138b8f7709ada2c625fc7c63b39a2002d1d0a85ece71afca
+  review_json_git_blob_sha1: dcacb5f0d0135940e7410c735c58d4ecf632394e
+  review_findings:
+    F1: INFO_NO_BLOCKING_BKP_OR_D001_FIDELITY_DEFECT
+    F2: INFO_R3_EXPLICIT_REWRITE_AND_R4_DEFERRAL_TRACED
+    F3: MINOR_NONBLOCKING_REVIEW_ORIGIN_PROVENANCE_DISCREPANCY
+    F4: INFO_STAGE2_STOP_BOUNDARY_WITH_PARTIAL_EXECUTION_EVIDENCE
+provenance_clarification:
+  # Do not edit the original three AS revision authoring files.
+  origin: REVIEW-002_F3
+  local_author_workspace_observation: "AS author saw a stale out/REVIEW-001.json describing an UNRESOLVED self-review."
+  separate_archived_v1_review: "A different reviewer invocation produced the real READY_FOR_HUMAN_QUESTIONS REVIEW-001.md/json preserved at the prior Git commit."
+  finding: "The two artifacts can coexist without inconsistency; the stale self-review cannot substitute for the separately archived independent review. The v2 reviewer found no demonstrated effect on technical requirements or task authorization."
+  unresolved: "Original stale self-review bytes, external reviewer identity/invocation, complete authoring write history and OS-level isolation were not independently authenticated."
+  change_required_to_as: false
+  correction_policy: "Preserve original author-era assertions and both reviewer paths; apply this clarification as a separate source-linked disposition, never rewrite historical artifacts."
+rationale:
+  - "Reviewed R1-R6/A1-A4 are faithful to new delegated D001 and original BKP, within synthetic scope."
+  - "R3 deliberately changes ambiguous periodic wording to one result per accepted sample; nominal 1 ms does not imply hard deadline."
+  - "R4 is only an energy primitive; sustained-energy decision thresholds, duration and integration remain open."
+  - "Logical index, startup/reset, invalid-input rejection and owned 2048-byte RAM ceiling are specified without premature implementation choices."
+  - "Review finding F3 is nonblocking but requires durable provenance annotation."
+continuing_obligations:
+  local_source: reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md
+  labels: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+  all_open: true
+  numeric_exactness_and_lifecycle_due: BEFORE_CORRECTNESS_CLAIM
+  invalid_delivery_handling_due: BEFORE_INPUT_CONTRACT_COMPLIANCE_CLAIM
+  ram_fpu_target_due: BEFORE_TARGET_COMPLIANCE_CLAIM
+  performance_due: BEFORE_REAL_HARDWARE_OPERATION_CLAIM
+  sustained_energy_detection_due: BEFORE_WHOLE_DETECTOR_COMPLETION_CLAIM
+  no_historical_vo_discharged: true
+next_gate:
+  condition: "Review-002 files archived and identity-verified"
+  permitted_after_condition:
+    - "Fresh project proof opportunity discovery from accepted AS plus BKP/D001, with propositions and unproven status."
+    - "Fresh project Figure-of-Merit axes and symbolic feasibility criteria from accepted AS; do not borrow old Toy 1 F-001 values or architecture choices."
+  not_yet_permitted:
+    - "Treat unproved propositions as established"
+    - "Select an AP, assert implementation correctness or target compliance"
+    - "Run formal cleanroom qualification or edit historical project receipts"
+limits:
+  diagnostic_only: true
+  cleanroom_qualified: false
+  physical_isolation_verified: false
+  reviewer_separation_externally_authenticated: false
+  product_verified: false
+  vo_discharged: []

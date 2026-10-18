@@ -57,22 +57,25 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 AS-REV-002 independent review.**
-Stage-2 authoring outputs have been pushed at
-`50abb5f57d4e049825bb565d53f477fc303d08dd`,
-with original SHA-256 and Git blob SHA1 identities verified. The
-candidate follows delegated CLN-001 D001 choices, but remains
-**DRAFT and not independently accepted**.
-Read `reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md`.
-The human must prepare `$HOME/archbot-as-review-002` with **only**
-original BKP, D001, v1 authoring/review, stage-2 drafts and neutral
-review guidance; a separate Codex reviewer writes REVIEW-002.md/json.
-The author saw a stale same-conversation REVIEW-001 self-review,
-but actual independent v1 REVIEW-001 is versioned and was not
-seen inside stage-2 authoring workspace. Preserve this disclosure.
-Do not accept AS-REV-002 or begin proof/AP/CON/DE/C before v2
-independent review and delegated AS disposition. Runtime cleanroom
-isolation remains unverified; no FR-005/FR-006 qualification follows.
+**CURRENT PRIORITY: archive second independent reviewer evidence.**
+The Stage-2 independent reviewer completed and reported
+`READY_FOR_DELEGATED_AS_DISPOSITION` with no blocking technical
+finding. Reviewer outputs were uploaded, but the exact raw bytes have
+**NOT yet been committed to the experiment branch**. The delegated
+CLN-001 decision maker issued scoped
+`ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION` in
+`reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml`.
+AS baseline activation is conditional on exact original reviewer
+artifacts being Git-pinned, so do not call it active prematurely.
+The human runs the precise archival instructions in
+`reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md`.
+On verified remote push, activate the scoped AS and advance to
+fresh diagnostic Proof Scout opportunities and symbolic Figure of Merit
+with distinct agents and no old Toy 1 solution leakage.
+The provenance caveat on local stale self-review is recorded in the
+disposition; do not rewrite the original author-era draft or receipt.
+No product/target qualification, runtime cleanroom certification,
+historical VO discharge or implementation authorization follows.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

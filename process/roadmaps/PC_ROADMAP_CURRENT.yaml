@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: AS_REV_002_ARCHIVED_INDEPENDENT_REVIEW_PENDING
+  status: DELEGATED_AS_DISPOSITION_ISSUED_REVIEW002_ARCHIVAL_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -259,7 +259,19 @@ cleanroom_pipe_cleaner:
   stage2_author_task: reviews/diagnostics/CLN-001-TASK-001/TASK-002.md
   stage2_handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
   stage2_expected_output: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
-  stage2_independent_review: PENDING_REMOTE_SOURCE_ARCHIVE
+  stage2_independent_review: READY_FOR_DELEGATED_AS_DISPOSITION
+  stage2_review_uploaded: true
+  stage2_review_git_archived: false
+  stage2_review_json_sha256: 09ed9606c571d468138b8f7709ada2c625fc7c63b39a2002d1d0a85ece71afca
+  stage2_review_md_sha256: b9f9f4a0c110768592d7999a3d92c272a8acacc779b2c74bc873078a664b0e61
+  stage2_review_json_git_blob: dcacb5f0d0135940e7410c735c58d4ecf632394e
+  stage2_review_md_git_blob: 4b5a8006555f49cdb002a89518c0a7ae96c6f1db
+  stage2_archive_handoff: reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md
+  stage2_AS_disposition: ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION
+  stage2_AS_disposition_record: reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml
+  stage2_AS_activation: PENDING_EXACT_REVIEW002_GIT_ARCHIVE
+  stage2_provenance_clarification: "Stale local UNRESOLVED self-review is separate from real archived READY_FOR_HUMAN_QUESTIONS review. Reviewer F3 MINOR nonblocking, no rewrite."
+  stage2_next_after_archive: [PROOF_SCOUT_OPPORTUNITIES, FOM_SYMBOLIC_SCOPE]
   stage2_authoring_source: GIT_ARCHIVED_EXACT_SOURCE_BYTES
   stage2_archival_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
   stage2_sources_verified: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
@@ -270,14 +282,14 @@ cleanroom_pipe_cleaner:
     DECISION-TRACE-002.md: 90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2
     BRIEFING-002.md: 5761ba769da25df216779e443136e4a9f501e70735369e4e80e62641079589d2
   stage2_authoring_discrepancy: "Local out/REVIEW-001.json was stale UNRESOLVED self-review; actual separately invoked READY_FOR_HUMAN_QUESTIONS review is archived in experiment branch, not read by Stage-2 author. Preserve and review provenance."
-  as_acceptance: PENDING_INDEPENDENT_REVIEW_AND_EXPLICIT_DISPOSITION
+  as_acceptance: DELEGATED_DISPOSITION_ISSUED_ACTIVATION_PENDING_REVIEW_ARCHIVE
   reviewer_findings:
     - "F1 source fidelity OK within diagnostic scope"
     - "F2 timing semantics and requirement authority unresolved"
     - "F3 Q1-Q7 human decisions unresolved"
     - "F4 source/provenance auth not independently verified"
     - "F5 stopped before unauthorized downstream engineering"
-  human_authority_disposition: PENDING
+  human_authority_disposition: ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION
   included: "Pinned original BKP and neutral framework role/playbook, empty project manifest/spine and initial AS task only."
   excluded: "All prior AS-001 solutions, proofs, AP/F, contracts, implementation, accepted decisions, review evidence, old Git history, old chat, evaluator oracle."
   diagnostic_gate: "Actual preflight, new fresh-agent invocation, measured filesystem and connector access, truthful output and stopping point."
@@ -288,22 +300,23 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: INDEPENDENT_DIAGNOSTIC_AS_REVISION_REVIEW
-  subject: CLN-001 AS-REV-002 against original BKP and delegated D001
+  type: ARCHIVE_INDEPENDENT_REVIEW002_AND_ACTIVATE_DIAGNOSTIC_AS
+  subject: CLN-001 independent AS review source pin
   branch: experiment/toy1-pipe-cleaner-001
-  authored_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
-  task_handoff: reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md
-  required_outputs: [REVIEW-002.md, REVIEW-002.json]
-  instruction: "Human creates distinct positive-allowlist reviewer workspace, verifies pinned v1/v2 sources, launches fresh Codex reviewer, then selectively commits/pushes actual review outputs. Delegate handles AS disposition after observing verdict."
-  stage2_AS_accepted: false
-  stage2_independent_review: PENDING
-  physical_isolation_qualified: false
+  candidate_source_commit: 50abb5f57d4e049825bb565d53f477fc303d08dd
+  disposition: reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml
+  handoff: reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md
+  required_review_outputs: [REVIEW-002.md, REVIEW-002.json]
+  instruction: "Human uses the actual independent reviewer workspace output to copy exact bytes, verify SHA-256 and Git blob pins, selectively commit and push only REVIEW-002.md/json. Coordinator verifies remote identities and activates scoped AS, then issues fresh PO/F task."
+  AS_disposition_issued: true
+  AS_baseline_active: false
+  activation_condition: REVIEW002_ORIGINAL_BYTES_VERIFIED_ON_REMOTE
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not reuse original author Codex conversation or treat stale self-review as independent."
-    - "Do not expose previous solved Toy 1 project, old accepted decisions or hidden evaluator oracle."
-    - "Do not grant automatic AS approval or start downstream proof/AP/CON/DE/C before a distinct favorable review and delegated disposition."
-    - "Do not restart parked multi-project/submodule work."
+    - "Do not change reviewer words, recreate their review from chat, or claim independent authentication not performed."
+    - "Do not activate this AS before review evidence is remotely pinned."
+    - "Do not automatically adopt previous solved Toy 1 F, PO, AP, proof, contract or implementation."
+    - "Do not begin proof/AP/CON/DE/C agent execution before activation, or restart parked migration tasks."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

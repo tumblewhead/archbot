@@ -3,51 +3,54 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 AS-REV-002 archived; independent reviewer next
+## Current checkpoint: CLN-001 AS disposition issued; review archival pending
 
-The diagnostic source revision from Task 2 was pushed to
+Stage-2 `AS-REV-002.md`, `DECISION-TRACE-002.md`, and
+`BRIEFING-002.md` were archived on
 `experiment/toy1-pipe-cleaner-001` at
-`50abb5f57d4e049825bb565d53f477fc303d08dd`.
-Its three *original* output files are now in
-`reviews/diagnostics/CLN-001-TASK-002/` with matching Git blob
-SHA-1 and original SHA-256 manifest:
-[AS-REV-002](reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md),
-[DECISION-TRACE-002](reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md),
-and [BRIEFING-002](reviews/diagnostics/CLN-001-TASK-002/BRIEFING-002.md).
+`50abb5f57d4e049825bb565d53f477fc303d08dd`
+with source blob identities and original SHA-256 manifest verified.
 
-The author carried R1/R2 exactness/startup, revised R3 to one result
-per accepted sample instead of an invented hard 1 ms deadline,
-deferred full sustained-energy detection R4 with a due claim boundary,
-and defined synthetic 2048-byte detector RAM accounting, reset,
-indexed output and invalid input behavior under delegated
+The user separately invoked the second diagnostic AS reviewer. Its
+original two outputs were uploaded to the coordinator; actual verdict
+**READY_FOR_DELEGATED_AS_DISPOSITION**, with no blocking technical
+defects, and one **MINOR** finding on an earlier local self-review
+provenance mismatch. The exact uploaded original REVIEW-002.md/json
+hashes appear in
+[REVIEW002_ARCHIVE_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/REVIEW002_ARCHIVE_HANDOFF.md).
+Those raw reviewer outputs **have not yet been committed in Git**.
+Reviewer identity, full write/read history and host/connector isolation
+are not independently authenticated.
+
+The human experiment sponsor delegated *CLN-001 synthetic diagnostic
+engineering decisions only* to this assistant via
 [DECISION-001](reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml).
-The author stopped before proof/AP/CON/DE/C. These are **draft
-authoring outcomes**, not accepted AS or independent verification.
+The assistant inspected the uploaded reviewer evidence and issued
+[AS-DISPOSITION-002](reviews/diagnostics/CLN-001-TASK-002/AS-DISPOSITION-002.yaml):
+**ACCEPT_WITH_NONBLOCKING_PROVENANCE_CLARIFICATION** for only the
+CLN-001 AS=(C,R,PS) numeric energy computation specification.
+Its baseline **activation is conditional on original REVIEW-002.md
+and REVIEW-002.json being Git-archived and matching the exact original
+SHA-256/Git blob identities**. A user push plus remote verification
+is the next action, not another review.
 
-**Next eligible action:** use
-[INDEPENDENT_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-002/INDEPENDENT_REVIEW_HANDOFF.md).
-It constructs `$HOME/archbot-as-review-002` with only original
-three BKP, D001, prior author artifacts and real independent v1 review,
-pinned stage-2 outputs, generic reviewer role/playbook, and fresh
-reviewer instructions. Distinct Codex invocation writes
-`REVIEW-002.md` and `REVIEW-002.json`; human selectively pushes
-those exact files. The delegate may dispose AS-REV-002 only after
-actual independent review disposition is inspected.
+R3's nominal 1 ms arrival model is not a hard WCET deadline.
+R4 whole-detector detection and threshold/duration criteria remain a
+tracked uncompleted integration requirement. All T002 functional,
+resource, timing and target-evidence obligations remain OPEN.
+The stale `UNRESOLVED` self-review observed in the author's prior
+workspace is distinct from the real first
+`READY_FOR_HUMAN_QUESTIONS` review committed at
+`e01f91177c20e14f3aea3a11d9025821156dd971`;
+this distinction is recorded without editing author-era artifacts.
 
-**Provenance caveat:** Task-2 authoring workspace also contained
-stale `out/REVIEW-001.json` marked `UNRESOLVED` self-review.
-The *real* separately invoked v1 diagnostic review is versioned at
-`e01f91177c20e14f3aea3a11d9025821156dd971` with
-`READY_FOR_HUMAN_QUESTIONS`, not AS acceptance. The v2 author
-disclosed this discrepancy. Keep both facts intact and let the
-independent v2 reviewer classify its effect, without fabricating
-historical authoring evidence.
-
-This remains a **pre-freeze diagnostic**, not FR-005 qualified
-cleanroom: external filesystem and connector isolation remain
-unverified. No formal AS acceptance, Toy 1 historical VO discharge,
-target/product qualification or framework freeze. Keep
-dual-project/submodule work parked, and preserve old Toy 1 artifacts.
+**Upon exact remote REVIEW-002 archive**, activate this diagnostic
+baseline and proceed directly to fresh project proof-opportunity
+discovery and symbolic Figure-of-Merit definition, not older solved
+Toy 1 proofs, candidate AP or F-001. No selected AP, measured
+implementation, complete detector, target/product verification,
+legacy VO discharge, or formal cleanroom qualification is implied.
+Keep project migration and multi-project work parked. Main untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven
