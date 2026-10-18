@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE3_REVIEWED_F_ACCEPTED_PROOF_ENGINEER_NEXT
+  status: STAGE4_PO0032_PROOF_ATTEMPT_ARCHIVED_REVIEW_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -293,7 +293,17 @@ cleanroom_pipe_cleaner:
   stage3_F_adopted_axes: [RAM_peak, compute_effort, device_energy_consumption]
   stage3_F_new_delegated_objective: "Consumed device energy, distinct from window signal energy, was explicitly adopted for CLN-001 diagnostic only."
   stage4_selected_PO: PO-003-2
-  stage4_status: PROOF_ATTEMPT_PENDING
+  stage4_status: CLAIMED_PROOF_PENDING_INDEPENDENT_REVIEW
+  stage4_proof_attempt_commit: 2026cb251353285d8fe63671b9ce2b25c9fa9be6
+  stage4_proof_attempt: reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md
+  stage4_proof_briefing: reviews/diagnostics/CLN-001-TASK-004/PROOF-BRIEFING-004.md
+  stage4_proof_manifest: reviews/diagnostics/CLN-001-TASK-004/PROOF004_SHA256SUMS
+  stage4_author_claim: CLAIMED_PROOF_PENDING_REVIEW
+  stage4_independent_review_task: reviews/diagnostics/CLN-001-TASK-004/TASK-REVIEW-PROOF-004.md
+  stage4_independent_review_prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh
+  stage4_independent_review_handoff: reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md
+  stage4_independent_review_status: NOT_EXECUTED
+  stage4_expected_review: [REVIEW-PROOF-004.md, REVIEW-PROOF-004.json]
   stage4_proof_task: reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md
   stage4_prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof004.sh
   stage4_handoff: reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md
@@ -334,27 +344,26 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: FRESH_DIAGNOSTIC_PROOF_ENGINEER_PO003_2
-  subject: CLN-001 31-sample future numeric-output equivalence and conditional no-replay lower bound
+  type: INDEPENDENT_DIAGNOSTIC_PO003_2_PROOF_REVIEW
+  subject: CLN-001 T1 future numeric equivalence and T2 conditional state-information cardinality
   branch: experiment/toy1-pipe-cleaner-001
-  proof_opportunity: reviews/diagnostics/CLN-001-TASK-003/PO-OPPORTUNITIES-003.md
-  proof_opportunity_review: reviews/diagnostics/CLN-001-TASK-003/REVIEW-PO-003.json
-  F_disposition: reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
-  task: reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof004.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md
-  instruction: "Human pulls latest experiment branch, runs prepare_proof004.sh to create source-pinned fresh Proof Engineer workspace, launches distinct new Codex, preserves and selectively pushes exact proof attempt outputs; independent proof review follows."
-  active_scoped_AS: true
-  accepted_diagnostic_F: true
-  selected_proof_opportunity: PO-003-2
-  proof_accepted: false
-  ap_selected: false
+  proof_attempt_commit: 2026cb251353285d8fe63671b9ce2b25c9fa9be6
+  proof_candidate: reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md
+  review_task: reviews/diagnostics/CLN-001-TASK-004/TASK-REVIEW-PROOF-004.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md
+  expected_outputs: [REVIEW-PROOF-004.md, REVIEW-PROOF-004.json]
+  instruction: "Human pulls current experiment branch and runs prepare_proof_review004.sh to create a fresh independent Proof Reviewer workspace; reviewer checks exact T1/T2 scope, arguments, counterexamples, bounded checks and no-replay applicability; then human selectively commits actual review."
+  theorem_accepted: false
+  diagnostic_AS_accepted: true
+  diagnostic_F_accepted: true
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not claim an unreviewed proof attempt proves any theorem."
-    - "Do not treat F UNKNOWN candidate values as zero, PASS or measured."
-    - "Do not invent a finite epoch lifetime, wrap/index mechanism or new AS requirement."
-    - "Do not import prior solved Toy 1 proofs/F/AP/CON/DE/C or resume parked framework migration."
+    - "Do not treat claimed proof or finite checks as an independently accepted theorem."
+    - "Do not conflate numeric future outputs with full indexed interface."
+    - "Do not claim 47-byte implementation or SRAM feasibility from information capacity bound."
+    - "Do not import solved Toy 1 proofs, architecture, code or change accepted AS/F/D001."
+    - "Do not begin AP/CON/DE/C or restart parked migration work automatically."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

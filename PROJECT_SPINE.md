@@ -3,65 +3,64 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: Stage-3 PO and F review archived, F disposition issued
+## Current checkpoint: PO-003-2 proof attempt archived; proof review next
 
-The human sponsor's CLN-001-only delegation activated the synthetic
-numeric energy-computation AS. The two source-only Stage-3 author
-outputs `PO-OPPORTUNITIES-003` and `F-DRAFT-003` were pushed
-at `1f7645135581ede5696596ab8abc1034e75a53cd`.
-**All three POs remain unproven**.
+The accepted synthetic CLN-001 numeric-energy AS and three-axis
+diagnostic F are recorded in
+[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml)
+and
+[F-DISPOSITION-003](reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml).
+F's device-energy axis is a **new explicitly delegated diagnostic
+preference**, not energy computed by the ADC sum-of-squares and not
+older BKP authority. All realized RAM, compute and energy values
+remain UNKNOWN; there are no accepted AP candidates.
 
-The human launched a distinct Stage-3 verification agent and pushed
-its four actual review artifacts plus checksum manifest at
-`bca9319576cbe23ef66b2bfdb84ffa130f5c6860`:
-[REVIEW-PO-003](reviews/diagnostics/CLN-001-TASK-003/REVIEW-PO-003.md)
-returned **READY_FOR_PROOF_ENGINEER**, and
-[REVIEW-F-003](reviews/diagnostics/CLN-001-TASK-003/REVIEW-F-003.md)
-returned **READY_FOR_DELEGATED_F_DISPOSITION**. These reviews do
-not establish any mathematical theorem, F acceptance, target result,
-formal cleanroom isolation or historical VO discharge.
+The Stage-3 independent opportunity reviewer returned
+`READY_FOR_PROOF_ENGINEER` for all three **UNPROVEN**
+opportunities and prioritized PO-003-2, the future numeric
+information minimality statement. A distinct Proof Engineer
+produced [PROOF-ATTEMPT-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md)
+and [PROOF-BRIEFING-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-BRIEFING-004.md),
+pushed at `2026cb251353285d8fe63671b9ce2b25c9fa9be6` with
+original output SHA256SUMS. Author's assessment is
+**CLAIMED_PROOF_PENDING_REVIEW**, NOT accepted proof.
 
-The CLN-001 sponsor delegate **explicitly accepted** a scoped
-diagnostic Figure of Merit in
-[F-DISPOSITION-003](reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml):
-H1..H6 hard gates plus the three active minimization preferences
-`RAM_peak`, `compute_effort`, and
-`device_energy_consumption`. This last axis is a **new
-delegated synthetic objective**, not preexisting BKP authority or
-the signal's sum-of-squares energy. RAM minimization inside the
-hard 2048-byte ceiling is also an explicit F preference.
-All costs, stack, energy measurements, toolchain and candidate AP
-values remain **UNKNOWN**; no new hard threshold, scalar weights,
-hard 1ms deadline or target feasibility is inferred. Pareto
-comparisons are conditional on compatible evidence and hard gate
-status. R4 whole-detector detection and T002-2..8 remain OPEN.
+The mathematical author derived T1, equivalence of all future
+numeric outputs for every nonempty continuation iff the
+latest padded 31 samples agree. T2 claims at least
+`2^372` distinguishable complete retained states at every
+fixed history length `n>=32`, conditional on an exact,
+deterministic, complete-information **no-replay** model.
+A 47-octet information-capacity minimum is **not** a
+47-byte implementation, target SRAM fit or bounded execution.
+The author reports supplemental bounded Python checks
+(672 window-formula comparisons, 112 tail recovery instances,
+3,402 oldest-historical-value comparisons); these are not
+independent universal proof verification.
 
-**Next eligible experiment:** first separate
-[Proof Engineer task](reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md)
-for PO-003-2's **future numeric output** equivalence and
-conditional `2^372` no-replay lower bound, explicitly not
-the full indexed contract. The local
-[Stage-4 handoff](reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md)
-runs
-[prepare_proof004.sh](reviews/diagnostics/CLN-001-TASK-004/prepare_proof004.sh)
-to **create** `~/archbot-cln001-proof-engineer-004` with
-verified original BKP/D001/AS/PO/scoped prior review only. New Codex
-Proof Engineer writes a proof attempt and briefing, then stops.
-A later distinct proof reviewer must check it; a favorable
-opportunity review is NOT an accepted proof.
+**Next eligible task:** new distinct mathematical reviewer:
+[PROOF_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md)
+and [TASK-REVIEW-PROOF-004](reviews/diagnostics/CLN-001-TASK-004/TASK-REVIEW-PROOF-004.md).
+Human pulls the experiment branch, runs
+[prepare_proof_review004.sh](reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh)
+to **create** `~/archbot-cln001-proof-review-004/`
+with pinned positive-allowlist sources, invokes a fresh Codex
+Proof Reviewer, then preserves actual `REVIEW-PROOF-004.md/json`
+and manifest on Git. No theorem becomes accepted without its
+distinct mathematics verdict, and that verdict must be scoped
+to the conditional proposition.
 
-PO-003-3's conditional finite-state/unbounded-index difficulty
-remains an open future interface/epoch-lifetime question. It
-cannot be silently fixed by inventing a 32-bit counter wrap rule
-or by assuming nominal 1ms cadence bounds lifetime. Clarify before
-complete indexed-interface implementation claims.
-
-Original Toy 1 accepted solution, F-001, AP, contracts, code,
-legacy VO-002..006 and AD-003 remain untouched. No qualified
-OS/connector isolation, FR-005/FR-006, hardware measurements,
-proof acceptance, implementation/architecture selection, or
-whole-detector completion. Framework migrations parked; `main`
-unchanged.
+**Still open:** the full logical-indexed interface and finite
+closed-state/unbounded-index opportunity PO-003-3; no epoch
+limit, index wrapping or external index mechanism has been
+authorized. Application of no-replay to any actual detector
+depends on its later external history/ownership boundary.
+R4 whole-detector detection and T002-2..8 evidence obligations
+remain open. No proof of hardware RAM/timing/power, real
+product/target qualification, selected AP/CON/DE/C, historical
+Toy 1 VO discharge or formal FR-005/FR-006 cleanroom.
+Original solved Toy 1 data excluded, framework/migration work
+parked and main untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

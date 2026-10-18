@@ -57,26 +57,24 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 first separate Proof Engineer attempt.**
-Stage-3 proof opportunities and F proposal were independently reviewed,
-pushed at `bca9319576cbe23ef66b2bfdb84ffa130f5c6860`:
-`READY_FOR_PROOF_ENGINEER`, `READY_FOR_DELEGATED_F_DISPOSITION`,
-neither a proof nor F approval by reviewer. CLN-001 sponsor delegate
-now explicitly accepts F with H1..H6 and active
-`(RAM_peak, compute_effort, device_energy_consumption)`, the
-latter a NEW diagnostic objective not older BKP authority; all
-candidate costs UNKNOWN. Read
-`reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml`.
-Prioritize unproven PO-003-2 for a separate Proof Engineer under
-`reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md`.
-From experiment checkout pull latest and run
-`prepare_proof004.sh` to CREATE the next author workspace, then new
-Codex invocation. Full pull/run/selective push:
-`reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md`.
-PO-003-3 full indexed-interface lifetime question remains open.
-Do not select an AP, accept a theorem, import older Toy 1 F/proof,
-claim target/completed detector or discharge VOs. Cleanroom isolation
-unverified. Distinct later proof review is required.
+**CURRENT PRIORITY: separate CLN-001 Proof Reviewer.**
+A distinct Proof Engineer produced `PROOF-ATTEMPT-004.md` and
+`PROOF-BRIEFING-004.md` at
+`2026cb251353285d8fe63671b9ce2b25c9fa9be6`.
+Classification is `CLAIMED_PROOF_PENDING_REVIEW`; no accepted
+theorem. Source scope: future numeric outputs over nonempty
+continuations; conditional 31-tail/372-bit retained-state lower
+bound under deterministic no-replay. Not full indexed interface,
+real resource fit or product proof.
+From the experiment checkout pull latest and run
+`reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh`
+to CREATE `~/archbot-cln001-proof-review-004/`, then new
+Codex independent proof reviewer. See
+`reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md`.
+Preserve actual outputs with truthful disposition and selective
+push. No AP/CON/DE/C, implementation, qualified cleanroom,
+historical VOs or previous solved Toy 1 leakage.
+The finite-state/unbounded-index PO-003-3 issue remains open.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
