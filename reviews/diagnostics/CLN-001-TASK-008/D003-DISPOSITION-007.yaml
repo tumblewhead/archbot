@@ -1,0 +1,107 @@
+schema: pc-cln-diagnostic-delegated-d003-disposition/v1
+id: CLN-001-D003-DISPOSITION-007
+project: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ISSUED_BY_DELEGATE_CONDITIONED_ON_INDEPENDENT_ADDITIVE_AS_REVIEW
+decision: ACCEPT_PROPOSAL_SCOPE_FOR_ADDITIVE_AS_CLARIFICATION_ONLY
+not_an_effective_AS_amendment: true
+not_a_complete_interface_contract: true
+authority:
+  sponsor: human_experiment_sponsor
+  delegate: ChatGPT_assistant_CLN001_only
+  source: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  scope: SYNTHETIC_PREFREEZE_CLN001_ONLY
+  independent_reviewer_did_not_assume_delegate_authority: true
+review_basis:
+  input_proposal: reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml
+  input_proposal_git_blob: c907591125d5ec12d8a49c141c6c47ebecea179c
+  independent_report: reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.md
+  independent_report_git_blob: c547568d347567b84d9091f5f66ac92f6edb000c
+  independent_receipt: reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.json
+  independent_receipt_git_blob: e768428a1dc104a15a2f26e98432e3ea347cc371
+  review_archive_commit: eb491accb86b12dad783d8ce02b4dff19b490079
+  review_disposition: READY_FOR_DELEGATED_D003_DISPOSITION
+  reviewer_source_hash_report: MATCHED_15_OF_15_SUPPLIED_PAYLOADS_REPORTED
+  provenance_limit: "No external reviewer identity, OS/connector isolation or historical receipts independently authenticated."
+accepted_baseline_unchanged:
+  decision: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  AS: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  AS_activation: reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
+  F: reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
+  theorem_disposition: reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml
+  D002: reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml
+clauses:
+  D003-P1:
+    disposition: REFER_TO_INDEPENDENT_ADDITIVE_AS_CLARIFICATION_REVIEW
+    meaning: >-
+      Conditional consumer-decodable implicit n is a potentially exact
+      representation of the existing indexed-output relation; mathematical
+      observer rank alone is not physical index supply. Do not make
+      RI effective or approve a service before AS-level clarification
+      and distinct review. Any actual decoder must use information
+      available to the identified consumer throughout the supported
+      sequence lifetime, with no silent wrap or forced reset.
+    AS_impact: EXPLICIT_ADDITIVE_CLARIFICATION_REQUIRED_BEFORE_OPERATIONAL_ELIGIBILITY
+  D003-P2:
+    disposition: ACCEPT_AS_CONSERVATIVE_RESTATEMENT_NO_MECHANISM
+    meaning: >-
+      Valid acceptance, numeric commitment, attempted acquisition,
+      rejection and result publication are distinct. An accepted event
+      continues to owe exactly one indexed result even across stalls,
+      errors or resets; fault reporting is not delivery. This is not
+      permission to assume an infinite pending queue, crash recovery,
+      lossless backpressure or permanent liveness.
+    AS_impact: PROPOSE_ADDITIVE_OBSERVABLE_LIFECYCLE_CLARIFICATION_BEFORE_INTERFACE_CONTRACT
+  D003-P3:
+    disposition: ACCEPT_PRESERVATION_REFER_RESET_ORDERING_TO_AS_REVIEW
+    meaning: >-
+      Reset begins zero-padded numeric history but old accepted result
+      debt is not canceled or allowed to alias new sequence work.
+      Reset completion, acknowledgment, producer/consumer lifetime,
+      result drain or separately distinguishable delivery remain unselected.
+    AS_impact: EXPLICIT_ADDITIVE_RESET_ASSOCIATION_CLARIFICATION_REQUIRED
+  D003-P4:
+    disposition: ACCEPT_AS_DEPENDENCY_DISCLOSURE_ONLY
+    meaning: >-
+      RN and C-HIST are not established. A service proposal needs separately
+      reviewed provider, exact event binding, coherent snapshot, retention,
+      reset/lifetime, availability and ownership/accounting contracts.
+    AS_impact: NONE_UNLESS_CONTRACT_CHANGES_ACCEPTED_BEHAVIOR
+  D003-P5:
+    disposition: ACCEPT_AS_EVALUATION_GUARDRAIL_ONLY
+    meaning: >-
+      H1-H6 are UNKNOWN for every realized AP; F active axes stay
+      RAM_peak, compute_effort, device_energy_consumption. Count detector
+      attributable RAM and keep external work visible. T1/T2 are scoped;
+      47 octets is a conditional information capacity minimum.
+    AS_impact: NONE
+independent_additive_AS_review:
+  required: true
+  proposed_document: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md
+  required_independent_source_review: true
+  disposition_after_review: SEPARATE_DELEGATED_AS_ADDENDUM_ACTIVATION_OR_REVISION
+  historic_AS_unchanged: true
+  must_verify:
+    - "Consumer actually receives enough accepted-order and reset information to decode exact n."
+    - "No observer-only rank, finite wrap, hidden epoch, mandatory reset or valid-event loss."
+    - "Accepted-result debt persists; in-flight old/new reset work is never confused."
+    - "No invented timing, availability, backpressure, crash recovery or service promises."
+    - "Do not silently narrow original AS or declare full-interface feasibility."
+staged_next_gate: INDEPENDENT_REVIEW_AS_ADDENDUM_008
+subsequent_gate: SEPARATELY_AUTHORIZED_AP_EVIDENCE_FEASIBILITY_EVALUATION_AFTER_AS_AUTHORITY
+APs: [AP-006-A_UNSELECTED, AP-006-B_UNSELECTED, AP-006-C_UNSELECTED]
+actual_H1_H6: UNKNOWN_ALL
+F_realized: UNKNOWN_ALL
+open_T002: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+R4: OPEN_DEFERRED
+limits:
+  D003_effective_as_index_service_approval: false
+  AS_changed: false
+  selected_AP: false
+  external_index_or_history_service_approved: false
+  finite_epoch_or_wrap_approved: false
+  CON_DE_C_authorized: false
+  implementation_verified: false
+  formal_cleanroom_qualified: false
+  target_or_product_verified: false
+  old_Toy1_VOs_discharged: []
