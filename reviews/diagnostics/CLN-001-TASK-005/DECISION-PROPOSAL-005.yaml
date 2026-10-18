@@ -1,0 +1,231 @@
+schema: pc-cln-diagnostic-interface-decision-proposal/v1
+id: CLN-001-D002-PROPOSAL-005
+proposed_number: D002
+project_id: CLN-001
+status: PROPOSED_NOT_APPROVED
+stage: BOUNDED_PRE_AP_INTERFACE_ANALYSIS
+binding: false
+architecture_selected: false
+index_option_selected: false
+history_option_selected: false
+as_amended: false
+f_amended: false
+d001_amended: false
+author_role: interface_and_theorem_applicability_analyst
+authority:
+  decision_maker: human_sponsor_or_authorized_CLN001_diagnostic_delegate
+  delegation_transferred_to_analyst: false
+  scope: SYNTHETIC_CLN001_DIAGNOSTIC_ONLY
+  approval_record: null
+  independent_review_completed_by_this_task: false
+source_references:
+  S1: inputs/problem-origin.md
+  S2: inputs/adc.md
+  S3: inputs/target.md
+  D001: inputs/DECISION-001.yaml
+  AS: inputs/AS-REV-002.md
+  ACT: inputs/AS-ACTIVATION-002.yaml
+  TRACE: inputs/DECISION-TRACE-002.md
+  F: inputs/F-DISPOSITION-003.yaml
+  PD: inputs/PROOF-DISPOSITION-004.yaml
+source_identity_register: out/BRIEFING-005.md
+analysis: out/INTERFACE-OPTIONS-005.md
+proposed_new_diagnostic_decision:
+  title: Require explicit boundary and index refinement disclosures before AP comparison
+  nature: PROPOSED_AUDIT_POLICY_NOT_AN_ARCHITECTURE_SELECTION
+  clauses:
+    - number: 1
+      proposal: >-
+        Preserve the accepted abstract PS: one exact energy and its logical
+        one-based accepted-event association per event in each initialized or
+        explicitly reset sequence. Do not prescribe a stored counter, unbounded
+        internal integers, an external label provider or a bounded epoch.
+      basis: [AS.PS, D001.interface_and_lifecycle_Q4, D001.requirements.R1, D001.requirements.R2, D001.requirements.R3]
+    - number: 2
+      proposal: >-
+        Require each separately authorized later candidate to state its concrete
+        association contract and refinement to the logical pair, and enumerate
+        all retained or consulted output-affecting information, ownership,
+        access, retention, reset, validation and service-failure semantics.
+        Keep history options A, B and C available for evaluation without
+        treating any as approved or assuming their feasibility.
+      basis: [AS.C, AS.PS, D001.requirements.R5, D001.delivery_and_exceptions_Q6, PD.review_clarifications]
+    - number: 3
+      proposal: >-
+        Preserve R5 accounting: detector-owned persistent state, scratch and
+        owned stack count toward 2048 bytes; only exclusively upstream-owned
+        memory has the stated exclusion. Disclose consulted upstream costs
+        separately. Shared attribution remains unresolved until supported by
+        ownership evidence or an explicit reviewed authority clarification.
+      basis: [D001.requirements.R5, AS.R5, F.decision]
+    - number: 4
+      proposal: >-
+        Apply T1 only to future numeric equivalence on its accepted unrestricted
+        continuation domain. Apply T2 only after deterministic exact behavior,
+        complete retained-state accounting, unrestricted continuations and
+        no uncounted replay are established for the named boundary. Do not
+        impose PD A4 as an AS-wide no-replay requirement or equate complete
+        information bits with measured detector SRAM.
+      basis: [PD.accepted_mathematical_claims.T1, PD.accepted_mathematical_claims.T2]
+    - number: 5
+      proposal: >-
+        Treat wider-protocol association as a possible concrete refinement,
+        not an assumed existing service. Require explicit new disposition and
+        reviewed contract/AS clarification before imposing finite epochs or
+        exhaustion behavior. Do not allow silent index wrap, saturation,
+        autonomous reset, rejected otherwise-valid events or operational
+        loss padding to redefine the accepted PS.
+      basis: [AS.PS, AS.Lifecycle, D001.interface_and_lifecycle_Q4, D001.delivery_and_exceptions_Q6, PD.review_clarifications]
+    - number: 6
+      proposal: >-
+        Keep accepted F axes and H1-H6 unchanged. Require common contract,
+        workload, resource and energy scopes and evidence levels for any
+        later Pareto comparison. Unknown values remain UNKNOWN. Resolve
+        changed F definitions through a new versioned decision and reassessment.
+        Maintain T002-2 through T002-8 open, including deferred R4 detection.
+      basis: [F.decision, F.continuing_obligations, TRACE.remaining_verification_and_integration_obligations]
+  limits:
+    - No clause is approved or effective by issuance of this proposal.
+    - No protocol, width, epoch length, lifetime, error policy or architecture is selected.
+    - No hard 1 ms execution deadline or device-energy threshold is introduced.
+    - No new theorem, proof disposition, realization measurement or target feasibility claim is made.
+alternatives_for_disposition:
+  - id: PRESERVE_ABSTRACT_PS_WITH_DISCLOSURE
+    status: RECOMMENDED_FOR_CONSIDERATION_ONLY
+    consequence: Keeps representation and information placement open while requiring auditable candidate contracts.
+    selection: null
+  - id: DEFER_NEW_POLICY
+    consequence: Keep all accepted records unchanged and seek specific missing interface facts before any new decision or AP comparison.
+    selection: null
+  - id: REQUIRE_A_CLOSED_NUMERIC_DETECTOR
+    consequence: >-
+      Makes detector-local no-replay an additional restriction; requires explicit
+      new diagnostic authority and independent review of additive AS clarification.
+      T2 still needs a complete information/storage map and supplies no sufficient budget.
+    selection: null
+  - id: AUTHORIZE_A_SPECIFIC_B_OR_C_SERVICE_CONTRACT
+    consequence: >-
+      Adds explicit service guarantees and accounting. B must substantiate
+      exclusive upstream ownership; C must resolve shared attribution. T2
+      can apply only at a complete closed boundary; detector-local replay defeats local A4.
+    selection: null
+  - id: AUTHORIZE_I_WIDER_PROTOCOL_ASSOCIATION
+    consequence: >-
+      Specify and review exact association, acceptance, invalid-input and reset
+      behavior and resource costs. External index support is not already supplied
+      by AS and must not become an uncounted numeric-history oracle.
+    selection: null
+  - id: AUTHORIZE_II_BOUNDED_INDEX_CONTRACT
+    consequence: >-
+      Decide width, encoding, maximum accepted epoch and explicit behavior before
+      exhaustion. Requires new synthetic authority and reviewed additive AS
+      clarification or separate contract that does not silently override PS.
+      Reassess finite-horizon theorem applicability.
+    selection: null
+  - id: DEMAND_III_EXACT_UNBOUNDED_CLOSED_INDEX
+    consequence: >-
+      Incompatible when deterministic finite closed state alone must generate
+      exact natural-number indices for arbitrary epoch lengths. Refer the
+      conflicting concrete assumptions to renewed AS-level review; do not adopt
+      as feasible. PO-003-3 remains UNPROVEN in the accepted record.
+    selection: null
+theorem_applicability:
+  A4_names_are_distinct:
+    AS_A4: RAM_model_and_2048_byte_bound
+    PD_A4: additional_complete_state_no_replay_hypothesis
+  T1:
+    status: ACCEPTED_EXACT_MATHEMATICAL_CLAIM_FROM_PD
+    domain: Finite accepted histories over unsigned 0..4095 and all nonempty unrestricted continuations.
+    equivalence: Same future numeric outputs iff padded ordered last-31 tails agree.
+    excluded: [current_emitted_output, empty_continuation, logical_indices, interface_metadata, physical_storage_allocation]
+  T2:
+    status: ACCEPTED_CONDITIONALLY_FROM_PD
+    conditions:
+      - Fixed accepted length n >= 32.
+      - Deterministic exact numeric machine.
+      - Complete retained output-affecting state included in the named boundary.
+      - No outside replay or readable uncounted history.
+      - Unrestricted future continuations and qualifying reachable histories.
+    conclusion: At least 2^372 distinguishable reachable complete states and 372 information bits or 47 whole 8-bit octets of capacity.
+    not_concluded:
+      - Detector-local SRAM lower bound when outside retained information is consulted.
+      - A sufficient 47-byte implementation or actual RAM allocation.
+      - Full-index feasibility, target fit, latency, compute or electrical energy cost.
+    local_attribution_gate: Prove all relevant retained information is detector-local; map storage to counted RAM for any RAM-capacity inference.
+    replay_gate: B and history-consulting C fail local no-replay; enlarged-boundary use requires inclusion of all service/backing information.
+    finite_epoch_gate: Recheck restricted continuations; do not automatically transfer the unrestricted theorem to a truncated contract.
+  continuing_unproven: [PO-003-1, PO-003-3]
+f_evidence:
+  hard_gates: [H1_EXACTNESS, H2_STARTUP_RESET, H3_PER_EVENT_PAIR, H4_INVALID_AND_OBSERVABLE_FAULTS, H5_OWNED_RAM_2048_BYTE_CEILING, H6_NO_HARDWARE_FPU_DEPENDENCE]
+  active_axes: [RAM_peak, compute_effort, device_energy_consumption]
+  all_nine_combinations: [A-I, A-II, A-III, B-I, B-II, B-III, C-I, C-II, C-III]
+  evidence_level_here: CONDITIONAL_SYMBOLIC
+  target_RAM_peak: UNKNOWN
+  target_compute_effort: UNKNOWN
+  target_device_energy_consumption: UNKNOWN
+  hard_gate_discharge: NONE
+  universal_pareto_ranking: NONE
+  actual_target_fit: UNKNOWN
+  numeric_device_energy_threshold: null
+due_stage_obligations:
+  - id: T002-2
+    status: OPEN
+    evidence: Independent exact numeric specification comparisons on boundary and randomized streams.
+    due: Later authorized functional verification before correctness claims.
+  - id: T002-3
+    status: OPEN
+    evidence: Startup boundary cases and reset exclusion of prior history across detector and service.
+    due: Later authorized lifecycle and functional verification.
+  - id: T002-4
+    status: OPEN
+    evidence: One result with correct logical accepted-event association; chosen protocol refinement and authorized exhaustion behavior if applicable.
+    due: Later authorized interface and functional verification.
+  - id: T002-5
+    status: OPEN
+    evidence: Invalid-input state and index invariance, explicit rejection and reporting of detectable faults; documented detection limits.
+    due: Later authorized interface verification before input-contract compliance claims.
+  - id: T002-6
+    status: OPEN
+    evidence: Complete attributable peak RAM accounting and no hardware-FPU dependency; distinguish host from target evidence.
+    due: Later authorized realization and verification; target evidence before target-compliance claims.
+  - id: T002-7
+    status: OPEN
+    evidence: Comparable scoped operation models or target measurements and declared electrical energy workload/scope; target/toolchain evidence.
+    due: Applicable later authorized stage before real-hardware operation or qualification claims.
+  - id: T002-8
+    status: OPEN_DEFERRED_R4
+    evidence: Threshold, duration, boolean decision and integration criteria followed by appropriate verification.
+    due: Before claiming a complete sustained-energy detector.
+review_and_authority_gates:
+  - order: 1
+    gate: Distinct independent review of these proposal artifacts against the pinned allowlisted baseline.
+    focus: Boundary completeness, logical association, restricted horizons, shared ownership, F scopes and authority fidelity.
+    satisfied_here: false
+  - order: 2
+    gate: Human sponsor or authorized diagnostic delegate explicitly disposes this proposal and alternatives in a separate versioned record.
+    satisfied_here: false
+  - order: 3
+    gate: Any changed requirement or concrete operating restriction receives additive clarification or separate explicit contract and independent review before acceptance.
+    satisfied_here: false
+  - order: 4
+    gate: Separate authorization for AP generation and later selection, with applicability and H1-H6 evidence before comparison or compliance claims.
+    satisfied_here: false
+  - order: 5
+    gate: Any new proof or finite-horizon extension requires separately authorized proof work and independent review.
+    satisfied_here: false
+contradictions:
+  accepted_baseline_actual_contradiction_found: false
+  conditional_review_trigger: >-
+    A concrete demand combining arbitrary epoch length, exact natural-number n,
+    sole internal index generation and finite closed deterministic state is
+    inconsistent. AS does not currently demand that combination.
+stop:
+  accepted_D002_created: false
+  ap_selection_authorized: false
+  con_de_c_created: false
+  implementation_verified: false
+  cleanroom_qualified: false
+  physical_isolation_verified: false
+  product_verified: false
+  vo_discharged: []
+  further_work: Requires a separately authorized next stage; stop after the three requested artifacts.
