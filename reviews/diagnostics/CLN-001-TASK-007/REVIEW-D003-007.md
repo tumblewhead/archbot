@@ -1,0 +1,114 @@
+# CLN-001 independent D003 proposal review 007
+
+Review ID: `CLN-001-REVIEW-D003-007`.
+
+Disposition: **READY_FOR_DELEGATED_D003_DISPOSITION**, at proposal source/authority-review scope only. P1–P5 preserve the accepted obligations and disclose their missing authority/contracts. No contradiction is demonstrated in these conditional clauses. This permits referral for a separate delegated accept/revise/defer decision with explicit AS impact; it does not adopt D003 or its proposed RI eligibility rule. Full-interface feasibility remains unresolved. D003 is **NOT EFFECTIVE**; AS is unchanged; A/B/C remain unselected.
+
+The controlling baseline is D001, AS-REV-002 as activated by AS-ACTIVATION-002, D002, adopted F and the accepted mathematical scope in PROOF-DISPOSITION-004. Activation governs the older draft/pending labels retained in AS. D001 does not transfer engineering delegation to this reviewer. REVIEW-AP-006's readiness was candidate-draft/source quality only, with all realized gates UNKNOWN; it was not approval or feasibility evidence. Current hashes identify exactly the supplied copies, not authenticated historical Git objects.
+
+| Clause | Finding | Source/authority assessment and remaining gate |
+| --- | --- | --- |
+| D003-P1 | R007-1, HIGH | Source-consistent conditional exploration of representation; actual consumer must uniquely recover exact accepted rank. An external trace map or bijection alone is insufficient. The proposed MAY rule needs separate delegated additive AS clarification before becoming effective. |
+| D003-P2 | R007-2, HIGH | Preserves invalid rejection, accepted order and one owed indexed result per accepted event. Acceptance/commit/publication, liveness, finite storage and no-loss coordination remain unresolved contracts. |
+| D003-P3 | R007-3, HIGH | Authorized reset clears numeric history; it cannot erase old output debt or confuse sequence identity. Observable reset/acknowledgment ordering needs explicit additive AS-level clarification when chosen; no mechanism is selected here. |
+| D003-P4 | R007-4, HIGH | Correctly states that RN and C-HIST are neither authorized nor demonstrated. Provider, identity, atomicity, retention, reset, availability, ownership and attribution require separate evidence/authority. |
+| D003-P5 | R007-5, HIGH | Preserves UNKNOWN H1–H6, detector-attributable RAM and all three F axes. No local-memory advantage, measured compute/energy or full dominance is established. |
+
+HIGH findings block later physical eligibility/commitment claims, not referral of a proposal that already keeps them open. No finding is a realized gate PASS or a demonstrated contradiction of an entire AP. R007-6 records provenance and isolation limits.
+
+**R007-1 — Exact consumer index supply.** D001 `interface_and_lifecycle_Q4.output`, AS lifecycle and PS require one logical `(n,E_n)` per accepted event. AS PS explicitly avoids prescribing a stored counter, integer format or interface signature. Consequently, a literal numeral is not independently mandated by these sources, and a demonstrably exact consumer-decodable implicit representation can preserve the obligation. This observation does not make RI effective. D002-1/2/5 and REVIEW-AP-006 R006-1 retain the refinement/authority question; P1 correctly asks it rather than claiming an adopted service.
+
+A necessary refinement argument must identify the actual consuming component, its available state and metadata, the accepted-request/result bijection, common reset identity and a decoder yielding one exact rank for every supported event. A transaction handle identifying this response is insufficient if its accepted rank is unavailable. A mathematical observer's complete trace is not consumer-owned evidence. Retained association can satisfy the all-zero case in principle; its physical realization, lifetime, availability and resource ownership remain unproven. Consumer restart without association cannot be excused by silently resetting the detector or limiting its otherwise-valid lifetime.
+
+Shortest ambiguity, **CE_ZERO_RESTART**: after reset, world A has no hidden accepted prefix, world B has one hidden accepted zero. A restarted consumer lacking association submits one zero and sees energy 0 in both worlds. Correct pairs are `(1,0)` and `(2,0)`. A fresh bijection to that consumer's request does not distinguish them. **CE_ATTEMPT_RANK**: invalid attempt 4096 then valid 0 requires rejection then `(1,0)`, not ordinal 2. Nonzero witness `(7,4096,8)` requires `(1,49)`, rejection, `(2,113)`.
+
+For unrestricted sequences, an RI decoder must cover unbounded accepted rank, not merely a finite test horizon. With zeros and a sole `n mod 4` field, events 1 and 5 both carry field 1 and energy 0 (**CE_WRAP**). In general ranks 1 and `1+2^b` collide in that encoding without additional information. RN exact numerals require length growing with n; streaming alone establishes neither bounded parser/client state nor bounded provider cost or availability. These observations refute particular shortcuts, not every possible interface. PO-003-3 remains UNPROVEN.
+
+**AS impact:** before P1's MAY eligibility rule becomes effective, the delegate must record an additive AS clarification of index supply, consumer boundary/lifetime and exact refinement. A genuinely equivalent encoding need not weaken R1/Q4/PS. Replacing supplied exact n with observer-only rank, finite epochs, modular indices, exhaustion cutoffs or mandatory resets is a material change requiring explicit separate authority and an additive AS amendment; none follows from this review. The alternatives listed under P1 are unselected, not authorizations.
+
+**R007-2 — Acceptance, commitment and owed output.** D001 R1/R3/Q6, AS R1/R3/lifecycle/PS, D002-1/5 and REVIEW-AP-006 R006-2 preserve output per accepted event and invalid-input invariance. P2 correctly separates acquisition, acceptance, numeric commit, publication and rejection. Its deferred exact boundaries cannot be treated as a completed handshake or failure model. Valid arrival cannot simply be renamed unaccepted after capacity failure. Invalid rejection preserves numeric history, cursor/aggregate, accepted rank and existing association/debt; diagnostic bookkeeping is distinct from advancing sequence state.
+
+**CE_OUTPUT_DEBT:** accept 1, commit history, lose `(1,1)`, and issue a fault report. The result is still owed. Accepting 2 next requires `(2,5)`, so rolling back the first event without an authorized history contract also corrupts future behavior. Retrying 1 as a new event creates `(2,2)` rather than recovering the original event. A reviewed interface must establish the correspondence among acceptance, numeric state and eventual result handoff, including retry identity and duplicate suppression; no crash-safe storage, transaction primitive or retry mechanism is assumed here.
+
+**CE_QUEUE:** one pending-result slot, no other retention/replay/compression contract, no publications, two accepted events 1 and 2: both `(1,1)` and `(2,5)` remain owed and cannot occupy that one-entry queue. Generally Q+1 pending entries exceed a Q-entry queue under those hypotheses. A finite queue alone does not reconcile continued acceptance with arbitrarily long finite stalls. Permanently unavailable publication cannot meet an eventual-output obligation even though no finite deadline is specified. This is a conditional capacity/liveness conflict, not a theorem that all finite implementations or A/B/C are impossible. Compressibility, storage elsewhere or coordinated acceptance are additional contracts and costs, not automatically available escapes.
+
+Backpressure that preserves every valid event might be investigated, but no supplied authority proves the publisher can pause, retain acquisition data or later deliver it without omissions. A bound on admitted arrivals or a restriction of valid events changes the operating contract and requires separate authority/additive AS amendment as appropriate. No-loss acceptance/delivery semantics need a versioned AS-impact decision before a concrete full interface; internal coordination can then be reviewed against that contract. Nominal 1 ms neither grants a hard deadline nor establishes service capacity or eventual output.
+
+**CE_INVALID_PADDING:** accept 1, reject 4096, then accept 31 zeros. Required final pair is `(32,1)`. Substituting an accepted zero for the invalid attempt yields `(33,0)`. Only positions before initialization/reset may be padded. Detectable fault reporting is required; it is never a substitute for a result already owed, nor authorization to fabricate samples. No ability to detect unobservable delivery faults is added.
+
+**R007-3 — Reset fencing.** D001 R2/Q4 and AS R2/lifecycle/PS authorize a new zero-history logical sequence. Together with one pair per accepted event, this does not authorize cancellation of old debts. P3 faithfully preserves that distinction and correctly refuses to equate consumer restart with explicit reset. Discarding numeric history and accounting for previously accepted results are separate duties.
+
+**CE_RESET_DEBT:** accept old sample 1 but withhold `(1,1)`; reset; accept new sample 2, owing `(1,4)`; delayed old `(1,1)` arrives. Both have n=1 and must remain distinguishable as old/new work. Relabeling the old result as new violates association; discarding it violates debt. Without explicit detector reset, sample 1 then consumer restart then sample 0 requires `(2,1)`, not a newly initialized `(1,0)`.
+
+**CE_TAG_REUSE:** a delayed old response tagged generation 0 survives `2^g` resets of a g-bit generation field; a new event can reuse its generation and ordinal. A finite tag alone cannot guarantee indefinite fencing. A proven lifetime/non-reuse condition or acknowledged drain might avoid coexistence; neither is supplied or selected. A drain under arbitrary stalls also raises availability/reset-completion questions and cannot be presumed to finish on a deadline. Additive AS-level clarification must establish observable reset linearization/order, acknowledgment and old-debt treatment when these are decided. Choosing an internal implementation that preserves that behavior is a later contract review. Reset cancellation, forced reset or consumer-lifetime restrictions would instead be material AS changes requiring explicit authority.
+
+**R007-4 — RN and C-HIST are unsupplied.** D001's ordinary publisher role supplies ordered sample values and owns acquisition timing; it does not supply replay snapshots, accepted ordinals or uninterrupted availability. D002-2/3/5 and REVIEW-AP-006 R006-3/5/6 require explicit dependency/refinement evidence. P4 preserves those limits. A single provider could eventually support both functions, but they still require distinct contracts and attribution; no such service is authorized here.
+
+| Service issue | Required later evidence; shortcut challenged |
+| --- | --- |
+| Provider and event identity | Authorized provider/owner; accepted-event ordinal distinct from acquisition attempts, transport retries and duplicate messages; bind request, current value, exact prior tail, response and reset context. |
+| RN representation | Exact ordinal generation for unrestricted n; lossless framed numeral delivery/decoding; distinguish truncated/malformed/replayed data; account potentially growing provider, transport and client/parser resources. A numeral's conditional decode is not evidence that a provider emits it. |
+| Snapshot identity and atomicity | Return exactly pre-event `x_(n-31)..x_(n-1)` with padding only before the sequence; a coherent snapshot may still belong to the wrong event. Range/length checks cannot establish source truth. |
+| Retention and release | Preserve the requested information until the owed result and association are securely handed off, or establish a reviewed exact recovery path. Account pinned versions, copies, retries, handles and all pending work. A rolling 31-entry live tail alone need not retain old snapshots. |
+| Reset and lifetime | Prevent old snapshots/results entering new history; prove safe tag reuse/lifetime and consumer/provider restart behavior. No automatic cancellation or reset is approved. |
+| Availability and errors | State service/interference assumptions and how accepted results remain available through stalls or errors. A failed read, endless version retries or reported loss is not completion. Do not turn an assumption into an accepted arrival restriction. |
+| Ownership and attribution | Establish exclusively upstream-owned exclusions under R5; include local client/library/transport buffers, owned callee/stack, queues, shared/pinned allocations and index/reset metadata once. Outside allocation is not evidence of outside ownership or zero whole-device/system energy. |
+
+**CE_C_MIXED:** pre-event raw tail `(1,0,...,0)`, current 2. Read old first entry 1, shift/append source to `(0,...,0,2)`, then read remaining entries from the new tail and add current square. Required energy 5 becomes 9 although all entries are valid. **CE_C_WRONG_VERSION:** reading the entire coherent post-append tail instead of the requested pre-event tail gives 8. Read atomicity and correct event identity are independent. Reordering an otherwise correct term set does not change a current sum, but chronology still matters for source expiration, future tails and association.
+
+**CE_SERVICE_EVICTION:** after acceptance, evict the sole required snapshot before reduction or result retention, then report unavailable. The accepted result remains owed and cannot be reconstructed merely by reporting the fault. These are failures of shortcuts under stated assumptions; C's draft explicitly leaves the required services open, so this is no unconditional contradiction of C. Authorization and fidelity/availability evidence are prerequisite to a service commitment or claimed local-RAM advantage. If service limits alter accepted behavior, separate additive AS authority is also required.
+
+**R007-5 — Hard gates, F, resources and theorem scope.** All realized H1 exactness, H2 startup/reset, H3 per-event pair, H4 invalid/observable faults, H5 owned RAM ceiling and H6 no hardware-FPU dependence remain **UNKNOWN for each of A/B/C**. The proposal makes no realized PASS or contradiction finding. Integer design intent does not verify the no-FPU build/dependency gate. No target or compiler is selected or verified.
+
+Preserve the 2048-byte detector-attributable peak-live RAM boundary, including owned persistent/scratch/call-stack, transaction/index, queues and shared-attributable allocations. Sum simultaneous live allocations once; do not hide stack inside a payload estimate or assume excluded upstream ownership. Any length-dependent rank/association retention remains length-dependent. Local RAM exclusion for demonstrated exclusive upstream ownership is not a zero-cost total-system claim.
+
+The adopted active F vector remains exactly `RAM_peak`, `compute_effort`, `device_energy_consumption`. H1–H6 come first; realized values remain UNKNOWN. Compare only compatible evidence levels, workloads, targets and physical attribution scopes. A known arithmetic projection is partial and proves neither full compute dominance nor electrical energy savings. Unknown is neither zero nor a favorable tie. Signal sum-of-squares energy is distinct from device electrical consumption; same-device upstream work cannot disappear under a RAM ownership exclusion. No weights, numeric optimization/power target, hard 1 ms bound or active flash budget is introduced. Any change to adopted F definitions requires new versioned authority and reassessment.
+
+T1 remains the accepted equivalence of all **nonempty future numeric outputs** iff padded latest-31 tails agree. It excludes the already-emitted current energy, logical indices and full interface metadata, and does not prove a consumer association, snapshot lifetime or algorithm transition. T2 remains conditional at each fixed `n>=32` on a deterministic, complete retained output-affecting state, no external readable replay/uncounted history and unrestricted continuations. Its `2^372` distinguishable states / 372 information bits / 47 whole octets are a capacity minimum, **not a sufficient 47-byte implementation allocation** or target RAM result. Numeric closure for A/B still needs evidence; C-DET consults C-HIST and is not detector-locally closed. A larger boundary qualifies only if every source is included and all hypotheses hold. External ordinal association alone does not remove fixed-n numeric distinctions. PO-003-1 and PO-003-3 remain UNPROVEN; no new theorem is accepted.
+
+| Continuing obligation | Status retained |
+| --- | --- |
+| T002-2 | OPEN — realized exact latest-32 behavior against independent specification. |
+| T002-3 | OPEN — startup/reset/history and old-work exclusion. |
+| T002-4 | OPEN — one exact indexed pair per accepted event, consumer association and debt. |
+| T002-5 | OPEN — rejection invariance and observable fault reporting; no invented unobservable-fault guarantee. |
+| T002-6 | OPEN — full detector RAM and no-hardware-FPU evidence. |
+| T002-7 | OPEN — compatible workload/target performance and device-energy evidence. |
+| T002-8 | OPEN/DEFERRED — detection threshold/duration/boolean/integration criteria. |
+| R4 | OPEN/DEFERRED before any whole sustained-energy detector completion claim. |
+
+The mapping above is supported by supplied activation/F/proof/D002 dispositions and REVIEW-AP-006, not a direct read of the unavailable historical DECISION-TRACE-002. No VO is discharged.
+
+**R007-6 — Source identities and checks.** All 15 current payloads passed direct Python `hashlib.sha256` comparison against `inputs/SHA256SUMS`. Each expected and observed identity is listed below and in JSON. The three instruction/manifest digests have no separately trusted expected value. Current manifest agreement establishes internal byte consistency, not origin authentication. The prior REVIEW-AP-006 receipt's 16-payload manifest and instruction hashes belong to its prior review package, not this 15-payload invocation. Its unavailable AP-BRIEFING, F-DRAFT, DECISION-TRACE, role files, historical reviews/proofs and commits were not retrieved or treated as independently checked sources.
+
+| Current instruction / manifest | Observed SHA-256 |
+| --- | --- |
+| `AGENTS.md` | `95a28f7422e64805bcd7e1b9fdabc1c6912a43a85371186a8b0d36612c6848dd` |
+| `TASK.md` | `6aed4b95574cf70a30b3c4a7fb59359d8cd8a33c4189c07ba3180ec5e696c5b7` |
+| `inputs/SHA256SUMS` | `95c648cb4f0bde90b0c6e8f4f0872d8a803a9e3a300ab078ab5daf09e612ce16` |
+
+| Supplied payload | Expected = observed SHA-256 |
+| --- | --- |
+| `inputs/D003-PROPOSAL-007.yaml` | `05166f4db88c512b16d02836ed56554e7da1765fb25eb4b39292c637280c67fd` |
+| `inputs/PROOF-DISPOSITION-004.yaml` | `0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94` |
+| `inputs/DECISION-001.yaml` | `1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36` |
+| `inputs/adc.md` | `284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7` |
+| `inputs/AS-REV-002.md` | `36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830` |
+| `inputs/REVIEW-AP-006.md` | `49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b` |
+| `inputs/AP-CANDIDATES-006.md` | `74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00` |
+| `inputs/AP-COMPARISON-006.md` | `83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439` |
+| `inputs/problem-origin.md` | `90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333` |
+| `inputs/F-DISPOSITION-003.yaml` | `ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f` |
+| `inputs/target.md` | `c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64` |
+| `inputs/D002-INTERFACE-DISPOSITION.yaml` | `cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1` |
+| `inputs/AS-ACTIVATION-002.yaml` | `d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c` |
+| `inputs/REVIEW-AP-006.json` | `d88b9ef5b574838ae331e553877778b53d3ad6ff45870d8a3d1beba9d6f3e67a` |
+| `inputs/D003-BRIEFING-007.md` | `dd2c0df0896f7322bf4bec15281fb0bb9fb84e556da7b59e0ae406fe2b80e88c` |
+
+Checks actually performed: read the current instructions and all 15 supplied payloads; compared P1–P5 clause-by-clause against the accepted authority hierarchy and prior independent review; checked current SHA-256 identities; ran an inline Python 3 exact-integer witness calculation with six explicit arithmetic assertions, all passing. The calculation covered the zero/restart ambiguity, invalid-attempt ordinals, invalid-as-zero expiration, debt/retry values, reset sequence values, mixed and wrong-version snapshots, two pending results versus one slot, and the five-event two-bit index example. It also checked `31*12=372` and `ceil(372/8)=47` solely as conditional capacity arithmetic. No implementation or test file was created.
+
+Finite calculations are witness arithmetic, not physical interfaces, failure injection or proofs over unbounded executions. Reset-debt, finite-tag reuse, Q+1 queue capacity, permanent output unavailability and sole-snapshot eviction were logical trace arguments under stated hypotheses. No prior exhaustive/random AP tests or proof attempts were reproduced; their supplied receipts remain prior claims. No concurrent C-HIST, physical RI/RN, compiler-width/build, target RAM/stack, timing/WCET or electrical energy experiment was performed. The output JSON was parsed and its required fields, five clauses, finding links and false/empty authority flags validated.
+
+Only AGENTS.md, TASK.md, the current manifest and its supplied payloads were used. No historical Git objects/history, earlier solved Toy 1 AP/CON/DE/C, other workspace, external service, network, connected app, hidden evaluator/reference or subagent was accessed. This invocation did not author D003, act as delegate or perform an AP selection. Historical activation, archival hashes, delegation provenance, previous proof/review execution and external agent separation were not independently authenticated. A positive allowlist or new directory does not prove OS or connector isolation. Source consistency, mathematical scope and execution isolation remain distinct; formal cleanroom, target and product qualification are false.
+
+The next gate is a **separate explicit delegated D003 disposition with AS impact recorded**, including additive clarification/amendment where identified above. This source review grants no RI, RN, C-HIST, acceptance/reset mechanism, implementation or selection authority. Subsequent independent full-interface/service/AP feasibility evaluation requires separate authorization and compatible F scopes. The two review files are the complete output; D003 remains unaccepted, AS unchanged, APs unselected and all VOs undischarged.

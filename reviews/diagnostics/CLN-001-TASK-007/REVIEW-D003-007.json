@@ -1,0 +1,615 @@
+{
+  "review_id": "CLN-001-REVIEW-D003-007",
+  "disposition": "READY_FOR_DELEGATED_D003_DISPOSITION",
+  "disposition_scope": "Independent proposal source/authority review only. Readiness permits a separate delegated accept/revise/defer decision with explicit AS impact; it does not adopt the proposed MAY rule, settle interface contracts or grant implementation/selection authority.",
+  "disposition_reason": "P1-P5 retain exact consumer index supply, accepted-event output debt, no-loss reset fencing, unsupplied-service status and accepted hard-gate/F/theorem limits as obligations. No contradiction is demonstrated in these conditional clauses; authority and contract feasibility remain unresolved and block physical eligibility.",
+  "role": "Independent source/authority reviewer; not proposal author, engineering delegate, Stage-6 AP evaluator or AP selector.",
+  "D003_accepted": false,
+  "AS_changed": false,
+  "AP_selected": false,
+  "target_verified": false,
+  "product_verified": false,
+  "cleanroom_qualified": false,
+  "vo_discharged": [],
+  "clauses": [
+    {
+      "id": "D003-P1",
+      "source": "inputs/D003-PROPOSAL-007.yaml:clauses[id=D003-P1]",
+      "assessment": "SOURCE_CONSISTENT_CONDITIONAL_PROPOSAL",
+      "effective": false,
+      "finding_ids": [
+        "R007-1"
+      ],
+      "contradiction_found": false
+    },
+    {
+      "id": "D003-P2",
+      "source": "inputs/D003-PROPOSAL-007.yaml:clauses[id=D003-P2]",
+      "assessment": "SOURCE_CONSISTENT_CONDITIONAL_PROPOSAL",
+      "effective": false,
+      "finding_ids": [
+        "R007-2"
+      ],
+      "contradiction_found": false
+    },
+    {
+      "id": "D003-P3",
+      "source": "inputs/D003-PROPOSAL-007.yaml:clauses[id=D003-P3]",
+      "assessment": "SOURCE_CONSISTENT_CONDITIONAL_PROPOSAL",
+      "effective": false,
+      "finding_ids": [
+        "R007-3"
+      ],
+      "contradiction_found": false
+    },
+    {
+      "id": "D003-P4",
+      "source": "inputs/D003-PROPOSAL-007.yaml:clauses[id=D003-P4]",
+      "assessment": "SOURCE_CONSISTENT_CONDITIONAL_PROPOSAL",
+      "effective": false,
+      "finding_ids": [
+        "R007-4"
+      ],
+      "contradiction_found": false
+    },
+    {
+      "id": "D003-P5",
+      "source": "inputs/D003-PROPOSAL-007.yaml:clauses[id=D003-P5]",
+      "assessment": "SOURCE_CONSISTENT_CONDITIONAL_PROPOSAL",
+      "effective": false,
+      "finding_ids": [
+        "R007-5"
+      ],
+      "contradiction_found": false
+    }
+  ],
+  "findings": [
+    {
+      "id": "R007-1",
+      "clauses": [
+        "D003-P1"
+      ],
+      "severity": "HIGH",
+      "kind": "AS_INTERPRETATION_AND_CONSUMER_EVIDENCE",
+      "finding": "A bijection or external trace rank alone does not supply exact n to the actual consumer. P1 explicitly excludes that shortcut. Representation independence permits investigation of exact implicit encoding; it does not establish RI eligibility.",
+      "sources": [
+        "inputs/DECISION-001.yaml:interface_and_lifecycle_Q4",
+        "inputs/AS-REV-002.md:Lifecycle, outputs and exceptional inputs; PS",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-1,D002-2,D002-5",
+        "inputs/REVIEW-AP-006.md:R006-1",
+        "inputs/D003-PROPOSAL-007.yaml:D003-P1"
+      ],
+      "counterexamples": [
+        "CE_ZERO_RESTART",
+        "CE_ATTEMPT_RANK",
+        "CE_WRAP"
+      ],
+      "required_followup": "Separately delegated additive AS clarification of the proposed MAY rule and its consumer/reset boundary before it becomes effective; prove unique exact decoding from information actually available to that consumer for every accepted event. Do not silently substitute observer rank, finite counters or mandatory restart resets.",
+      "proposal_contradiction": false,
+      "blocks": "Effective RI eligibility/full-interface feasibility, not referral of this conditional proposal for delegated disposition."
+    },
+    {
+      "id": "R007-2",
+      "clauses": [
+        "D003-P2"
+      ],
+      "severity": "HIGH",
+      "kind": "ACCEPTANCE_DEBT_AND_LIVENESS_CONTRACT",
+      "finding": "P2 preserves one owed indexed result per accepted event. Acceptance, numeric commitment and publication are still unspecified; fault reports, retries or post hoc unacceptance cannot discharge debt. Finite queues do not establish capacity under arbitrary stalls.",
+      "sources": [
+        "inputs/DECISION-001.yaml:requirements.R1,requirements.R3,delivery_and_exceptions_Q6",
+        "inputs/AS-REV-002.md:R1,R3; PS",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-1,D002-5",
+        "inputs/REVIEW-AP-006.md:R006-2",
+        "inputs/D003-PROPOSAL-007.yaml:D003-P2"
+      ],
+      "counterexamples": [
+        "CE_OUTPUT_DEBT",
+        "CE_QUEUE",
+        "CE_INVALID_PADDING"
+      ],
+      "required_followup": "Delegated versioned AS-impact decision on observable acceptance/delivery semantics, then reviewed acceptance/commit/publication and availability contracts with attributable resources. No valid-event loss, invented hard deadline, finite epoch, or automatic backpressure authority.",
+      "proposal_contradiction": false,
+      "blocks": "Complete transaction contract, eventual-output and RAM feasibility claims."
+    },
+    {
+      "id": "R007-3",
+      "clauses": [
+        "D003-P3"
+      ],
+      "severity": "HIGH",
+      "kind": "RESET_IDENTITY_AND_SYNCHRONIZATION",
+      "finding": "Zeroing numeric history is authorized; erasing output debt is not. P3 correctly distinguishes consumer restart from detector reset and preserves pre-reset association, but names no synchronization contract.",
+      "sources": [
+        "inputs/DECISION-001.yaml:requirements.R2,interface_and_lifecycle_Q4",
+        "inputs/AS-REV-002.md:R2; lifecycle; PS",
+        "inputs/REVIEW-AP-006.md:Snapshot, exact-index and acceptance challenges; R006-2",
+        "inputs/D003-PROPOSAL-007.yaml:D003-P3"
+      ],
+      "counterexamples": [
+        "CE_RESET_DEBT",
+        "CE_TAG_REUSE"
+      ],
+      "required_followup": "Additive AS-level clarification when choosing observable reset ordering/acknowledgment and treatment of in-flight work; separately review mechanism. Drain and distinguishable old-sequence delivery remain unselected. No loss cancellation, forced reset or deadline.",
+      "proposal_contradiction": false,
+      "blocks": "Reset/publication interface commitment and H2/H3 eligibility."
+    },
+    {
+      "id": "R007-4",
+      "clauses": [
+        "D003-P4"
+      ],
+      "severity": "HIGH",
+      "kind": "UNAUTHORIZED_AND_UNDEMONSTRATED_SERVICES",
+      "finding": "RN and C-HIST remain neither authorized nor demonstrated. Coherence does not establish correct event identity; range checks do not establish coherent reads; retention and availability are independent obligations. P4 accurately preserves these dependencies.",
+      "sources": [
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-2,D002-3,D002-5",
+        "inputs/AP-CANDIDATES-006.md:RI/RN; AP-006-C",
+        "inputs/REVIEW-AP-006.md:R006-3,R006-5,R006-6",
+        "inputs/D003-PROPOSAL-007.yaml:D003-P4"
+      ],
+      "counterexamples": [
+        "CE_ATTEMPT_RANK",
+        "CE_C_MIXED",
+        "CE_C_WRONG_VERSION",
+        "CE_SERVICE_EVICTION",
+        "CE_TAG_REUSE"
+      ],
+      "required_followup": "Separate service authorization and reviewed provider, accepted-event identity, atomic snapshot, retention/release, reset, availability/error, ownership and full attribution evidence; include exact numeral generation/framing and potentially growing resources. No local-RAM advantage before attribution is closed.",
+      "proposal_contradiction": false,
+      "blocks": "Service commitment, complete interface eligibility and local-memory advantage claims."
+    },
+    {
+      "id": "R007-5",
+      "clauses": [
+        "D003-P5"
+      ],
+      "severity": "HIGH",
+      "kind": "UNKNOWN_ELIGIBILITY_AND_COMPATIBLE_COST_EVIDENCE",
+      "finding": "P5 preserves all realized H1-H6 as UNKNOWN and the adopted F vector. External location does not prove exclusive ownership or free system/device cost. Symbolic arithmetic, T1/T2 or a 47-octet capacity minimum cannot establish realized RAM or energy.",
+      "sources": [
+        "inputs/DECISION-001.yaml:requirements.R5,requirements.R6",
+        "inputs/F-DISPOSITION-003.yaml:decision",
+        "inputs/PROOF-DISPOSITION-004.yaml:accepted_mathematical_claims",
+        "inputs/D002-INTERFACE-DISPOSITION.yaml:D002-3,D002-4,D002-6",
+        "inputs/AP-COMPARISON-006.md:F worksheets",
+        "inputs/D003-PROPOSAL-007.yaml:D003-P5; unchanged"
+      ],
+      "counterexamples": [],
+      "required_followup": "Keep persistent/scratch/owned stack, transaction/index, queues, shared/pinned/client costs and all applicable source resources visible; compare only compatible workloads, targets and physical/evidence scopes after gate evidence. Any F redefinition needs new versioned authority.",
+      "proposal_contradiction": false,
+      "blocks": "Realized hard-gate compliance, target fit, cost superiority and Pareto selection claims."
+    },
+    {
+      "id": "R007-6",
+      "clauses": [
+        "D003-P1",
+        "D003-P2",
+        "D003-P3",
+        "D003-P4",
+        "D003-P5"
+      ],
+      "severity": "INFORMATIONAL",
+      "kind": "PROVENANCE_AND_REVIEW_LIMIT",
+      "finding": "All 15 current payload hashes match. Prior review receipts describe another 16-payload package; unavailable historical paths, proof attempts, reviews and commits were not followed. Source consistency is not authenticity, isolation or universal proof.",
+      "sources": [
+        "AGENTS.md",
+        "TASK.md",
+        "inputs/SHA256SUMS",
+        "inputs/AS-ACTIVATION-002.yaml:basis,activation,limits",
+        "inputs/REVIEW-AP-006.json:source_hash_checks,independence_receipt",
+        "inputs/D003-BRIEFING-007.md:Status; Decision sequence and stop rule"
+      ],
+      "counterexamples": [],
+      "required_followup": "Retain this current source receipt and limitations; do not promote previous review assertions or a positive allowlist into authenticated runtime/connector isolation.",
+      "proposal_contradiction": false,
+      "blocks": "Historical authentication and cleanroom/target/product qualification claims."
+    }
+  ],
+  "counterexamples": [
+    {
+      "id": "CE_ZERO_RESTART",
+      "clauses": [
+        "D003-P1"
+      ],
+      "trace": "After explicit reset, world A has no hidden accepted prefix; world B has one hidden accepted zero. Consumer restarts without retained association, submits one zero and sees its energy-only response 0 in both worlds.",
+      "required": "A requires (1,0); B requires (2,0).",
+      "conclusion": "A fresh local request/response bijection and equal energies do not reveal rank. With retained exact accepted-order/reset context this counterexample does not apply.",
+      "check": "Arithmetic pairs([0]) and pairs([0,0]); logical indistinguishability reasoning."
+    },
+    {
+      "id": "CE_ATTEMPT_RANK",
+      "clauses": [
+        "D003-P1",
+        "D003-P2",
+        "D003-P4"
+      ],
+      "trace": "Attempt 4096 (invalid), then accept 0.",
+      "required": "REJECT, (1,0), not (2,0).",
+      "conclusion": "Acquisition/attempt count cannot supply accepted ordinal. Nonzero check (7,4096,8) gives (1,49), REJECT, (2,113).",
+      "check": "Inline Python exact-integer assertions."
+    },
+    {
+      "id": "CE_WRAP",
+      "clauses": [
+        "D003-P1",
+        "D003-P4"
+      ],
+      "trace": "Without reset, accept five zeros; use n mod 4 as the only ordinal field.",
+      "required": "Ranks 1 and 5 differ despite field 1 and energy 0 in both cases.",
+      "conclusion": "For b bits ranks 1 and 1+2^b collide without additional information. This refutes that field alone, not every physical interface.",
+      "check": "Enumerated n=1..5; general collision follows by arithmetic, no unbounded execution test."
+    },
+    {
+      "id": "CE_OUTPUT_DEBT",
+      "clauses": [
+        "D003-P2"
+      ],
+      "trace": "Accept 1 and commit history; lose publication of (1,1); issue only a fault report. Then accept 2.",
+      "required": "Debt (1,1) remains; next pair is (2,5).",
+      "conclusion": "State commit does not complete delivery. Retrying 1 as a fresh accepted event instead creates (2,2); retry identity must prevent duplicate acceptance/publication.",
+      "check": "Inline arithmetic for [1,2] and [1,1]; loss/delivery analysis is a trace argument."
+    },
+    {
+      "id": "CE_QUEUE",
+      "clauses": [
+        "D003-P2"
+      ],
+      "trace": "A queue has one pending-result slot, no other retention/replay/compression contract, and no publication during two accepted events 1,2.",
+      "required": "Both (1,1) and (2,5) remain owed; two entries exceed one slot.",
+      "conclusion": "Generally Q+1 accepted results exceed a Q-entry queue under these hypotheses. Arbitrarily long finite stalls require a justified capacity/coordination story; permanent output unavailability cannot satisfy eventual output. No unconditional finite-memory impossibility is established.",
+      "check": "Two-event arithmetic and pending-entry count; general capacity/liveness reasoning, not a service experiment."
+    },
+    {
+      "id": "CE_INVALID_PADDING",
+      "clauses": [
+        "D003-P2"
+      ],
+      "trace": "Accept 1, reject 4096, then accept 31 zeros.",
+      "required": "Final pair (32,1). Treating the invalid attempt as an accepted zero instead produces (33,0).",
+      "conclusion": "Invalid rejection must preserve accepted history/order/index and existing debt; operational loss cannot become padding.",
+      "check": "Inline exact-integer assertions against latest-32 relation."
+    },
+    {
+      "id": "CE_RESET_DEBT",
+      "clauses": [
+        "D003-P3"
+      ],
+      "trace": "Accept old-sequence 1, withhold (1,1), reset, accept new-sequence 2 giving (1,4); later receive old (1,1).",
+      "required": "Both debts remain separately attributable; old result cannot masquerade as the new sequence first result.",
+      "conclusion": "Resetting n/history alone loses identity. Dropping old result also fails. Consumer restart alone must not create a detector reset; after accept 1, restart, accept 0 without reset the pair is (2,1), not (1,0).",
+      "check": "Old/new arithmetic checked; reset/debt/association consequences reasoned from AS and P2/P3."
+    },
+    {
+      "id": "CE_TAG_REUSE",
+      "clauses": [
+        "D003-P3",
+        "D003-P4"
+      ],
+      "trace": "Retain an old response tagged generation 0; perform 2^g explicit resets with a g-bit generation tag; a new response can have the same generation and ordinal.",
+      "required": "Old and new work must remain distinguishable if both can still arrive.",
+      "conclusion": "Finite tags require a demonstrated safe lifetime/non-reuse condition; a tag alone is not indefinite fencing. A drain can avoid coexistence only with a reviewed availability/synchronization contract.",
+      "check": "Symbolic finite-tag reuse argument, not exhaustive reset testing."
+    },
+    {
+      "id": "CE_C_MIXED",
+      "clauses": [
+        "D003-P4"
+      ],
+      "trace": "Pre-event raw tail (1,0,...,0), current 2. Read old first entry 1, append/shift source to (0,...,0,2), read remaining new entries, add current square.",
+      "required": "Energy 5; mixed read gives 9.",
+      "conclusion": "Every value passes domain validation while snapshot atomicity fails.",
+      "check": "Inline exact-integer assertion reproduces 5 versus 9; no concurrent service run."
+    },
+    {
+      "id": "CE_C_WRONG_VERSION",
+      "clauses": [
+        "D003-P4"
+      ],
+      "trace": "Same pre-tail/current, but coherently return the entire post-append tail (0,...,0,2) as the requested pre-event tail.",
+      "required": "Energy 5; wrong coherent snapshot gives 8 after adding current square again.",
+      "conclusion": "Read coherence alone does not establish accepted-event/version identity or current-term exclusion.",
+      "check": "Inline exact-integer assertion reproduces 5 versus 8."
+    },
+    {
+      "id": "CE_SERVICE_EVICTION",
+      "clauses": [
+        "D003-P2",
+        "D003-P4"
+      ],
+      "trace": "Accept an event, evict its sole required snapshot before reduction/result retention, then report history unavailable.",
+      "required": "The indexed exact result remains owed.",
+      "conclusion": "Fault detection does not recreate information or complete an accepted event. Authorization, retention and availability must cover the entire obligation lifetime.",
+      "check": "Logical trace counterexample under explicitly stated sole-source assumption."
+    }
+  ],
+  "source_hashes": [
+    {
+      "path": "inputs/D003-PROPOSAL-007.yaml",
+      "expected_sha256": "05166f4db88c512b16d02836ed56554e7da1765fb25eb4b39292c637280c67fd",
+      "observed_sha256": "05166f4db88c512b16d02836ed56554e7da1765fb25eb4b39292c637280c67fd",
+      "match": true,
+      "read": true,
+      "contribution": "Proposal under review; clauses P1-P5, unchanged, next_gate, limits."
+    },
+    {
+      "path": "inputs/PROOF-DISPOSITION-004.yaml",
+      "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+      "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+      "match": true,
+      "read": true,
+      "contribution": "Accepted mathematical claims T1/T2 and exclusions; no proof extension."
+    },
+    {
+      "path": "inputs/DECISION-001.yaml",
+      "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+      "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+      "match": true,
+      "read": true,
+      "contribution": "D001 requirements R1-R6, assumptions A1-A4, Q4/Q6; nontransferable delegation."
+    },
+    {
+      "path": "inputs/adc.md",
+      "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "match": true,
+      "read": true,
+      "contribution": "BKP-ADC-001 synthetic domain and cadence; not measured acquisition evidence."
+    },
+    {
+      "path": "inputs/AS-REV-002.md",
+      "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+      "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+      "match": true,
+      "read": true,
+      "contribution": "Activated AS C/R/PS and lifecycle; earlier draft status superseded by activation."
+    },
+    {
+      "path": "inputs/REVIEW-AP-006.md",
+      "expected_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+      "observed_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+      "match": true,
+      "read": true,
+      "contribution": "Independent prior review findings R006-1..7 and next-gate limits."
+    },
+    {
+      "path": "inputs/AP-CANDIDATES-006.md",
+      "expected_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+      "observed_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+      "match": true,
+      "read": true,
+      "contribution": "Unselected A/B/C definitions, RI/RN and conditional C-HIST dependencies."
+    },
+    {
+      "path": "inputs/AP-COMPARISON-006.md",
+      "expected_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+      "observed_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+      "match": true,
+      "read": true,
+      "contribution": "Conditional hard-gate/F inventories and open-obligation crosswalk."
+    },
+    {
+      "path": "inputs/problem-origin.md",
+      "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+      "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+      "match": true,
+      "read": true,
+      "contribution": "BKP-NEED-001 invented originating brief; later delegated revisions govern."
+    },
+    {
+      "path": "inputs/F-DISPOSITION-003.yaml",
+      "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+      "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+      "match": true,
+      "read": true,
+      "contribution": "Adopted H1-H6, three F axes, comparable-scope Pareto rule and evidence limits."
+    },
+    {
+      "path": "inputs/target.md",
+      "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+      "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+      "match": true,
+      "read": true,
+      "contribution": "BKP-TARGET-001 hypothetical MCU/no-FPU/2 KiB model, no target selection."
+    },
+    {
+      "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+      "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+      "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+      "match": true,
+      "read": true,
+      "contribution": "D002-1..6 accepted disclosure/refinement policy; no index/history service."
+    },
+    {
+      "path": "inputs/AS-ACTIVATION-002.yaml",
+      "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+      "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+      "match": true,
+      "read": true,
+      "contribution": "Supplied synthetic AS activation and continuing open obligations; historical assertions not reauthenticated."
+    },
+    {
+      "path": "inputs/REVIEW-AP-006.json",
+      "expected_sha256": "d88b9ef5b574838ae331e553877778b53d3ad6ff45870d8a3d1beba9d6f3e67a",
+      "observed_sha256": "d88b9ef5b574838ae331e553877778b53d3ad6ff45870d8a3d1beba9d6f3e67a",
+      "match": true,
+      "read": true,
+      "contribution": "Prior review receipt and matching disposition/authority limits; its 16-payload package is distinct."
+    },
+    {
+      "path": "inputs/D003-BRIEFING-007.md",
+      "expected_sha256": "dd2c0df0896f7322bf4bec15281fb0bb9fb84e556da7b59e0ae406fe2b80e88c",
+      "observed_sha256": "dd2c0df0896f7322bf4bec15281fb0bb9fb84e556da7b59e0ae406fe2b80e88c",
+      "match": true,
+      "read": true,
+      "contribution": "Proposal explanation, decision sequence, stop rule and provenance limits."
+    }
+  ],
+  "source_hash_checks": {
+    "algorithm": "SHA-256",
+    "manifest": "inputs/SHA256SUMS",
+    "manifest_entries": 15,
+    "matched_entries": 15,
+    "all_match": true,
+    "method": "Python hashlib.sha256 on the named supplied bytes; no Git/object or remote checks.",
+    "instruction_and_manifest_identities": [
+      {
+        "path": "AGENTS.md",
+        "observed_sha256": "95a28f7422e64805bcd7e1b9fdabc1c6912a43a85371186a8b0d36612c6848dd",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "TASK.md",
+        "observed_sha256": "6aed4b95574cf70a30b3c4a7fb59359d8cd8a33c4189c07ba3180ec5e696c5b7",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "inputs/SHA256SUMS",
+        "observed_sha256": "95c648cb4f0bde90b0c6e8f4f0872d8a803a9e3a300ab078ab5daf09e612ce16",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      }
+    ],
+    "meaning": "Internal byte consistency against supplied manifest; no independently trusted manifest digest, origin authentication or execution-isolation evidence."
+  },
+  "AS_impact": {
+    "existing_obligation": "D001 Q4 and activated AS PS require each actual consumer-facing logical pair (n,E_n); AS prescribes no stored counter, integer format or interface signature.",
+    "P1": "An exact consumer-decodable implicit representation can preserve the AS. Before proposed RI eligibility becomes effective, the delegated decision must record an additive AS clarification identifying consumer/reset lifetime, available information and exact refinement. This review does not approve that interpretation.",
+    "P2_P3": "Preserving debt is source-consistent. Observable acceptance, publication and reset/acknowledgment semantics require an additive versioned AS-level clarification when decided. Purely internal mechanisms preserving those semantics may be separately reviewed interface refinements.",
+    "material_changes_requiring_authority_and_additive_AS_amendment": [
+      "Replacing consumer-supplied exact n by a rank available only to an external trace observer.",
+      "Finite epochs, wrapped/modular indices, exhaustion cutoffs or mandatory resets restricting otherwise-valid sequences.",
+      "Dropping otherwise-valid events by acceptance relabeling or unapproved arrival/backpressure restriction.",
+      "Canceling accepted-event debt on reset, crash, stall, disconnect or diagnostic report.",
+      "Treating consumer restart as detector reset or restricting supported consumer lifetime to excuse lost association."
+    ],
+    "service_contracts": "RN and C-HIST require separate authorization and independently reviewed service evidence; AS amendment is additionally needed if service limits change accepted behavior. P4 supplies neither service.",
+    "applied_amendments": []
+  },
+  "preservation": {
+    "realized_hard_gates": {
+      "AP-006-A": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "AP-006-B": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "AP-006-C": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      }
+    },
+    "contradicted_realized_candidate_gates": [],
+    "candidate_status": {
+      "AP-006-A": "AP_CANDIDATE_NOT_SELECTED",
+      "AP-006-B": "AP_CANDIDATE_NOT_SELECTED",
+      "AP-006-C": "AP_CANDIDATE_NOT_SELECTED"
+    },
+    "active_F_axes": [
+      "RAM_peak",
+      "compute_effort",
+      "device_energy_consumption"
+    ],
+    "all_realized_F_values": "UNKNOWN",
+    "comparison": "Hard gates first; compatible evidence/workload/physical scope only; unknown is not zero, PASS or favorable tie; known-coordinate projection is partial, not full Pareto dominance.",
+    "RAM_boundary": "At most 2048 bytes detector-attributable RAM including owned persistent/scratch/stack, index/transaction/queue and attributable shared allocations. Exclusive upstream ownership requires evidence and does not imply zero total/device cost.",
+    "T1": "Accepted: for finite histories, equality of every nonempty future numeric continuation iff padded last-31 tails agree. Excludes current already-emitted energy, logical indices and full-interface metadata.",
+    "T2": "Accepted conditionally: fixed n>=32, deterministic complete retained output-affecting state, no external replay/uncounted readable history and unrestricted continuations. At least 2^372 distinguishable states, 372 information bits/47 whole octets capacity; neither sufficient implementation RAM nor local C-DET bound.",
+    "closure": "A/B numeric closure must be established. C-DET reads C-HIST and is not closed; any larger closure must count every retained source. External index alone does not remove fixed-n numeric distinctions.",
+    "PO_003_1": "UNPROVEN",
+    "PO_003_3": "UNPROVEN",
+    "new_theorem_accepted": false,
+    "nominal_1ms": "NOMINAL_ONLY_NO_HARD_DEADLINE",
+    "selected_target": null,
+    "new_numeric_compute_or_power_target": null,
+    "flash": "INACTIVE_UNKNOWN_NO_BUDGET",
+    "continuing_obligations": {
+      "T002-2": "OPEN: exact realized latest-32 behavior against independent specification.",
+      "T002-3": "OPEN: startup/reset/history and old-work exclusion.",
+      "T002-4": "OPEN: one exact indexed pair for every accepted event, consumer association and debt.",
+      "T002-5": "OPEN: invalid rejection invariance and observable fault reporting; no new unobservable-fault guarantees.",
+      "T002-6": "OPEN: detector RAM accounting and hardware-FPU independence evidence.",
+      "T002-7": "OPEN: compatible workload/target performance and device-energy evidence.",
+      "T002-8": "OPEN_DEFERRED: full sustained-energy detection specification and integration.",
+      "R4": "OPEN_DEFERRED until whole-detector completion criteria are specified and verified."
+    }
+  },
+  "service_review_requirements": {
+    "RN": [
+      "Authorized provider and owner, accepted-event counting distinct from acquisitions/retries.",
+      "Exact ordinal generation over unrestricted n; lossless complete framing and decoding; length-dependent storage, transport and parser work.",
+      "Binding of numeral, energy, accepted request and reset context; restart behavior.",
+      "Availability, retry/deduplication, retention and visible errors without accepted-event cancellation.",
+      "Detector, shared, upstream and whole-device resource attribution."
+    ],
+    "C_HIST": [
+      "Authorized provider; intended accepted order, domain validation, no invalid append.",
+      "Exactly the pre-event latest-31 padded history bound to the current accepted event/reset sequence.",
+      "Coherent read/linearization contract; no mixed versions or coherent wrong-event snapshots; range checks insufficient.",
+      "Retention/release through successful result/association handoff or reviewed exact recovery; concurrent pins, versions, retries and buffers accounted.",
+      "Reset fencing, lifetime/non-reuse guarantees and no stale result or snapshot in a new sequence.",
+      "Availability under declared delivery/service conditions; faults cannot substitute for owed results.",
+      "Proven exclusive upstream ownership for exclusions; all local/client/library/stack/shared-attributable costs included."
+    ]
+  },
+  "checks_performed": [
+    "Read AGENTS.md, TASK.md, inputs/SHA256SUMS and all 15 manifest-listed payloads only; followed no historical paths.",
+    "Computed and compared all 15 payload SHA-256 hashes; computed current instruction/manifest hashes.",
+    "Compared each D003 clause against D001, activated AS, D002, adopted F, accepted proof disposition and both prior independent review artifacts.",
+    "Inline Python 3 exact-integer witness calculations for zero-rank ambiguity, invalid/accepted counts, invalid-as-zero expiration, lost-result/retry values, reset sequence values, snapshot mixes/wrong version, one-slot queue debt and two-bit wrap; six explicit arithmetic assertions passed.",
+    "Logical trace reasoning for reset debt, finite generation reuse, Q+1 pending entries, permanent unavailability and sole-snapshot eviction; not service experiments.",
+    "Checked 31*12=372 bits and ceil(372/8)=47 octets only as accepted conditional capacity arithmetic.",
+    "Validated output JSON and required false/empty flags and one finding per P1-P5; no additional artifact written."
+  ],
+  "tests_not_performed": [
+    "No reproduction of prior exhaustive/random AP tests or formal proof attempt.",
+    "No physical RI/RN or concurrent C-HIST service tests.",
+    "No implementation, compiler/build, target RAM/stack, timing/WCET or electrical energy measurement.",
+    "No historical commit/archive/activation authentication or agent/runtime-isolation audit."
+  ],
+  "independence": {
+    "source_allowlist_followed": true,
+    "proposal_authored": false,
+    "delegation_transferred": false,
+    "subagents_used": false,
+    "network_used": false,
+    "connected_apps_used": false,
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "old_solved_Toy1_artifacts_used": false,
+    "hidden_reference_or_evaluator_used": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "external_agent_separation_authenticated": false,
+    "prior_claims_independently_authenticated": false,
+    "limit": "This invocation independently examined supplied sources. A positive allowlist and directory separation do not prove OS/connector isolation. Supplied provenance/delegation/activation/review assertions are not externally authenticated."
+  },
+  "next_gate": {
+    "primary": "Separate explicit delegated D003 disposition with additive AS clarification/amendment impact recorded; no automatic acceptance from this receipt.",
+    "after_disposition": "Separately authorized independent full-interface/service/AP feasibility evaluation under compatible F scopes; any AP selection requires distinct later authority.",
+    "RI_approved": false,
+    "RN_approved": false,
+    "C_HIST_approved": false,
+    "implementation_authorized": false
+  },
+  "outputs": [
+    "out/REVIEW-D003-007.md",
+    "out/REVIEW-D003-007.json"
+  ]
+}
