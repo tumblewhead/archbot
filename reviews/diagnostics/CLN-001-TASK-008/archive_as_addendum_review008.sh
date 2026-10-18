@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Restartable selective publication of original independent review evidence.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+branch="experiment/toy1-pipe-cleaner-001"
+[[ "$(git branch --show-current)" == "$branch" ]] || { echo "STOP: wrong branch" >&2; exit 1; }
+src="$HOME/archbot-cln001-as-addendum-review-008/out"
+dst="reviews/diagnostics/CLN-001-TASK-008"
+md="REVIEW-AS-ADDENDUM-008.md"
+js="REVIEW-AS-ADDENDUM-008.json"
+manifest="REVIEW_AS_ADDENDUM008_SHA256SUMS"
+for f in "$md" "$js"; do
+ [[ -s "$src/$f" ]] || { echo "STOP: missing original $src/$f" >&2; exit 1; }
+ if [[ -e "$dst/$f" ]]; then
+   cmp -- "$src/$f" "$dst/$f" || { echo "STOP: archived review differs: $f" >&2; exit 1; }
+ else
+   cp -- "$src/$f" "$dst/$f"
+ fi
+done
+python -m json.tool "$dst/$js" >/dev/null
+if [[ ! -e "$dst/$manifest" ]]; then
+  (cd "$dst" && sha256sum "$md" "$js" > "$manifest")
+fi
+(cd "$dst" && sha256sum -c "$manifest")
+while IFS= read -r staged; do
+ case "$staged" in
+   "$dst/$md"|"$dst/$js"|"$dst/$manifest") ;;
+   *) echo "STOP: unrelated staged file $staged" >&2; exit 1 ;;
+ esac
+done < <(git diff --cached --name-only)
+git add -- "$dst/$md" "$dst/$js" "$dst/$manifest"
+git diff --cached --stat
+if ! git diff --cached --check; then
+  echo "NOTICE: preserve raw reviewer bytes even if whitespace flagged"
+fi
+if git diff --cached --quiet; then
+  echo "Already archived, no duplicate commit."
+else
+  git commit -m "Archive independent CLN-001 Stage-8 additive AS review"
+fi
+git push origin "$branch"
+echo "SUCCESS: independent AS addendum review pushed."
