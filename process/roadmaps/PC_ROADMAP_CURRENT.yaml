@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: DIAGNOSTIC_AS_REVIEW_READY_FOR_HUMAN_QUESTIONS
+  status: SYNTHETIC_Q1_Q7_DECISIONS_ISSUED_AS_REVISION_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -251,7 +251,16 @@ cleanroom_pipe_cleaner:
   reviewer_independence_reported: true
   reviewer_independence_externally_authenticated: false
   human_decision_handoff: reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md
-  human_authority_Q1: UNRESOLVED
+  human_authority_Q1: DELEGATED_TO_ASSISTANT_CLN001_ONLY
+  user_delegation: "ill empower you, and yes limited to this diagnostic project. We already know what we want to end up with, we are just testing the system"
+  synthetic_decisions: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  decision_status: ISSUED_BY_DELEGATE_NOT_AS_ACCEPTANCE
+  sponsor_delegate_prior_solution_familiarity: true
+  stage2_author_task: reviews/diagnostics/CLN-001-TASK-001/TASK-002.md
+  stage2_handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
+  stage2_expected_output: [AS-REV-002.md, DECISION-TRACE-002.md, BRIEFING-002.md]
+  stage2_independent_review: PENDING_OUTPUT
+  as_acceptance: PENDING_INDEPENDENT_REVIEW_AND_EXPLICIT_DISPOSITION
   reviewer_findings:
     - "F1 source fidelity OK within diagnostic scope"
     - "F2 timing semantics and requirement authority unresolved"
@@ -269,24 +278,22 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: HUMAN_ENGINEERING_AUTHORITY_DECISION
-  subject: CLN-001 Q1 initial source authority for synthetic Toy 1
+  type: FRESH_AGENT_AS_REVISION_AUTHORING
+  subject: CLN-001 first versioned AS revision under delegated diagnostic authority
   branch: experiment/toy1-pipe-cleaner-001
-  review_disposition: READY_FOR_HUMAN_QUESTIONS
-  reviewed_commit: e01f91177c20e14f3aea3a11d9025821156dd971
-  reviewed_report: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md
-  question_handoff: reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md
-  instruction: "Ask the human who has authority to adopt/revise/reject the synthetic Toy 1 requirements; record the exact response in a versioned decision, then ask Q2-Q7 in dependency order."
+  decision: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  task: reviews/diagnostics/CLN-001-TASK-001/TASK-002.md
+  handoff: reviews/diagnostics/CLN-001-TASK-001/DELEGATED_DECISION_HANDOFF.md
+  instruction: "Human copies only DECISION-001 and TASK-002 into existing external workspace, pins their hashes; launches a fresh author agent restricted to workspace to create AS-REV-002, DECISION-TRACE-002, BRIEFING-002; stops. Separate review follows."
+  independent_AS_review_required: true
   AS_accepted: false
-  independent_question_review_ready: true
-  runtime_isolation_qualified: false
+  diagnostic_only: true
   formal_cleanroom_qualified: false
-  framework_frozen: false
   prohibit:
-    - "Do not infer user authority or answers without their explicit decision."
-    - "Do not treat READY_FOR_HUMAN_QUESTIONS as AS approval."
-    - "Do not provide historic Toy 1 solution or reviewer oracle to a fresh agent."
-    - "Do not start proof/AP/CON/DE/C or restart parked submodule work."
+    - "Do not claim user approved each assistant-authored technical decision personally; they delegated CLN-001 authority."
+    - "Do not import previous Toy 1 solved artifacts, code, legacy decision receipts or hidden evaluator target."
+    - "Do not overwrite initial AS-DRAFT-001, QUESTIONS-001, BRIEFING-001 or REVIEW-001."
+    - "Do not start proof/AP/CON/DE/C or parked submodule work before revised AS review/disposition."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

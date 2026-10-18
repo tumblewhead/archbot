@@ -1,0 +1,109 @@
+schema: pc-cln-diagnostic-authority-decision/v1
+id: CLN-001-DIAGNOSTIC-DECISIONS-001
+project_id: CLN-001
+experiment_branch: experiment/toy1-pipe-cleaner-001
+status: DECIDED_BY_DELEGATE_FOR_SYNTHETIC_DIAGNOSTIC
+decision_stage: REQUIREMENTS_CLARIFICATION_NOT_AS_ACCEPTANCE
+authority:
+  originating_authority: human_experiment_sponsor
+  explicit_delegation_message: "ill empower you, and yes limited to this diagnostic project. We already know what we want to end up with, we are just testing the system"
+  delegated_to: ChatGPT_assistant_as_diagnostic_engineering_decision_maker
+  delegated_role: sponsor_delegate_for_synthetic_CLN-001_requirements
+  permitted_scope: CLN-001_DIAGNOSTIC_ONLY
+  may:
+    - "Adopt, amend, or explicitly defer synthetic source requirements and model assumptions."
+    - "Specify task boundaries and verification criteria needed for this diagnostic."
+    - "Record versioned engineering decisions attributable to the delegate."
+  may_not:
+    - "Retroactively approve the already drafted Architecture Statement."
+    - "Perform the separate independent AS review or impersonate a human reviewer."
+    - "Claim real product/stakeholder/target qualification or discharge Toy 1 historical VOs."
+    - "Bind any real hardware implementation or the earlier Toy 1 project."
+    - "Transfer this delegation to fresh authoring or reviewer agents."
+  external_authentication: "Conversation delegation recorded in repository; no cryptographic signature."
+  revocable_by: human_experiment_sponsor
+review_basis:
+  authoring_commit: 57c49628dfca12e30315eb7b08f63c478379cc68
+  reviewed_as: reviews/diagnostics/CLN-001-TASK-001/AS-DRAFT-001.md
+  reviewed_questions: reviews/diagnostics/CLN-001-TASK-001/QUESTIONS-001.md
+  review_commit: e01f91177c20e14f3aea3a11d9025821156dd971
+  review_path: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json
+  review_disposition: READY_FOR_HUMAN_QUESTIONS
+  review_independence_externally_authenticated: false
+decision_method:
+  basis: "Original three BKP source statements and the new AS draft/questions only; decisions below are new sponsor-delegate choices, not historical Toy 1 approvals."
+  intentionally_new_synthetic_authority: true
+  experiment_coordinator_prior_solution_familiarity: true
+  bias_limit: "Delegate knows there was an earlier Toy 1 solution. This diagnostic cannot claim that the delegate is blind; fresh author must not be shown the earlier solution, its artifacts or evaluator rubric."
+  provenance: "Do not cite older Toy 1 decisions as the source of these new requirements."
+requirements:
+  R1:
+    disposition: ADOPT
+    statement: "After each accepted unsigned sample, provide the exact integer sum of squares over that sample and the 31 preceding accepted samples."
+    source: BKP-NEED-001
+    verification: "Compare every output against an independent 32-sample specification on boundary and randomized streams."
+  R2:
+    disposition: ADOPT
+    statement: "Before the 32-sample window fills, treat only pre-initialization absent positions as zeros."
+    source: BKP-NEED-001
+    verification: "Check zero, first, 31st, 32nd and 33rd accepted-sample cases."
+  R3:
+    disposition: REVISE_EXPLICITLY
+    original: "Update every 1 ms."
+    statement: "Compute a logically new result for each accepted sample. Assume nominal arrivals every 1 ms for this exercise, but impose no unmeasured hard completion deadline or jitter bound. Record performance evidence separately before claiming operation on real hardware."
+    rationale: "An assumed sample-arrival period does not define a separately approved execution deadline. This explicit synthetic revision resolves Q2 for the diagnostic."
+    source: BKP-NEED-001_and_BKP-ADC-001
+    verification: "Check one result per accepted ordered sample; report measured runtime separately if a concrete target is later selected."
+  R4:
+    disposition: NARROW_AND_DEFER_WITH_TRACKING
+    original: "Detect sustained energy."
+    statement: "The present numeric subsystem supplies exact window energy to a potential detection consumer. An additional boolean sustained-energy decision, threshold and duration are NOT required in this stage; treat that function as a separate, unresolved integration obligation before claiming whole-detector completion."
+    due_stage: "Before claiming a complete sustained-energy detector rather than an energy-computation primitive."
+    source: BKP-NEED-001
+  R5:
+    disposition: ADOPT_WITH_DEFINED_BOUNDARY
+    statement: "Use at most 2048 bytes of detector-attributable RAM, including its owned persistent state, working scratch, and detector-owned call stack. Memory owned exclusively by an upstream publisher is outside this detector boundary. No numeric compute/power optimization threshold is approved; provide comparisons/measurements when feasible."
+    target_qualification: "Hypothetical only; no device/compiler/linker/stack evidence is available."
+    source: BKP-NEED-001_and_BKP-TARGET-001
+    verification: "State exact memory accounting and assumptions; measurable host and target evidence must remain separately classified."
+  R6:
+    disposition: ADOPT
+    statement: "Do not depend on floating-point hardware; do not prescribe a particular integer algorithm or data structure at the AS stage."
+    source: BKP-NEED-001
+assumptions:
+  A1:
+    disposition: ADOPT_SYNTHETIC_MODEL
+    statement: "Each accepted sample is an unsigned integer from 0 through 4095 inclusive."
+  A2:
+    disposition: ADOPT_AS_NOMINAL_MODEL_ONLY
+    statement: "The original ADC model's one millisecond period is an illustrative nominal arrival cadence, not a proven uninterrupted delivery or real-time execution guarantee."
+  A3:
+    disposition: ADOPT_SYNTHETIC_MODEL
+    statement: "Assume a 32-bit Cortex-M-class MCU without hardware FPU, no specific device or compiler selected."
+  A4:
+    disposition: ADOPT_SYNTHETIC_MODEL_BOUND
+    statement: "2048-byte detector-attributable RAM ceiling with accounting defined in R5; no measured footprint claimed."
+interface_and_lifecycle_Q4:
+  initial_state: "No accepted samples; 32 logical pre-initialization slots contribute zero."
+  reset: "An explicit detector reset begins a new logical sequence with zero previous history."
+  input: "One valid sample value per accepted input event. Source event index is logical, not a verified timestamp."
+  output: "One exact energy value and its logical accepted-sample index on each accepted sample event."
+  before_first_sample: "Initial mathematical energy is zero; publication before the first accepted sample is not required."
+delivery_and_exceptions_Q6:
+  producer_owner: "Upstream sample publisher supplies the values and owns acquisition timing."
+  accepted_input_contract: "Samples arrive in intended order without omissions for this diagnostic. Duplicate, missing and out-of-order delivery is outside the accepted input contract."
+  invalid_input: "Values outside 0..4095 are invalid and must not change detector state or be silently converted to zero; the API must expose rejection or precondition violation explicitly."
+  detected_faults: "If the surrounding interface can detect gaps or ordering faults, it must report them rather than pretending all inputs were accepted."
+  unobservable_faults: "No guarantee is made that an interface lacking sequence identifiers can detect dropped/duplicated samples."
+review_and_next_gate_Q7:
+  prior_review: "READY_FOR_HUMAN_QUESTIONS, not AS acceptance."
+  next_author_task: "Create an additive versioned AS revision from these decisions and only the original three BKP inputs; do not select AP/P/CON/DE or implement."
+  next_independent_review: "Distinct review invocation checks the new AS against these delegated decisions and original BKP, with specific attention to changed R3 and narrowed R4."
+  as_acceptance: PENDING_AFTER_INDEPENDENT_REVIEW
+  future_proof_and_implementation: NOT_YET_AUTHORIZED
+limits:
+  formal_cleanroom_qualified: false
+  runtime_isolation_verified: false
+  product_verified: false
+  framework_frozen: false
+  inherited_toy1_VOs_discharged: []

@@ -57,23 +57,24 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: Toy 1 first AS diagnostic passed to human questions.**
-The authoring candidate is preserved at `57c49628dfca12e30315eb7b08f63c478379cc68`.
-The separately invoked reviewer produced `REVIEW-001.md` and
-`REVIEW-001.json`, committed on
-`experiment/toy1-pipe-cleaner-001` at
-`e01f91177c20e14f3aea3a11d9025821156dd971`.
-Actual verdict: **READY_FOR_HUMAN_QUESTIONS** for initial diagnostic
-C/R/PS source fidelity only. Not AS approval. The reviewer reported
-independence from authoring but no external authentication. F2 timing
-semantics and F3 missing human decisions remain open, F4 provenance
-minor. **Next action:** ask human Q1 about engineering authority,
-then record explicit decisions Q2-Q7 rather than inventing answers.
-Read `reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md`.
-Do not run proof, AP, CON, DE, implementation or further independent
-AS reviews without the human's actual decision and relevant authority.
-Package integrity PASS does not establish runtime/connector isolation;
-formal cleanroom qualification is still false.
+**CURRENT PRIORITY: CLN-001 delegated synthetic diagnostic AS revision.**
+Human experiment sponsor explicitly delegated requirements decisions
+for the CLN-001 diagnostic to this assistant; no authority for
+old Toy 1, formal cleanroom or independent review was delegated.
+See `reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml`.
+Assistant made explicit new synthetic decisions Q1-Q7 grounded in
+original BKP and fresh AS questions, including versioned changes
+to timing semantics and a deferred whole-detector scope obligation.
+Neither the earlier `READY_FOR_HUMAN_QUESTIONS` review nor these
+decisions constitute an independently accepted AS.
+**Next:** `reviews/diagnostics/CLN-001-TASK-001/TASK-002.md`
+and `DELEGATED_DECISION_HANDOFF.md`: human transfers only stage-2
+authorized inputs into the external author workspace; fresh agent
+writes an AS revision + decision trace + briefing and stops.
+Keep all earlier Toy 1 solutions, Git history and evaluator oracles
+out of the author workspace. The coordinating assistant is familiar
+with historical Toy 1 and does not claim sponsor blindness.
+Physical runtime/connector isolation still is not qualified.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
