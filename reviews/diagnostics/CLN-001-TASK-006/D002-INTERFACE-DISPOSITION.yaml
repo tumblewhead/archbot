@@ -1,0 +1,62 @@
+schema: pc-cln-diagnostic-interface-policy/v1
+id: CLN-001-D002
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ACCEPTED_SCOPED_DISCLOSURE_POLICY
+scope: CLN-001_SYNTHETIC_DIAGNOSTIC_ONLY
+authority:
+  origin: human_experiment_sponsor
+  delegated_decision_maker: ChatGPT_assistant
+  delegation_source: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  reviewer_authority_transferred: false
+decision:
+  disposition: ACCEPT_WITH_NONBLOCKING_EXAMPLE_CLARIFICATION
+  accepted_from: reviews/diagnostics/CLN-001-TASK-005/DECISION-PROPOSAL-005.yaml
+  policy_class: AP_DISCLOSURE_AND_REFINEMENT_RULES
+  policy_is_not: "A new AS requirement, selected AP, history service, index encoding, epoch restriction, or physical feasibility result."
+  clauses:
+    - id: D002-1
+      text: "Preserve exact accepted abstract (n,E_n), one pair per accepted event, startup/reset semantics and invalid-input behavior. Do not equate abstract indexing with an approved physical counter."
+    - id: D002-2
+      text: "Each candidate must state the information and index interfaces and their exact refinement to the abstract pair; inventory all retained or consulted output-affecting information, its ownership, retention, reset, validation and failure semantics. A/B/C remain alternative design families, not accepted mechanisms."
+    - id: D002-3
+      text: "Preserve R5's detector-attributable RAM boundary including owned persistent/scratch/stack; exclusively upstream-owned memory is excluded only if ownership is established. Account shared allocations and upstream cost scopes explicitly."
+    - id: D002-4
+      text: "Apply accepted T1 only to future numeric outputs and T2 only at a complete deterministic named boundary satisfying its no-replay and unrestricted-future hypotheses. Do not infer a 47-byte implementation or detector RAM from complete-state information capacity."
+    - id: D002-5
+      text: "An external index association service, finite epoch length, wrap/exhaustion behavior, mandatory reset or restriction of otherwise-valid events is not approved here. Concrete dependencies require explicitly reviewed contracts; operating restriction or changed accepted behavior requires separate diagnostic authority and AS clarification as appropriate."
+    - id: D002-6
+      text: "Retain accepted F's H1-H6 gates and RAM_peak, compute_effort, device_energy_consumption axes; UNKNOWN costs remain UNKNOWN. Compare only under compatible evidence and scope. Retain all T002-2..8 and deferred R4 detection obligations."
+clarification:
+  source_review_finding: R1_MINOR_NONBLOCKING
+  reviewer_receipt: reviews/diagnostics/CLN-001-TASK-005/REVIEW-INTERFACE-005.json
+  description: "INTERFACE-OPTIONS-005 illustrative order/horizon examples at its lines 58 and 61 refer to exactly 31-entry padded tails, not full 32-entry current windows. That interpretation is supported by surrounding T1 definition; under a full-32-window reading the example's immediate-next equality is false. Preserve original source unchanged."
+  status: RECORDED_SEPARATELY_NO_SOURCE_REWRITE
+review:
+  archival_commit: 6361abe11795c6e80d1c518eff6a5259f28b2c07
+  disposition: READY_FOR_DELEGATED_D002_DISPOSITION
+  receipt: reviews/diagnostics/CLN-001-TASK-005/REVIEW-INTERFACE-005.json
+  receipt_git_blob: e7347d1432b11c70ee27b91461fdbcd7ffef7f72
+  report_git_blob: 89a095aebebd5d5d4890abeee287471d2398ec86
+  independence_externally_authenticated: false
+ap_applicability:
+  candidate_generation_authorized: true
+  selection_authorized: false
+  alternatives_to_explore: [LOCAL_COMPLETE_HISTORY, UPSTREAM_REPLAY_SERVICE, SHARED_OR_OTHER_AS_SUPPORTED]
+  local_information_bound_requires_full_closure: true
+  logical_index_contract: CANDIDATE_MUST_DISCLOSE_AND_REFINEMENT_REVIEW_PENDING
+  option_III_exact_unbounded_finite_closed: CONDITIONALLY_INCOMPATIBLE_NOT_APPROVED_THEOREM
+  finite_epoch_or_index_exhaustion_rule: NOT_APPROVED
+  assumed_external_service: NOT_APPROVED
+continuing_obligations:
+  local_labels: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+  all_open: true
+  R4_complete_sustained_energy_detector: OPEN_DEFERRED
+limits:
+  prior_AS_D001_F_and_proof_unchanged: true
+  proposal_source_unchanged: true
+  no_architectural_selection: true
+  product_verified: false
+  target_qualified: false
+  formal_cleanroom_qualified: false
+  vo_discharged: []

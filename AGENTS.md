@@ -57,23 +57,27 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: independent CLN-001 Stage-5 D002 proposal review.**
-The Stage-5 author pushed `INTERFACE-OPTIONS-005.md`,
-`DECISION-PROPOSAL-005.yaml` and `BRIEFING-005.md` at
-`c977e487bd0bce0f726e122ce44a96945f0e2461` with source
-manifest. D002 remains **PROPOSED_NOT_APPROVED**; no history
-owner, external index, epoch bound, wrap rule or architecture
-selected. The accepted mathematical T2 complete-state/no-replay
-assumption must not become detector-RAM proof or an unapproved AS
-restriction. See
-`reviews/diagnostics/CLN-001-TASK-005/INTERFACE_REVIEW_HANDOFF.md`.
-Human pulls experiment branch, runs `prepare_interface_review005.sh`
-to CREATE a new source-pinned reviewer workspace, launches fresh
-Codex reviewer, and runs `archive_interface_review005.sh` to
-restartably preserve original review evidence. Only then may
-CLN-001 sponsor delegate consider D002 disposition. No AP,
-CON/DE/C, target/product verification, old Toy 1 import or
-formal cleanroom qualification.
+**CURRENT PRIORITY: CLN-001 Stage-6 competing AP drafts.**
+Stage-5 independent interface reviewer returned
+`READY_FOR_DELEGATED_D002_DISPOSITION`, original review archived
+at `6361abe11795c6e80d1c518eff6a5259f28b2c07`.
+The CLN-001 delegate accepted D002's six candidate audit/
+refinement disclosure clauses plus MINOR 31-tail example
+clarification, recorded in
+`reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml`.
+D002 is **not** new AS constraint, index service, epoch bound,
+architecture selection, local SRAM theorem or implementation.
+
+Read `reviews/diagnostics/CLN-001-TASK-006/STAGE6_HANDOFF.md`.
+Human pulls branch then runs `prepare_ap006.sh` to CREATE
+`~/archbot-cln001-ap-006/`. New Codex Proposal Agent writes
+two-plus structurally distinct AP candidates and a symbolic F
+comparison/briefing without selecting an AP. Restartable
+`archive_ap006.sh` selectively preserves/pushes actual
+outputs, followed by distinct independent AP review and separate
+eventual selection decision. Old solved Toy 1 excluded.
+No target/product or formal cleanroom qualification, old VO
+discharge, CON/DE/C or framework migration authorized.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

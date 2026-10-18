@@ -3,56 +3,62 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-5 interface proposal archived; independent review next
+## Current checkpoint: CLN-001 D002 policy accepted; fresh AP drafts next
 
-Original synthetic unsolved BKP sources, delegated D001, accepted
-diagnostic AS/F, and the first independently reviewed mathematical
-T1/T2 scope remain authoritative for CLN-001 only. T1 covers
-future NUMERIC output equivalence; T2's `2^372`/372-bit
-complete-information minimum requires a deterministic **closed
-no-replay** information boundary and unrestricted continuations.
-Neither theorem establishes a 47-byte implementation, a detector
-SRAM lower bound when external replay exists, or an indexed-output
-implementation. PO-003-1/3 remain UNPROVEN. No AP has been selected.
+Original synthetic unsolved BKP, D001, the accepted scoped
+AS-REV-002, accepted F with H1-H6 and three diagnostic
+Pareto axes, and the mathematical T1/T2 disposition remain
+the only accepted engineering sources for the numeric primitive.
+T1 concerns future numeric outputs; conditional T2's
+`2^372` state count requires a complete deterministic
+no-replay information boundary with unrestricted futures.
+It is not a proven detector-owned SRAM allocation. The
+indexed-output interface and PO-003-3 remain unresolved.
 
-The fresh Stage-5 analyst completed the authorized pre-AP task and
-pushed its exact original outputs at
-`c977e487bd0bce0f726e122ce44a96945f0e2461`:
+The fresh Stage-5 analyst authored
 [INTERFACE-OPTIONS-005](reviews/diagnostics/CLN-001-TASK-005/INTERFACE-OPTIONS-005.md),
-[DECISION-PROPOSAL-005](reviews/diagnostics/CLN-001-TASK-005/DECISION-PROPOSAL-005.yaml),
-[BRIEFING-005](reviews/diagnostics/CLN-001-TASK-005/BRIEFING-005.md),
-and the original `STAGE5_OUTPUT_SHA256SUMS`.
+[DECISION-PROPOSAL-005](reviews/diagnostics/CLN-001-TASK-005/DECISION-PROPOSAL-005.yaml)
+and [BRIEFING-005](reviews/diagnostics/CLN-001-TASK-005/BRIEFING-005.md),
+pushed at `c977e487bd0bce0f726e122ce44a96945f0e2461`.
+A distinct reviewer examined all three, archived at
+`6361abe11795c6e80d1c518eff6a5259f28b2c07`, and returned
+**READY_FOR_DELEGATED_D002_DISPOSITION** with no blocking finding.
+Reviewer R1 MINOR clarified that two illustrative order
+examples refer to exactly **31-entry padded tails**; reading them
+as 32-entry windows would falsify the immediate-next-output
+equality. Original author and reviewer files remain unchanged.
 
-**The proposed D002 is PROPOSED_NOT_APPROVED.** The analyst
-compares A local detector-owned history, B exclusively upstream
-publisher readback, C unresolved shared retained information;
-and I wider-protocol association, II finite-width bounded index,
-III unbounded exact natural index produced solely from finite
-closed internal state. It records conditions for using T1/T2
-without silently making the no-replay model an AS requirement.
-For III it identifies a conditional impossible realization
-model, **not** an accepted proof of PO-003-3 or a contradiction
-in the abstract accepted AS. Every RAM, compute and device-energy
-target value is UNKNOWN; R4 detection and T002-2..8 stay OPEN.
+Under the user's explicit CLN-001-only diagnostic delegation,
+the assistant now records
+[D002-INTERFACE-DISPOSITION](reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml),
+**ACCEPT_WITH_NONBLOCKING_EXAMPLE_CLARIFICATION**.
+This adopts only six **AP disclosure and refinement policy**
+clauses: preserve accepted abstract (n,E_n), enumerate
+history ownership and any upstream/shared replay, provide
+actual index contract/refinement, justify T1/T2 boundary,
+retain H1-H6, cost/evidence scope and all open T002/R4
+obligations. It does **not** select A/B/C history allocation,
+index I/II/III, concrete external service, epoch cap, wrap,
+new AS requirement or an AP. No candidate fit established.
 
-**Next authorized gate:** independent review of the three
-proposal artifacts, not immediate delegated acceptance. Read
-[INTERFACE_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-005/INTERFACE_REVIEW_HANDOFF.md).
-Human pulls experiment branch and runs
-[prepare_interface_review005.sh](reviews/diagnostics/CLN-001-TASK-005/prepare_interface_review005.sh)
-to CREATE `~/archbot-cln001-interface-review-005` from pinned
-positive-allowlist inputs, then launches a **new** Codex reviewer.
-[REVIEW-INTERFACE task](reviews/diagnostics/CLN-001-TASK-005/TASK-REVIEW-INTERFACE-005.md)
-requires a distinct scoped verdict. Human then runs
-[archive_interface_review005.sh](reviews/diagnostics/CLN-001-TASK-005/archive_interface_review005.sh)
-to restartably copy, stage, commit and push original reviewer files.
-Only after source and verdict inspection may the delegate dispose
-D002 in an additive decision, without automatically authorizing AP.
+**Next authorized task:** draft **competing APs without
+selection** using
+[TASK-AP-006](reviews/diagnostics/CLN-001-TASK-006/TASK-AP-006.md).
+[prepare_ap006.sh](reviews/diagnostics/CLN-001-TASK-006/prepare_ap006.sh)
+CREATES `~/archbot-cln001-ap-006/` with positive-allowlisted
+original BKP, accepted AS/F/D001/D002, theorem scope and
+generic proposal-agent role, excluding old solved Toy 1.
+New Codex Proposal Agent writes at least two candidate APs,
+symbolic H1-H6/F comparison and briefing. Only afterward
+does a distinct AP reviewer evaluate the actual source.
+[archive_ap006.sh](reviews/diagnostics/CLN-001-TASK-006/archive_ap006.sh)
+is restartable and preserves exact source-byte evidence.
+Read [STAGE6_HANDOFF](reviews/diagnostics/CLN-001-TASK-006/STAGE6_HANDOFF.md).
 
-External agent/OS/connector isolation is not qualified; this is
-a pre-freeze diagnostic, not FR-005/FR-006 formal cleanroom.
-No hardware, target, whole-detector or historical Toy 1 VO
-qualification. Main unchanged, framework/submodule work parked.
+Still pre-freeze **diagnostic**, not formal cleanroom FR-005/006;
+no real hardware performance/memory/power, selected AP,
+CON/DE/C, completed detector, legacy VO discharge or
+framework/submodule migration. Main untouched.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

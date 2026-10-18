@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE5_ANALYSIS_ARCHIVED_INDEPENDENT_REVIEW_PENDING
+  status: STAGE5_D002_POLICY_ACCEPTED_STAGE6_AP_DRAFTS_AUTHORIZED
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -355,30 +355,29 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: INDEPENDENT_CLN001_STAGE5_INTERFACE_PROPOSAL_REVIEW
-  subject: history information boundary, theorem applicability and logical index/epoch interpretations
+  type: CLN001_STAGE6_FRESH_COMPETING_AP_DRAFTS
+  subject: at least two distinct APs under accepted diagnostic AS/F and D002 audit policy
   branch: experiment/toy1-pipe-cleaner-001
-  authoring_commit: c977e487bd0bce0f726e122ce44a96945f0e2461
-  options: reviews/diagnostics/CLN-001-TASK-005/INTERFACE-OPTIONS-005.md
-  proposal: reviews/diagnostics/CLN-001-TASK-005/DECISION-PROPOSAL-005.yaml
-  proposal_status: PROPOSED_NOT_APPROVED
-  author_briefing: reviews/diagnostics/CLN-001-TASK-005/BRIEFING-005.md
-  output_manifest: reviews/diagnostics/CLN-001-TASK-005/STAGE5_OUTPUT_SHA256SUMS
-  review_task: reviews/diagnostics/CLN-001-TASK-005/TASK-REVIEW-INTERFACE-005.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-005/prepare_interface_review005.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-005/archive_interface_review005.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-005/INTERFACE_REVIEW_HANDOFF.md
-  expected_outputs: [REVIEW-INTERFACE-005.md, REVIEW-INTERFACE-005.json]
-  instruction: "Pull latest experiment branch. Preparation script creates new independently assigned source-pinned reviewer workspace. Reviewer assesses D002 as proposal against BKP/D001/AS/F/T1/T2, emits original review md/json and stops. Restartable archive script stages/commits/pushes exact review files for later delegated D002 disposition."
-  D002_accepted: false
-  AS_and_F_unchanged: true
+  review_commit: 6361abe11795c6e80d1c518eff6a5259f28b2c07
+  review_receipt: reviews/diagnostics/CLN-001-TASK-005/REVIEW-INTERFACE-005.json
+  review_disposition: READY_FOR_DELEGATED_D002_DISPOSITION
+  D002_disposition: reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml
+  D002_status: ACCEPTED_DISCLOSURE_ONLY_NO_OPERATING_RESTRICTIONS
+  D002_review_clarification: "R1 MINOR: illustrations use exactly 31-entry padded tails, not full 32-entry windows; preserve source text."
+  AP_author_task: reviews/diagnostics/CLN-001-TASK-006/TASK-AP-006.md
+  AP_prepare_script: reviews/diagnostics/CLN-001-TASK-006/prepare_ap006.sh
+  AP_archive_script: reviews/diagnostics/CLN-001-TASK-006/archive_ap006.sh
+  AP_handoff: reviews/diagnostics/CLN-001-TASK-006/STAGE6_HANDOFF.md
+  AP_expected_outputs: [AP-CANDIDATES-006.md, AP-COMPARISON-006.md, AP-BRIEFING-006.md]
+  instruction: "Human pulls experiment branch, runs script to create new source-only AP author workspace, new Codex proposal-agent authors 2+ distinct AP candidates and symbolic F comparison, then restartable archive selectively stages/commits/pushes exact outputs. Separate AP review before any selected architecture."
   AP_selected: false
+  AP_drafts_auth: true
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not accept proposal D002 or assume extra history/index service guarantees before independent review."
-    - "Do not equate conditional complete-state bound with detector SRAM."
-    - "Do not declare PO-003-3 proved or invent finite epoch/index wrap."
-    - "Do not import old solved Toy 1 or begin AP/CON/DE/C."
+    - "Do not assume external service, index encoding, epoch/wrap policy or no-replay local boundary absent evidence."
+    - "Do not import prior solved Toy 1 AP/CON/DE/C, F-001 or hidden evaluation oracle."
+    - "Do not claim AP hard gate compliance from speculative descriptions or UNKNOWN costs."
+    - "Do not start CON/DE/C or old framework migration before later independent AP review and explicit decision."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
