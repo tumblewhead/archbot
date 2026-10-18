@@ -1,0 +1,69 @@
+schema: pc-cln-ap-feasibility-evaluation-scope/v1
+id: CLN-001-AP-EVAL-009
+project: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: AUTHORIZED_INDEPENDENT_EVALUATION_NOT_ARCHITECTURE_SELECTION
+authority:
+  authorization: reviews/diagnostics/CLN-001-TASK-009/AS-ADDENDUM-008-R1-DISPOSITION.yaml
+  scope: SYNTHETIC_PREFREEZE_DIAGNOSTIC_ONLY
+  independent_evaluator_no_delegated_decision_authority: true
+sources:
+  AS_original: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  AS_original_activation: reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
+  AS_additive: reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md
+  AS_additive_disposition: reviews/diagnostics/CLN-001-TASK-009/AS-ADDENDUM-008-R1-DISPOSITION.yaml
+  F: reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
+  PD: reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml
+  interface_policy: reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml
+  candidates: reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md
+  comparative_projection: reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md
+  candidate_review: reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.md
+  AS_addendum_review: reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008-R1.md
+objective: >-
+  Evaluate the actual evidence and necessary conditions for numeric,
+  interface, resource and service feasibility of three UNSELECTED APs.
+  Separate a conditional model result from whole-interface eligibility
+  and compatible F-axis evidence. Report falsifiers and the minimum
+  later empirical tasks. Never invent absent services or select a winner.
+candidate_ids: [AP-006-A, AP-006-B, AP-006-C]
+hard_gates: [H1, H2, H3, H4, H5, H6]
+active_F: [RAM_peak, compute_effort, device_energy_consumption]
+evidence_levels: [CONDITIONAL_SYMBOLIC, FINITE_MODEL, HOST_SPECIFIC, TARGET_SPECIFIC]
+evaluation_tracks:
+  numeric:
+    goal: "Independent exact latest-32 oracle for A raw tail, B ordered squared tail, C coherent pre-event snapshot only under declared simulated service."
+    coverage: "Startup, 1/31/32/33, maxima, rejects, explicit resets, age/cursor and mid-read mutations."
+    tests_not_mechanism: "No firmware implementation or target measurement; do not infer full H1/H2."
+  consumer_index:
+    goal: "Explicit source-to-consumer information-flow table, event/rank association proof obligations and reset/restart/debt cases."
+    keep_unknown: "No provided physical RI decoder, RN service, indefinitely retained external state or finite-epoch permission."
+  resource:
+    goal: "Inventory local, shared and external history/index/transaction/scratch/stack/pending state with peak live expressions, lifetime and ownership."
+    forbid: "No allocation with unknown ownership counted zero; T2 capacity is not a 47-byte implementation."
+  compute_and_energy:
+    goal: "Comparable workload and typed operation-class comparisons; optional hypothetical sensitivity cases clearly marked assumptions."
+    forbid: "No invented MCU cycles, energy constants, battery current or fabricated Pareto winner."
+  dependency_and_service:
+    goal: "For C/RN, mark provider, exact prior history, accepted ordinal, snapshot linearization, availability, reset fencing and costs as UNSUPPLIED until evidence."
+  falsifiers:
+    goal: "Identify smallest traces that distinguish incorrect age, future expiry, stale-reset result, consumer rank ambiguity, mixed/cross-event snapshot, pending queue overflow."
+results_required:
+  - "Per-candidate H1-H6: tested model result versus full realized state UNKNOWN/actual contradiction."
+  - "Original AS and additive AS exact compliance separately from services and conditional proof applicability."
+  - "F three axes: symbolic conditional inequalities and evidence-compatibility matrix; unknown numeric values remain UNKNOWN."
+  - "T002-2..8 and R4 stage-due mapping with exact evidence needed."
+  - "Ranked minimum next evidence experiments by information gain and engineering cost, but NO ranking or selection of AP candidates."
+  - "Independent engineering briefing with surprises, larger relationships, unresolved human/engineering authority and falsifiers."
+output_files:
+  - AP-EVALUATION-009.md
+  - AP-EVALUATION-009.json
+  - AP-EVALUATION-BRIEFING-009.md
+next_gate: DISTINCT_INDEPENDENT_REVIEW_OF_AP_EVALUATION_009_BEFORE_ANY_SELECTION
+hard_stops:
+  AS_rewritten: false
+  AP_selected: false
+  H1_H6_full_realized_PASS_without_evidence: false
+  target_qualified: false
+  CON_DE_C_started: false
+  original_Toy1_sources_imported: false
+  VO_discharged: []
