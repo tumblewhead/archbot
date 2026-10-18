@@ -3,53 +3,48 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-8 AS addendum source review prepared
+## Current checkpoint: CLN-001 Stage-8 R1 focused review prepared
 
-Current experiment-branch Stage-7 independent review:
-[REVIEW-D003-007](reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.md)
-and [JSON receipt](reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.json)
-were pushed at `eb491accb86b12dad783d8ce02b4dff19b490079`.
-Disposition: `READY_FOR_DELEGATED_D003_DISPOSITION`, at proposed
-source/authority scope only. All 15 supplied payloads were reported
-hash-matched; no physical-index, target, implementation, historical
-identity or isolation claims follow. The 5 clauses were source-consistent
-as **conditional proposals**, not made effective by review.
+Latest independent [AS addendum review 008](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.md)
+and [machine-readable receipt](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.json)
+were archived at `0d7f83b4e6b9d912562de93ea268eb1575f41f88`.
+Actual disposition: **`REVISE_AS_ADDENDUM`**, with one
+source/authority blocking finding `R008-3`: the proposed
+A008-R3/S28 had silently made distinct consumer-side reset
+**acknowledgment** mandatory. Accepted D001/AS require correct
+reset order/old-new association, but do not require acknowledgment
+as a distinct event or service. Review reported 15/15 source hashes,
+11 successful finite assertions, no physical test; remaining
+R008-1/2/4/5/6 findings are nonblocking at the focused-source gate.
 
-The CLN-001-only sponsor delegate issued
-[D003-DISPOSITION-007](reviews/diagnostics/CLN-001-TASK-008/D003-DISPOSITION-007.yaml):
-`ACCEPT_PROPOSAL_SCOPE_FOR_ADDITIVE_AS_CLARIFICATION_ONLY`.
-P2 conservatively preserves accepted-result debt and invalid/accepted
-distinction, P4 preserves unsupplied service status, P5 preserves
-H1–H6/F constraints. P1's exact consumer-decodable implicit index and
-P3's reset association are **not activated**: each requires an
-independently reviewed additive AS clarification. AS-REV-002/D001
-remain the accepted unchanged baseline. Index n must actually be
-available to the consumer; a mathematical observer's trace rank alone
-does not supply it. Old accepted result debt must not alias new
-reset-sequence results or be erased by a diagnostic report.
+The original proposed `AS-ADDENDUM-008.md`, `REVIEW-AS-ADDENDUM-008.md/json`
+and checksum remain immutable; no AS activation was allowed. The
+CLN-001-only delegated decision was **minimal correction** rather
+than amendment introducing a new acknowledgment requirement.
+[AS-ADDENDUM-008-R1](reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md)
+is PROPOSED_NOT_ACTIVE and changes exactly its heading and S28:
+consumer-visible reset ordering/old-new association is required;
+a separate acknowledgment event is OPTIONAL, with any chosen
+mechanism owing independently reviewed evidence. See
+[R008-3 correction note](reviews/diagnostics/CLN-001-TASK-008/R008-3-CORRECTION-NOTE.md).
 
-**Next eligible task:** independent review of
-[AS-ADDENDUM-008](reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md)
-and [Stage-8 briefing](reviews/diagnostics/CLN-001-TASK-008/BRIEFING-008.md).
-This is **PROPOSED_NOT_ACTIVE**. Read
-[STAGE8_HANDOFF](reviews/diagnostics/CLN-001-TASK-008/STAGE8_HANDOFF.md),
-run source-pinned
-[preparation](reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008.sh),
-open a NEW independent Codex session (not resume), then
-[archive](reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008.sh)
-the untouched MD/JSON review and SHA-256 manifest. The reviewer
-must distinguish faithful representation/refinement from a changed
-AS obligation; no AS activation or AP selection by reviewer.
+**Next eligible task:** fresh, independent focused review of R1,
+NOT delegated acceptance or general AP feasibility. Read
+[Stage-8 R1 handoff](reviews/diagnostics/CLN-001-TASK-008/STAGE8_R1_HANDOFF.md),
+run [source-pinned preparation with exact-delta check](reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008_r1.sh),
+launch new Codex, and [archive raw review](reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008_r1.sh).
+The reviewer must confirm no unapproved interface/protocol change,
+preserve exact consumer index and accepted result debt, and
+distinguish source fidelity from physical implementability.
 
-After favorable review, the delegate separately decides
-AS-addendum activation versus amendment/revision, then launches
-separately authorized AP feasibility evaluation. A/B/C remain
-unselected; all H1–H6 realized compliance and three active F axes
-RAM_peak/compute_effort/device_energy_consumption remain UNKNOWN.
-T1 future-numeric relation and T2 conditional complete-state capacity
-do not prove physical index service or target RAM fit. T002-2..8
-remain OPEN, R4 full detection deferred; no CON/DE/C, formal cleanroom,
-legacy Toy 1 VO discharge or product qualification.
+If favorable, make a separate delegated AS-addendum disposition
+before any activation; otherwise correct the particular blockers.
+D001/activated AS-REV-002, D002 and guarded D003 disposition remain.
+A/B/C all unselected; realized H1–H6 and measured F axes UNKNOWN,
+T002-2..8 OPEN, R4 deferred. Conditional T1/T2 do not prove a
+physical index service or a sufficient 47-byte detector allocation.
+No CON/DE/C, formal cleanroom, target/product qualification or
+legacy Toy 1 VO discharge.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
