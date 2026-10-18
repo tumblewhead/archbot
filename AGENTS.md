@@ -57,30 +57,23 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: CLN-001 Stage-5 interface and theorem applicability.**
-The independent proof review at
-`f255c662847378ac3df39b55c71e146a1f71cf7c`
-and scoped `PROOF-DISPOSITION-004.yaml` accept T1 for
-future numeric output and T2 only for the explicit complete
-deterministic **no-replay** information boundary. Neither
-47-octet capacity nor mathematical T2 is proof of detector
-SRAM fit. PO-003-3's closed finite-state/unbounded-index
-issue is still UNPROVEN.
-Do not select AP before establishing the history replay/
-memory ownership and logical sample-index semantics.
-
-The next bounded **source-only** task is
-`reviews/diagnostics/CLN-001-TASK-005/TASK-INTERFACE-005.md`.
-Human runs the new `prepare_interface005.sh` from the
-experiment checkout to CREATE `~/archbot-cln001-interface-005`,
-then starts fresh Codex. Output is an **unapproved** D002
-proposal and options matrix, not an authority decision.
-`archive_interface005.sh` is designed to be restartable
-after partially completed copying/staging, without rewriting
-original files or staging unrelated FR-002 receipts.
-Full annotated pull/run/push instructions in `STAGE5_HANDOFF.md`.
-Later distinct review and delegated decision required before AP.
-Formal cleanroom and hardware/product qualification remain false.
+**CURRENT PRIORITY: independent CLN-001 Stage-5 D002 proposal review.**
+The Stage-5 author pushed `INTERFACE-OPTIONS-005.md`,
+`DECISION-PROPOSAL-005.yaml` and `BRIEFING-005.md` at
+`c977e487bd0bce0f726e122ce44a96945f0e2461` with source
+manifest. D002 remains **PROPOSED_NOT_APPROVED**; no history
+owner, external index, epoch bound, wrap rule or architecture
+selected. The accepted mathematical T2 complete-state/no-replay
+assumption must not become detector-RAM proof or an unapproved AS
+restriction. See
+`reviews/diagnostics/CLN-001-TASK-005/INTERFACE_REVIEW_HANDOFF.md`.
+Human pulls experiment branch, runs `prepare_interface_review005.sh`
+to CREATE a new source-pinned reviewer workspace, launches fresh
+Codex reviewer, and runs `archive_interface_review005.sh` to
+restartably preserve original review evidence. Only then may
+CLN-001 sponsor delegate consider D002 disposition. No AP,
+CON/DE/C, target/product verification, old Toy 1 import or
+formal cleanroom qualification.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
