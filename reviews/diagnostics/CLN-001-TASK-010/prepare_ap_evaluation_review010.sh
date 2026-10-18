@@ -72,6 +72,8 @@ cp -- "reviews/diagnostics/CLN-001-TASK-009/STAGE9_BRIEFING.md" "$root/inputs/"
 cp -- "reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.md" "$root/inputs/"
 cp -- "reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.json" "$root/inputs/"
 cp -- "reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-BRIEFING-009.md" "$root/inputs/"
+cp -- "reviews/diagnostics/CLN-001-TASK-009/AP_EVALUATION009_SHA256SUMS" "$root/inputs/"
+cp -- "reviews/diagnostics/CLN-001-TASK-008/REVIEW_AS_ADDENDUM008_R1_SHA256SUMS" "$root/inputs/"
 cp -- "reviews/diagnostics/CLN-001-TASK-010/STAGE10_BRIEFING.md" "$root/inputs/"
 cp -- "reviews/diagnostics/CLN-001-TASK-010/TASK-REVIEW-AP-EVALUATION-010.md" "$root/TASK.md"
 cat > "$root/AGENTS.md" <<'ROLE'
