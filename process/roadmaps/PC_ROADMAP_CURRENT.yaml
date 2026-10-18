@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE6_AP_DRAFTS_ARCHIVED_AP_REVIEW_PREPARED
+  status: STAGE7_D003_PROPOSAL_PREPARED_INDEPENDENT_REVIEW_PENDING
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -381,33 +381,62 @@ stage6_actual_authoring:
   candidate_measured_F_values: UNKNOWN
   AP_selected: false
   next_gate: DISTINCT_INDEPENDENT_AP_REVIEW
-next_eligible_action:
-  type: CLN001_STAGE6_INDEPENDENT_AP_CANDIDATE_REVIEW
-  subject: assess three unselected APs against accepted synthetic AS/F/D001/D002 and scoped T1/T2
-  branch: experiment/toy1-pipe-cleaner-001
-  authoring_commit: 65ba5bf74347b28464e0ac610eea160bc131971f
-  candidates: reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md
-  comparison: reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md
-  briefing: reviews/diagnostics/CLN-001-TASK-006/AP-BRIEFING-006.md
-  source_manifest: reviews/diagnostics/CLN-001-TASK-006/AP006_OUTPUT_SHA256SUMS
-  review_task: reviews/diagnostics/CLN-001-TASK-006/TASK-REVIEW-AP-006.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-006/prepare_ap_review006.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-006/archive_ap_review006.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-006/AP_REVIEW_HANDOFF.md
-  expected_outputs: [REVIEW-AP-006.md, REVIEW-AP-006.json]
-  instruction: "Human pulls experiment branch, runs prepare_ap_review006.sh to create distinct pinned-input reviewer workspace, launches new Codex review, then restartably archives original reviewer sources. No AP selection or full stage-due feasibility asserted."
-  AP_source_status: DRAFT_UNSELECTED
-  independent_AP_review_completed: false
-  AP_evaluation_completed: false
+stage6_independent_ap_review:
+  archival_commit: 45d85dad82aaf3b1a74b856138d4bc0ccd8e4b47
+  reviewed_sources:
+    - reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md
+    - reviews/diagnostics/CLN-001-TASK-006/AP-COMPARISON-006.md
+  report: reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.md
+  receipt: reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.json
+  raw_sha256_manifest: reviews/diagnostics/CLN-001-TASK-006/REVIEW_AP006_SHA256SUMS
+  disposition: READY_FOR_INDEPENDENT_AP_EVALUATION
+  scope: CANDIDATE_DRAFT_QUALITY_ONLY
+  findings: [R006-1, R006-2, R006-3, R006-4, R006-5, R006-6, R006-7]
+  full_interface_d003_authority: PENDING
+  all_realized_H1_H6: UNKNOWN
+  actual_three_axis_F: UNKNOWN
   AP_selected: false
   source_isolation_qualified: false
-  formal_cleanroom_qualified: false
-  prohibit:
-    - "Do not make RI mathematical rank equal to an approved delivered exact index mechanism."
-    - "Do not treat publisher history service as existing/guaranteed or count it free."
-    - "Do not promote conditional T2 complete-state bits to measured detector RAM."
-    - "Do not treat F UNKNOWN axes or H gates as eligible PASS."
-    - "Do not begin selected AP/CON/DE/C, import previous solved Toy 1 source, or restart parked process research."
+  vos_discharged: []
+stage7_d003_clarification_proposal:
+  status: PROPOSED_NOT_EFFECTIVE_INDEPENDENT_REVIEW_PENDING
+  proposal: reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml
+  briefing: reviews/diagnostics/CLN-001-TASK-007/D003-BRIEFING-007.md
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-007/TASK-REVIEW-D003-007.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-007/prepare_d003_review007.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-007/archive_d003_review007.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-007/STAGE7_HANDOFF.md
+  expected_outputs: [REVIEW-D003-007.md, REVIEW-D003-007.json, REVIEW_D003007_SHA256SUMS]
+  preferred_index_reading: RI_CONDITIONALLY_POSSIBLE_ONLY_IF_CONSUMER_ACTUALLY_RECEIVES_EXACT_ASSOCIATION
+  index_supply_clarified_and_accepted: false
+  acceptance_reset_contract_clarified_and_accepted: false
+  RN_and_history_services_approved: false
+  AS_amended: false
+  D003_accepted: false
+  AP_evaluation_completed: false
+  AP_selected: false
+next_eligible_action:
+  type: CLN001_STAGE7_INDEPENDENT_D003_PROPOSAL_REVIEW
+  subject: "Review proposed exact index supply and acceptance/commit/publication/reset semantics for AS fidelity; do not accept D003."
+  branch: experiment/toy1-pipe-cleaner-001
+  source_review_commit: 45d85dad82aaf3b1a74b856138d4bc0ccd8e4b47
+  source_review_disposition: READY_FOR_INDEPENDENT_AP_EVALUATION
+  proposal: reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-007/TASK-REVIEW-D003-007.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-007/prepare_d003_review007.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-007/archive_d003_review007.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-007/STAGE7_HANDOFF.md
+  expected_outputs: [REVIEW-D003-007.md, REVIEW-D003-007.json]
+  instruction: "Human pulls experiment branch, checks bash syntax, runs source-pinned prepare script, launches a fresh independent Codex session, then archives raw reviewer evidence with restartable script."
+  stop_on: [SOURCE_BLOB_MISMATCH, FAILED_OR_MISSING_REVIEW, UNCLEAR_REQUIREMENT_AUTHORITY, REVIEW_REVISION_OR_UNRESOLVED]
+  D003_accepted: false
+  AP_selected: false
+  forbid:
+    - "No unconditional claim that mathematical trace rank provides consumer index."
+    - "No invented reset cadence, finite wrap/epoch, backpressure or dropping accepted valid events."
+    - "No RN/snapshot service assumption or zero-cost upstream history."
+    - "No hard H1-H6 PASS, final F comparison, target qualification or AP selection."
+    - "No cleanroom/product/legacy VO discharge or diversion to parked orchestrator/spine builder."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
