@@ -3,61 +3,61 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-10 independent AP evaluation review prepared
+## Current checkpoint: CLN-001 Stage-11 IF11 NEW feasibility evidence prepared
 
-Stage-9 independent evaluation results were archived at
-[commit 0783a3b](https://github.com/tumblewhead/archbot/commit/0783a3b95a384e4e24b89a68740555055b2383f6):
-[evaluation](reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.md),
-[structured receipt](reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.json),
-[human briefing](reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-BRIEFING-009.md)
-and checksum manifest. Its independently authored finite models
-**reported** 299,296 accepted transitions, 24,192 invalid attempts,
-11,386 explicit resets, 897,888 A/B/C oracle energy comparisons
-with zero correct-model mismatches. This is Stage-9 *author*
-evidence, not independent verification of those counts. C's model
-explicitly assumes a truthful immutable exact-event snapshot service,
-and neither C-HIST nor RN exists as accepted external capability.
+Stage-9 numerical evaluation at `0783a3b95a384e4e24b89a68740555055b2383f6`
+was independently reviewed at `e5d2cfde2c856cc84192b294ac8c42a8746ba5aa`.
+The independent Stage-10 report
+[REVIEW-AP-EVALUATION-010](reviews/diagnostics/CLN-001-TASK-010/REVIEW-AP-EVALUATION-010.md)
+returned `READY_FOR_DELEGATED_AP_EVIDENCE_DISPOSITION`: Stage-9
+models and finite counterexamples were reproduced, **not** any
+full physical AP. The Stage-10 HIGH unknowns are
+`R010-4` consumer rank/debt/reset, `R010-5` unapproved
+RN/C-HIST providers/ownership, and `R010-6` complete RAM,
+compute and device-energy feasibility. Model C explicitly assumes
+a perfect correct-event snapshot, not an accepted provider.
+All realized H1–H6 and measured F coordinates remain UNKNOWN.
 
-Stage 9 reported 21 witness groups: 20 refuting defective shortcuts
-and one permitting permutation of a correct current term set.
-An unprotected snapshot read was wrong at 31 of 32 tested
-interleavings for its chosen trace. The evaluator disclosed a
-preliminary wrong-age witness that failed to discriminate a fault;
-it corrected that witness and reported only the completed rerun.
-These findings warrant exact **independent replay and scope review**.
+The CLN-001-only delegate separately issued
+[AP-EVIDENCE-DISPOSITION-010](reviews/diagnostics/CLN-001-TASK-011/AP-EVIDENCE-DISPOSITION-010.yaml):
+accept reproduced **finite model evidence only**, retain A/B/C
+unselected, and authorize an evidence-producing next investigation
+instead of another review of unchanged UNKNOWNs.
 
-The **accepted synthetic AS** is activated AS-REV-002 plus separately
-reviewed and [delegated-accepted additive R1](reviews/diagnostics/CLN-001-TASK-009/AS-ADDENDUM-008-R1-DISPOSITION.yaml).
-The additive clarification requires exact `n` decodable by the
-actual consumer, one owed output per accepted valid event and
-consumer-visible reset ordering/nonaliasing, but no mandatory
-acknowledgment. It does not approve RI, RN, C-HIST, queue/retry
-guarantees, finite epochs, backpressure, target hardware or an AP.
-Accepted T1 is future numeric equivalence only; conditional T2
-complete-state capacity does not imply physical-index feasibility
-or a sufficient 47-byte detector allocation.
+**Next eligible task:** [IF11 feasibility evidence task](reviews/diagnostics/CLN-001-TASK-011/TASK-IF11.md)
+focused on real consumer-visible rank/reset/output-debt *information*
+at a named hypothetical boundary and explicit missing contracts.
+It must produce an independently reproducible trace program,
+contract alternatives, conditional counterexamples and an
+evidence-acquisition ledger, NOT an accepted interface or
+AP selection. Read [Stage11 handoff](reviews/diagnostics/CLN-001-TASK-011/STAGE11_HANDOFF.md),
+run [source-pinned preparation](reviews/diagnostics/CLN-001-TASK-011/prepare_if11.sh),
+fresh Codex, then [restartable archive](reviews/diagnostics/CLN-001-TASK-011/archive_if11.sh).
+Distinct independent review follows new evidence. Separate
+NUM11 C numerical prototype and SVC11 provider inquiry may
+be authorized/worked as further evidence tracks.
 
-**Next eligible task:** a **distinct independent Stage-10 evidence
-quality review**, not AP downselection. Read
-[Stage-10 handoff](reviews/diagnostics/CLN-001-TASK-010/STAGE10_HANDOFF.md)
-and [review task](reviews/diagnostics/CLN-001-TASK-010/TASK-REVIEW-AP-EVALUATION-010.md).
-The human runs
-[source-pinned preparation](reviews/diagnostics/CLN-001-TASK-010/prepare_ap_evaluation_review010.sh),
-starts NEW independent Codex (not resume), and
-[restartably archives raw MD/JSON review](reviews/diagnostics/CLN-001-TASK-010/archive_ap_evaluation_review010.sh).
-The review must check the source receipt, reproduce or bound
-numeric program claims, inspect counterexamples, gate status and
-compatibility of F/resource comparisons, and report residual
-dependencies without choosing an architecture.
+A process weakness was identified: excellent reviews can reproduce
+the same UNKNOWN without creating decision-relevant evidence.
+See versioned [progress retrospective and orchestration pilot proposal](docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md).
+**Sequencing recommendation:** fix evidence progression in this
+diagnostic now; continue CLN-001 through a defensible AP, CON, DE,
+C and scoped verification; in parallel develop a controlled
+deterministic orchestrator via offline receipt replay then a
+bounded live demonstration; only after a usable baseline/pilot
+run a distinct noncontaminated Toy1 and compare iteration time.
+The general process-progress rule, orchestrator automatic execution/
+push and fresh Toy1 restart are **NOT** activated by this note.
 
-Only following actual favorable reviewed evidence may the
-CLN-001-only delegate make a **separate AP evidence disposition**;
-the gate does NOT require immediate provisional AP commitment.
-All realized H1–H6 and measured `RAM_peak`,
-`compute_effort`, `device_energy_consumption` remain UNKNOWN.
-A/B/C remain UNSELECTED; T002-2..8 all OPEN, R4 full detector
-DEFERRED, PO-003-1/3 UNPROVEN. No CON/DE/C, historical Toy1 VO
-discharge, target/product qualification or formal cleanroom.
+Current authority remains activated AS-REV-002 plus accepted
+AS-ADDENDUM-008-R1, adopted F (RAM_peak, compute_effort,
+device_energy_consumption), D002, scoped T1/conditional T2.
+RI/RN/C-HIST, nonloss publisher pause, fixed epoch, forced reset
+and mandatory acknowledgment are not supplied/approved.
+T002-2..8 OPEN; R4 whole detection DEFERRED;
+PO-003-1/3 UNPROVEN. No AP selected, CON/DE/C, framework freeze,
+formal cleanroom, target/product qualification or old Toy1
+VO discharge.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
