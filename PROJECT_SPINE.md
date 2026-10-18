@@ -3,48 +3,56 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-8 R1 focused review prepared
+## Current checkpoint: CLN-001 Stage-9 independent AP feasibility evaluation prepared
 
-Latest independent [AS addendum review 008](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.md)
-and [machine-readable receipt](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008.json)
-were archived at `0d7f83b4e6b9d912562de93ea268eb1575f41f88`.
-Actual disposition: **`REVISE_AS_ADDENDUM`**, with one
-source/authority blocking finding `R008-3`: the proposed
-A008-R3/S28 had silently made distinct consumer-side reset
-**acknowledgment** mandatory. Accepted D001/AS require correct
-reset order/old-new association, but do not require acknowledgment
-as a distinct event or service. Review reported 15/15 source hashes,
-11 successful finite assertions, no physical test; remaining
-R008-1/2/4/5/6 findings are nonblocking at the focused-source gate.
+The focused Stage-8 R1 independent review was pushed at
+`698c162e624df0faab640ef294a1bea63997981e`. Its
+[report](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008-R1.md)
+and [JSON receipt](reviews/diagnostics/CLN-001-TASK-008/REVIEW-AS-ADDENDUM-008-R1.json)
+returned `READY_FOR_DELEGATED_AS_ADDENDUM_DISPOSITION`. Original
+Stage-8 `REVISE_AS_ADDENDUM` evidence is preserved. R008-3 was
+independently resolved for exact R1 bytes: reset acknowledgment
+is optional, while consumer-visible order/old-new sequence
+association and stale-output nonaliasing are required. Reviewer
+reported 18/18 current-source matches and six finite test groups;
+OS/connector separation and target feasibility were NOT verified.
 
-The original proposed `AS-ADDENDUM-008.md`, `REVIEW-AS-ADDENDUM-008.md/json`
-and checksum remain immutable; no AS activation was allowed. The
-CLN-001-only delegated decision was **minimal correction** rather
-than amendment introducing a new acknowledgment requirement.
-[AS-ADDENDUM-008-R1](reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008-R1.md)
-is PROPOSED_NOT_ACTIVE and changes exactly its heading and S28:
-consumer-visible reset ordering/old-new association is required;
-a separate acknowledgment event is OPTIONAL, with any chosen
-mechanism owing independently reviewed evidence. See
-[R008-3 correction note](reviews/diagnostics/CLN-001-TASK-008/R008-3-CORRECTION-NOTE.md).
+The CLN-001-only sponsor delegate has **separately accepted** the
+[AS-ADDENDUM-008-R1-DISPOSITION](reviews/diagnostics/CLN-001-TASK-009/AS-ADDENDUM-008-R1-DISPOSITION.yaml)
+for this synthetic diagnostic. This activates additive R1
+*observable interpretation* while preserving original D001 and
+the activated AS-REV-002 source unchanged. Physical RI, RN, C-HIST,
+publisher backpressure, retry/recovery and any specific reset
+protocol remain unapproved. Exact `n` must be decodable by the
+actual consumer from available accepted-event/reset information,
+not omniscient trace rank; fault reports do not complete an
+accepted output obligation; no material weakening or added
+universal recovery guarantees are adopted.
 
-**Next eligible task:** fresh, independent focused review of R1,
-NOT delegated acceptance or general AP feasibility. Read
-[Stage-8 R1 handoff](reviews/diagnostics/CLN-001-TASK-008/STAGE8_R1_HANDOFF.md),
-run [source-pinned preparation with exact-delta check](reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008_r1.sh),
-launch new Codex, and [archive raw review](reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008_r1.sh).
-The reviewer must confirm no unapproved interface/protocol change,
-preserve exact consumer index and accepted result debt, and
-distinguish source fidelity from physical implementability.
+**Next eligible task: Stage-9 independent AP feasibility evaluation**
+of unselected A (raw 31-tail + recompute), B (squared 31-tail +
+incremental total) and C (prospective upstream exact snapshot),
+under accepted [evaluation scope](reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-SCOPE-009.yaml)
+and [task](reviews/diagnostics/CLN-001-TASK-009/TASK-AP-EVALUATION-009.md).
+Read the [human pull-run-push handoff](reviews/diagnostics/CLN-001-TASK-009/STAGE9_HANDOFF.md);
+run [source-pinned preparation](reviews/diagnostics/CLN-001-TASK-009/prepare_ap_evaluation009.sh),
+start a fresh separate Codex evaluator and use
+[restartable exact-evidence archive](reviews/diagnostics/CLN-001-TASK-009/archive_ap_evaluation009.sh).
+The evaluation may produce independent finite numeric-model and
+typed symbolic F evidence, candid unsupplied service/physical
+index/debt and ownership matrix, and falsifiers, but **NO AP SELECTION**.
+Its outputs will need a **distinct Stage-10 independent evaluation review**
+before a separate possible AP commitment.
 
-If favorable, make a separate delegated AS-addendum disposition
-before any activation; otherwise correct the particular blockers.
-D001/activated AS-REV-002, D002 and guarded D003 disposition remain.
-A/B/C all unselected; realized H1–H6 and measured F axes UNKNOWN,
-T002-2..8 OPEN, R4 deferred. Conditional T1/T2 do not prove a
-physical index service or a sufficient 47-byte detector allocation.
-No CON/DE/C, formal cleanroom, target/product qualification or
-legacy Toy 1 VO discharge.
+All realized H1–H6 remain UNKNOWN until eligible evidence establishes
+otherwise, as do measured F values
+(`RAM_peak`, `compute_effort`, `device_energy_consumption`).
+T1 future-numeric equivalence and conditional T2
+`2^372` complete-state capacity are not physical index or
+sufficient RAM proofs. T002-2..8 remain OPEN, R4 full sustained
+detection deferred. No AP selection, CON/DE/C, legacy Toy1
+VO discharge, target/product qualification, formal cleanroom
+or framework freeze is authorized.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
