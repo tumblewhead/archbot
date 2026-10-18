@@ -3,45 +3,53 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-7 proposed D003 review prepared
+## Current checkpoint: CLN-001 Stage-8 AS addendum source review prepared
 
-The **independent** Stage-6 review of three unselected APs, archived
-at [45d85da](https://github.com/tumblewhead/archbot/commit/45d85dad82aaf3b1a74b856138d4bc0ccd8e4b47),
-returned `READY_FOR_INDEPENDENT_AP_EVALUATION` at candidate-draft quality
-scope only: [review](reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.md)
-and [structured receipt](reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.json).
-All realized H1–H6 compliance and the three F axes remain UNKNOWN.
-No AP is selected, and the accepted mathematical proof's conditional
-`2^372` complete-state information bound is NOT sufficient implementation
-RAM or a detector-local bound for an upstream-replay architecture.
+Current experiment-branch Stage-7 independent review:
+[REVIEW-D003-007](reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.md)
+and [JSON receipt](reviews/diagnostics/CLN-001-TASK-007/REVIEW-D003-007.json)
+were pushed at `eb491accb86b12dad783d8ce02b4dff19b490079`.
+Disposition: `READY_FOR_DELEGATED_D003_DISPOSITION`, at proposed
+source/authority scope only. All 15 supplied payloads were reported
+hash-matched; no physical-index, target, implementation, historical
+identity or isolation claims follow. The 5 clauses were source-consistent
+as **conditional proposals**, not made effective by review.
 
-The significant blockers are review R006-1 (physical exact-index
-supply), R006-2 (accepted-event/output/reset coordination), R006-3
-(unapproved C snapshot/RN services) and R006-6 (complete costs).
-Conditional B recurrence was checked; its age cursor is part of the
-invariant. C requires coherent event-bound snapshots. Neither analysis
-is target implementation evidence.
+The CLN-001-only sponsor delegate issued
+[D003-DISPOSITION-007](reviews/diagnostics/CLN-001-TASK-008/D003-DISPOSITION-007.yaml):
+`ACCEPT_PROPOSAL_SCOPE_FOR_ADDITIVE_AS_CLARIFICATION_ONLY`.
+P2 conservatively preserves accepted-result debt and invalid/accepted
+distinction, P4 preserves unsupplied service status, P5 preserves
+H1–H6/F constraints. P1's exact consumer-decodable implicit index and
+P3's reset association are **not activated**: each requires an
+independently reviewed additive AS clarification. AS-REV-002/D001
+remain the accepted unchanged baseline. Index n must actually be
+available to the consumer; a mathematical observer's trace rank alone
+does not supply it. Old accepted result debt must not alias new
+reset-sequence results or be erased by a diagnostic report.
 
-**Next eligible task:** independent source/authority review of the
-non-effective [D003-PROPOSAL-007](reviews/diagnostics/CLN-001-TASK-007/D003-PROPOSAL-007.yaml)
-and [briefing](reviews/diagnostics/CLN-001-TASK-007/D003-BRIEFING-007.md).
-The proposed RI interpretation is deliberately conditional and MUST be
-challenged against the accepted requirement to **supply** n to the actual
-consumer. A mathematical rank assigned by an observer alone is not a
-physical index interface. Acceptance/result debt, old-vs-new reset
-fencing and C's unapproved services are additional review subjects.
-Read the [Stage-7 handoff](reviews/diagnostics/CLN-001-TASK-007/STAGE7_HANDOFF.md).
-The human runs [preparation](reviews/diagnostics/CLN-001-TASK-007/prepare_d003_review007.sh),
-a **new** separate Codex reviewer, then the restartable
-[archive](reviews/diagnostics/CLN-001-TASK-007/archive_d003_review007.sh).
-This is an additive proposed interpretation, not an effective D003,
-AS amendment, index-service acceptance, independent AP feasibility
-evaluation or architecture selection.
+**Next eligible task:** independent review of
+[AS-ADDENDUM-008](reviews/diagnostics/CLN-001-TASK-008/AS-ADDENDUM-008.md)
+and [Stage-8 briefing](reviews/diagnostics/CLN-001-TASK-008/BRIEFING-008.md).
+This is **PROPOSED_NOT_ACTIVE**. Read
+[STAGE8_HANDOFF](reviews/diagnostics/CLN-001-TASK-008/STAGE8_HANDOFF.md),
+run source-pinned
+[preparation](reviews/diagnostics/CLN-001-TASK-008/prepare_as_addendum_review008.sh),
+open a NEW independent Codex session (not resume), then
+[archive](reviews/diagnostics/CLN-001-TASK-008/archive_as_addendum_review008.sh)
+the untouched MD/JSON review and SHA-256 manifest. The reviewer
+must distinguish faithful representation/refinement from a changed
+AS obligation; no AS activation or AP selection by reviewer.
 
-After the review: favorable -> separately issue delegated D003
-disposition with explicit AS-impact decision; otherwise bounded
-revision/investigation. Then authorize stage-appropriate independent
-AP feasibility evaluation without silently selecting an AP.
+After favorable review, the delegate separately decides
+AS-addendum activation versus amendment/revision, then launches
+separately authorized AP feasibility evaluation. A/B/C remain
+unselected; all H1–H6 realized compliance and three active F axes
+RAM_peak/compute_effort/device_energy_consumption remain UNKNOWN.
+T1 future-numeric relation and T2 conditional complete-state capacity
+do not prove physical index service or target RAM fit. T002-2..8
+remain OPEN, R4 full detection deferred; no CON/DE/C, formal cleanroom,
+legacy Toy 1 VO discharge or product qualification.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
