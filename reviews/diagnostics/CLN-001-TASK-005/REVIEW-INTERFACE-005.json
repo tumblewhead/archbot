@@ -1,0 +1,628 @@
+{
+  "schema": "cln001-independent-interface-review/v1",
+  "review_id": "CLN-001-REVIEW-INTERFACE-005",
+  "candidate": {
+    "proposal_id": "CLN-001-D002-PROPOSAL-005",
+    "paths": [
+      "inputs/INTERFACE-OPTIONS-005.md",
+      "inputs/DECISION-PROPOSAL-005.yaml",
+      "inputs/BRIEFING-005.md"
+    ],
+    "supplied_status": "PROPOSED_NOT_APPROVED"
+  },
+  "review_role": "Independent diagnostic interface and proof-applicability reviewer; no delegated engineering authority",
+  "disposition": "READY_FOR_DELEGATED_D002_DISPOSITION",
+  "disposition_meaning": "Suitable for a separate authorized diagnostic decision only. No blocking defect established; R1 is a nonblocking tail-length clarification. This receipt does not approve D002 or select an architecture.",
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "MINOR",
+      "blocking": false,
+      "topic": "Sample-order tail length",
+      "sources": [
+        "inputs/INTERFACE-OPTIONS-005.md:58",
+        "inputs/INTERFACE-OPTIONS-005.md:61",
+        "inputs/PROOF-DISPOSITION-004.yaml:25"
+      ],
+      "finding": "Examples are valid under the surrounding T1 definition of a padded ordered 31-entry tail. The ellipses do not independently state the length; interpreting them as full 32-entry windows falsifies both the immediate-next-output equality and the one-event-horizon illustration.",
+      "independent_challenge": {
+        "intended_31_entry_tails": {
+          "equal_length_32_histories": [
+            "[0,1]+[0]*30",
+            "[0,0,1]+[0]*29"
+          ],
+          "zero_continuation_outputs": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ]
+          ]
+        },
+        "alternative_32_entry_reading": {
+          "histories": [
+            "[1]+[0]*31",
+            "[0,1]+[0]*30"
+          ],
+          "one_zero_outputs": [
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "minimal_continuation_length": 1
+        }
+      },
+      "fix": "State exactly 31 entries in item 2 and its item-5 cross-reference; optionally print the first two future outputs. This is a nonblocking clarification, not a correction to a proven-false 31-entry example."
+    },
+    {
+      "id": "R2",
+      "severity": "INFORMATIONAL",
+      "blocking": false,
+      "topic": "Origin, version and authority fidelity",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:1",
+        "inputs/AS-ACTIVATION-002.yaml:13",
+        "inputs/AS-REV-002.md:36",
+        "inputs/F-DISPOSITION-003.yaml:22",
+        "inputs/PROOF-DISPOSITION-004.yaml:22"
+      ],
+      "finding": "Candidate visibly remains PROPOSED_NOT_APPROVED and binding:false. Accepted AS bytes, D001 requirements/lifecycle, later F objective authority and scoped PD claims are preserved. Six clauses are disclosure/review rules when applied as written, not adopted new operating restrictions.",
+      "fix": "Separate delegated disposition is still required; no approval follows from this receipt."
+    },
+    {
+      "id": "R3",
+      "severity": "INFORMATIONAL",
+      "blocking": false,
+      "topic": "Complete information and RAM boundaries",
+      "sources": [
+        "inputs/INTERFACE-OPTIONS-005.md:35",
+        "inputs/INTERFACE-OPTIONS-005.md:36",
+        "inputs/INTERFACE-OPTIONS-005.md:37",
+        "inputs/INTERFACE-OPTIONS-005.md:99",
+        "inputs/DECISION-001.yaml:65",
+        "inputs/PROOF-DISPOSITION-004.yaml:32"
+      ],
+      "finding": "A only conditionally closes local numeric state. B and history-consulting C fail detector-local no-replay; complete enlarged boundaries may qualify. Shared ownership receives no automatic exclusion. State capacity is neither physical SRAM allocation nor sufficient implementation space.",
+      "fix": "Before candidate application, enumerate all retained/consulted backing information, ownership and physical storage; resolve shared attribution and specify service guarantees."
+    },
+    {
+      "id": "R4",
+      "severity": "INFORMATIONAL",
+      "blocking": false,
+      "topic": "Index and horizon gates",
+      "sources": [
+        "inputs/INTERFACE-OPTIONS-005.md:47",
+        "inputs/INTERFACE-OPTIONS-005.md:48",
+        "inputs/INTERFACE-OPTIONS-005.md:49",
+        "inputs/INTERFACE-OPTIONS-005.md:51",
+        "inputs/INTERFACE-OPTIONS-005.md:90",
+        "inputs/DECISION-PROPOSAL-005.yaml:118",
+        "inputs/PROOF-DISPOSITION-004.yaml:44"
+      ],
+      "finding": "I depends on unspecified wider-protocol support. II needs new delegated authority for otherwise-valid event restrictions and separate horizon justification. III impossibility is conditional on finite closed deterministic sole internal index generation; it is not an accepted PO-003-3 proof or AS contradiction. B/C numeric replay may not secretly provide III index progression.",
+      "fix": "Require concrete refinement/contract review, explicit pre-exhaustion authority where relevant, and separately authorized proof review for any new theorem. Keep PO-003-1 and PO-003-3 UNPROVEN."
+    },
+    {
+      "id": "R5",
+      "severity": "INFORMATIONAL",
+      "blocking": false,
+      "topic": "Nine combinations and F fidelity",
+      "sources": [
+        "inputs/INTERFACE-OPTIONS-005.md:68",
+        "inputs/INTERFACE-OPTIONS-005.md:70",
+        "inputs/INTERFACE-OPTIONS-005.md:76",
+        "inputs/INTERFACE-OPTIONS-005.md:80",
+        "inputs/INTERFACE-OPTIONS-005.md:92",
+        "inputs/F-DISPOSITION-003.yaml:24"
+      ],
+      "finding": "All nine combinations have conditional symbolic accounts and UNKNOWN target triples. No H1-H6 discharge, timing metric, device-energy threshold, Pareto winner or target fit is established. III combinations are conditionally ineligible on full event-index association.",
+      "fix": "Later comparison needs eligible candidates, compatible contracts/workloads/scopes and evidence, complete attributable RAM and explicit service/system electrical costs. Preserve accepted coordinate definitions."
+    },
+    {
+      "id": "R6",
+      "severity": "INFORMATIONAL",
+      "blocking": false,
+      "topic": "Manifest provenance and independence limits",
+      "sources": [
+        "inputs/BRIEFING-005.md:7",
+        "inputs/BRIEFING-005.md:9",
+        "inputs/BRIEFING-005.md:64",
+        "inputs/SHA256SUMS:1",
+        "inputs/AS-ACTIVATION-002.yaml:22",
+        "inputs/DECISION-001.yaml:22"
+      ],
+      "finding": "Current 13-file manifest hashes all match. Its SHA-256 differs from the briefing's stated original nine-source manifest identity; that earlier manifest is not supplied and was not authenticated. This is consistent with a larger review package and is not evidence of altered baseline bytes. Current reviewer did not author Stage-5 artifacts in this invocation; actor identity, prior session separation and runtime isolation are not externally authenticated.",
+      "fix": "Keep review-package identity distinct from historical author-package claims; make no formal cleanroom or externally verified independence claim."
+    }
+  ],
+  "clause_reviews": [
+    {
+      "number": 1,
+      "assessment": "Preserves abstract PS; no new AS obligation.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:37",
+        "inputs/AS-REV-002.md:60"
+      ],
+      "later_gate": "Any mandatory representation/provider/epoch requires separate contract and any necessary requirement authority."
+    },
+    {
+      "number": 2,
+      "assessment": "Adds candidate disclosure and refinement evidence, not a history-service requirement.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:44",
+        "inputs/AS-REV-002.md:26"
+      ],
+      "later_gate": "Concrete protocols/services need retention, consistency, acceptance/reset/validation and failure guarantees; narrowing valid operation needs delegated disposition and independent review."
+    },
+    {
+      "number": 3,
+      "assessment": "Preserves R5; excludes only exclusively upstream-owned memory and leaves shared attribution unresolved.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:53",
+        "inputs/DECISION-001.yaml:65"
+      ],
+      "later_gate": "Supply ownership evidence or reviewed accounting clarification; a changed ceiling/exclusion needs new authority."
+    },
+    {
+      "number": 4,
+      "assessment": "Enforces accepted proof applicability, without imposing universal no-replay.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:61",
+        "inputs/PROOF-DISPOSITION-004.yaml:25",
+        "inputs/PROOF-DISPOSITION-004.yaml:32"
+      ],
+      "later_gate": "Prove candidate mapping and complete named boundary; new finite-horizon results require authorized proof work and independent review."
+    },
+    {
+      "number": 5,
+      "assessment": "Preserves current PS while reserving authority for optional protocol and exhaustion contracts.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:70",
+        "inputs/AS-REV-002.md:51"
+      ],
+      "later_gate": "I support must be specified; II valid-event restrictions/epochs require new disposition and reviewed clarification. No silent loss padding/wrap/saturation/reset."
+    },
+    {
+      "number": 6,
+      "assessment": "Preserves accepted hard gates, axes and evidence-aware comparisons; all current obligations remain open.",
+      "sources": [
+        "inputs/DECISION-PROPOSAL-005.yaml:79",
+        "inputs/F-DISPOSITION-003.yaml:24",
+        "inputs/DECISION-TRACE-002.md:43"
+      ],
+      "later_gate": "New F definitions require versioned decision and reassessment; later authorized evidence may discharge local obligations through its proper gate."
+    }
+  ],
+  "combination_reviews": [
+    {
+      "id": "A-I",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(A,I)",
+      "symbolic_compute_effort": "K_A + Q_A + K_I; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(A,I; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Concrete wider association protocol and refinement missing"
+    },
+    {
+      "id": "A-II",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(A,II)",
+      "symbolic_compute_effort": "K_A + Q_A + K_II; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(A,II; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Bounded operating authority, width/encoding/exhaustion semantics and horizon review missing"
+    },
+    {
+      "id": "A-III",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(A,III)",
+      "symbolic_compute_effort": "K_A + Q_A + K_III; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(A,III; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "CONDITIONAL_FAIL_UNDER_III_ASSUMPTIONS",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Exact unbounded sole finite closed internal index generation incompatible under stated assumptions"
+    },
+    {
+      "id": "B-I",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(B,I)",
+      "symbolic_compute_effort": "K_B + Q_B + K_I; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(B,I; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Concrete wider association protocol and refinement missing"
+    },
+    {
+      "id": "B-II",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(B,II)",
+      "symbolic_compute_effort": "K_B + Q_B + K_II; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(B,II; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Bounded operating authority, width/encoding/exhaustion semantics and horizon review missing"
+    },
+    {
+      "id": "B-III",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(B,III)",
+      "symbolic_compute_effort": "K_B + Q_B + K_III; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(B,III; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "CONDITIONAL_FAIL_UNDER_III_ASSUMPTIONS",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_NOT_DISCHARGED",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Exact unbounded sole finite closed internal index generation incompatible under stated assumptions"
+    },
+    {
+      "id": "C-I",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(C,I) plus unresolved shared attribution",
+      "symbolic_compute_effort": "K_C + Q_C + K_I; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(C,I; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_SHARED_ATTRIBUTION",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Concrete wider association protocol and refinement missing"
+    },
+    {
+      "id": "C-II",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(C,II) plus unresolved shared attribution",
+      "symbolic_compute_effort": "K_C + Q_C + K_II; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(C,II; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "PENDING_NOT_DISCHARGED",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_SHARED_ATTRIBUTION",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Bounded operating authority, width/encoding/exhaustion semantics and horizon review missing"
+    },
+    {
+      "id": "C-III",
+      "evidence_level": "CONDITIONAL_SYMBOLIC",
+      "symbolic_RAM_peak": "R(C,III) plus unresolved shared attribution",
+      "symbolic_compute_effort": "K_C + Q_C + K_III; separately disclose wider service/protocol work",
+      "symbolic_device_energy_consumption": "e(C,III; declared scope)",
+      "target_coordinates": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "hard_gates": {
+        "H1": "PENDING_NOT_DISCHARGED",
+        "H2": "PENDING_NOT_DISCHARGED",
+        "H3": "CONDITIONAL_FAIL_UNDER_III_ASSUMPTIONS",
+        "H4": "PENDING_NOT_DISCHARGED",
+        "H5": "PENDING_SHARED_ATTRIBUTION",
+        "H6": "PENDING_NOT_DISCHARGED"
+      },
+      "eligible_for_full_pareto_comparison": false,
+      "contract_gate": "Exact unbounded sole finite closed internal index generation incompatible under stated assumptions"
+    }
+  ],
+  "sources": [
+    {
+      "path": "inputs/PROOF-DISPOSITION-004.yaml",
+      "sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/DECISION-001.yaml",
+      "sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/adc.md",
+      "sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/AS-REV-002.md",
+      "sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/INTERFACE-OPTIONS-005.md",
+      "sha256": "50c1352b10dec040f0d9a5d9723f5729500b6849174dafd9753acb245e5dc1d7",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/verification-agent.md",
+      "sha256": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/BRIEFING-005.md",
+      "sha256": "872c9e3c2418be4170afb31b92444533fffc33d9083a2dc28b1175929af28cce",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/DECISION-TRACE-002.md",
+      "sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/problem-origin.md",
+      "sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/F-DISPOSITION-003.yaml",
+      "sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/target.md",
+      "sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/AS-ACTIVATION-002.yaml",
+      "sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+      "manifest_match": true,
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/DECISION-PROPOSAL-005.yaml",
+      "sha256": "da139c1b1902a197ba7196c63b9bba79347ac3c79360c13a054203ba3d0a4ff5",
+      "manifest_match": true,
+      "content_inspected": true
+    }
+  ],
+  "startup_controls": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "d689306353cc083d2edb0a1d2bfb41342e82268767fa89ad192443af2ff71a8e",
+      "content_inspected": true
+    },
+    {
+      "path": "TASK.md",
+      "sha256": "44dff4f91abea8e878d3bfb51ff830ccba0594f301e7cefded7e067b837eee16",
+      "content_inspected": true
+    },
+    {
+      "path": "inputs/SHA256SUMS",
+      "sha256": "e4cfc0d279c7e71bb5a79ca4c923df6a63c4fbe0c2c3f2db78b25e0a4174d52a",
+      "content_inspected": true
+    }
+  ],
+  "historical_manifest": {
+    "briefing_claimed_sha256": "848235000c741868e416913be0ddaeff2504da4e353c547bd542a5aa283957b1",
+    "current_review_manifest_sha256": "e4cfc0d279c7e71bb5a79ca4c923df6a63c4fbe0c2c3f2db78b25e0a4174d52a",
+    "identities_equal": false,
+    "original_nine_source_manifest_inspected": false,
+    "interpretation": "Different package scope; all current baseline entries match pinned hashes. Historical manifest itself not authenticated."
+  },
+  "checks_actually_performed": [
+    {
+      "id": "C1",
+      "kind": "INTEGRITY",
+      "result": "PASS",
+      "detail": "Recomputed SHA-256 for all 13 manifest entries; all matched before review and again immediately before artifact construction. Computed current manifest and startup-control hashes."
+    },
+    {
+      "id": "C2",
+      "kind": "SOURCE_REVIEW",
+      "result": "COMPLETED",
+      "detail": "Read all 13 technical input files and startup instructions; re-read ranges affected by a truncated combined display. Compared all six clauses, all nine combinations, AS/D001/F/PD authority and open obligations. Followed no historical references."
+    },
+    {
+      "id": "C3",
+      "kind": "FINITE_SPECIFICATION_CHALLENGE",
+      "result": "PASS_WITH_R1_CLARIFICATION",
+      "detail": "Inline Python direct latest-32 sum-of-squares oracle, no saved test files. L57: current energies 1/4; all 16 length-4 continuations over {0,4095} agree. L58 intended 31-tail example gives [1,0,0]/[1,1,0]; alternative 32-entry reading gives [0,0]/[1,0]. Empty/one-zero numeric futures agree with next indices 1/2. All 256 binary last-8 patterns padded to length 31 have unique signatures under 31 appended zeros."
+    },
+    {
+      "id": "C4",
+      "kind": "BOUNDARY_ARITHMETIC",
+      "result": "PASS",
+      "detail": "Checked first/full max-sample energies 16769025/536608800, fresh-sequence exclusion and actual-zero-input distinction; 31*12=372 and ceil(372/8)=47. Illustrative w=2 one-based event 4 cannot be represented by wrap/saturation; forced reset changes all-ones energy from 4 to 1."
+    },
+    {
+      "id": "C5",
+      "kind": "ARGUMENT_AUDIT",
+      "result": "COMPLETED",
+      "detail": "Challenged hidden replay via pointers/readable logs/metadata, fixed-n external index, finite-horizon quantifiers, conditional III closure and finite-state repetition, shared attribution and scoped electrical costs. No formal new proof disposition or product test."
+    },
+    {
+      "id": "C6",
+      "kind": "RECEIPT_VALIDATION",
+      "result": "PASS",
+      "detail": "In-memory JSON round-trip and required disposition/boolean/combination/obligation assertions before writing exactly the two authorized outputs."
+    }
+  ],
+  "proof_status": {
+    "T1": "ACCEPTED_NUMERIC_SCOPE_ONLY_FROM_SUPPLIED_PD",
+    "T2": "ACCEPTED_CONDITIONALLY_FROM_SUPPLIED_PD",
+    "PO-003-1": "UNPROVEN",
+    "PO-003-3": "UNPROVEN",
+    "new_proofs_accepted": false,
+    "III_argument": "CONDITIONAL_ANALYSIS_ONLY"
+  },
+  "continuing_obligations": [
+    {
+      "id": "T002-2",
+      "status": "OPEN",
+      "due": "Independent boundary/randomized exact-output verification before correctness claims"
+    },
+    {
+      "id": "T002-3",
+      "status": "OPEN",
+      "due": "Startup and explicit reset verification including remote history exclusion"
+    },
+    {
+      "id": "T002-4",
+      "status": "OPEN",
+      "due": "Concrete per-event logical-pair refinement and interface verification"
+    },
+    {
+      "id": "T002-5",
+      "status": "OPEN",
+      "due": "Invalid-input invariance, rejection and detectable-fault verification"
+    },
+    {
+      "id": "T002-6",
+      "status": "OPEN",
+      "due": "Full attributable RAM and no-FPU-dependency evidence; target evidence before target-compliance claims"
+    },
+    {
+      "id": "T002-7",
+      "status": "OPEN",
+      "due": "Comparable scoped performance/energy evidence; target/toolchain evidence before hardware qualification claims"
+    },
+    {
+      "id": "T002-8",
+      "status": "OPEN",
+      "due": "Threshold/duration/boolean decision/integration criteria and verification before whole-detector claims"
+    }
+  ],
+  "R4_status": "DEFERRED_AND_OPEN",
+  "next_gate": [
+    "Human sponsor or authorized CLN-001 delegate separately disposes the six-clause disclosure policy; may adopt it without changing AS or selecting AP when confined to audit/refinement process.",
+    "Concrete service/protocol guarantees, shared-memory clarification and any valid-event restrictions require their own explicit authority and review as applicable.",
+    "Any new proof/finite-horizon extension needs separate authorized proof work and independent review. AP generation and later selection each require separate authorization."
+  ],
+  "independence": {
+    "current_invocation_authored_candidate": false,
+    "reviewer_distinct_from_stage5_author": "Distinct review invocation by assigned workflow; prior actor/session identity not externally authenticated",
+    "fresh_session_boundary_externally_verified": false,
+    "subagents_used": false,
+    "historical_artifacts_followed": false,
+    "external_sources_used": false,
+    "connected_apps_used": false,
+    "git_history_inspected": false,
+    "other_workspaces_inspected": false,
+    "evaluator_data_used": false,
+    "runtime_isolation_verified": false,
+    "limits": [
+      "Only pinned package contents support technical findings; hash equality proves package consistency, not authenticity or completeness.",
+      "Supplied activation, F and proof dispositions are used as authority without reauthentication of archived reviews/proofs.",
+      "Working-directory isolation does not verify OS/container/connector reachability, actor identity, fresh-session lifecycle or formal cleanroom separation.",
+      "Finite specification checks are diagnostic challenges, not exhaustive 12-bit-domain proofs, AP verification, hardware measurements or target qualification.",
+      "No original Stage-5 session trace or historical nine-source manifest was inspected."
+    ]
+  },
+  "d002_approved": false,
+  "as_modified": false,
+  "d001_modified": false,
+  "f_modified": false,
+  "ap_selected": false,
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "target_qualified": false,
+  "vo_discharged": [],
+  "inputs_modified": false,
+  "stop_after_outputs": true
+}
