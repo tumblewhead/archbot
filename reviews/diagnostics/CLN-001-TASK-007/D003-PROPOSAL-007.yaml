@@ -1,0 +1,100 @@
+schema: pc-cln-diagnostic-d003-proposal/v1
+id: CLN-001-D003-PROPOSAL-007
+project: CLN-001
+status: PROPOSED_NOT_EFFECTIVE_PENDING_INDEPENDENT_REVIEW
+authority: HUMAN_DELEGATED_CLN001_SYNTHETIC_DIAGNOSTIC_ONLY
+source_review: reviews/diagnostics/CLN-001-TASK-006/REVIEW-AP-006.json
+source_review_disposition: READY_FOR_INDEPENDENT_AP_EVALUATION
+accepted_baseline:
+  - reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  - reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  - reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
+  - reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
+  - reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml
+  - reviews/diagnostics/CLN-001-TASK-006/D002-INTERFACE-DISPOSITION.yaml
+clauses:
+  - id: D003-P1
+    topic: exact_logical_index_supply
+    proposed: >-
+      A response associated bijectively with an identifiable accepted
+      request in a common reset sequence MAY refine the accepted (n,E_n)
+      obligation without sending a literal numeral, IF the actual consumer
+      possesses the request/response and reset association needed to
+      unambiguously recover the one-based accepted-event rank. Mathematical
+      trace rank alone is not physical index supply; an energy-only stream
+      after a consumer restart without retained association does not qualify.
+      RI remains an unproven physical interface, not an adopted service.
+    review_question: >-
+      Does the accepted AS permit this implicit index representation,
+      or is it a material relaxation requiring separately approved additive
+      AS clarification? Challenge indefinite sequences and consumer restart.
+    alternatives_not_selected:
+      - Require exact numeral explicitly in each physical result.
+      - Adopt separately approved bounded epoch, wrap or exhaustion rule.
+  - id: D003-P2
+    topic: accepted_event_and_output_debt
+    proposed: >-
+      Distinguish acquisition attempts, valid accepted events, numeric
+      state commitment, result publication and invalid rejection.
+      Only accepted valid events advance n. Each accepted event creates
+      one owed indexed result; stall, reset or diagnostic report does
+      not silently cancel it. Reject invalid inputs before sequence
+      mutation. Do not retroactively relabel an already accepted event
+      as unaccepted to avoid a queue or service-capacity failure.
+    deferred: >-
+      Exact acceptance boundary, output handshakes, backpressure,
+      finite queues, loss recovery and service availability need
+      explicit separate interface evidence and authority.
+  - id: D003-P3
+    topic: reset_fencing
+    proposed: >-
+      Explicit reset establishes new zero-padded history while all
+      pre-reset accepted output obligations remain identifiable.
+      Old results or snapshots must not attach to a new sequence.
+      The physical mechanism (drain versus distinctly associated
+      old-sequence results) remains unselected; consumer restart
+      is not automatically an explicit detector reset.
+    review_question: >-
+      Does no-loss reset fencing require an additive AS-level
+      synchronization/acknowledgment contract? Do not invent a deadline.
+  - id: D003-P4
+    topic: unsupplied_services
+    proposed: >-
+      Neither external RN exact-ordinal service nor C-HIST coherent
+      snapshots are approved or demonstrated. Require distinct reviewed
+      provider, event identity, retention, snapshot consistency, reset
+      fencing, availability, error handling and resource attribution
+      before full-interface eligibility or local-RAM advantage claims.
+  - id: D003-P5
+    topic: hard_gates_and_f
+    proposed: >-
+      All realized H1-H6 remain UNKNOWN. Count persistent, scratch,
+      owned stack, transaction/index, queue and shared-attributable
+      RAM under the accepted 2048-byte detector boundary. Exclusively
+      upstream-owned state is excluded only with evidence of ownership,
+      never treated as free total-system cost. Compare RAM_peak,
+      compute_effort and device_energy_consumption only on compatible
+      workloads and physical scope; symbolic arithmetic is not
+      measured cost. No AP selection follows.
+unchanged:
+  exact_latest32_energy: true
+  only_absent_history_zero_padded: true
+  invalid_rejection_no_state_advance: true
+  nominal_1ms_not_hard_deadline: true
+  no_new_finite_epoch_or_wrapping_index: true
+  no_unapproved_services_or_valid_event_loss: true
+  T1_T2_conditional_scope_preserved: true
+  T002_2_through_T002_8: OPEN
+  R4_full_detection: DEFERRED
+  AP_A_B_C: UNSELECTED
+next_gate: INDEPENDENT_REVIEW_D003_PROPOSAL
+after_favorable_review: EXPLICIT_DELEGATED_DISPOSITION_WITH_AS_IMPACT
+after_disposition: SEPARATE_INDEPENDENT_AP_FEASIBILITY_EVALUATION
+limits:
+  accepted_D003_created: false
+  AS_amended: false
+  AP_selected: false
+  implementation_or_contract_created: false
+  target_or_product_verified: false
+  formal_cleanroom_qualified: false
+  vo_discharged: []
