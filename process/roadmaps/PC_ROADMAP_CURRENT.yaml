@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE3_PO_F_DRAFTS_ARCHIVED_INDEPENDENT_REVIEW_NEXT
+  status: STAGE3_REVIEWED_F_ACCEPTED_PROOF_ENGINEER_NEXT
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -283,8 +283,23 @@ cleanroom_pipe_cleaner:
   stage3_F_source: reviews/diagnostics/CLN-001-TASK-003/F-DRAFT-003.md
   stage3_output_manifest: reviews/diagnostics/CLN-001-TASK-003/OUTPUT_SHA256SUMS
   stage3_PO_status: UNPROVEN_3_OPPORTUNITIES
-  stage3_F_status: DRAFT_NOT_ACCEPTED
-  stage3_F_proposed_active_energy_axis: NEEDS_DELEGATED_DISPOSITION
+  stage3_F_status: ACCEPTED_SCOPED_DIAGNOSTIC_BY_DELEGATE
+  stage3_review_commit: bca9319576cbe23ef66b2bfdb84ffa130f5c6860
+  stage3_PO_review_json: reviews/diagnostics/CLN-001-TASK-003/REVIEW-PO-003.json
+  stage3_PO_review_disposition: READY_FOR_PROOF_ENGINEER
+  stage3_F_review_json: reviews/diagnostics/CLN-001-TASK-003/REVIEW-F-003.json
+  stage3_F_review_disposition: READY_FOR_DELEGATED_F_DISPOSITION
+  stage3_F_disposition: reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
+  stage3_F_adopted_axes: [RAM_peak, compute_effort, device_energy_consumption]
+  stage3_F_new_delegated_objective: "Consumed device energy, distinct from window signal energy, was explicitly adopted for CLN-001 diagnostic only."
+  stage4_selected_PO: PO-003-2
+  stage4_status: PROOF_ATTEMPT_PENDING
+  stage4_proof_task: reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md
+  stage4_prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof004.sh
+  stage4_handoff: reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md
+  stage4_expected_outputs: [PROOF-ATTEMPT-004.md, PROOF-BRIEFING-004.md]
+  stage4_open_index_interface_issue: "Conditional PO-003-3: finite closed machine cannot generate unbounded exact index; epoch/index ownership and bounds remain unspecified."
+  stage3_F_proposed_active_energy_axis: EXPLICITLY_ADOPTED_NEW_DIAGNOSTIC_OBJECTIVE
   stage3_review_task: reviews/diagnostics/CLN-001-TASK-003/TASK-REVIEW-003.md
   stage3_review_prepare_script: reviews/diagnostics/CLN-001-TASK-003/prepare_review003.sh
   stage3_review_handoff: reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md
@@ -319,24 +334,27 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: INDEPENDENT_PO_OPPORTUNITY_AND_FOM_REVIEW
-  subject: CLN-001 Stage3 unproven math proposals and draft F
+  type: FRESH_DIAGNOSTIC_PROOF_ENGINEER_PO003_2
+  subject: CLN-001 31-sample future numeric-output equivalence and conditional no-replay lower bound
   branch: experiment/toy1-pipe-cleaner-001
-  authoring_commit: 1f7645135581ede5696596ab8abc1034e75a53cd
-  review_handoff: reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md
-  task: reviews/diagnostics/CLN-001-TASK-003/TASK-REVIEW-003.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-003/prepare_review003.sh
-  expected_outputs: [REVIEW-PO-003.md, REVIEW-PO-003.json, REVIEW-F-003.md, REVIEW-F-003.json]
-  instruction: "Human pulls experiment branch, runs prepare_review003.sh to create fresh reviewer workspace, launches one distinct Codex reviewer to produce separate PO and F verdicts, selectively pushes actual outputs. Coordinator evaluates results and makes scoped next decisions."
-  accepted_AS: true
+  proof_opportunity: reviews/diagnostics/CLN-001-TASK-003/PO-OPPORTUNITIES-003.md
+  proof_opportunity_review: reviews/diagnostics/CLN-001-TASK-003/REVIEW-PO-003.json
+  F_disposition: reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml
+  task: reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-004/prepare_proof004.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md
+  instruction: "Human pulls latest experiment branch, runs prepare_proof004.sh to create source-pinned fresh Proof Engineer workspace, launches distinct new Codex, preserves and selectively pushes exact proof attempt outputs; independent proof review follows."
+  active_scoped_AS: true
+  accepted_diagnostic_F: true
+  selected_proof_opportunity: PO-003-2
   proof_accepted: false
-  F_accepted: false
+  ap_selected: false
   formal_cleanroom_qualified: false
   prohibit:
-    - "Do not call opportunity propositions proved or F proposal accepted."
-    - "Do not silently promote energy minimization to delegated hard objective; review and disposition required."
-    - "Do not import prior solved Toy 1 proofs, F-001, AP or implementation."
-    - "Do not begin AP/CON/DE/C or qualified cleanroom, nor old submodule work."
+    - "Do not claim an unreviewed proof attempt proves any theorem."
+    - "Do not treat F UNKNOWN candidate values as zero, PASS or measured."
+    - "Do not invent a finite epoch lifetime, wrap/index mechanism or new AS requirement."
+    - "Do not import prior solved Toy 1 proofs/F/AP/CON/DE/C or resume parked framework migration."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."

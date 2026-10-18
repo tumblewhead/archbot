@@ -57,23 +57,26 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: independent Stage-3 PO and F review.**
-Two distinct fresh authors produced four pinned Stage-3 draft files
-pushed at `1f7645135581ede5696596ab8abc1034e75a53cd`.
-Proofs PO-003-1/2/3 are **unproven**; F-DRAFT-003 is **not
-accepted**. See
-`reviews/diagnostics/CLN-001-TASK-003/REVIEW003_HANDOFF.md`.
-Human pulls experiment branch and executes
-`prepare_review003.sh`, which **creates** the reviewer directory,
-then starts a new Codex review session. Reviewer writes PO review
-md/json and F review md/json, two distinct verdicts.
-Priority checks: 31-sample no-replay information minimality,
-finite-state exact-index impossibility's additional assumptions,
-new proposed F energy axis, no invented hard 1ms deadline, deferred
-R4 and UNKNOWN resource evidence. Reviewer cannot prove a theorem or
-accept F; delegate handles F disposition only after actual review.
-No AP/CON/DE/C yet. Older solved Toy 1 evidence is excluded; formal
-cleanroom and physical isolation remain unqualified.
+**CURRENT PRIORITY: CLN-001 first separate Proof Engineer attempt.**
+Stage-3 proof opportunities and F proposal were independently reviewed,
+pushed at `bca9319576cbe23ef66b2bfdb84ffa130f5c6860`:
+`READY_FOR_PROOF_ENGINEER`, `READY_FOR_DELEGATED_F_DISPOSITION`,
+neither a proof nor F approval by reviewer. CLN-001 sponsor delegate
+now explicitly accepts F with H1..H6 and active
+`(RAM_peak, compute_effort, device_energy_consumption)`, the
+latter a NEW diagnostic objective not older BKP authority; all
+candidate costs UNKNOWN. Read
+`reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml`.
+Prioritize unproven PO-003-2 for a separate Proof Engineer under
+`reviews/diagnostics/CLN-001-TASK-004/TASK-PROOF-004.md`.
+From experiment checkout pull latest and run
+`prepare_proof004.sh` to CREATE the next author workspace, then new
+Codex invocation. Full pull/run/selective push:
+`reviews/diagnostics/CLN-001-TASK-004/STAGE4_HANDOFF.md`.
+PO-003-3 full indexed-interface lifetime question remains open.
+Do not select an AP, accept a theorem, import older Toy 1 F/proof,
+claim target/completed detector or discharge VOs. Cleanroom isolation
+unverified. Distinct later proof review is required.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

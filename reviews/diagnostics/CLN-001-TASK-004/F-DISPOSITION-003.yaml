@@ -1,0 +1,76 @@
+schema: pc-cln-diagnostic-f-disposition/v1
+id: CLN-001-F-DISPOSITION-003
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ACCEPTED_SCOPED_DIAGNOSTIC_F
+authority:
+  origin: human_experiment_sponsor
+  delegate: ChatGPT_assistant
+  scope: CLN-001_SYNTHETIC_DIAGNOSTIC_ONLY
+  authorization: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+  type: NEW_DELEGATED_F_OBJECTIVE_DECISION
+basis:
+  AS: reviews/diagnostics/CLN-001-TASK-002/AS-REV-002.md
+  AS_activation: reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml
+  F_proposal: reviews/diagnostics/CLN-001-TASK-003/F-DRAFT-003.md
+  F_proposal_blob_sha1: 5ec007bf45140d415dc105b71cd45c25f434adc2
+  F_trace: reviews/diagnostics/CLN-001-TASK-003/F-TRACE-003.md
+  independent_review: reviews/diagnostics/CLN-001-TASK-003/REVIEW-F-003.json
+  independent_review_blob_sha1: 4a50a1a75364963e3c09b667419044ad90c74540
+  independent_review_commit: bca9319576cbe23ef66b2bfdb84ffa130f5c6860
+  review_verdict: READY_FOR_DELEGATED_F_DISPOSITION
+decision:
+  disposition: ACCEPT_WITH_EXPLICIT_NEW_OBJECTIVE_AUTHORITY_AND_EVIDENCE_LIMITS
+  adopted_structure: "H1-H6 eligibility constraints followed by Pareto comparison of active F coordinates under the same evidence/model scope."
+  hard_gates: [H1_EXACTNESS, H2_STARTUP_RESET, H3_PER_EVENT_PAIR, H4_INVALID_AND_OBSERVABLE_FAULTS, H5_OWNED_RAM_2048_BYTE_CEILING, H6_NO_HARDWARE_FPU_DEPENDENCE]
+  active_objective_axes:
+    - id: RAM_peak
+      units: bytes_of_detector_attributable_peak_live_RAM
+      direction: MINIMIZE_WITHIN_2048_BYTE_HARD_CEILING
+      authority: "New explicit F preference under CLN-001 delegation, supported qualitatively by BKP RAM conservation; does not modify AS R5 hard ceiling."
+    - id: compute_effort
+      units: "Typed operation-class counts under a fixed symbolic model, or scoped cycles/time per accepted event for defined target/build/workload."
+      direction: MINIMIZE_WHERE_COMPARABLE
+      authority: "New explicit metric/objective formalization of BKP qualitative compute conservation, not an added hard deadline."
+    - id: device_energy_consumption
+      units: "joules per accepted event over a declared, attributable workload/interval, including relevant lifecycle/fault work"
+      direction: MINIMIZE_WHERE_COMPARABLE
+      authority: "NEW sponsor-delegate synthetic diagnostic preference; original BKP/D001 did NOT grant a device-energy objective."
+      distinction: "Window sum-of-squares signal energy is not device electrical energy consumption."
+      numeric_target: null
+      mandatory_real_world_device_energy_qualification: false
+  inactive_interest: "Flash/code footprint remains UNKNOWN and is not an active axis or imposed budget."
+  omitted_tradeoff_weights: true
+  decision_rule: "Assess hard gates first; keep UNKNOWN eligibility visible as pending. Compare candidates with a Pareto partial order only when all active axes and their evidence are mutually comparable. Unknown values never become zero, PASS or a favorable tie. Projection onto known coordinates is explicitly partial, not full dominance."
+  evidence_levels: [CONDITIONAL_SYMBOLIC, HOST_SPECIFIC, TARGET_SPECIFIC]
+  measured_cost_values: null
+  admitted_evidence: "No candidate AP, actual RAM/cycles/energy values, target toolchain or workload has yet been supplied."
+  reference_binding: "F-DRAFT-003 P1-P6 accepted ONLY within this explicit objective authority, hard constraints and limits. No source F-DRAFT or F-TRACE rewrite."
+  criteria_revision_policy: "Any later coordinate/model/definition change requires a new versioned decision and affected comparison reassessment, not retroactive edits."
+  separate_future_AP_selection_authority_required: true
+review_findings_disposition:
+  F-R1: "Adopt H1-H6 inherited constraints."
+  F-R2: "Explicitly adopt device-energy minimization as NEW synthetic preference, not preexisting BKP authority or power threshold."
+  F-R3: "Explicitly adopt RAM minimization within ceiling as NEW formal Pareto preference."
+  F-R4: "Keep measurement units/scopes UNKNOWN pending comparable model and measurements."
+  F-R5: "Adopt scoped evidence-aware Pareto partial order, no numerical ranking or weights."
+  F-R6: "Keep T002-2 through T002-8 all open and R4 full detection deferred."
+continuing_obligations:
+  source: reviews/diagnostics/CLN-001-TASK-002/DECISION-TRACE-002.md
+  local_labels: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+  all_open: true
+  detection_R4_deferred: true
+  proposed_index_semantics_question: "PO-003-3 highlights a conditional finite-state/unbounded-index interface question; no AS change or epoch/index solution authorized by this F disposition."
+next_gate:
+  permitted:
+    - "A distinct Proof Engineer may attempt a formal proof or counterexample for PO-003-2 only, followed by independent proof review."
+    - "Later AP candidates may be generated only after a distinct task explicitly authorizes them, with open index interface and evidence assumptions visible."
+  not_yet_permitted:
+    - "Adopt any PO as a proved theorem, select a winning AP or claim feasibility."
+    - "Create or approve CON/DE/C, discharge product VOs, claim target fit or whole-detector completion."
+limits:
+  source_agent_independence_externally_authenticated: false
+  formal_cleanroom_qualified: false
+  product_verified: false
+  proofs_accepted: false
+  vo_discharged: []
