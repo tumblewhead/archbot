@@ -1,0 +1,258 @@
+{
+  "schema": "pc-as-review/v1",
+  "review_id": "REVIEW-002",
+  "gate": "AS_REVIEW",
+  "candidate": "inputs/AS-REV-002.md",
+  "disposition": "READY_FOR_DELEGATED_AS_DISPOSITION",
+  "disposition_scope": "Synthetic CLN-001 AS revision is ready for the separately delegated decision maker to inspect and disposition; no AS acceptance, activation or downstream authorization.",
+  "rationale": "No blocking technical fidelity defect; R3/R4 and interfaces/resource boundaries implement D001. Archived REVIEW-001 supports the prior question-readiness gate. A nonblocking provenance clarification is requested without rewriting author history.",
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "INFO",
+      "claim": "No blocking BKP/D001 fidelity defect identified.",
+      "assessment": "All R1-R6/A1-A4 follow their original candidates and explicit D001 dispositions. Q1-Q7 are traced consistently in DECISION-TRACE-002. Lifecycle, accepted ordering, output pair, invalid-input behavior and RAM ownership are coherent specifications without design selection.",
+      "sources": [
+        "inputs/AS-REV-002.md:18,24-66",
+        "inputs/DECISION-TRACE-002.md:11-49",
+        "inputs/DECISION-001.yaml:requirements,assumptions,interface_and_lifecycle_Q4,delivery_and_exceptions_Q6"
+      ],
+      "action": "No technical draft change required for the delegated disposition gate."
+    },
+    {
+      "id": "F2",
+      "severity": "INFO",
+      "claim": "R3 is explicitly revised and R4 remains deferred, not discharged.",
+      "assessment": "The old update wording is not silently interpreted as a hard deadline. The whole-detector obligation retains its due stage and future criteria/verification work. Numeric correctness does not establish sustained-energy detection completion.",
+      "sources": [
+        "inputs/AS-REV-002.md:38-39,56,66,70",
+        "inputs/DECISION-TRACE-002.md:12-13,45,48-49",
+        "inputs/BRIEFING-002.md:40,48"
+      ],
+      "action": "Retain these boundaries in any later delegated disposition."
+    },
+    {
+      "id": "F3",
+      "severity": "MINOR",
+      "claim": "Prior-review discrepancy is an author-workspace provenance mismatch, not evidence that the actual independent review was absent.",
+      "assessment": "AS line 20, trace line 53 and briefing line 46 accurately disclose what the author reports seeing locally. The separately archived inputs/REVIEW-001.md and .json instead record READY_FOR_HUMAN_QUESTIONS, consistent with D001 and TASK-002. Both can coexist as different artifacts; the stale local self-review must not be substituted for the archived review. The archived JSON hashes match all eight supplied referenced sources. Its separate invocation is stated by the task and receipt, not externally authenticated here. The stale artifact itself and original author workspace are not supplied, so their bytes and causal history remain unverified. No demonstrated technical requirement impact or missing authoring authorization results; no account establishes AS acceptance.",
+      "sources": [
+        "inputs/AS-REV-002.md:20",
+        "inputs/DECISION-TRACE-002.md:17,53",
+        "inputs/BRIEFING-002.md:32,46",
+        "inputs/REVIEW-001.md:3-5",
+        "inputs/REVIEW-001.json:disposition,reviewer_independence,sources",
+        "inputs/DECISION-001.yaml:review_basis",
+        "inputs/TASK-002.md:Prior gate"
+      ],
+      "action": "Before or with delegated disposition, append a provenance clarification distinguishing the stale local self-review from the separately archived REVIEW-001; cite this receipt and archived hashes. Preserve the author-era statements and both histories. This nonblocking clarification may be recorded in the disposition; it does not require technical AS revision."
+    },
+    {
+      "id": "F4",
+      "severity": "INFO",
+      "claim": "Submitted Stage 2 artifacts stop at AS revision; execution history is only partially evidenced.",
+      "assessment": "Candidate, trace and briefing disclaim proof, feasibility, AP/P selection, CON/DE, C implementation, acceptance and VO discharge. The observable equation is a specification. Future trace items retain evidence and due stages. Briefing claims of only three writes and unchanged authority files cannot be independently verified without an authoring receipt/workspace audit.",
+      "sources": [
+        "inputs/AS-REV-002.md:3,66,68-72",
+        "inputs/DECISION-TRACE-002.md:38-55",
+        "inputs/BRIEFING-002.md:13,48-56"
+      ],
+      "action": "Only the separately delegated decision maker may issue actual diagnostic AS disposition. No downstream role is invoked."
+    }
+  ],
+  "requirement_crosswalk": [
+    {
+      "id": "R1",
+      "original_bkp": "BKP-NEED-001: exact latest 32",
+      "D001_entry": "requirements.R1; interface_and_lifecycle_Q4",
+      "assessment": "Preserved as exact current plus 31 preceding accepted samples, with logical index.",
+      "candidate_evidence": "inputs/AS-REV-002.md:36,52,60-64"
+    },
+    {
+      "id": "R2",
+      "original_bkp": "BKP-NEED-001: absent startup history zero",
+      "D001_entry": "requirements.R2; interface_and_lifecycle_Q4",
+      "assessment": "Preserved; reset restarts zero history; pre-first publication optional; operational losses not padded.",
+      "candidate_evidence": "inputs/AS-REV-002.md:37,51,54,64"
+    },
+    {
+      "id": "R3",
+      "original_bkp": "BKP-NEED-001: updated every 1 ms; BKP-ADC-001: arrivals every 1 ms",
+      "D001_entry": "requirements.R3; assumptions.A2",
+      "assessment": "Explicit delegated revision to one logical result per accepted sample; nominal cadence supplies no hard deadline or jitter bound.",
+      "candidate_evidence": "inputs/AS-REV-002.md:38,43,56,66"
+    },
+    {
+      "id": "R4",
+      "original_bkp": "BKP-NEED-001: sustained-energy detection",
+      "D001_entry": "requirements.R4; due_stage",
+      "assessment": "Narrowed to energy primitive; detection criteria and verification remain due before whole-detector completion claims.",
+      "candidate_evidence": "inputs/AS-REV-002.md:24,39,70; inputs/DECISION-TRACE-002.md:49"
+    },
+    {
+      "id": "R5",
+      "original_bkp": "BKP-NEED-001: conserve RAM/compute; BKP-TARGET-001: detector 2 KiB",
+      "D001_entry": "requirements.R5; assumptions.A4",
+      "assessment": "2048 bytes includes owned persistent state, scratch and owned stack; only exclusively upstream memory excluded; no invented optimization threshold.",
+      "candidate_evidence": "inputs/AS-REV-002.md:40,45"
+    },
+    {
+      "id": "R6",
+      "original_bkp": "BKP-NEED-001: no floating-point hardware requirement",
+      "D001_entry": "requirements.R6",
+      "assessment": "Hardware independence retained without selecting arithmetic, algorithm, representation, storage or API.",
+      "candidate_evidence": "inputs/AS-REV-002.md:41,66"
+    },
+    {
+      "id": "A1",
+      "original_bkp": "BKP-ADC-001: unsigned [0,4095]",
+      "D001_entry": "assumptions.A1; delivery_and_exceptions_Q6",
+      "assessment": "Synthetic domain adopted; invalid values explicitly rejected without state/index change.",
+      "candidate_evidence": "inputs/AS-REV-002.md:42,53"
+    },
+    {
+      "id": "A2",
+      "original_bkp": "BKP-ADC-001: 1 ms arrivals; no sample-loss guarantee",
+      "D001_entry": "assumptions.A2; requirements.R3",
+      "assessment": "Nominal model only; intended complete ordering is a new delegated contract, not measured ADC reliability.",
+      "candidate_evidence": "inputs/AS-REV-002.md:26,43,54-56"
+    },
+    {
+      "id": "A3",
+      "original_bkp": "BKP-TARGET-001: 32-bit Cortex-M-class, no FPU",
+      "D001_entry": "assumptions.A3",
+      "assessment": "Synthetic target retained; no specific device/compiler or measured qualification.",
+      "candidate_evidence": "inputs/AS-REV-002.md:28,44"
+    },
+    {
+      "id": "A4",
+      "original_bkp": "BKP-TARGET-001: 2 KiB detector SRAM",
+      "D001_entry": "assumptions.A4; requirements.R5",
+      "assessment": "Defined ceiling retained, with no claim of measured footprint or demonstrated fit.",
+      "candidate_evidence": "inputs/AS-REV-002.md:40,45,70"
+    }
+  ],
+  "sources": [
+    {
+      "path": "inputs/AS-DRAFT-001.md",
+      "sha256": "e231a55be07631c3c089434ec7502bc9cad833340ef5cd97813d5852372aa9e3"
+    },
+    {
+      "path": "inputs/AS-REV-002.md",
+      "sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830"
+    },
+    {
+      "path": "inputs/BRIEFING-001.md",
+      "sha256": "8f30a6f672cc6883fe74cc246bcffa9935ce258a4c639ae834c9b9eda32402de"
+    },
+    {
+      "path": "inputs/BRIEFING-002.md",
+      "sha256": "5761ba769da25df216779e443136e4a9f501e70735369e4e80e62641079589d2"
+    },
+    {
+      "path": "inputs/DECISION-001.yaml",
+      "sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36"
+    },
+    {
+      "path": "inputs/DECISION-TRACE-002.md",
+      "sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2"
+    },
+    {
+      "path": "inputs/QUESTIONS-001.md",
+      "sha256": "6d30b661f3e1542a779ef2a9fdad3eafc8aa6d87cb7e3290f8ac7624162c4fce"
+    },
+    {
+      "path": "inputs/REVIEW-001.json",
+      "sha256": "ab38d600bbd67adafb5e191065f4fa8932cfa975c2d8ec11c3406c6a2d31247d"
+    },
+    {
+      "path": "inputs/REVIEW-001.md",
+      "sha256": "2f16f8f6f7f1746c08da88609413984189f722695b5691916094b0e4b018abb7"
+    },
+    {
+      "path": "inputs/REVIEW_AS.md",
+      "sha256": "6f08ad6ddf98a0c25c08bb695da5207a2564631f6eed560499c1efc04b7b0bfa"
+    },
+    {
+      "path": "inputs/TASK-002.md",
+      "sha256": "246918b8d2e9acf29d54b5cde4ed78fe15220cdb04ae818d22d8471d528eba46"
+    },
+    {
+      "path": "inputs/adc.md",
+      "sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7"
+    },
+    {
+      "path": "inputs/problem-origin.md",
+      "sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333"
+    },
+    {
+      "path": "inputs/target.md",
+      "sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64"
+    },
+    {
+      "path": "inputs/verification-agent.md",
+      "sha256": "7f6463b5a54278230dbd73c5f49fc68cb4192ca83c48de191b22674f8d3ae1f3"
+    }
+  ],
+  "checks": [
+    {
+      "kind": "manual_source_comparison",
+      "result": "Read all 15 supplied inputs; compared all R1-R6/A1-A4 and C/R/PS against original BKP, D001, V1 draft/questions/briefing and TASK-002; checked Q1-Q7 and companion consistency."
+    },
+    {
+      "kind": "lifecycle_and_boundary_review",
+      "result": "Checked sequence restart, startup padding, accepted ordering, indexed energy pair, rejection without history/index changes, detectable fault reporting, no loss zero-fill and owned-RAM boundary; no design selected."
+    },
+    {
+      "kind": "stage_boundary_review",
+      "result": "No proof/AP/CON/DE/C or acceptance claimed in submitted Stage 2 artifacts; original execution/write history not independently audited."
+    },
+    {
+      "kind": "provenance_hash_check",
+      "result": "SHA-256 computed for all 15 input files; all eight comparable BRIEFING-002 source hashes and all eight REVIEW-001.json source hashes match supplied files. Original author instruction/role hashes not verifiable from this package."
+    },
+    {
+      "kind": "prior_review_comparison",
+      "result": "Parsed REVIEW-001.json; READY_FOR_HUMAN_QUESTIONS agrees with REVIEW-001.md, D001 and TASK-002. Distinguished this archived receipt from author-reported stale local self-review; did not access old repo or commits."
+    },
+    {
+      "kind": "conditional_arithmetic",
+      "expression": "4095**2; 32 * 4095**2 < 2**29",
+      "result": "16769025; 536608800 < 536870912",
+      "interpretation": "Conditional exact result range [0,536608800] for the adopted domain/window; no representation, implementation or proof selected."
+    }
+  ],
+  "reviewer_independence": {
+    "role": "Second independent diagnostic AS verification reviewer",
+    "independent_of_authoring_invocation": true,
+    "authored_candidate": false,
+    "basis": "Fresh assigned reviewer invocation; candidate and companions were supplied in inputs and not authored in this invocation.",
+    "externally_authenticated": false,
+    "limits": "External identity, original invocation receipts and runtime/filesystem isolation not authenticated or tested."
+  },
+  "cleanroom_qualified": false,
+  "product_verified": false,
+  "vo_discharged": [],
+  "stakeholder_approval_claimed": false,
+  "limitations": [
+    "Technical and sponsor-delegate evidence was restricted to inputs/. AGENTS.md and TASK-REVIEW-002.md were read only as current review instructions. No Git history, prior solved Toy 1 artifacts, oracle, external technical sources or prior conversations were searched.",
+    "Hashes identify current supplied bytes, not historical authorship or signatures. Original project paths map by filename, BKP ID and matching recorded hashes where available. Original commits and archived paths cited by D001 were not accessed or authenticated.",
+    "This is a fresh assigned non-author review invocation; this invocation did not author the candidate. External reviewer/author identity, model or runtime separation, and historical author read/write activity were not authenticated.",
+    "Actual access was limited by conduct to the stated instructions and inputs; only the two requested output files were written. OS/container/filesystem isolation and inability to access other repositories were not tested. Source restriction is not a verified filesystem isolation claim.",
+    "The original author AGENTS.md, architecture-agent role, TASK-001, project spine, stale self-review bytes, authoring receipt and inherited VO/AD/VP/proof ledgers are not supplied. Their historical state and continuity cannot be established. No historical obligation is discharged.",
+    "D001 is accepted as supplied diagnostic authority evidence, not cryptographically authenticated sponsor delegation. Delegate prior-solution familiarity is disclosed in D001. Neither this review nor the supplied receipts qualify a formal cleanroom.",
+    "No implementation, functional stream tests, hardware measurements, memory/stack accounting, timing/WCET/power tests, proof, feasibility finding or target qualification was performed. The arithmetic check is conditional source-model sanity only."
+  ],
+  "continuing_obligations": {
+    "status": "All realization evidence remains open; no inherited VO identity conferred or discharged.",
+    "items": [
+      "Exactness, startup/reset and event/output association: later authorized functional verification before correctness claims.",
+      "Invalid-input behavior and applicable detected-fault reporting: later authorized interface verification.",
+      "Owned RAM accounting and hardware independence: later authorized realization/verification; target evidence before target compliance claims.",
+      "Runtime/performance and concrete target/toolchain evidence: before real-hardware operation or qualification claims.",
+      "Threshold/duration/decision/integration criteria and verification: before whole-detector completion claims.",
+      "Provenance clarification: before or with separately delegated AS disposition."
+    ]
+  },
+  "next_gate": "Separately delegated CLN-001 decision maker inspects this review and may record actual diagnostic AS disposition. AS acceptance remains pending; downstream proof/AP/CON/DE/C remains unauthorized. Stop after both review files."
+}
