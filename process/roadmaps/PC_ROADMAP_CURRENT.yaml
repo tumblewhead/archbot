@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE9_AP_FEASIBILITY_EVALUATION_PREPARED_AS_R1_ACTIVE
+  status: STAGE10_INDEPENDENT_AP_EVIDENCE_REVIEW_PREPARED
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -491,7 +491,7 @@ stage8_R1_review_and_additive_activation:
   physical_interface_contract_complete: false
   AP_selected: false
 stage9_AP_feasibility:
-  status: INDEPENDENT_EVALUATOR_WORKSPACE_PREPARED_NOT_RUN
+  status: INDEPENDENT_EVALUATION_ARCHIVED_PENDING_DISTINCT_REVIEW
   scope: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-SCOPE-009.yaml
   task: reviews/diagnostics/CLN-001-TASK-009/TASK-AP-EVALUATION-009.md
   briefing: reviews/diagnostics/CLN-001-TASK-009/STAGE9_BRIEFING.md
@@ -503,28 +503,61 @@ stage9_AP_feasibility:
   all_AP_unselected: true
   full_H1_H6_realized: UNKNOWN
   actual_F_values: UNKNOWN
-next_eligible_action:
-  type: CLN001_STAGE9_INDEPENDENT_AP_FEASIBILITY_EVALUATION
-  subject: "Evaluate three unselected APs against active AS R1 and accepted hard gates/F without selecting an AP."
-  branch: experiment/toy1-pipe-cleaner-001
-  AS_additive_disposition: reviews/diagnostics/CLN-001-TASK-009/AS-ADDENDUM-008-R1-DISPOSITION.yaml
-  evaluated_candidates: reviews/diagnostics/CLN-001-TASK-006/AP-CANDIDATES-006.md
-  evaluation_scope: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-SCOPE-009.yaml
-  task: reviews/diagnostics/CLN-001-TASK-009/TASK-AP-EVALUATION-009.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-009/prepare_ap_evaluation009.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-009/archive_ap_evaluation009.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-009/STAGE9_HANDOFF.md
-  expected_outputs: [AP-EVALUATION-009.md, AP-EVALUATION-009.json, AP-EVALUATION-BRIEFING-009.md]
-  instruction: "Human pulls experiment branch, performs bash syntax and source-pin checks, launches fresh independent Codex evaluator, archives original outputs without rewriting, selectively commits and pushes."
-  stop_on: [SOURCE_BLOB_MISMATCH, MISSING_OUTPUT, JSON_EVIDENCE_LIMIT_FLAG_FAIL, UNRELATED_STAGED_CHANGE]
+stage9_AP_evaluation_result:
+  archive_commit: 0783a3b95a384e4e24b89a68740555055b2383f6
+  report: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.md
+  receipt: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.json
+  engineering_briefing: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-BRIEFING-009.md
+  sha256_manifest: reviews/diagnostics/CLN-001-TASK-009/AP_EVALUATION009_SHA256SUMS
+  source_payloads_reported_checked: 21
+  numeric_accepted_events_reported: 299296
+  numeric_rejections_reported: 24192
+  numeric_explicit_resets_reported: 11386
+  oracle_comparisons_reported: 897888
+  correct_model_mismatches_reported: 0
+  witness_groups_reported: 21
+  shortcut_falsifiers_reported: 20
+  snapshot_wrong_cuts_reported: 31_OF_32
+  preliminary_wrong_age_witness_revised: true
+  all_counts_independently_reproduced: false
+  evidence_level: FINITE_MODEL_AND_CONDITIONAL_SYMBOLIC
+  external_C_snapshot_provider: HYPOTHETICAL_NOT_AUTHORIZED
+  all_full_H1_H6: UNKNOWN
+  actual_F: UNKNOWN
+  all_AP_unselected: true
+  evaluation_review_completed: false
+stage10_independent_evaluation_review:
+  status: REVIEW_TASK_AND_PINNED_WORKSPACE_PREPARATION_COMMITTED
+  reviewer_task: reviews/diagnostics/CLN-001-TASK-010/TASK-REVIEW-AP-EVALUATION-010.md
+  engineering_briefing: reviews/diagnostics/CLN-001-TASK-010/STAGE10_BRIEFING.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-010/prepare_ap_evaluation_review010.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-010/archive_ap_evaluation_review010.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-010/STAGE10_HANDOFF.md
+  expected_outputs: [REVIEW-AP-EVALUATION-010.md, REVIEW-AP-EVALUATION-010.json, REVIEW_AP_EVALUATION010_SHA256SUMS]
+  possible_dispositions: [READY_FOR_DELEGATED_AP_EVIDENCE_DISPOSITION, REVISE_AP_EVALUATION, UNRESOLVED]
   AP_selected: false
-  physical_RI_RN_C_HIST_approved: false
+next_eligible_action:
+  type: CLN001_STAGE10_INDEPENDENT_REVIEW_OF_AP_EVALUATION
+  subject: "Reproduce/review source-pinned Stage-9 numeric/model evidence, falsifiers, H gates, F boundaries and authority limits."
+  branch: experiment/toy1-pipe-cleaner-001
+  source_evaluation_archive_commit: 0783a3b95a384e4e24b89a68740555055b2383f6
+  evaluation_report: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.md
+  evaluation_receipt: reviews/diagnostics/CLN-001-TASK-009/AP-EVALUATION-009.json
+  review_task: reviews/diagnostics/CLN-001-TASK-010/TASK-REVIEW-AP-EVALUATION-010.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-010/prepare_ap_evaluation_review010.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-010/archive_ap_evaluation_review010.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-010/STAGE10_HANDOFF.md
+  expected_outputs: [REVIEW-AP-EVALUATION-010.md, REVIEW-AP-EVALUATION-010.json]
+  instruction: "Human pulls experiment branch, executes syntax/source checks and workspace creation, starts a NEW independent Codex reviewer, then selectively archives/pushes original source evidence."
+  stop_on: [SOURCE_IDENTITY_MISMATCH, UNREPRODUCED_OR_CONTRADICTED_RESULTS, REVIEW_REVISE, REVIEW_UNRESOLVED]
   realized_H1_H6: UNKNOWN
+  measured_F: UNKNOWN
+  AP_selected: false
   prohibit:
-    - "No candidate downselection or unqualified H1-H6 PASS."
-    - "No index service, history snapshot or infinite retry/capacity inferred from a hypothetical model."
-    - "No invented cycle counts, electrical energy, target results or 47-byte implementation."
-    - "No CON/DE/C, old Toy1 source leak, target/product qualification or historical VO discharge."
+    - "No model success counted as full H gate PASS, actual C provider or physical RI decoder."
+    - "No invented measured RAM/cycles/joules or 47-byte detector implementation."
+    - "No automatic AP selection or delegated disposition by the reviewer."
+    - "No CON/DE/C, legacy Toy1 VO discharge, formal cleanroom or target qualification."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
