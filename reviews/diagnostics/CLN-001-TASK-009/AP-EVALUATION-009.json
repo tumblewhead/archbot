@@ -1,0 +1,1851 @@
+{
+  "evaluation_id": "CLN-001-AP-EVALUATION-009",
+  "schema": "pc-cln-independent-ap-evaluation/v1",
+  "role": "Independent AP feasibility evaluator; not candidate author/reviewer, sponsor-delegate or selector",
+  "scope": "Accepted synthetic original AS plus activated additive R1; not hardware qualification, CON/DE/C or full sustained-energy detector",
+  "authority": {
+    "active_AS_original": {
+      "path": "inputs/AS-REV-002.md",
+      "activation": "inputs/AS-ACTIVATION-002.yaml"
+    },
+    "active_AS_additive": {
+      "path": "inputs/AS-ADDENDUM-008-R1.md",
+      "activation": "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml",
+      "kind": "ADDITIVE_NO_REWRITE"
+    },
+    "D003": "Proposal-scope referral only; not an effective amendment or service contract",
+    "F": "inputs/F-DISPOSITION-003.yaml",
+    "D002": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+    "mathematics": "inputs/PROOF-DISPOSITION-004.yaml",
+    "approval_basis": "Explicit supplied decisions/activation records; hashes identify bytes only. Historical execution/provenance not independently authenticated.",
+    "R1": {
+      "consumer_exact_decoder_required": true,
+      "accepted_result_debt_preserved": true,
+      "old_new_reset_nonaliasing_required": true,
+      "distinct_acknowledgment_mandatory": false,
+      "physical_RI_RN_C_HIST_approved": false
+    },
+    "no_hard_1ms_deadline": true,
+    "no_finite_epoch_or_mandatory_reset": true,
+    "no_new_publisher_pause_backpressure_or_universal_recovery": true
+  },
+  "summary": {
+    "numeric_models": "No mismatches in completed independent finite run under declared candidate preconditions; C exact pre-tail service ASSUMED.",
+    "physical_interfaces": "UNKNOWN for all; RI/RN/C-HIST unapproved and unsupplied.",
+    "resource_and_F": "All realized values UNKNOWN; conditional accounting and compatible partial projections only.",
+    "candidate_contradictions_as_written": [],
+    "shortcut_counterexamples_are_not_whole_AP_rejections": true
+  },
+  "candidates": {
+    "AP-006-A": {
+      "numeric": "Correct under exact-width reduction of the pre-event ordered raw31 tail, followed by oldest eviction and append. All conducted correct-model comparisons agreed with the independent full accepted-history oracle.",
+      "interface": "UNKNOWN: RI has no identified physical consumer/state inventory, exact decoder, no-loss acceptance/publication contract or reset/restart lifetime evidence.",
+      "resource": "31*b_x + h_A only under fixed live payload and complete accounting; all realized costs UNKNOWN.",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "full_interface_feasibility": "UNKNOWN",
+      "numeric_evidence_level": "FINITE_MODEL",
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "gates": {
+        "H1": {
+          "name": "exact latest-32",
+          "obligation": "T002-2",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "299296 correct-model valid transitions agreed with the full-history oracle; chronological tail asserted after every transition.",
+          "falsifier_or_missing_evidence": "M01 read-before-overwrite; M02 current sum conceals wrong-age eviction.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "name": "initialization/reset",
+          "obligation": "T002-3",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Numeric reset creates zero raw31 and cursor; every pre-reset cursor and boundary prefixes exercised.",
+          "falsifier_or_missing_evidence": "Old pending results and physical reset linearization untested; M18 and race ledger expose stale association.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "name": "consumer-decodable (n,E_n), one per accepted event",
+          "obligation": "T002-4",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Observer rank in harness is instrumentation, not consumer information or a candidate decoder.",
+          "falsifier_or_missing_evidence": "M17 identical zero observations require ranks 1 and 2; M15 restart; M18/M20/M21 debt, tags and queues.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "name": "invalid rejection invariance and observable faults",
+          "obligation": "T002-5",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Model rejection precedes conversion/step; whole represented numeric/oracle/service state unchanged for 24192 invalid attempts.",
+          "falsifier_or_missing_evidence": "No physical rejection API, full association state or observable-fault reporting tested; M13/M14.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "name": "complete detector-attributable RAM <=2048 bytes",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Inventory and peak-live expression only; numeric raw31 payload is conditional.",
+          "falsifier_or_missing_evidence": "Unbounded index/pending state, unknown ownership, stack or buffers can defeat ceiling; no actual allocation bound.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "name": "no hardware-FPU dependency",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Exact integer kernel requires no FPU in abstract.",
+          "falsifier_or_missing_evidence": "No build/dependency/execution evidence for a realized target or surrounding interface.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        }
+      }
+    },
+    "AP-006-B": {
+      "numeric": "Correct under ordered square31, exact S=sum(tail), correct oldest-first cursor and coherent coupled update; E=S+q; S_next=E-q_old.",
+      "interface": "UNKNOWN: shares RI gaps; atomicity of tail/S/cursor, acceptance and owed response also unproved.",
+      "resource": "31*b_q + b_S + h_B only under fixed live payload and complete accounting; all realized costs UNKNOWN.",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "full_interface_feasibility": "UNKNOWN",
+      "numeric_evidence_level": "FINITE_MODEL",
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "gates": {
+        "H1": {
+          "name": "exact latest-32",
+          "obligation": "T002-2",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "299296 correct-model valid transitions agreed; S checked against stored slots and independently against chronological oracle suffix.",
+          "falsifier_or_missing_evidence": "M03/M04 wrong-age or stale cursor; M07/M08 partial aggregate/tail update.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "name": "initialization/reset",
+          "obligation": "T002-3",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Zero square31, S and cursor reset together in model; every pre-reset cursor and boundary prefixes exercised.",
+          "falsifier_or_missing_evidence": "M05 stale S; M06 stale expiring square yields -1 (uint32 wrap 4294967295); old debt fencing remains unknown.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "name": "consumer-decodable (n,E_n), one per accepted event",
+          "obligation": "T002-4",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Numeric commitment is not result publication; RI remains unsupplied.",
+          "falsifier_or_missing_evidence": "M17 rank ambiguity; M18/M20/M21 old debt, tags and queue exhaustion; coupled commit evidence absent.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "name": "invalid rejection invariance and observable faults",
+          "obligation": "T002-5",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Whole modeled tail/S/cursor and hypothetical service/oracle state invariant on 24192 rejects.",
+          "falsifier_or_missing_evidence": "No physical API/fault reporting or all association/pending state invariance tested; validate before narrowing.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "name": "complete detector-attributable RAM <=2048 bytes",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Square31 plus redundant aggregate and all overhead inventoried symbolically.",
+          "falsifier_or_missing_evidence": "No chosen widths/allocation/stack/queue/association bound; no ceiling result.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "name": "no hardware-FPU dependency",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Integer recurrence has no abstract FPU requirement.",
+          "falsifier_or_missing_evidence": "No target/build/runtime/callee or interface dependency evidence.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        }
+      }
+    },
+    "AP-006-C": {
+      "numeric": "Correct-model agreement is conditional on an ASSUMED immutable, exact correct-event pre-tail service with coordinated accepted ordinal and reset; this service is test scaffolding only.",
+      "interface": "UNKNOWN: RN and C-HIST are unapproved and unsupplied; numeral provider, exact event binding, transport, fidelity, retention, availability and reset/restart contracts absent.",
+      "resource": "h_C only if no detector-owned history and all local/shared costs inventoried; external numeric history and ordinal costs remain separately visible; realized costs UNKNOWN.",
+      "status": "AP_CANDIDATE_NOT_SELECTED",
+      "full_interface_feasibility": "UNKNOWN",
+      "numeric_evidence_level": "FINITE_MODEL",
+      "realized_F": {
+        "RAM_peak": "UNKNOWN",
+        "compute_effort": "UNKNOWN",
+        "device_energy_consumption": "UNKNOWN"
+      },
+      "gates": {
+        "H1": {
+          "name": "exact latest-32",
+          "obligation": "T002-2",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "299296 correct-model valid transitions agreed under the simulated exact pre-tail service; no physical provider verified.",
+          "falsifier_or_missing_evidence": "M09/M10 mixed/wrong-event snapshots; 31 of 32 live-read append cut points wrong.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H2": {
+          "name": "initialization/reset",
+          "obligation": "T002-3",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Model resets service tail and service rank together; numeric startup/reset checked.",
+          "falsifier_or_missing_evidence": "M11 prior-sequence snapshot; cross-provider reset ordering, old sessions/results and tag retirement unproved.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H3": {
+          "name": "consumer-decodable (n,E_n), one per accepted event",
+          "obligation": "T002-4",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Lossless correct RN numeral would decode n; no numeral generation/transport/parser or event association service tested.",
+          "falsifier_or_missing_evidence": "Acquisition attempts/retries differ from accepted rank; restart, delayed outputs, reset and saturation obligations open.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H4": {
+          "name": "invalid rejection invariance and observable faults",
+          "obligation": "T002-5",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "FINITE_MODEL",
+          "finding": "Simulated rejection never calls service append or advances service_n; invalid entries rejected before model mutation.",
+          "falsifier_or_missing_evidence": "No actual joint rejection/framing/fidelity or observable service-fault reporting; range/length alone cannot prove history truth.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC",
+            "FINITE_MODEL"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H5": {
+          "name": "complete detector-attributable RAM <=2048 bytes",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "No retained detector tail is a conditional representation, not a peak-RAM result; client/shared/pinned/index/queue/stack costs unknown.",
+          "falsifier_or_missing_evidence": "Ownership unknown cannot count zero; simultaneous snapshots and variable numeral state may grow.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        },
+        "H6": {
+          "name": "no hardware-FPU dependency",
+          "obligation": "T002-6",
+          "realized_status": "UNKNOWN",
+          "supporting_evidence_level": "CONDITIONAL_SYMBOLIC",
+          "finding": "Integer streaming reduction needs no FPU in abstract.",
+          "falsifier_or_missing_evidence": "No detector/client/library/service build or dependency evidence at a declared hardware boundary.",
+          "evidence_levels_available": [
+            "CONDITIONAL_SYMBOLIC"
+          ],
+          "HOST_SPECIFIC": null,
+          "TARGET_SPECIFIC": null,
+          "compatibility_grade_PASS": false
+        }
+      }
+    }
+  },
+  "source_hash_checks": {
+    "algorithm": "SHA-256",
+    "manifest": "inputs/SHA256SUMS",
+    "manifest_entries": 21,
+    "matched_entries": 21,
+    "all_match": true,
+    "method": "Direct independent Python hashlib.sha256 over each allowlisted payload; no historical paths followed.",
+    "meaning": "Internal supplied-byte consistency only; no trusted manifest authentication anchor or approval inferred.",
+    "instructions_and_manifest": [
+      {
+        "path": "AGENTS.md",
+        "observed_sha256": "b03fac1e2c972181d7cc8299c876149e075b941567472a354dc228103603e1c6",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "TASK.md",
+        "observed_sha256": "2c3b587dabb045ab9ef16045cfbc073da8c9f0941c67d3bf62064db7982ff2d4",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      },
+      {
+        "path": "inputs/SHA256SUMS",
+        "observed_sha256": "f12cad24c1cdfc4dae81c3c36a6936ccd8b10fdeeec9091f72dee1b58b542d8e",
+        "expected_sha256": null,
+        "independently_authenticated": false
+      }
+    ],
+    "payloads": [
+      {
+        "path": "inputs/PROOF-DISPOSITION-004.yaml",
+        "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "match": true,
+        "bytes": 3639,
+        "read": true,
+        "contribution": "Accepted T1 and conditional T2; scope and exclusions."
+      },
+      {
+        "path": "inputs/DECISION-001.yaml",
+        "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "match": true,
+        "bytes": 8061,
+        "read": true,
+        "contribution": "Synthetic sponsor-delegate requirements and authority limits."
+      },
+      {
+        "path": "inputs/AP-EVALUATION-SCOPE-009.yaml",
+        "expected_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+        "observed_sha256": "20c41f16470efee2d0680d12dfb6729a5ab4645645e9335e7696f2c5118995fd",
+        "match": true,
+        "bytes": 4589,
+        "read": true,
+        "contribution": "Current evaluation authorization, evidence tracks and stop gate."
+      },
+      {
+        "path": "inputs/adc.md",
+        "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "match": true,
+        "bytes": 403,
+        "read": true,
+        "contribution": "Synthetic ADC domain/cadence origin."
+      },
+      {
+        "path": "inputs/STAGE9_BRIEFING.md",
+        "expected_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+        "observed_sha256": "2b2497633b9b9580f053047387a1f3b644ee5aef01bc48bc5951ce244eca0835",
+        "match": true,
+        "bytes": 2597,
+        "read": true,
+        "contribution": "Current task context; evaluation versus interface/service evidence."
+      },
+      {
+        "path": "inputs/D003-DISPOSITION-007.yaml",
+        "expected_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+        "observed_sha256": "369f6a27ba6ed9344865c9363df2009239ed3694a8d088699b2dce2baa4b5b76",
+        "match": true,
+        "bytes": 5782,
+        "read": true,
+        "contribution": "Guarded proposal-scope disposition; no effective amendment/service."
+      },
+      {
+        "path": "inputs/AS-REV-002.md",
+        "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "match": true,
+        "bytes": 10610,
+        "read": true,
+        "contribution": "Original activated AS; retained draft labels governed by activation."
+      },
+      {
+        "path": "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml",
+        "expected_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "observed_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "match": true,
+        "bytes": 5359,
+        "read": true,
+        "contribution": "Activation of exact R1 additive observable semantics."
+      },
+      {
+        "path": "inputs/REVIEW-AP-006.md",
+        "expected_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+        "observed_sha256": "49da5d3fceecf43d46a83d576f6929ce09943ac8f9a7a4bac413df0657b8566b",
+        "match": true,
+        "bytes": 29294,
+        "read": true,
+        "contribution": "Prior candidate source review and challenges; prior test counts not reused."
+      },
+      {
+        "path": "inputs/REVIEW-D003-007.md",
+        "expected_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+        "observed_sha256": "54c9d6e308589fc9a7a0621f46f9d58bc384233c528df9993d48a726a6c793cf",
+        "match": true,
+        "bytes": 22866,
+        "read": true,
+        "contribution": "Prior proposal source/authority review; pending status read chronologically."
+      },
+      {
+        "path": "inputs/AP-CANDIDATES-006.md",
+        "expected_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "observed_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "match": true,
+        "bytes": 20197,
+        "read": true,
+        "contribution": "Three unselected conditional numeric/interface/resource proposals."
+      },
+      {
+        "path": "inputs/AP-COMPARISON-006.md",
+        "expected_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "observed_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "match": true,
+        "bytes": 21937,
+        "read": true,
+        "contribution": "Symbolic peak RAM, typed work, device-energy and obligations model."
+      },
+      {
+        "path": "inputs/DECISION-TRACE-002.md",
+        "expected_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "observed_sha256": "90bbfc0c1de5333c90015696a3a8dd871a762e6e096cf2ad7328534a1e07acc2",
+        "match": true,
+        "bytes": 10459,
+        "read": true,
+        "contribution": "Direct supplied T002 evidence/due-stage mapping; activation governs old draft gate language."
+      },
+      {
+        "path": "inputs/problem-origin.md",
+        "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "match": true,
+        "bytes": 407,
+        "read": true,
+        "contribution": "Invented original need, explicitly adopted/revised by D001."
+      },
+      {
+        "path": "inputs/F-DISPOSITION-003.yaml",
+        "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "match": true,
+        "bytes": 5376,
+        "read": true,
+        "contribution": "Accepted scoped H gates, three F axes and evidence-compatible comparison rule."
+      },
+      {
+        "path": "inputs/target.md",
+        "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "match": true,
+        "bytes": 358,
+        "read": true,
+        "contribution": "Hypothetical platform/2048-byte origin, no target measurements."
+      },
+      {
+        "path": "inputs/D002-INTERFACE-DISPOSITION.yaml",
+        "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "match": true,
+        "bytes": 4357,
+        "read": true,
+        "contribution": "Accepted refinement/ownership/disclosure policy, no mechanisms."
+      },
+      {
+        "path": "inputs/AS-ADDENDUM-008-R1.md",
+        "expected_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "observed_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "match": true,
+        "bytes": 6826,
+        "read": true,
+        "contribution": "Activated additive index/debt/reset observables, no protocol/service."
+      },
+      {
+        "path": "inputs/AS-ACTIVATION-002.yaml",
+        "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "match": true,
+        "bytes": 4224,
+        "read": true,
+        "contribution": "Original AS activation, historical claims not reauthenticated."
+      },
+      {
+        "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.md",
+        "expected_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+        "observed_sha256": "e3900f30ab7550ddda079b401a8e377668f5bfa826521320d10ce0f73ce44e84",
+        "match": true,
+        "bytes": 17525,
+        "read": true,
+        "contribution": "Focused R1 source review; optional acknowledgment and residual physical unknowns."
+      },
+      {
+        "path": "inputs/REVIEW-AS-ADDENDUM-008-R1.json",
+        "expected_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+        "observed_sha256": "f6e732ad5e91b5bd72b2acca79acf884283f9a2ab59b6543551aee667bc90549",
+        "match": true,
+        "bytes": 30820,
+        "read": true,
+        "contribution": "Prior focused review receipt, not current source inventory/test receipt."
+      }
+    ]
+  },
+  "experiments": {
+    "numeric": {
+      "evidence_level": "FINITE_MODEL",
+      "source": "import itertools, random, json, sys, hashlib\nQ=4095**2\nclass Oracle:\n    def __init__(self): self.h=[]\n    def reset(self): self.h=[]\n    def step(self,x):\n        self.h.append(x)\n        return sum(v*v for v in self.h[-32:])\nclass A:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0\n    def step(self,x):\n        e=x*x+sum(v*v for v in self.a)\n        self.a[self.p]=x; self.p=(self.p+1)%31\n        return e\nclass B:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0; self.s=0\n    def step(self,x):\n        q=x*x; old=self.a[self.p]; e=self.s+q\n        self.a[self.p]=q; self.s=e-old; self.p=(self.p+1)%31\n        return e\nclass HypotheticalC:\n    # This supplied-in-model service is ASSUMED, not an existing provider.\n    def __init__(self): self.reset()\n    def reset(self): self.service_tail=[0]*31; self.service_n=0\n    def step(self,x):\n        immutable_pre=tuple(self.service_tail)\n        e=x*x+sum(v*v for v in immutable_pre)\n        self.service_tail=self.service_tail[1:]+[x]\n        self.service_n+=1\n        return e\nclass Harness:\n    def __init__(self):\n        self.o=Oracle(); self.ms=[A(),B(),HypotheticalC()]\n        self.valid=self.bad=self.resets=0; self.max_n=0\n    def state(self):\n        return (tuple(self.o.h),\n                tuple(self.ms[0].a),self.ms[0].p,\n                tuple(self.ms[1].a),self.ms[1].p,self.ms[1].s,\n                tuple(self.ms[2].service_tail),self.ms[2].service_n)\n    def reset(self):\n        self.o.reset()\n        for m in self.ms: m.reset()\n        self.resets+=1\n        assert self.o.h==[] and self.ms[1].s==0\n    def attempt(self,x):\n        if not 0<=x<=4095:\n            before=self.state()\n            # Explicit model rejection. No conversion or model step is called.\n            response=\"REJECT\"\n            self.bad+=1\n            assert response==\"REJECT\" and before==self.state()\n            return response\n        expected=self.o.step(x)\n        got=[m.step(x) for m in self.ms]\n        assert got==[expected]*3,(len(self.o.h),x,expected,got)\n        n=len(self.o.h); self.max_n=max(self.max_n,n); self.valid+=1\n        tail=([0]*31+self.o.h)[-31:]\n        a,b,c=self.ms\n        assert a.a[a.p:]+a.a[:a.p]==tail\n        assert b.a[b.p:]+b.a[:b.p]==[v*v for v in tail]\n        assert b.s==sum(v*v for v in tail)==sum(b.a)\n        assert c.service_tail==tail and c.service_n==n\n        assert 0<=expected<=32*Q and 0<=b.s<=31*Q\n        return (n,expected)\n    def counts(self):\n        return dict(valid=self.valid,rejected=self.bad,resets=self.resets,\n                    energy_comparisons=3*self.valid,max_sequence_length=self.max_n)\nruns=[]\nh=Harness()\nfor stream in itertools.product((0,1,4095),repeat=8):\n    h.reset()\n    for x in stream: h.attempt(x)\nruns.append(dict(id=\"E01\",kind=\"exhaustive startup\",streams=3**8,length=8,**h.counts()))\nfor seed in (9009,9010):\n    h=Harness(); r=random.Random(seed)\n    for _ in range(120000):\n        a=r.randrange(100)\n        if a<2: h.reset()\n        elif a<12: h.attempt(r.choice((-1,4096,65536)))\n        else: h.attempt(r.randrange(4096))\n    runs.append(dict(id=\"E02\",kind=\"random actions\",seed=seed,actions=120000,**h.counts()))\nboundaries={}\nfor name,stream in [\n    (\"ones\",[1]*65),(\"maxima\",[4095]*65),\n    (\"impulse\",[4095]+[0]*64),\n    (\"alternating\",[0,4095]*33),\n    (\"distinct_expiry\",list(range(65)))]:\n    h=Harness(); observed={}\n    for x in stream:\n        n,e=h.attempt(x)\n        if n in (1,31,32,33,63,64,65):\n            observed[n]=dict(E=e,S_next=h.ms[1].s)\n    boundaries[name]=observed\n    runs.append(dict(id=\"E03\",kind=name,**h.counts()))\nh=Harness()\nfor x in (list(range(4096))*8): h.attempt(x)\nruns.append(dict(id=\"E04\",kind=\"all domain values eight times without reset\",\n                 **h.counts()))\nh=Harness()\nfor cursor in range(31):\n    h.reset()\n    for _ in range(62+cursor): h.attempt(4095)\n    assert h.ms[1].p==cursor\n    h.reset()\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E05\",kind=\"reset from every pre-reset cursor\",cases=31,**h.counts()))\nh=Harness()\nfor prefix in (0,1,31,32,33,100):\n    h.reset()\n    for _ in range(prefix): h.attempt(4095)\n    for x in (-1,4096,65536): h.attempt(x)\n    h.reset()\n    for x in (-1,4096,65536): h.attempt(x)\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E06\",kind=\"reject around boundary resets\",cases=6,**h.counts()))\nw=[]\ndef witness(id,topic,expected,shortcut):\n    assert expected!=shortcut,(id,expected,shortcut)\n    w.append(dict(id=id,topic=topic,required=expected,shortcut=shortcut,\n                  shortcut_falsified=True))\npre=[1]+[0]*30; post=pre[1:]+[2]\nwitness(\"M01\",\"A overwrite before reduction\",5,4+sum(v*v for v in post))\n# Correct current sum hides a wrong eviction age for both A and B.\nfor cls,id in ((A,\"M02\"),(B,\"M03\")):\n    m=cls()\n    for x in [1,2]+[0]*29: m.step(x)\n    m.p=1\n    assert m.step(0)==5\n    if cls is B: assert m.s==sum(m.a)==1\n    witness(id,cls.__name__+\" wrong-age eviction, next zero\",4,m.step(0))\nm=B()\nfor x in [1,2]+[0]*29: m.step(x)\nassert m.p==0\n# Freeze cursor across event32 and event33; wrong eviction affects event34.\nold_step=m.step\nassert old_step(0)==5\nm.p=0\nassert old_step(0)==4\nwitness(\"M04\",\"B stale cursor (not advanced) corrupts future S\",0,old_step(0))\nm=B(); m.step(3); m.a=[0]*31; m.p=0\nwitness(\"M05\",\"B reset tail/cursor but stale aggregate\",0,m.step(0))\nm=B(); m.a[0]=1; m.s=0; m.p=0\nassert m.step(0)==0\nwitness(\"M06\",\"B reset aggregate but stale expiring square\",0,m.step(0))\nm=B(); m.step(2); m.s=0\nwitness(\"M07\",\"B interrupted update: tail changed, S not committed\",4,m.step(0))\nm=B(); m.s=4\nwitness(\"M08\",\"B interrupted update: S changed, tail not committed (future expiry)\",\n        0, next(e for i,e in enumerate([m.step(0) for _ in range(33)]) if i==32))\nwitness(\"M09\",\"C mixed pre/post snapshot\",5,\n        4+pre[0]**2+sum(v*v for v in post[1:]))\nwitness(\"M10\",\"C coherent wrong-event post snapshot\",5,4+sum(v*v for v in post))\nwitness(\"M11\",\"C stale prior-sequence snapshot after reset, current 2\",4,\n        4+sum(v*v for v in pre))\nassert 4+sum(v*v for v in reversed(pre))==5\nw.append(dict(id=\"M12\",topic=\"permutation of correct term set leaves current energy unchanged\",\n              expected=5,observed=5,shortcut_falsified=False,\n              limit=\"Does not validate chronology, event binding or future expiration.\"))\nwitness(\"M13\",\"validate after 16-bit narrowing accepts invalid 65536\",\"REJECT\",\n        (65536 & 65535)**2)\ndef spec(xs): return [(i+1,sum(x*x for x in xs[max(0,i-31):i+1]))\n                      for i in range(len(xs))]\nwitness(\"M14\",\"invalid-as-zero ages accepted history\",spec([1]+[0]*31)[-1],\n        spec([1,0]+[0]*31)[-1])\nwitness(\"M15\",\"consumer restart with no detector reset\",spec([1,0])[-1],\n        spec([0])[-1])\nwitness(\"M16\",\"retry old sample as a new accepted event\",spec([1,2])[-1],\n        spec([1,1])[-1])\n# Narrow consumer boundary: same observation and consumer state, different required rank.\nassert spec([0])[-1][1]==spec([0,0])[-1][1]==0\nwitness(\"M17\",\"RI energy-only restarted consumer cannot infer rank\",\n        spec([0])[-1],spec([0,0])[-1])\nwitness(\"M18\",\"delayed old result must not be relabeled after reset\",\n        spec([2])[-1],spec([1])[-1])\nassert spec([1]+[0]*32)[-1]==spec([2]+[0]*32)[-1]==(33,0)\nwitness(\"M19\",\"same final numeric state does not recover old debt\",\n        spec([1])[0],spec([2])[0])\nassert 1%4==5%4 and 0%4==4%4\nw.append(dict(id=\"M20\",topic=\"two-bit rank and reset-generation collisions\",\n              rank_pair=[1,5],rank_fields=[1,1],\n              generation_pair=[0,4],generation_fields=[0,0],\n              shortcut_falsified=True))\n# Simple stalled entry queue, deliberately no other store/replay/compression/coordination.\ncap=2; pending=[]; lost=[]\nfor pair in spec([1,2,3]):\n    if len(pending)<cap: pending.append(pair)\n    else: lost.append(pair)\nassert pending==[(1,1),(2,5)] and lost==[(3,14)]\nw.append(dict(id=\"M21\",topic=\"Q+1 accepted debts with only Q=2 entry slots\",\n              retained=pending,unretained_owed=lost,shortcut_falsified=True,\n              boundary=\"No other retention, replay, compression or acceptance coordination.\"))\nassert (-1)%(2**32)==4294967295\ntotals={k:sum(r[k] for r in runs) for k in (\"valid\",\"rejected\",\"resets\",\"energy_comparisons\")}\nout=dict(python=sys.version,arithmetic=dict(Qmax=Q,tail_max=31*Q,energy_max=32*Q,\n     raw_value_bits=12,square_value_bits=24,total_value_bits=29,\n     conditional_information_bits=372,conditional_capacity_octets=47),\n     runs=runs,totals=totals,boundaries=boundaries,witnesses=w,\n     seeds=[9009,9010],mismatch_count=0,\n     witness_groups=len(w),shortcut_falsifications=sum(x[\"shortcut_falsified\"] for x in w),\n     evidence_level=\"FINITE_MODEL\",physical_interface_tested=False)\nprint(json.dumps(out,sort_keys=True))\n",
+      "command": "python3 -B - <<'PY'\nimport itertools, random, json, sys, hashlib\nQ=4095**2\nclass Oracle:\n    def __init__(self): self.h=[]\n    def reset(self): self.h=[]\n    def step(self,x):\n        self.h.append(x)\n        return sum(v*v for v in self.h[-32:])\nclass A:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0\n    def step(self,x):\n        e=x*x+sum(v*v for v in self.a)\n        self.a[self.p]=x; self.p=(self.p+1)%31\n        return e\nclass B:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0; self.s=0\n    def step(self,x):\n        q=x*x; old=self.a[self.p]; e=self.s+q\n        self.a[self.p]=q; self.s=e-old; self.p=(self.p+1)%31\n        return e\nclass HypotheticalC:\n    # This supplied-in-model service is ASSUMED, not an existing provider.\n    def __init__(self): self.reset()\n    def reset(self): self.service_tail=[0]*31; self.service_n=0\n    def step(self,x):\n        immutable_pre=tuple(self.service_tail)\n        e=x*x+sum(v*v for v in immutable_pre)\n        self.service_tail=self.service_tail[1:]+[x]\n        self.service_n+=1\n        return e\nclass Harness:\n    def __init__(self):\n        self.o=Oracle(); self.ms=[A(),B(),HypotheticalC()]\n        self.valid=self.bad=self.resets=0; self.max_n=0\n    def state(self):\n        return (tuple(self.o.h),\n                tuple(self.ms[0].a),self.ms[0].p,\n                tuple(self.ms[1].a),self.ms[1].p,self.ms[1].s,\n                tuple(self.ms[2].service_tail),self.ms[2].service_n)\n    def reset(self):\n        self.o.reset()\n        for m in self.ms: m.reset()\n        self.resets+=1\n        assert self.o.h==[] and self.ms[1].s==0\n    def attempt(self,x):\n        if not 0<=x<=4095:\n            before=self.state()\n            # Explicit model rejection. No conversion or model step is called.\n            response=\"REJECT\"\n            self.bad+=1\n            assert response==\"REJECT\" and before==self.state()\n            return response\n        expected=self.o.step(x)\n        got=[m.step(x) for m in self.ms]\n        assert got==[expected]*3,(len(self.o.h),x,expected,got)\n        n=len(self.o.h); self.max_n=max(self.max_n,n); self.valid+=1\n        tail=([0]*31+self.o.h)[-31:]\n        a,b,c=self.ms\n        assert a.a[a.p:]+a.a[:a.p]==tail\n        assert b.a[b.p:]+b.a[:b.p]==[v*v for v in tail]\n        assert b.s==sum(v*v for v in tail)==sum(b.a)\n        assert c.service_tail==tail and c.service_n==n\n        assert 0<=expected<=32*Q and 0<=b.s<=31*Q\n        return (n,expected)\n    def counts(self):\n        return dict(valid=self.valid,rejected=self.bad,resets=self.resets,\n                    energy_comparisons=3*self.valid,max_sequence_length=self.max_n)\nruns=[]\nh=Harness()\nfor stream in itertools.product((0,1,4095),repeat=8):\n    h.reset()\n    for x in stream: h.attempt(x)\nruns.append(dict(id=\"E01\",kind=\"exhaustive startup\",streams=3**8,length=8,**h.counts()))\nfor seed in (9009,9010):\n    h=Harness(); r=random.Random(seed)\n    for _ in range(120000):\n        a=r.randrange(100)\n        if a<2: h.reset()\n        elif a<12: h.attempt(r.choice((-1,4096,65536)))\n        else: h.attempt(r.randrange(4096))\n    runs.append(dict(id=\"E02\",kind=\"random actions\",seed=seed,actions=120000,**h.counts()))\nboundaries={}\nfor name,stream in [\n    (\"ones\",[1]*65),(\"maxima\",[4095]*65),\n    (\"impulse\",[4095]+[0]*64),\n    (\"alternating\",[0,4095]*33),\n    (\"distinct_expiry\",list(range(65)))]:\n    h=Harness(); observed={}\n    for x in stream:\n        n,e=h.attempt(x)\n        if n in (1,31,32,33,63,64,65):\n            observed[n]=dict(E=e,S_next=h.ms[1].s)\n    boundaries[name]=observed\n    runs.append(dict(id=\"E03\",kind=name,**h.counts()))\nh=Harness()\nfor x in (list(range(4096))*8): h.attempt(x)\nruns.append(dict(id=\"E04\",kind=\"all domain values eight times without reset\",\n                 **h.counts()))\nh=Harness()\nfor cursor in range(31):\n    h.reset()\n    for _ in range(62+cursor): h.attempt(4095)\n    assert h.ms[1].p==cursor\n    h.reset()\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E05\",kind=\"reset from every pre-reset cursor\",cases=31,**h.counts()))\nh=Harness()\nfor prefix in (0,1,31,32,33,100):\n    h.reset()\n    for _ in range(prefix): h.attempt(4095)\n    for x in (-1,4096,65536): h.attempt(x)\n    h.reset()\n    for x in (-1,4096,65536): h.attempt(x)\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E06\",kind=\"reject around boundary resets\",cases=6,**h.counts()))\nw=[]\ndef witness(id,topic,expected,shortcut):\n    assert expected!=shortcut,(id,expected,shortcut)\n    w.append(dict(id=id,topic=topic,required=expected,shortcut=shortcut,\n                  shortcut_falsified=True))\npre=[1]+[0]*30; post=pre[1:]+[2]\nwitness(\"M01\",\"A overwrite before reduction\",5,4+sum(v*v for v in post))\n# Correct current sum hides a wrong eviction age for both A and B.\nfor cls,id in ((A,\"M02\"),(B,\"M03\")):\n    m=cls()\n    for x in [1,2]+[0]*29: m.step(x)\n    m.p=1\n    assert m.step(0)==5\n    if cls is B: assert m.s==sum(m.a)==1\n    witness(id,cls.__name__+\" wrong-age eviction, next zero\",4,m.step(0))\nm=B()\nfor x in [1,2]+[0]*29: m.step(x)\nassert m.p==0\n# Freeze cursor across event32 and event33; wrong eviction affects event34.\nold_step=m.step\nassert old_step(0)==5\nm.p=0\nassert old_step(0)==4\nwitness(\"M04\",\"B stale cursor (not advanced) corrupts future S\",0,old_step(0))\nm=B(); m.step(3); m.a=[0]*31; m.p=0\nwitness(\"M05\",\"B reset tail/cursor but stale aggregate\",0,m.step(0))\nm=B(); m.a[0]=1; m.s=0; m.p=0\nassert m.step(0)==0\nwitness(\"M06\",\"B reset aggregate but stale expiring square\",0,m.step(0))\nm=B(); m.step(2); m.s=0\nwitness(\"M07\",\"B interrupted update: tail changed, S not committed\",4,m.step(0))\nm=B(); m.s=4\nwitness(\"M08\",\"B interrupted update: S changed, tail not committed (future expiry)\",\n        0, next(e for i,e in enumerate([m.step(0) for _ in range(33)]) if i==32))\nwitness(\"M09\",\"C mixed pre/post snapshot\",5,\n        4+pre[0]**2+sum(v*v for v in post[1:]))\nwitness(\"M10\",\"C coherent wrong-event post snapshot\",5,4+sum(v*v for v in post))\nwitness(\"M11\",\"C stale prior-sequence snapshot after reset, current 2\",4,\n        4+sum(v*v for v in pre))\nassert 4+sum(v*v for v in reversed(pre))==5\nw.append(dict(id=\"M12\",topic=\"permutation of correct term set leaves current energy unchanged\",\n              expected=5,observed=5,shortcut_falsified=False,\n              limit=\"Does not validate chronology, event binding or future expiration.\"))\nwitness(\"M13\",\"validate after 16-bit narrowing accepts invalid 65536\",\"REJECT\",\n        (65536 & 65535)**2)\ndef spec(xs): return [(i+1,sum(x*x for x in xs[max(0,i-31):i+1]))\n                      for i in range(len(xs))]\nwitness(\"M14\",\"invalid-as-zero ages accepted history\",spec([1]+[0]*31)[-1],\n        spec([1,0]+[0]*31)[-1])\nwitness(\"M15\",\"consumer restart with no detector reset\",spec([1,0])[-1],\n        spec([0])[-1])\nwitness(\"M16\",\"retry old sample as a new accepted event\",spec([1,2])[-1],\n        spec([1,1])[-1])\n# Narrow consumer boundary: same observation and consumer state, different required rank.\nassert spec([0])[-1][1]==spec([0,0])[-1][1]==0\nwitness(\"M17\",\"RI energy-only restarted consumer cannot infer rank\",\n        spec([0])[-1],spec([0,0])[-1])\nwitness(\"M18\",\"delayed old result must not be relabeled after reset\",\n        spec([2])[-1],spec([1])[-1])\nassert spec([1]+[0]*32)[-1]==spec([2]+[0]*32)[-1]==(33,0)\nwitness(\"M19\",\"same final numeric state does not recover old debt\",\n        spec([1])[0],spec([2])[0])\nassert 1%4==5%4 and 0%4==4%4\nw.append(dict(id=\"M20\",topic=\"two-bit rank and reset-generation collisions\",\n              rank_pair=[1,5],rank_fields=[1,1],\n              generation_pair=[0,4],generation_fields=[0,0],\n              shortcut_falsified=True))\n# Simple stalled entry queue, deliberately no other store/replay/compression/coordination.\ncap=2; pending=[]; lost=[]\nfor pair in spec([1,2,3]):\n    if len(pending)<cap: pending.append(pair)\n    else: lost.append(pair)\nassert pending==[(1,1),(2,5)] and lost==[(3,14)]\nw.append(dict(id=\"M21\",topic=\"Q+1 accepted debts with only Q=2 entry slots\",\n              retained=pending,unretained_owed=lost,shortcut_falsified=True,\n              boundary=\"No other retention, replay, compression or acceptance coordination.\"))\nassert (-1)%(2**32)==4294967295\ntotals={k:sum(r[k] for r in runs) for k in (\"valid\",\"rejected\",\"resets\",\"energy_comparisons\")}\nout=dict(python=sys.version,arithmetic=dict(Qmax=Q,tail_max=31*Q,energy_max=32*Q,\n     raw_value_bits=12,square_value_bits=24,total_value_bits=29,\n     conditional_information_bits=372,conditional_capacity_octets=47),\n     runs=runs,totals=totals,boundaries=boundaries,witnesses=w,\n     seeds=[9009,9010],mismatch_count=0,\n     witness_groups=len(w),shortcut_falsifications=sum(x[\"shortcut_falsified\"] for x in w),\n     evidence_level=\"FINITE_MODEL\",physical_interface_tested=False)\nprint(json.dumps(out,sort_keys=True))\n\nPY",
+      "results": {
+        "arithmetic": {
+          "Qmax": 16769025,
+          "conditional_capacity_octets": 47,
+          "conditional_information_bits": 372,
+          "energy_max": 536608800,
+          "raw_value_bits": 12,
+          "square_value_bits": 24,
+          "tail_max": 519839775,
+          "total_value_bits": 29
+        },
+        "boundaries": {
+          "alternating": {
+            "1": {
+              "E": 0,
+              "S_next": 0
+            },
+            "31": {
+              "E": 251535375,
+              "S_next": 251535375
+            },
+            "32": {
+              "E": 268304400,
+              "S_next": 268304400
+            },
+            "33": {
+              "E": 268304400,
+              "S_next": 251535375
+            },
+            "63": {
+              "E": 268304400,
+              "S_next": 251535375
+            },
+            "64": {
+              "E": 268304400,
+              "S_next": 268304400
+            },
+            "65": {
+              "E": 268304400,
+              "S_next": 251535375
+            }
+          },
+          "distinct_expiry": {
+            "1": {
+              "E": 0,
+              "S_next": 0
+            },
+            "31": {
+              "E": 9455,
+              "S_next": 9455
+            },
+            "32": {
+              "E": 10416,
+              "S_next": 10416
+            },
+            "33": {
+              "E": 11440,
+              "S_next": 11439
+            },
+            "63": {
+              "E": 71920,
+              "S_next": 70959
+            },
+            "64": {
+              "E": 74928,
+              "S_next": 73904
+            },
+            "65": {
+              "E": 78000,
+              "S_next": 76911
+            }
+          },
+          "impulse": {
+            "1": {
+              "E": 16769025,
+              "S_next": 16769025
+            },
+            "31": {
+              "E": 16769025,
+              "S_next": 16769025
+            },
+            "32": {
+              "E": 16769025,
+              "S_next": 0
+            },
+            "33": {
+              "E": 0,
+              "S_next": 0
+            },
+            "63": {
+              "E": 0,
+              "S_next": 0
+            },
+            "64": {
+              "E": 0,
+              "S_next": 0
+            },
+            "65": {
+              "E": 0,
+              "S_next": 0
+            }
+          },
+          "maxima": {
+            "1": {
+              "E": 16769025,
+              "S_next": 16769025
+            },
+            "31": {
+              "E": 519839775,
+              "S_next": 519839775
+            },
+            "32": {
+              "E": 536608800,
+              "S_next": 519839775
+            },
+            "33": {
+              "E": 536608800,
+              "S_next": 519839775
+            },
+            "63": {
+              "E": 536608800,
+              "S_next": 519839775
+            },
+            "64": {
+              "E": 536608800,
+              "S_next": 519839775
+            },
+            "65": {
+              "E": 536608800,
+              "S_next": 519839775
+            }
+          },
+          "ones": {
+            "1": {
+              "E": 1,
+              "S_next": 1
+            },
+            "31": {
+              "E": 31,
+              "S_next": 31
+            },
+            "32": {
+              "E": 32,
+              "S_next": 31
+            },
+            "33": {
+              "E": 32,
+              "S_next": 31
+            },
+            "63": {
+              "E": 32,
+              "S_next": 31
+            },
+            "64": {
+              "E": 32,
+              "S_next": 31
+            },
+            "65": {
+              "E": 32,
+              "S_next": 31
+            }
+          }
+        },
+        "evidence_level": "FINITE_MODEL",
+        "mismatch_count": 0,
+        "physical_interface_tested": false,
+        "python": "3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]",
+        "runs": [
+          {
+            "energy_comparisons": 157464,
+            "id": "E01",
+            "kind": "exhaustive startup",
+            "length": 8,
+            "max_sequence_length": 8,
+            "rejected": 0,
+            "resets": 6561,
+            "streams": 6561,
+            "valid": 52488
+          },
+          {
+            "actions": 120000,
+            "energy_comparisons": 316899,
+            "id": "E02",
+            "kind": "random actions",
+            "max_sequence_length": 335,
+            "rejected": 12001,
+            "resets": 2366,
+            "seed": 9009,
+            "valid": 105633
+          },
+          {
+            "actions": 120000,
+            "energy_comparisons": 316380,
+            "id": "E02",
+            "kind": "random actions",
+            "max_sequence_length": 380,
+            "rejected": 12155,
+            "resets": 2385,
+            "seed": 9010,
+            "valid": 105460
+          },
+          {
+            "energy_comparisons": 195,
+            "id": "E03",
+            "kind": "ones",
+            "max_sequence_length": 65,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 65
+          },
+          {
+            "energy_comparisons": 195,
+            "id": "E03",
+            "kind": "maxima",
+            "max_sequence_length": 65,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 65
+          },
+          {
+            "energy_comparisons": 195,
+            "id": "E03",
+            "kind": "impulse",
+            "max_sequence_length": 65,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 65
+          },
+          {
+            "energy_comparisons": 198,
+            "id": "E03",
+            "kind": "alternating",
+            "max_sequence_length": 66,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 66
+          },
+          {
+            "energy_comparisons": 195,
+            "id": "E03",
+            "kind": "distinct_expiry",
+            "max_sequence_length": 65,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 65
+          },
+          {
+            "energy_comparisons": 98304,
+            "id": "E04",
+            "kind": "all domain values eight times without reset",
+            "max_sequence_length": 32768,
+            "rejected": 0,
+            "resets": 0,
+            "valid": 32768
+          },
+          {
+            "cases": 31,
+            "energy_comparisons": 7254,
+            "id": "E05",
+            "kind": "reset from every pre-reset cursor",
+            "max_sequence_length": 92,
+            "rejected": 0,
+            "resets": 62,
+            "valid": 2418
+          },
+          {
+            "cases": 6,
+            "energy_comparisons": 609,
+            "id": "E06",
+            "kind": "reject around boundary resets",
+            "max_sequence_length": 100,
+            "rejected": 36,
+            "resets": 12,
+            "valid": 203
+          }
+        ],
+        "seeds": [
+          9009,
+          9010
+        ],
+        "shortcut_falsifications": 20,
+        "totals": {
+          "energy_comparisons": 897888,
+          "rejected": 24192,
+          "resets": 11386,
+          "valid": 299296
+        },
+        "witness_groups": 21,
+        "witnesses": [
+          {
+            "id": "M01",
+            "required": 5,
+            "shortcut": 8,
+            "shortcut_falsified": true,
+            "topic": "A overwrite before reduction"
+          },
+          {
+            "id": "M02",
+            "required": 4,
+            "shortcut": 1,
+            "shortcut_falsified": true,
+            "topic": "A wrong-age eviction, next zero"
+          },
+          {
+            "id": "M03",
+            "required": 4,
+            "shortcut": 1,
+            "shortcut_falsified": true,
+            "topic": "B wrong-age eviction, next zero"
+          },
+          {
+            "id": "M04",
+            "required": 0,
+            "shortcut": 4,
+            "shortcut_falsified": true,
+            "topic": "B stale cursor (not advanced) corrupts future S"
+          },
+          {
+            "id": "M05",
+            "required": 0,
+            "shortcut": 9,
+            "shortcut_falsified": true,
+            "topic": "B reset tail/cursor but stale aggregate"
+          },
+          {
+            "id": "M06",
+            "required": 0,
+            "shortcut": -1,
+            "shortcut_falsified": true,
+            "topic": "B reset aggregate but stale expiring square"
+          },
+          {
+            "id": "M07",
+            "required": 4,
+            "shortcut": 0,
+            "shortcut_falsified": true,
+            "topic": "B interrupted update: tail changed, S not committed"
+          },
+          {
+            "id": "M08",
+            "required": 0,
+            "shortcut": 4,
+            "shortcut_falsified": true,
+            "topic": "B interrupted update: S changed, tail not committed (future expiry)"
+          },
+          {
+            "id": "M09",
+            "required": 5,
+            "shortcut": 9,
+            "shortcut_falsified": true,
+            "topic": "C mixed pre/post snapshot"
+          },
+          {
+            "id": "M10",
+            "required": 5,
+            "shortcut": 8,
+            "shortcut_falsified": true,
+            "topic": "C coherent wrong-event post snapshot"
+          },
+          {
+            "id": "M11",
+            "required": 4,
+            "shortcut": 5,
+            "shortcut_falsified": true,
+            "topic": "C stale prior-sequence snapshot after reset, current 2"
+          },
+          {
+            "expected": 5,
+            "id": "M12",
+            "limit": "Does not validate chronology, event binding or future expiration.",
+            "observed": 5,
+            "shortcut_falsified": false,
+            "topic": "permutation of correct term set leaves current energy unchanged"
+          },
+          {
+            "id": "M13",
+            "required": "REJECT",
+            "shortcut": 0,
+            "shortcut_falsified": true,
+            "topic": "validate after 16-bit narrowing accepts invalid 65536"
+          },
+          {
+            "id": "M14",
+            "required": [
+              32,
+              1
+            ],
+            "shortcut": [
+              33,
+              0
+            ],
+            "shortcut_falsified": true,
+            "topic": "invalid-as-zero ages accepted history"
+          },
+          {
+            "id": "M15",
+            "required": [
+              2,
+              1
+            ],
+            "shortcut": [
+              1,
+              0
+            ],
+            "shortcut_falsified": true,
+            "topic": "consumer restart with no detector reset"
+          },
+          {
+            "id": "M16",
+            "required": [
+              2,
+              5
+            ],
+            "shortcut": [
+              2,
+              2
+            ],
+            "shortcut_falsified": true,
+            "topic": "retry old sample as a new accepted event"
+          },
+          {
+            "id": "M17",
+            "required": [
+              1,
+              0
+            ],
+            "shortcut": [
+              2,
+              0
+            ],
+            "shortcut_falsified": true,
+            "topic": "RI energy-only restarted consumer cannot infer rank"
+          },
+          {
+            "id": "M18",
+            "required": [
+              1,
+              4
+            ],
+            "shortcut": [
+              1,
+              1
+            ],
+            "shortcut_falsified": true,
+            "topic": "delayed old result must not be relabeled after reset"
+          },
+          {
+            "id": "M19",
+            "required": [
+              1,
+              1
+            ],
+            "shortcut": [
+              1,
+              4
+            ],
+            "shortcut_falsified": true,
+            "topic": "same final numeric state does not recover old debt"
+          },
+          {
+            "generation_fields": [
+              0,
+              0
+            ],
+            "generation_pair": [
+              0,
+              4
+            ],
+            "id": "M20",
+            "rank_fields": [
+              1,
+              1
+            ],
+            "rank_pair": [
+              1,
+              5
+            ],
+            "shortcut_falsified": true,
+            "topic": "two-bit rank and reset-generation collisions"
+          },
+          {
+            "boundary": "No other retention, replay, compression or acceptance coordination.",
+            "id": "M21",
+            "retained": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                5
+              ]
+            ],
+            "shortcut_falsified": true,
+            "topic": "Q+1 accepted debts with only Q=2 entry slots",
+            "unretained_owed": [
+              [
+                3,
+                14
+              ]
+            ]
+          }
+        ]
+      },
+      "limits": [
+        "Python exact integers, no chosen source-language/compiler width realization.",
+        "Oracle/test observer and assumed C service state are not a physical RI/RN decoder or resource allocation.",
+        "Exhaustive enumeration length 8 covers startup only; longest no-reset sequence 32768.",
+        "No finite sample proves unrestricted-rank interface, arbitrary reset/fault schedules, service availability or target gates."
+      ],
+      "source_sha256": "8f1227441436f96e0a279d879448c40a1224e4c9093ef0fae5675826eade5d72"
+    },
+    "races": {
+      "evidence_level": "FINITE_MODEL",
+      "source": "import itertools,json\n# Abstract observer ledger only. Sequence labels are test instrumentation;\n# no candidate is supplied these labels or a physical index decoder.\nevents=(\"accept_old\",\"reset\",\"accept_new\",\"publish_old\",\"publish_new\")\ndef legal(order):\n    at={v:order.index(v) for v in events}\n    return (at[\"accept_old\"]<at[\"reset\"]<at[\"accept_new\"]<at[\"publish_new\"]\n            and at[\"accept_old\"]<at[\"publish_old\"])\nrecords=[]\nfor values in ((1,2),(1,1)):\n    for order in itertools.permutations(events):\n        if not legal(order): continue\n        generation=0; pending={}; output=[]; mislabels=[]; canceled=[]\n        for event in order:\n            if event==\"accept_old\": pending[\"old\"]=(0,1,values[0]**2)\n            elif event==\"reset\":\n                canceled=list(pending)\n                generation=1\n            elif event==\"accept_new\": pending[\"new\"]=(1,1,values[1]**2)\n            else:\n                key=event.removeprefix(\"publish_\")\n                true=pending.pop(key)\n                output.append(true)\n                naive=(generation,true[1],true[2])\n                if naive!=true: mislabels.append(key)\n        assert not pending and sorted(output)==sorted([(0,1,values[0]**2),(1,1,values[1]**2)])\n        records.append(dict(values=values,order=order,\n            observer_debts_preserved=True,\n            current_sequence_relabel_aliases=mislabels,\n            clear_on_reset_cancels=canceled,\n            old_new_nE_equal=(values[0]==values[1])))\npre=[1]+[0]*30; post=pre[1:]+[2]\ncuts=[]\nfor k in range(32):\n    entries=pre[:k]+post[k:]\n    assert len(entries)==31 and all(0<=v<=4095 for v in entries)\n    e=4+sum(v*v for v in entries)\n    cuts.append(dict(entries_read_before_append=k,E=e,required=5,wrong=(e!=5)))\nprint(json.dumps(dict(\n    evidence_level=\"FINITE_MODEL\",physical_interface_tested=False,\n    legal_reset_publication_schedules=len(records),\n    schedules_with_relabel_failure=sum(bool(r[\"current_sequence_relabel_aliases\"]) for r in records),\n    schedules_with_reset_cancel_failure=sum(bool(r[\"clear_on_reset_cancels\"]) for r in records),\n    schedules=records,\n    snapshot_append_read_cut_points=32,\n    snapshot_cut_points_with_wrong_energy=sum(r[\"wrong\"] for r in cuts),\n    snapshot_cuts=cuts,\n    limit=\"Observer ledger and vulnerable shortcut models only; no RI/RN/service protocol, liveness, arbitrary crash recovery or concurrency implementation.\"),sort_keys=True))\n",
+      "command": "python3 -B - <<'PY'\nimport itertools,json\n# Abstract observer ledger only. Sequence labels are test instrumentation;\n# no candidate is supplied these labels or a physical index decoder.\nevents=(\"accept_old\",\"reset\",\"accept_new\",\"publish_old\",\"publish_new\")\ndef legal(order):\n    at={v:order.index(v) for v in events}\n    return (at[\"accept_old\"]<at[\"reset\"]<at[\"accept_new\"]<at[\"publish_new\"]\n            and at[\"accept_old\"]<at[\"publish_old\"])\nrecords=[]\nfor values in ((1,2),(1,1)):\n    for order in itertools.permutations(events):\n        if not legal(order): continue\n        generation=0; pending={}; output=[]; mislabels=[]; canceled=[]\n        for event in order:\n            if event==\"accept_old\": pending[\"old\"]=(0,1,values[0]**2)\n            elif event==\"reset\":\n                canceled=list(pending)\n                generation=1\n            elif event==\"accept_new\": pending[\"new\"]=(1,1,values[1]**2)\n            else:\n                key=event.removeprefix(\"publish_\")\n                true=pending.pop(key)\n                output.append(true)\n                naive=(generation,true[1],true[2])\n                if naive!=true: mislabels.append(key)\n        assert not pending and sorted(output)==sorted([(0,1,values[0]**2),(1,1,values[1]**2)])\n        records.append(dict(values=values,order=order,\n            observer_debts_preserved=True,\n            current_sequence_relabel_aliases=mislabels,\n            clear_on_reset_cancels=canceled,\n            old_new_nE_equal=(values[0]==values[1])))\npre=[1]+[0]*30; post=pre[1:]+[2]\ncuts=[]\nfor k in range(32):\n    entries=pre[:k]+post[k:]\n    assert len(entries)==31 and all(0<=v<=4095 for v in entries)\n    e=4+sum(v*v for v in entries)\n    cuts.append(dict(entries_read_before_append=k,E=e,required=5,wrong=(e!=5)))\nprint(json.dumps(dict(\n    evidence_level=\"FINITE_MODEL\",physical_interface_tested=False,\n    legal_reset_publication_schedules=len(records),\n    schedules_with_relabel_failure=sum(bool(r[\"current_sequence_relabel_aliases\"]) for r in records),\n    schedules_with_reset_cancel_failure=sum(bool(r[\"clear_on_reset_cancels\"]) for r in records),\n    schedules=records,\n    snapshot_append_read_cut_points=32,\n    snapshot_cut_points_with_wrong_energy=sum(r[\"wrong\"] for r in cuts),\n    snapshot_cuts=cuts,\n    limit=\"Observer ledger and vulnerable shortcut models only; no RI/RN/service protocol, liveness, arbitrary crash recovery or concurrency implementation.\"),sort_keys=True))\n\nPY",
+      "results": {
+        "evidence_level": "FINITE_MODEL",
+        "legal_reset_publication_schedules": 8,
+        "limit": "Observer ledger and vulnerable shortcut models only; no RI/RN/service protocol, liveness, arbitrary crash recovery or concurrency implementation.",
+        "physical_interface_tested": false,
+        "schedules": [
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": false,
+            "order": [
+              "accept_old",
+              "reset",
+              "accept_new",
+              "publish_old",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              2
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": false,
+            "order": [
+              "accept_old",
+              "reset",
+              "accept_new",
+              "publish_new",
+              "publish_old"
+            ],
+            "values": [
+              1,
+              2
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": false,
+            "order": [
+              "accept_old",
+              "reset",
+              "publish_old",
+              "accept_new",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              2
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [],
+            "current_sequence_relabel_aliases": [],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": false,
+            "order": [
+              "accept_old",
+              "publish_old",
+              "reset",
+              "accept_new",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              2
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": true,
+            "order": [
+              "accept_old",
+              "reset",
+              "accept_new",
+              "publish_old",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              1
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": true,
+            "order": [
+              "accept_old",
+              "reset",
+              "accept_new",
+              "publish_new",
+              "publish_old"
+            ],
+            "values": [
+              1,
+              1
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [
+              "old"
+            ],
+            "current_sequence_relabel_aliases": [
+              "old"
+            ],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": true,
+            "order": [
+              "accept_old",
+              "reset",
+              "publish_old",
+              "accept_new",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              1
+            ]
+          },
+          {
+            "clear_on_reset_cancels": [],
+            "current_sequence_relabel_aliases": [],
+            "observer_debts_preserved": true,
+            "old_new_nE_equal": true,
+            "order": [
+              "accept_old",
+              "publish_old",
+              "reset",
+              "accept_new",
+              "publish_new"
+            ],
+            "values": [
+              1,
+              1
+            ]
+          }
+        ],
+        "schedules_with_relabel_failure": 6,
+        "schedules_with_reset_cancel_failure": 6,
+        "snapshot_append_read_cut_points": 32,
+        "snapshot_cut_points_with_wrong_energy": 31,
+        "snapshot_cuts": [
+          {
+            "E": 8,
+            "entries_read_before_append": 0,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 1,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 2,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 3,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 4,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 5,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 6,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 7,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 8,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 9,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 10,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 11,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 12,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 13,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 14,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 15,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 16,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 17,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 18,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 19,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 20,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 21,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 22,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 23,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 24,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 25,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 26,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 27,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 28,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 29,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 9,
+            "entries_read_before_append": 30,
+            "required": 5,
+            "wrong": true
+          },
+          {
+            "E": 5,
+            "entries_read_before_append": 31,
+            "required": 5,
+            "wrong": false
+          }
+        ]
+      },
+      "source_sha256": "a09a57175984f941d85e811e79b014c0853fc4054b02ffef0c4752ee9fa9cd1d"
+    },
+    "setup_correction": {
+      "failed_run_exit_code": 1,
+      "assertion": "AssertionError: ('M04', 0, 0)",
+      "reason": "Initial frozen-cursor challenge used a single impulse whose contribution had already expired; both required and shortcut outputs were zero. This was a non-discriminating witness, not a correct-model mismatch.",
+      "initial_source": "import itertools, random, json, sys, hashlib\nQ=4095**2\nclass Oracle:\n    def __init__(self): self.h=[]\n    def reset(self): self.h=[]\n    def step(self,x):\n        self.h.append(x)\n        return sum(v*v for v in self.h[-32:])\nclass A:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0\n    def step(self,x):\n        e=x*x+sum(v*v for v in self.a)\n        self.a[self.p]=x; self.p=(self.p+1)%31\n        return e\nclass B:\n    def __init__(self): self.reset()\n    def reset(self): self.a=[0]*31; self.p=0; self.s=0\n    def step(self,x):\n        q=x*x; old=self.a[self.p]; e=self.s+q\n        self.a[self.p]=q; self.s=e-old; self.p=(self.p+1)%31\n        return e\nclass HypotheticalC:\n    # This supplied-in-model service is ASSUMED, not an existing provider.\n    def __init__(self): self.reset()\n    def reset(self): self.service_tail=[0]*31; self.service_n=0\n    def step(self,x):\n        immutable_pre=tuple(self.service_tail)\n        e=x*x+sum(v*v for v in immutable_pre)\n        self.service_tail=self.service_tail[1:]+[x]\n        self.service_n+=1\n        return e\nclass Harness:\n    def __init__(self):\n        self.o=Oracle(); self.ms=[A(),B(),HypotheticalC()]\n        self.valid=self.bad=self.resets=0; self.max_n=0\n    def state(self):\n        return (tuple(self.o.h),\n                tuple(self.ms[0].a),self.ms[0].p,\n                tuple(self.ms[1].a),self.ms[1].p,self.ms[1].s,\n                tuple(self.ms[2].service_tail),self.ms[2].service_n)\n    def reset(self):\n        self.o.reset()\n        for m in self.ms: m.reset()\n        self.resets+=1\n        assert self.o.h==[] and self.ms[1].s==0\n    def attempt(self,x):\n        if not 0<=x<=4095:\n            before=self.state()\n            # Explicit model rejection. No conversion or model step is called.\n            response=\"REJECT\"\n            self.bad+=1\n            assert response==\"REJECT\" and before==self.state()\n            return response\n        expected=self.o.step(x)\n        got=[m.step(x) for m in self.ms]\n        assert got==[expected]*3,(len(self.o.h),x,expected,got)\n        n=len(self.o.h); self.max_n=max(self.max_n,n); self.valid+=1\n        tail=([0]*31+self.o.h)[-31:]\n        a,b,c=self.ms\n        assert a.a[a.p:]+a.a[:a.p]==tail\n        assert b.a[b.p:]+b.a[:b.p]==[v*v for v in tail]\n        assert b.s==sum(v*v for v in tail)==sum(b.a)\n        assert c.service_tail==tail and c.service_n==n\n        assert 0<=expected<=32*Q and 0<=b.s<=31*Q\n        return (n,expected)\n    def counts(self):\n        return dict(valid=self.valid,rejected=self.bad,resets=self.resets,\n                    energy_comparisons=3*self.valid,max_sequence_length=self.max_n)\nruns=[]\nh=Harness()\nfor stream in itertools.product((0,1,4095),repeat=8):\n    h.reset()\n    for x in stream: h.attempt(x)\nruns.append(dict(id=\"E01\",kind=\"exhaustive startup\",streams=3**8,length=8,**h.counts()))\nfor seed in (9009,9010):\n    h=Harness(); r=random.Random(seed)\n    for _ in range(120000):\n        a=r.randrange(100)\n        if a<2: h.reset()\n        elif a<12: h.attempt(r.choice((-1,4096,65536)))\n        else: h.attempt(r.randrange(4096))\n    runs.append(dict(id=\"E02\",kind=\"random actions\",seed=seed,actions=120000,**h.counts()))\nboundaries={}\nfor name,stream in [\n    (\"ones\",[1]*65),(\"maxima\",[4095]*65),\n    (\"impulse\",[4095]+[0]*64),\n    (\"alternating\",[0,4095]*33),\n    (\"distinct_expiry\",list(range(65)))]:\n    h=Harness(); observed={}\n    for x in stream:\n        n,e=h.attempt(x)\n        if n in (1,31,32,33,63,64,65):\n            observed[n]=dict(E=e,S_next=h.ms[1].s)\n    boundaries[name]=observed\n    runs.append(dict(id=\"E03\",kind=name,**h.counts()))\nh=Harness()\nfor x in (list(range(4096))*8): h.attempt(x)\nruns.append(dict(id=\"E04\",kind=\"all domain values eight times without reset\",\n                 **h.counts()))\nh=Harness()\nfor cursor in range(31):\n    h.reset()\n    for _ in range(62+cursor): h.attempt(4095)\n    assert h.ms[1].p==cursor\n    h.reset()\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E05\",kind=\"reset from every pre-reset cursor\",cases=31,**h.counts()))\nh=Harness()\nfor prefix in (0,1,31,32,33,100):\n    h.reset()\n    for _ in range(prefix): h.attempt(4095)\n    for x in (-1,4096,65536): h.attempt(x)\n    h.reset()\n    for x in (-1,4096,65536): h.attempt(x)\n    assert h.attempt(2)==(1,4)\nruns.append(dict(id=\"E06\",kind=\"reject around boundary resets\",cases=6,**h.counts()))\nw=[]\ndef witness(id,topic,expected,shortcut):\n    assert expected!=shortcut,(id,expected,shortcut)\n    w.append(dict(id=id,topic=topic,required=expected,shortcut=shortcut,\n                  shortcut_falsified=True))\npre=[1]+[0]*30; post=pre[1:]+[2]\nwitness(\"M01\",\"A overwrite before reduction\",5,4+sum(v*v for v in post))\n# Correct current sum hides a wrong eviction age for both A and B.\nfor cls,id in ((A,\"M02\"),(B,\"M03\")):\n    m=cls()\n    for x in [1,2]+[0]*29: m.step(x)\n    m.p=1\n    assert m.step(0)==5\n    if cls is B: assert m.s==sum(m.a)==1\n    witness(id,cls.__name__+\" wrong-age eviction, next zero\",4,m.step(0))\nm=B()\nfor x in [1]+[0]*30: m.step(x)\nassert m.p==0\n# Freeze cursor across event32 and event33; wrong eviction affects event34.\nold_step=m.step\nassert old_step(0)==1\nm.p=0\nassert old_step(0)==0\nwitness(\"M04\",\"B stale cursor (not advanced) corrupts future S\",0,old_step(0))\nm=B(); m.step(3); m.a=[0]*31; m.p=0\nwitness(\"M05\",\"B reset tail/cursor but stale aggregate\",0,m.step(0))\nm=B(); m.a[0]=1; m.s=0; m.p=0\nassert m.step(0)==0\nwitness(\"M06\",\"B reset aggregate but stale expiring square\",0,m.step(0))\nm=B(); m.step(2); m.s=0\nwitness(\"M07\",\"B interrupted update: tail changed, S not committed\",4,m.step(0))\nm=B(); m.s=4\nwitness(\"M08\",\"B interrupted update: S changed, tail not committed (future expiry)\",\n        0, next(e for i,e in enumerate([m.step(0) for _ in range(33)]) if i==32))\nwitness(\"M09\",\"C mixed pre/post snapshot\",5,\n        4+pre[0]**2+sum(v*v for v in post[1:]))\nwitness(\"M10\",\"C coherent wrong-event post snapshot\",5,4+sum(v*v for v in post))\nwitness(\"M11\",\"C stale prior-sequence snapshot after reset, current 2\",4,\n        4+sum(v*v for v in pre))\nassert 4+sum(v*v for v in reversed(pre))==5\nw.append(dict(id=\"M12\",topic=\"permutation of correct term set leaves current energy unchanged\",\n              expected=5,observed=5,shortcut_falsified=False,\n              limit=\"Does not validate chronology, event binding or future expiration.\"))\nwitness(\"M13\",\"validate after 16-bit narrowing accepts invalid 65536\",\"REJECT\",\n        (65536 & 65535)**2)\ndef spec(xs): return [(i+1,sum(x*x for x in xs[max(0,i-31):i+1]))\n                      for i in range(len(xs))]\nwitness(\"M14\",\"invalid-as-zero ages accepted history\",spec([1]+[0]*31)[-1],\n        spec([1,0]+[0]*31)[-1])\nwitness(\"M15\",\"consumer restart with no detector reset\",spec([1,0])[-1],\n        spec([0])[-1])\nwitness(\"M16\",\"retry old sample as a new accepted event\",spec([1,2])[-1],\n        spec([1,1])[-1])\n# Narrow consumer boundary: same observation and consumer state, different required rank.\nassert spec([0])[-1][1]==spec([0,0])[-1][1]==0\nwitness(\"M17\",\"RI energy-only restarted consumer cannot infer rank\",\n        spec([0])[-1],spec([0,0])[-1])\nwitness(\"M18\",\"delayed old result must not be relabeled after reset\",\n        spec([2])[-1],spec([1])[-1])\nassert spec([1]+[0]*32)[-1]==spec([2]+[0]*32)[-1]==(33,0)\nwitness(\"M19\",\"same final numeric state does not recover old debt\",\n        spec([1])[0],spec([2])[0])\nassert 1%4==5%4 and 0%4==4%4\nw.append(dict(id=\"M20\",topic=\"two-bit rank and reset-generation collisions\",\n              rank_pair=[1,5],rank_fields=[1,1],\n              generation_pair=[0,4],generation_fields=[0,0],\n              shortcut_falsified=True))\n# Simple stalled entry queue, deliberately no other store/replay/compression/coordination.\ncap=2; pending=[]; lost=[]\nfor pair in spec([1,2,3]):\n    if len(pending)<cap: pending.append(pair)\n    else: lost.append(pair)\nassert pending==[(1,1),(2,5)] and lost==[(3,14)]\nw.append(dict(id=\"M21\",topic=\"Q+1 accepted debts with only Q=2 entry slots\",\n              retained=pending,unretained_owed=lost,shortcut_falsified=True,\n              boundary=\"No other retention, replay, compression or acceptance coordination.\"))\nassert (-1)%(2**32)==4294967295\ntotals={k:sum(r[k] for r in runs) for k in (\"valid\",\"rejected\",\"resets\",\"energy_comparisons\")}\nout=dict(python=sys.version,arithmetic=dict(Qmax=Q,tail_max=31*Q,energy_max=32*Q,\n     raw_value_bits=12,square_value_bits=24,total_value_bits=29,\n     conditional_information_bits=372,conditional_capacity_octets=47),\n     runs=runs,totals=totals,boundaries=boundaries,witnesses=w,\n     seeds=[9009,9010],mismatch_count=0,\n     witness_groups=len(w),shortcut_falsifications=sum(x[\"shortcut_falsified\"] for x in w),\n     evidence_level=\"FINITE_MODEL\",physical_interface_tested=False)\nprint(json.dumps(out,sort_keys=True))\n",
+      "initial_source_sha256": "044b312b8404602f0865e70dbfaf765ff176f72d64e9f3bbb63164582cb747b6"
+    }
+  },
+  "evidence_levels": {
+    "CONDITIONAL_SYMBOLIC": "Available for algebra/resource inequalities/information boundary arguments; hypotheses explicit.",
+    "FINITE_MODEL": "Fresh numeric and vulnerable shortcut/interleaving models; exact source and results included.",
+    "HOST_SPECIFIC": "No realized candidate host memory/timing/build/energy evidence; Python version is reproducibility metadata only.",
+    "TARGET_SPECIFIC": "NONE; no target/compiler/linker/stack/build/timing or electrical measurement."
+  },
+  "mathematical_scope": {
+    "T1": "Accepted padded latest31-tail equality iff all nonempty future numeric continuations agree; excludes current already-emitted output, rank and full interface metadata.",
+    "T2": "Accepted conditionally at fixed n>=32: complete deterministic numeric state, no external readable replay/uncounted history, unrestricted continuations; 2^372 states /372 information bits /47 whole octets capacity.",
+    "T2_not_sufficient_RAM_allocation": true,
+    "A_B_numeric_closure": "Conditional; actual complete output-affecting closure requires evidence.",
+    "C_detector_local_T2_applicable": false,
+    "C_larger_boundary": "Could qualify only if all retained numeric sources included and every hypothesis established; unknown.",
+    "external_ordinal_does_not_remove_fixed_n_numeric_distinctions": true,
+    "PO_003_1": "UNPROVEN",
+    "PO_003_3": "UNPROVEN",
+    "new_theorem_accepted": false
+  },
+  "interface_dependencies": {
+    "RI": {
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B"
+      ],
+      "actual_consumer": "UNIDENTIFIED",
+      "actual_consumer_retained_state": "UNSUPPLIED",
+      "candidate_decoder": "UNSUPPLIED_NOT_MANUFACTURED",
+      "contemplated_observation": "Energy response linked to accepted request and observable reset.",
+      "required": [
+        "Accepted-only rank association of identified request",
+        "Event/result bijection with no silent omissions/duplications",
+        "Reset context and consumer-visible linearization",
+        "Retained prefix/rank association across consumer restart",
+        "Exact unrestricted-rank decoder from genuinely available information",
+        "Delay/retry/duplicate/retirement and resource evidence"
+      ],
+      "status": "UNKNOWN_UNAPPROVED"
+    },
+    "RN": {
+      "candidates": [
+        "AP-006-C"
+      ],
+      "provider": "UNSUPPLIED_UNAPPROVED",
+      "ordinal": "Exact accepted valid event rank, excluding attempts/invalid/retry messages",
+      "transport": "Lossless potentially variable-length numeral; framing, termination, integrity, decoding, malformed/truncated/replayed handling and association unsupplied.",
+      "lifetime": "Across supported unrestricted sequences/reset/restart and outstanding debt; no finite epoch inferred.",
+      "resources": "Provider numeral/generation and transport/client/parser/staging length dependence UNKNOWN.",
+      "status": "UNKNOWN"
+    },
+    "C_HIST": {
+      "provider": "UNSUPPLIED_UNAPPROVED",
+      "snapshot": "Exactly pre-event x_(n-31)..x_(n-1), padding only before sequence start.",
+      "required": [
+        "Bind snapshot/current sample/accepted ordinal/result/reset context",
+        "Chronological source maintenance and coherent snapshot linearization",
+        "Retain/pin/copy/recover exact requested information through result handoff",
+        "Concurrency, eviction, interference, retries, availability/errors",
+        "Provider/consumer restart and reset fencing; safe identity reuse",
+        "Owned/shared/external resource and device-energy attribution"
+      ],
+      "status": "UNKNOWN"
+    },
+    "acceptance": "Acquisition/validation/acceptance/numeric commit/publication distinct; boundary must be reviewed prospectively, not excuse loss retrospectively.",
+    "debt": "Every accepted event owes a result even after fault/reset/restart; reporting fault is not completion; no universal recovery supplied.",
+    "reset": "New zero-padded history/rank plus consumer-visible old/new association; acknowledgment optional; drain/tag/marker mechanisms unselected.",
+    "retry": "Fresh acceptance of retry is not old-result recovery; no exactly-once physical transport assumed.",
+    "queue_saturation": "Q+1 debts defeat only Q entry slots under no other retention/replay/compression/coordination; no general AP impossibility theorem.",
+    "conditional_information_impossibility": "Same actual finite consumer state/current observation cannot decode different required n. Closed finite complete boundary, unrestricted zero sequences and no additional external/growing association force repeated states. This narrow argument is not a proved all-AP rejection or acceptance of PO-003-3.",
+    "service_feasibility": "UNKNOWN; missing services are not invented and not declared universally impossible."
+  },
+  "F": {
+    "axes": [
+      "RAM_peak",
+      "compute_effort",
+      "device_energy_consumption"
+    ],
+    "realized_values": "UNKNOWN_ALL",
+    "eligibility_before_F": true,
+    "full_Pareto_comparison_available": false,
+    "AP_ranking_or_downselection": false,
+    "RAM_peak": {
+      "model": "max_t[P_c(t)+S_c(t)+K_c(t)+G_c(t)]",
+      "P": "All owned persistent allocations including numeric, control, transaction/index/reset/queue/retry state.",
+      "S": "Live non-stack scratch, current/result/stream/transport/library/parser buffers not already counted.",
+      "K": "Owned live call stack and callees, including stack locals.",
+      "G": "Other attributable shared/pinned allocations not already counted.",
+      "conditional_fixed_payload": {
+        "A": "31*b_x+h_A",
+        "B": "31*b_q+b_S+h_B",
+        "C": "h_C",
+        "h": "O_c+T_c+max_t(S_c+K_c+G_c), only if payload fixed and complete"
+      },
+      "inequalities": [
+        "B>A iff 31*(b_q-b_x)+b_S+h_B-h_A>0",
+        "C<A iff h_C<31*b_x+h_A",
+        "C<B iff h_C<31*b_q+b_S+h_B"
+      ],
+      "required_value_bits": {
+        "raw": 12,
+        "square": 24,
+        "total": 29
+      },
+      "representation_selected": false,
+      "length_or_nonlinear_state": [
+        "Stored exact ordinal length log(n)",
+        "Pending debt d",
+        "Concurrent pinned/versioned/copied snapshots p",
+        "Retry interference r",
+        "Outstanding old reset contexts e",
+        "Trace retention and variable-length allocation overhead"
+      ],
+      "external_only_separate": "Exclusive upstream ownership must be established; C history/snapshots/ordinal/transport/stack remain visible outside local boundary. Unknown attribution is not zero.",
+      "ceiling_bytes": 2048,
+      "ceiling_verified": false
+    },
+    "compute_effort": {
+      "M0": "Common serial quiescent valid event, padded31, full recomputation A/C and intact B invariant; initialize reduction with first/current square.",
+      "typed_vectors": {
+        "A": "32 SQ_x+31 ADD_E+31 RD_x+WR_x+ADV_31+V_A+J_A+D_A+L_A",
+        "B": "SQ_x+ADD_E+SUB_E+RD_q+WR_q+ADV_31+V_B+J_B+D_B+L_B",
+        "C": "32 SQ_x+31 ADD_E+OPEN_SNAP+31 FETCH_x+V_C+J_C+D_C+L_C"
+      },
+      "all_overheads": "UNKNOWN; include widening/packing/addressing, aggregate/result/cursor reads and writes, validation/index/transaction coordination and outside C service work.",
+      "sensitivity_inequality_B_lower": "31*c_SQ+30*c_ADD-c_SUB+31*c_RDx-c_RDq+c_WRx-c_WRq+Delta_overhead(A-B)>0",
+      "sensitivity_label": "CONDITIONAL_SYMBOLIC illustrative common scalar cost projection only; coefficients UNKNOWN, no scalar F adoption.",
+      "lifecycle": "[initialization + valid + rejection/report + reset/fencing + fault/stall/retry + pending work]/N; N>0.",
+      "workload_compatibility": "Same arrivals/values/invalid/reset/fault/concurrency/stall workload and equivalent opening/closing debt or completion; no deadline or service capacity inferred from 1ms.",
+      "N_zero": "Report total interval work, no per-accepted division."
+    },
+    "device_energy_consumption": {
+      "sensitivity_model": "[sum_j epsilon_j*N_c,j + E_baseline_attr + E_wait_attr + E_transport_attr + E_other_attr]/N",
+      "all_numeric_coefficients": "UNKNOWN",
+      "scope": "Same pinned device/build/workload/interval/attribution and equivalent pending work; avoid double counting.",
+      "same_device_upstream_costs": "Cannot disappear under detector-RAM ownership exclusion.",
+      "external_device_services": "Report separately; do not count zero or mix detector-only/whole-device/multi-device scopes without reconciliation.",
+      "signal_energy_is_not_device_energy": true
+    },
+    "compatibility": [
+      {
+        "comparison": "A/B ideal numeric kernels",
+        "evidence": "FINITE_MODEL + CONDITIONAL_SYMBOLIC",
+        "allowed": "Tested agreement only"
+      },
+      {
+        "comparison": "A/B arithmetic projection",
+        "evidence": "CONDITIONAL_SYMBOLIC common M0",
+        "allowed": "Typed operation differences only"
+      },
+      {
+        "comparison": "A/B actual RAM",
+        "evidence": "Unknown overhead/representations",
+        "allowed": "Symbolic inequality only"
+      },
+      {
+        "comparison": "C versus A/B full RAM/compute",
+        "evidence": "Unestablished service/ownership scopes",
+        "allowed": "Conditional projections; realized values not comparable"
+      },
+      {
+        "comparison": "Any realized device energy",
+        "evidence": "No compatible measurements",
+        "allowed": "UNKNOWN, no dominance or favorable tie"
+      }
+    ],
+    "flash": "INACTIVE_UNKNOWN",
+    "weights": null,
+    "numeric_compute_or_power_target": null,
+    "synthetic_numeric_target_costs_used": false
+  },
+  "barriers": [
+    {
+      "id": "B009-1",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "issue": "Actual consumer and exact index association absent",
+      "next_evidence": 2
+    },
+    {
+      "id": "B009-2",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "issue": "Acceptance/commit/publication/debt/reset/restart/retry/capacity contract absent",
+      "next_evidence": 2
+    },
+    {
+      "id": "B009-3",
+      "candidates": [
+        "AP-006-C"
+      ],
+      "issue": "RN/C-HIST provider, event-bound snapshot, retention and ownership unsupplied",
+      "next_evidence": 3
+    },
+    {
+      "id": "B009-4",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "issue": "Full peak allocation, stack, queues and length-dependent association unknown",
+      "next_evidence": 4
+    },
+    {
+      "id": "B009-5",
+      "candidates": [
+        "AP-006-A",
+        "AP-006-B",
+        "AP-006-C"
+      ],
+      "issue": "Chosen-width realization, dependency builds and compatible target F evidence absent",
+      "next_evidence": 5
+    }
+  ],
+  "obligations": [
+    {
+      "id": "T002-2",
+      "status": "OPEN",
+      "gates": [
+        "H1"
+      ],
+      "due_stage": "Later authorized functional verification before realized correctness claims",
+      "needed": "Chosen representation and realized transitions versus independent latest32 oracle; C exact requested snapshot."
+    },
+    {
+      "id": "T002-3",
+      "status": "OPEN",
+      "gates": [
+        "H2"
+      ],
+      "due_stage": "Later authorized lifecycle/functional verification",
+      "needed": "Startup boundaries and numeric reset plus old result/snapshot exclusion and consumer-visible reset association."
+    },
+    {
+      "id": "T002-4",
+      "status": "OPEN",
+      "gates": [
+        "H3"
+      ],
+      "due_stage": "Later authorized physical interface verification",
+      "needed": "Actual consumer decoder, accepted-event/result bijection, unrestricted rank, debt through stalls/restarts/resets/retries and no silent loss."
+    },
+    {
+      "id": "T002-5",
+      "status": "OPEN",
+      "gates": [
+        "H4"
+      ],
+      "due_stage": "Before input-contract compliance claims",
+      "needed": "Actual rejection API and full sequence/association invariance; observable fault reporting and documented unobservable limits."
+    },
+    {
+      "id": "T002-6",
+      "status": "OPEN",
+      "gates": [
+        "H5",
+        "H6"
+      ],
+      "due_stage": "Later authorized realization/verification; target evidence before target claims",
+      "needed": "Complete owned/shared lifetime/stack/queue/index RAM bound and no-hardware-FPU dependency/build/execution evidence."
+    },
+    {
+      "id": "T002-7",
+      "status": "OPEN",
+      "gates": [],
+      "due_stage": "Applicable later stage before real-hardware operation/qualification claims",
+      "needed": "Common target/build/workload/attribution compute, timing and electrical device-energy evidence, uncertainty and equivalent pending work; no hard 1ms deadline."
+    },
+    {
+      "id": "T002-8",
+      "status": "OPEN_DEFERRED",
+      "gates": [],
+      "due_stage": "Before complete sustained-energy detector claim",
+      "needed": "Threshold, duration, boolean output and integration criteria and verification."
+    },
+    {
+      "id": "R4",
+      "status": "OPEN_DEFERRED",
+      "gates": [],
+      "due_stage": "Before complete sustained-energy detector claim",
+      "needed": "Complete detection function remains outside numeric primitive scope."
+    }
+  ],
+  "next_experiments": [
+    {
+      "order": 1,
+      "task": "Distinct independent Stage-10 review of exact evaluation outputs and reproduction of receipt programs",
+      "cost": "Low: source/evidence review and host finite models",
+      "information_gain": "Validate evaluation before reliance; detect scope/count/oracle errors",
+      "requires": "Separate reviewer invocation before any separately authorized AP commitment"
+    },
+    {
+      "order": 2,
+      "task": "Actual consumer information and acceptance/lifecycle inventory; require proposed decoder/refinement for all APs",
+      "cost": "Low to moderate: interface evidence",
+      "information_gain": "Resolve rank/debt/reset feasibility before target work",
+      "falsifier": "Identical actual consumer state/observation with different required accepted n; debt cancellation, invalid ordinal advance or unsafe tag reuse"
+    },
+    {
+      "order": 3,
+      "task": "C provider/RN/transport/history capability and ownership inquiry",
+      "cost": "Low before service construction",
+      "information_gain": "Establish whether dependencies exist and may be relied upon",
+      "falsifier": "Only-current publisher, wrong-event coherent snapshot, sole-source eviction or no exact accepted ordinal",
+      "limit": "Absent provider keeps C conditional; does not prove a future service impossible"
+    },
+    {
+      "order": 4,
+      "task": "Bound live queues/snapshots/index/parser/old contexts/stack and attributable shared state",
+      "cost": "Moderate: lifecycle/resource analysis",
+      "information_gain": "Test H3/H5 compatibility and expose operating-contract authority needs",
+      "falsifier": "More accepted debts than exact retention with no authorized preservation path; attributable peak >2048"
+    },
+    {
+      "order": 5,
+      "task": "After separate realization authorization, chosen-width and lifecycle/interleaving experiments",
+      "cost": "Moderate",
+      "information_gain": "Resolve realized H1/H2/H4 and association evidence",
+      "falsifier": "Wrong future expiry, torn B invariant, wrong-event/mixed C snapshot, stale reset result or mutation on reject"
+    },
+    {
+      "order": 6,
+      "task": "After target/build authorization, scoped H5/H6 and common debt-closed F measurements",
+      "cost": "Higher: target instrumentation and attribution",
+      "information_gain": "Actual fit/dependency and comparable compute/device energy evidence",
+      "falsifier": "Owned peak above budget, hardware-FPU dependence or incompatible comparison scope"
+    },
+    {
+      "order": 7,
+      "task": "Obtain and verify deferred full detection criteria",
+      "cost": "Separate requirements/integration effort",
+      "information_gain": "Resolve T002-8/R4 before complete-detector claim",
+      "requires": "Authorized threshold/duration/boolean/integration decisions"
+    }
+  ],
+  "next_gate": "DISTINCT_INDEPENDENT_STAGE_10_REVIEW_OF_AP_EVALUATION_009_BEFORE_ANY_SEPARATELY_AUTHORIZED_AP_COMMITMENT",
+  "independence": {
+    "supplied_allowlisted_sources_only": true,
+    "subagents_used": false,
+    "network_used": false,
+    "connected_apps_used": false,
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "old_solved_Toy1_artifacts_used": false,
+    "hidden_reference_or_evaluator_used": false,
+    "delegate_authority_assumed": false,
+    "physical_RI_RN_C_HIST_supplied": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "historical_provenance_and_execution_authenticated": false,
+    "external_agent_separation_authenticated": false,
+    "positive_allowlist_is_OS_isolation": false
+  },
+  "not_performed": [
+    "No physical RI/RN/C-HIST service, physical concurrency/lifecycle fault injection or actual consumer decoder.",
+    "No firmware/candidate implementation, chosen-width build, target allocation/stack/dependency measurement, timing/WCET or electrical device-energy measurement.",
+    "No contract/AD acceptance, AP selection, CON/DE/C or complete detector verification.",
+    "No Git/archive authentication, independent historical proof/review execution reproduction or OS/connector isolation audit."
+  ],
+  "AP_selected": false,
+  "all_full_interface_gate_PASS": false,
+  "target_verified": false,
+  "product_verified": false,
+  "formal_cleanroom_qualified": false,
+  "vo_discharged": [],
+  "CON_DE_C_started": false,
+  "contract_approved": false,
+  "AD_accepted": false,
+  "RI_approved": false,
+  "RN_approved": false,
+  "C_HIST_approved": false,
+  "outputs": [
+    "out/AP-EVALUATION-009.md",
+    "out/AP-EVALUATION-009.json",
+    "out/AP-EVALUATION-BRIEFING-009.md"
+  ],
+  "output_validation": {
+    "in_memory_schema_counts_flags_source_coverage_and_program_syntax": "PASSED",
+    "physical_or_target_gate_validation": false,
+    "model_rerun_for_output_validation": false,
+    "checks": "Required IDs, 18 UNKNOWN gates, no PASS flags, F axes, exact source coverage, program syntax/commands/source digests, actual counts/seeds, race/witness counts, all continuing obligations and three output paths."
+  }
+}
