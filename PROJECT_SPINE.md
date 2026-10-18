@@ -3,64 +3,59 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: PO-003-2 proof attempt archived; proof review next
+## Current checkpoint: first CLN-001 conditional theorem independently reviewed
 
-The accepted synthetic CLN-001 numeric-energy AS and three-axis
-diagnostic F are recorded in
-[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml)
-and
+The CLN-001 synthetic energy primitive AS is accepted under
+[AS-ACTIVATION-002](reviews/diagnostics/CLN-001-TASK-003/AS-ACTIVATION-002.yaml),
+and its diagnostic three-axis F under
 [F-DISPOSITION-003](reviews/diagnostics/CLN-001-TASK-004/F-DISPOSITION-003.yaml).
-F's device-energy axis is a **new explicitly delegated diagnostic
-preference**, not energy computed by the ADC sum-of-squares and not
-older BKP authority. All realized RAM, compute and energy values
-remain UNKNOWN; there are no accepted AP candidates.
+No target measurements or AP have been accepted.
 
-The Stage-3 independent opportunity reviewer returned
-`READY_FOR_PROOF_ENGINEER` for all three **UNPROVEN**
-opportunities and prioritized PO-003-2, the future numeric
-information minimality statement. A distinct Proof Engineer
-produced [PROOF-ATTEMPT-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md)
-and [PROOF-BRIEFING-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-BRIEFING-004.md),
-pushed at `2026cb251353285d8fe63671b9ce2b25c9fa9be6` with
-original output SHA256SUMS. Author's assessment is
-**CLAIMED_PROOF_PENDING_REVIEW**, NOT accepted proof.
+The first separate Proof Engineer authored
+[PROOF-ATTEMPT-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md)
+at `2026cb251353285d8fe63671b9ce2b25c9fa9be6`.
+The user then ran the independent proof reviewer, archived its
+original REVIEW-PROOF-004.md/json and manifest at
+`f255c662847378ac3df39b55c71e146a1f71cf7c`.
+Reviewer verdict: **ACCEPT_WITH_CLARIFICATIONS**, no blocking
+mathematical defect. Its report independently reconstructs
+the crucial 31-zero-continuation recovery and state-distinguishability
+proofs, with separately recorded finite checks.
 
-The mathematical author derived T1, equivalence of all future
-numeric outputs for every nonempty continuation iff the
-latest padded 31 samples agree. T2 claims at least
-`2^372` distinguishable complete retained states at every
-fixed history length `n>=32`, conditional on an exact,
-deterministic, complete-information **no-replay** model.
-A 47-octet information-capacity minimum is **not** a
-47-byte implementation, target SRAM fit or bounded execution.
-The author reports supplemental bounded Python checks
-(672 window-formula comparisons, 112 tail recovery instances,
-3,402 oldest-historical-value comparisons); these are not
-independent universal proof verification.
+The CLN-001 sponsor delegate records the scoped result in
+[PROOF-DISPOSITION-004](reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml):
+**T1 ACCEPTED** for future **numeric** outputs under all
+nonempty continuations iff padded 31-sample tails agree.
+**T2 ACCEPTED CONDITIONALLY**: `2^372` distinguishable complete
+retained states (at least 372 bits or 47 octets of information
+capacity) at a fixed epoch length n>=32, assuming a complete
+deterministic **no external replay/readback** information boundary
+and unrestricted future continuations. This is **not**
+a detector SRAM lower bound without ownership closure, nor
+a sufficient 47-byte implementation, target fit or proof of
+the full indexed output interface.
 
-**Next eligible task:** new distinct mathematical reviewer:
-[PROOF_REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md)
-and [TASK-REVIEW-PROOF-004](reviews/diagnostics/CLN-001-TASK-004/TASK-REVIEW-PROOF-004.md).
-Human pulls the experiment branch, runs
-[prepare_proof_review004.sh](reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh)
-to **create** `~/archbot-cln001-proof-review-004/`
-with pinned positive-allowlist sources, invokes a fresh Codex
-Proof Reviewer, then preserves actual `REVIEW-PROOF-004.md/json`
-and manifest on Git. No theorem becomes accepted without its
-distinct mathematics verdict, and that verdict must be scoped
-to the conditional proposition.
+PO-003-1 and PO-003-3 remain **UNPROVEN**.
+The finite-state unbounded-index issue in PO-003-3, external
+publisher-history/replay ownership and permitted epoch length
+must be analyzed before using T2 to qualify an architectural
+candidate. No index wrap policy, AS amendment or AP is silently
+adopted. All T002-2..8 and deferred R4 whole-detector detection
+obligations remain OPEN.
 
-**Still open:** the full logical-indexed interface and finite
-closed-state/unbounded-index opportunity PO-003-3; no epoch
-limit, index wrapping or external index mechanism has been
-authorized. Application of no-replay to any actual detector
-depends on its later external history/ownership boundary.
-R4 whole-detector detection and T002-2..8 evidence obligations
-remain open. No proof of hardware RAM/timing/power, real
-product/target qualification, selected AP/CON/DE/C, historical
-Toy 1 VO discharge or formal FR-005/FR-006 cleanroom.
-Original solved Toy 1 data excluded, framework/migration work
-parked and main untouched.
+**Next work is scoped applicability/interface clarification**:
+decide what information is retained locally versus accessible
+upstream, whether indices are externally supplied, and whether
+epochs can be unbounded. The next AP author must not import
+the old Toy 1 solution or treat conditional theorem applicability
+as resolved. Current user goal includes learning the Git
+workflow; no new Codex agent task has been launched yet.
+
+This remains a **pre-freeze diagnostic**, not formal cleanroom
+FR-005/FR-006. Real hardware, target memory/timing/power and
+full detector remain unqualified. No old Toy 1 VO or architectural
+debt is discharged, and dual-project/migration work stays parked.
+`main` remains unchanged.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

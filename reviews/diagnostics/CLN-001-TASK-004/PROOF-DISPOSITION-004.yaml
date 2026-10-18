@@ -1,0 +1,55 @@
+schema: pc-cln-diagnostic-proof-disposition/v1
+id: CLN-001-PROOF-DISPOSITION-004
+project_id: CLN-001
+branch: experiment/toy1-pipe-cleaner-001
+status: ACCEPTED_WITH_CLARIFICATIONS_MATHEMATICAL_SCOPE_ONLY
+authority:
+  engineering_decision_delegate: ChatGPT_assistant_for_CLN001_only
+  sponsor_delegation: reviews/diagnostics/CLN-001-TASK-001/DECISION-001.yaml
+proof_source:
+  attempt: reviews/diagnostics/CLN-001-TASK-004/PROOF-ATTEMPT-004.md
+  attempt_archival_commit: 2026cb251353285d8fe63671b9ce2b25c9fa9be6
+  attempt_blob_sha1: 005c57a539369cb4e62699a7a806974a81eb235b
+independent_review:
+  review_id: CLN-001-REVIEW-PROOF-004
+  archival_commit: f255c662847378ac3df39b55c71e146a1f71cf7c
+  report: reviews/diagnostics/CLN-001-TASK-004/REVIEW-PROOF-004.md
+  report_blob_sha1: 69ceefca34c87b9fb9b0034ec8df804d08d1ebe7
+  receipt: reviews/diagnostics/CLN-001-TASK-004/REVIEW-PROOF-004.json
+  receipt_blob_sha1: 1e97eddd398e2ff279ea75cbb2154202bdf6a806
+  disposition: ACCEPT_WITH_CLARIFICATIONS
+  reviewer_findings: [R1, R2, R3, R4, R5, R6]
+accepted_mathematical_claims:
+  T1:
+    status: ACCEPTED_EXACT_MATHEMATICAL_CLAIM
+    statement: "For all finite accepted histories h,g over D={0,...,4095}, numeric outputs for every nonempty continuation agree exactly iff the padded last-31-sample tails t(h),t(g) agree."
+    exclusions:
+      - "The current already-emitted energy output and empty continuation."
+      - "Logical event indices and full interface metadata."
+      - "External replay/implementation state allocation."
+  T2:
+    status: ACCEPTED_CONDITIONALLY
+    statement: "For each fixed n>=32, a deterministic exact machine with complete retained output-affecting state, no external replay/readable uncounted history and unrestricted continuations requires at least |D|^31=2^372 distinguishable reachable complete states, at least 372 information bits or 47 whole 8-bit octets of capacity."
+    additional_hypothesis: "Explicit A4 closed complete-state/no-replay model, not an existing AS prohibition on upstream retained history."
+    exclusions:
+      - "A detector-local RAM lower bound if upstream/outside retained information is used."
+      - "A sufficient 47-byte implementation allocation."
+      - "Full-index, reset/fault interface storage, scratch, owned stack or alignment accounting."
+      - "Any real hardware feasibility, WCET, compute, energy or power claim."
+review_clarifications:
+  - "Complete retained information is not necessarily detector-owned SRAM; provenance/ownership must be checked before applying T2."
+  - "External index alone cannot explain fixed-n numeric distinguishability but changes full-interface closure."
+  - "Finite epoch caps may restrict the future-continuation quantifier; T1/T2 are accepted under unrestricted mathematical continuations."
+  - "The reviewer independently reconstructed the proof and ran finite tests; neither tests nor review authenticate the historical author/runtime isolation."
+continuing_status:
+  PO-003-1: UNPROVEN
+  PO-003-3: UNPROVEN
+  open_obligations: [T002-2, T002-3, T002-4, T002-5, T002-6, T002-7, T002-8]
+  R4_complete_detector_detection: DEFERRED_AND_OPEN
+  diagnostic_F_status: ACCEPTED_SCOPED_NO_REALIZATION_MEASUREMENTS
+  architectural_proposal_selected: false
+  implementation_verified: false
+  cleanroom_qualified: false
+  product_verified: false
+  vo_discharged: []
+next_recommended_activity: "Before applying the T2 lower bound to an architectural proposal, establish the concrete information/ownership/replay boundary and the finite-epoch/logical-index interpretation, without automatically changing accepted AS or imposing a 1 ms hard deadline."

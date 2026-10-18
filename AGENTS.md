@@ -57,24 +57,22 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: separate CLN-001 Proof Reviewer.**
-A distinct Proof Engineer produced `PROOF-ATTEMPT-004.md` and
-`PROOF-BRIEFING-004.md` at
-`2026cb251353285d8fe63671b9ce2b25c9fa9be6`.
-Classification is `CLAIMED_PROOF_PENDING_REVIEW`; no accepted
-theorem. Source scope: future numeric outputs over nonempty
-continuations; conditional 31-tail/372-bit retained-state lower
-bound under deterministic no-replay. Not full indexed interface,
-real resource fit or product proof.
-From the experiment checkout pull latest and run
-`reviews/diagnostics/CLN-001-TASK-004/prepare_proof_review004.sh`
-to CREATE `~/archbot-cln001-proof-review-004/`, then new
-Codex independent proof reviewer. See
-`reviews/diagnostics/CLN-001-TASK-004/PROOF_REVIEW_HANDOFF.md`.
-Preserve actual outputs with truthful disposition and selective
-push. No AP/CON/DE/C, implementation, qualified cleanroom,
-historical VOs or previous solved Toy 1 leakage.
-The finite-state/unbounded-index PO-003-3 issue remains open.
+**CURRENT PRIORITY: CLN-001 theorem applicability and interface scope.**
+Original independent proof reviewer was pushed at
+`f255c662847378ac3df39b55c71e146a1f71cf7c` with
+`ACCEPT_WITH_CLARIFICATIONS`. A scoped additive mathematical
+disposition is in
+`reviews/diagnostics/CLN-001-TASK-004/PROOF-DISPOSITION-004.yaml`.
+T1 (padded 31-tail equivalence for every future numeric output)
+is accepted. T2 (2^372 complete retained states, 372 information
+bits under deterministic, no-replay, unrestricted-continuation
+model) is conditionally accepted, NOT a 47-byte implementation
+or detector-local SRAM result. PO-003-1/3 are unproven; logical
+index lifetime and external history ownership remain unresolved.
+No automatic AP/CON/DE/C execution or old Toy 1 import.
+The human is also studying our Git workflow; allow interactive
+inspection before issuing more local agent tasks. Formal
+cleanroom/target qualification remains false, VOs still open.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has
