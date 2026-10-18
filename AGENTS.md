@@ -57,21 +57,23 @@ correction, not a broad product/firmware qualification; the original
 `REVISE` receipt remains immutable. The reviewer independently ran
 91 test methods and real malformed-Unicode probes.
 
-**CURRENT PRIORITY: Toy 1 pipe-cleaner first AS diagnostic.**
-The new agent's AS draft, questions, briefing and source hashes were
-committed on `experiment/toy1-pipe-cleaner-001` at
-`57c49628dfca12e30315eb7b08f63c478379cc68`.
-The author stopped before downstream engineering stages.
-Read `reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md`.
-**Next action** is an independent **diagnostic** reviewer workspace
-and distinct Codex invocation for first-stage source fidelity.
-It must use only the original three BKP sources, three submitted
-outputs, and generic verification guidance. The reviewer should
-report `READY_FOR_HUMAN_QUESTIONS`, `REVISE_DRAFT` or `UNRESOLVED`,
-without asserting any stakeholder AS acceptance. The first package
-preflight reported PASS; physical Codex filesystem/connector
-isolation was NOT independently verified. No formal FR-005 cleanroom
-qualification or product verification is implied.
+**CURRENT PRIORITY: Toy 1 first AS diagnostic passed to human questions.**
+The authoring candidate is preserved at `57c49628dfca12e30315eb7b08f63c478379cc68`.
+The separately invoked reviewer produced `REVIEW-001.md` and
+`REVIEW-001.json`, committed on
+`experiment/toy1-pipe-cleaner-001` at
+`e01f91177c20e14f3aea3a11d9025821156dd971`.
+Actual verdict: **READY_FOR_HUMAN_QUESTIONS** for initial diagnostic
+C/R/PS source fidelity only. Not AS approval. The reviewer reported
+independence from authoring but no external authentication. F2 timing
+semantics and F3 missing human decisions remain open, F4 provenance
+minor. **Next action:** ask human Q1 about engineering authority,
+then record explicit decisions Q2-Q7 rather than inventing answers.
+Read `reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md`.
+Do not run proof, AP, CON, DE, implementation or further independent
+AS reviews without the human's actual decision and relevant authority.
+Package integrity PASS does not establish runtime/connector isolation;
+formal cleanroom qualification is still false.
 
 **PORTABILITY WORK PAUSED.** The last project-registry source at
 `b6839c7fedea5bede7b485976b6590fdece6fca8` now has

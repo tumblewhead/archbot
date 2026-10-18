@@ -3,56 +3,54 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: first fresh Toy 1 AS submitted; independent diagnostic review next
+## Current checkpoint: first Toy 1 AS draft independently reviewed; human decisions next
 
-The human created an external pre-freeze diagnostic workspace from
-the original three synthetic Toy 1 BKP inputs and ran a fresh Codex
-architecture agent. The produced artifacts were submitted on branch
-`experiment/toy1-pipe-cleaner-001` at
-`57c49628dfca12e30315eb7b08f63c478379cc68`:
+The human ran the **first pre-freeze Toy 1 pipe-cleaner** from original
+synthetic unsolved BKP inputs in an external workspace. The authoring
+candidate was pushed on `experiment/toy1-pipe-cleaner-001` at
+`57c49628dfca12e30315eb7b08f63c478379cc68` with
+[AS-DRAFT-001](reviews/diagnostics/CLN-001-TASK-001/AS-DRAFT-001.md),
+[QUESTIONS-001](reviews/diagnostics/CLN-001-TASK-001/QUESTIONS-001.md),
+[BRIEFING-001](reviews/diagnostics/CLN-001-TASK-001/BRIEFING-001.md),
+run notes and SHA256SUMS. The original three BKP sources were
+distinctly labeled draft/synthetic. The author stopped at C/R/PS and
+did not claim approval, proof or a selected implementation.
 
-- [AS-DRAFT-001](reviews/diagnostics/CLN-001-TASK-001/AS-DRAFT-001.md)
-- [QUESTIONS-001](reviews/diagnostics/CLN-001-TASK-001/QUESTIONS-001.md)
-- [BRIEFING-001](reviews/diagnostics/CLN-001-TASK-001/BRIEFING-001.md)
-- [source/run notes](reviews/diagnostics/CLN-001-TASK-001/RUN-NOTES.md) and
-  [SHA256SUMS](reviews/diagnostics/CLN-001-TASK-001/SHA256SUMS)
+**NEW INDEPENDENT DIAGNOSTIC REVIEW:** the human separately launched a
+reviewer using only original BKP, three fresh output artifacts and
+generic reviewer guidance. The pushed review at
+`e01f91177c20e14f3aea3a11d9025821156dd971` consists of
+[REVIEW-001.json](reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json)
+and [REVIEW-001.md](reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md).
+Its disposition is **READY_FOR_HUMAN_QUESTIONS**, meaning no blocking
+source-fidelity finding for the *question handoff*. F2 requires human
+timing authority/semantics, F3 open human decisions, F4 notes original
+process provenance not independently authenticated. This is not
+acceptance of the Architecture Statement. Reviewer independence is
+declared as a separate invocation but not externally authenticated.
 
-The authoring result stops at AS=(C,R,PS), records requirement
-candidates and synthetic assumptions separately, raises specific
-stakeholder-authority and timing questions, and does not claim
-proof, selection, CON, DE or implementation. This is a useful
-**first-stage authoring result**, NOT independent acceptance.
+**Next eligible action: human engineering authority Q1**, not another
+reviewer or submodule task. Read the
+[human decision handoff](reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md).
+Ask who has authority to adopt, revise or reject this synthetic
+project's requirements and assumptions. Once explicitly answered,
+record a new versioned project-owned authority decision and address
+Q2-Q7 in dependent order. The 1 ms statement is present in the
+original *invented* brief; do not import previous Toy 1 accepted
+corrections as though the fresh project discovered or approved them.
 
-**Next handoff:** read
-[REVIEW_HANDOFF](reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md).
-Human creates a *separate* reviewer workspace by positive allowlist:
-three BKP files, three newly authored artifacts and generic
-verification guidance only. Run a distinct Codex reviewer; it emits
-`REVIEW-001.md` and `REVIEW-001.json`, then stop. Copy only those
-reviewer artifacts back to the experiment branch. A favorable
-source-fidelity review opens **human requirements disposition**;
-it does not automatically approve AS or permit downstream stages.
+**Limitations:** The package preflight PASS only checked files, not
+host-level or connector isolation. The authoring run recorded
+filesystem isolation NOT INDEPENDENTLY VERIFIED. This remains a
+**pre-freeze diagnostic**, not FR-005, FR-006 or the formal cleanroom
+replay. No original Toy 1 accepted source, existing VO/AD ledger or
+reviews were modified. No product/target acceptance, final F-001
+decision or VO discharge follows.
 
-**Important remaining limitation:** The author's run notes record
-filesystem/runtime isolation **NOT INDEPENDENTLY VERIFIED**.
-Earlier `cleanroom_pipe_cleaner.py inspect` reported the initial
-allowlisted package intact; that does not establish the agent could
-not access host paths, connections or prior memory. This remains a
-**pre-freeze diagnostic, not FR-005 qualification or a formal
-cleanroom result**.
-
-**Work intentionally parked:** multi-project experiments,
-project-registry independent review, Toy 1 submodule migration,
-and the legacy task/gate root refactoring. The registry's local
-producer tests were pushed in `a6bb262e609dfeb609616e895a3925358d2dffd3`,
-but no independent registry acceptance was declared. Preserve
-original Toy 1 accepted records and all historical review receipts.
-
-**Formal milestones unchanged:** FR-004 reviewer-mode qualification,
-FR-005 positive-allowlist isolation, FR-006 integrated freeze,
-and a separately authorized real cleanroom replay. Toy 1 final
-F-001 is outstanding, no target selected, AD-003 unresolved,
-VO-002..VO-006 open. No VO/AD authority was altered here.
+**Work parked:** project registry independent review, Toy 1 submodule
+migration, dual-project experiment and generic task/gate root
+refactoring. Their prior evidence is preserved; do not resume them
+until the user requests that line of work.
 
 The accepted C-002 charged-SRAM envelope is seven conditional category
 ceilings totaling 1792 bytes plus 256 reserve under 2048. All seven

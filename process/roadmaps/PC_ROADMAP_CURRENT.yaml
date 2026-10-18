@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: AS_AUTHORING_ARTIFACTS_PRESERVED_DIAGNOSTIC_REVIEW_PENDING
+  status: DIAGNOSTIC_AS_REVIEW_READY_FOR_HUMAN_QUESTIONS
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -244,7 +244,20 @@ cleanroom_pipe_cleaner:
   package_preflight_reported: PASS
   runtime_isolation_independently_verified: false
   reviewer_handoff: reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md
-  independent_as_review: PENDING
+  independent_as_review: READY_FOR_HUMAN_QUESTIONS
+  independent_as_review_commit: e01f91177c20e14f3aea3a11d9025821156dd971
+  independent_as_review_receipt: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json
+  independent_as_review_report: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md
+  reviewer_independence_reported: true
+  reviewer_independence_externally_authenticated: false
+  human_decision_handoff: reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md
+  human_authority_Q1: UNRESOLVED
+  reviewer_findings:
+    - "F1 source fidelity OK within diagnostic scope"
+    - "F2 timing semantics and requirement authority unresolved"
+    - "F3 Q1-Q7 human decisions unresolved"
+    - "F4 source/provenance auth not independently verified"
+    - "F5 stopped before unauthorized downstream engineering"
   human_authority_disposition: PENDING
   included: "Pinned original BKP and neutral framework role/playbook, empty project manifest/spine and initial AS task only."
   excluded: "All prior AS-001 solutions, proofs, AP/F, contracts, implementation, accepted decisions, review evidence, old Git history, old chat, evaluator oracle."
@@ -256,23 +269,24 @@ cleanroom_pipe_cleaner:
     - "Multi-project isolation demo and second project"
     - "Project-root migration of legacy task/gate/telemetry paths"
 next_eligible_action:
-  type: INDEPENDENT_DIAGNOSTIC_AS_REVIEW
-  subject: Fresh Toy 1 AS draft from original BKP sources
+  type: HUMAN_ENGINEERING_AUTHORITY_DECISION
+  subject: CLN-001 Q1 initial source authority for synthetic Toy 1
   branch: experiment/toy1-pipe-cleaner-001
-  authored_commit: 57c49628dfca12e30315eb7b08f63c478379cc68
-  review_handoff: reviews/diagnostics/CLN-001-TASK-001/REVIEW_HANDOFF.md
-  output_paths:
-    - reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md
-    - reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.json
-  instruction: "Prepare independent reviewer workspace with only three BKP + three authored artifacts + generic review role/playbook. Run separate Codex reviewer; preserve actual disposition and isolation limits; selectively push review only."
-  following_action: "Human engineering decisions on the reviewed open source authority and specification questions; no automatic AS acceptance."
-  reviewed_cleanroom: false
+  review_disposition: READY_FOR_HUMAN_QUESTIONS
+  reviewed_commit: e01f91177c20e14f3aea3a11d9025821156dd971
+  reviewed_report: reviews/diagnostics/CLN-001-TASK-001/REVIEW-001.md
+  question_handoff: reviews/diagnostics/CLN-001-TASK-001/HUMAN_QUESTIONS_HANDOFF.md
+  instruction: "Ask the human who has authority to adopt/revise/reject the synthetic Toy 1 requirements; record the exact response in a versioned decision, then ask Q2-Q7 in dependency order."
+  AS_accepted: false
+  independent_question_review_ready: true
+  runtime_isolation_qualified: false
+  formal_cleanroom_qualified: false
   framework_frozen: false
   prohibit:
-    - "Do not expose old solved Toy 1 artifacts or evaluator rubric to the authoring agent."
-    - "Do not treat the diagnostic reviewer status as stakeholder approval or formal cleanroom qualification."
-    - "Do not auto-start proof/AP/CON/DE/C without explicit human authority."
-    - "Do not restart parked project-registry/submodule work."
+    - "Do not infer user authority or answers without their explicit decision."
+    - "Do not treat READY_FOR_HUMAN_QUESTIONS as AS approval."
+    - "Do not provide historic Toy 1 solution or reviewer oracle to a fresh agent."
+    - "Do not start proof/AP/CON/DE/C or restart parked submodule work."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
