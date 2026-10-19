@@ -229,7 +229,7 @@ delivery_plan:
     - "FR-004 single reviewer-mode proposal may be prepared before M3, without implying its execution/acceptance."
 cleanroom_pipe_cleaner:
   id: CLN-TOY1-PIPE-CLEANER-001
-  status: STAGE11_NEW_INTERFACE_FEASIBILITY_EVIDENCE_PREPARED
+  status: STAGE12_INDEPENDENT_IF11_NEW_EVIDENCE_REVIEW_PREPARED
   priority: IMMEDIATE
   type: PREFREEZE_DIAGNOSTIC_NOT_FORMAL_CLEANROOM
   preparation_authorization: process/decisions/CLN-TOY1-PIPE-CLEANER-PREPARATION-001.yaml
@@ -551,7 +551,7 @@ stage10_evaluation_review_and_disposition:
   measured_F_values: UNKNOWN
   AP_selected: false
 stage11_new_evidence_acquisition:
-  status: IF11_SOURCE_PINNED_WORKSPACE_PREPARED_NOT_EXECUTED
+  status: IF11_AUTHOR_EVIDENCE_ARCHIVED_PENDING_INDEPENDENT_REVIEW
   IF11_task: reviews/diagnostics/CLN-001-TASK-011/TASK-IF11.md
   IF11_prepare: reviews/diagnostics/CLN-001-TASK-011/prepare_if11.sh
   IF11_archive: reviews/diagnostics/CLN-001-TASK-011/archive_if11.sh
@@ -564,27 +564,55 @@ stage11_new_evidence_acquisition:
   orchestrator_activated: false
   fresh_Toy1_restarted: false
   baseline_goal: COMPLETE_CURRENT_CLN001_AP_CON_DE_C_AND_SCOPED_VERIFICATION
-next_eligible_action:
-  type: CLN001_STAGE11_NEW_CONSUMER_INTERFACE_FEASIBILITY_EVIDENCE
-  subject: "Produce new consumer-visible index/reset/debt contract hypotheses, falsifying traces and runnable model. No repeated review of unchanged UNKNOWN."
-  branch: experiment/toy1-pipe-cleaner-001
-  decision: reviews/diagnostics/CLN-001-TASK-011/AP-EVIDENCE-DISPOSITION-010.yaml
-  task: reviews/diagnostics/CLN-001-TASK-011/TASK-IF11.md
-  prepare_script: reviews/diagnostics/CLN-001-TASK-011/prepare_if11.sh
-  archive_script: reviews/diagnostics/CLN-001-TASK-011/archive_if11.sh
-  handoff: reviews/diagnostics/CLN-001-TASK-011/STAGE11_HANDOFF.md
-  expected_outputs: [IF11_TRACE_MODEL.py, IF11_FEASIBILITY.md, IF11_RECEIPT.json, IF11_BRIEFING.md]
-  independent_review_after_evidence: REQUIRED
-  unreviewed_engineering_output_not_authority: true
-  AP_selected: false
+stage11_actual_IF11_evidence:
+  archive_commit: 1baf0d1fc03c67fc181341e8f53dac9011581c52
+  model: reviews/diagnostics/CLN-001-TASK-011/IF11_TRACE_MODEL.py
+  report: reviews/diagnostics/CLN-001-TASK-011/IF11_FEASIBILITY.md
+  receipt: reviews/diagnostics/CLN-001-TASK-011/IF11_RECEIPT.json
+  briefing: reviews/diagnostics/CLN-001-TASK-011/IF11_BRIEFING.md
+  output_sha256: reviews/diagnostics/CLN-001-TASK-011/IF11_SHA256SUMS
+  reported_finite_cases: 14327
+  reported_unexpected_discrepancies: 0
+  mutation_reported_exit_code: 1
+  source_hashes_reported: 16_OF_16
+  model_status: AUTHOR_EVIDENCE_PENDING_INDEPENDENT_REVIEW
+  proposed_consumers: [S_ORDERED_RETAINED_RANK, X_EXPLICIT_RANK_FRAME]
+  conditional_new_claim: "2^m old unpaid-output transcripts with equal final numeric state/rank require >=m bits at complete closed boundary under continuous acceptance, no output during stall and no external memory/replay/clock/coordination."
+  accepted_new_theorem: false
+  actual_external_provider_established: false
+  all_APs_unselected: true
   full_H1_H6_realized: UNKNOWN
-  F_measured: UNKNOWN
+  measured_F: UNKNOWN
+stage12_independent_IF11_review:
+  status: REVIEW_TASK_AND_SOURCE_PINNED_SCRIPTS_PREPARED_NOT_EXECUTED
+  task: reviews/diagnostics/CLN-001-TASK-012/TASK-REVIEW-IF11-012.md
+  briefing: reviews/diagnostics/CLN-001-TASK-012/STAGE12_BRIEFING.md
+  prepare: reviews/diagnostics/CLN-001-TASK-012/prepare_if11_review012.sh
+  archive: reviews/diagnostics/CLN-001-TASK-012/archive_if11_review012.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-012/STAGE12_HANDOFF.md
+  expected_outputs: [REVIEW-IF11-012.md, REVIEW-IF11-012.json, REVIEW_IF11_012_SHA256SUMS]
+  review_expected_to_check: "Exact runnable model, mutation, trace assumptions and unpaid-debt bound before separate delegated evidence disposition."
+  after_review: CONCRETE_NEW_INTEGRATION_OR_FIXED_WIDTH_C_EXPERIMENT_IF_AUTHORIZED
+  no_AP_selection_from_review_alone: true
+next_eligible_action:
+  type: CLN001_STAGE12_INDEPENDENT_REVIEW_OF_NEW_IF11_EVIDENCE
+  subject: "Independently reproduce and audit new S/X decoder, output-debt and information-bound source evidence; no physical AP approval."
+  branch: experiment/toy1-pipe-cleaner-001
+  source_author_commit: 1baf0d1fc03c67fc181341e8f53dac9011581c52
+  review_task: reviews/diagnostics/CLN-001-TASK-012/TASK-REVIEW-IF11-012.md
+  prepare_script: reviews/diagnostics/CLN-001-TASK-012/prepare_if11_review012.sh
+  archive_script: reviews/diagnostics/CLN-001-TASK-012/archive_if11_review012.sh
+  handoff: reviews/diagnostics/CLN-001-TASK-012/STAGE12_HANDOFF.md
+  expected_outputs: [REVIEW-IF11-012.md, REVIEW-IF11-012.json]
+  instruction: "Human pulls, checks script syntax/source blobs, opens fresh independent Codex reviewer, selectively archives and pushes exact original outputs."
+  stop_on: [SOURCE_HASH_MISMATCH, REPRODUCTION_DISCREPANCY, REVIEW_REVISE, REVIEW_UNRESOLVED]
+  all_full_H1_H6: UNKNOWN
+  AP_selected: false
   prohibit:
-    - "No invented physical RI/RN/C-HIST services, unbounded counters or infinite buffering."
-    - "No finite epoch, mandated reset, valid-event loss or unapproved publisher backpressure."
-    - "No full hardware feasibility claim from a bounded Python witness."
-    - "No AP selection or CON/DE/C before separate reviewed evidence and explicit decision."
-    - "No automatic process-agent deployment or restarting Toy1 using old solution."
+    - "No elevation of finite IF11 Python to physical RI/RN/C-HIST provider or accepted unconditional theorem."
+    - "No physical allocation/energy/throughput claim from idealized consumers."
+    - "No repeat review of unchanged old UNKNOWN instead of genuine evidence acquisition."
+    - "No AP selection, CON/DE/C, formal cleanroom or historical VO discharge."
 restart_protocol:
   - "Fetch and verify current GitHub main HEAD; never assume this checkpoint revision remains HEAD."
   - "Read AGENTS.md, PROJECT_SPINE.md and this roadmap in that order."
