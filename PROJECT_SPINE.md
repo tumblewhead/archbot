@@ -3,61 +3,53 @@
 Repository: `tumblewhead/archbot`. Read `AGENTS.md`, then the current checkpoint
 and linked constituent artifacts. This spine is an index, not the execution log.
 
-## Current checkpoint: CLN-001 Stage-11 IF11 NEW feasibility evidence prepared
+## Current checkpoint: CLN-001 Stage-12 independent review of NEW IF11 evidence prepared
 
-Stage-9 numerical evaluation at `0783a3b95a384e4e24b89a68740555055b2383f6`
-was independently reviewed at `e5d2cfde2c856cc84192b294ac8c42a8746ba5aa`.
-The independent Stage-10 report
-[REVIEW-AP-EVALUATION-010](reviews/diagnostics/CLN-001-TASK-010/REVIEW-AP-EVALUATION-010.md)
-returned `READY_FOR_DELEGATED_AP_EVIDENCE_DISPOSITION`: Stage-9
-models and finite counterexamples were reproduced, **not** any
-full physical AP. The Stage-10 HIGH unknowns are
-`R010-4` consumer rank/debt/reset, `R010-5` unapproved
-RN/C-HIST providers/ownership, and `R010-6` complete RAM,
-compute and device-energy feasibility. Model C explicitly assumes
-a perfect correct-event snapshot, not an accepted provider.
-All realized H1–H6 and measured F coordinates remain UNKNOWN.
+The IF11 evidence producer's five outputs, archived at
+[1baf0d1](https://github.com/tumblewhead/archbot/commit/1baf0d1fc03c67fc181341e8f53dac9011581c52),
+include [executable trace model](reviews/diagnostics/CLN-001-TASK-011/IF11_TRACE_MODEL.py),
+[feasibility dossier](reviews/diagnostics/CLN-001-TASK-011/IF11_FEASIBILITY.md),
+[structured author receipt](reviews/diagnostics/CLN-001-TASK-011/IF11_RECEIPT.json)
+and [human briefing](reviews/diagnostics/CLN-001-TASK-011/IF11_BRIEFING.md).
+The author reports 14,327 successful finite-model cases, a
+one-error deliberately mutated 256-bit rank wrap and 16 input hashes.
+These are author claims pending distinct independent reproduction.
 
-The CLN-001-only delegate separately issued
-[AP-EVIDENCE-DISPOSITION-010](reviews/diagnostics/CLN-001-TASK-011/AP-EVIDENCE-DISPOSITION-010.yaml):
-accept reproduced **finite model evidence only**, retain A/B/C
-unselected, and authorize an evidence-producing next investigation
-instead of another review of unchanged UNKNOWNs.
+**New engineering information:** two conditional consumer
+refinements, S (ordered success/reject and retained rank context)
+and X (explicit sequence/ordinal frames from hypothetical provider),
+expose different lifetime/storage/provider dependencies. IF11's
+`2^m` distinguishable unpaid-result transcripts at a fixed final
+numeric state/rank give a potential conditional `>=m` retained-bit
+bound when all accepted results remain owed during arbitrarily long
+stalls, with no outside information, storage/replay or flow control.
+This is a *new unreviewed conditional claim*, not accepted theorem
+or whole-AS impossibility. Real publisher/consumer/ordinal service,
+C-history service, full interface and target resources remain UNKNOWN.
 
-**Next eligible task:** [IF11 feasibility evidence task](reviews/diagnostics/CLN-001-TASK-011/TASK-IF11.md)
-focused on real consumer-visible rank/reset/output-debt *information*
-at a named hypothetical boundary and explicit missing contracts.
-It must produce an independently reproducible trace program,
-contract alternatives, conditional counterexamples and an
-evidence-acquisition ledger, NOT an accepted interface or
-AP selection. Read [Stage11 handoff](reviews/diagnostics/CLN-001-TASK-011/STAGE11_HANDOFF.md),
-run [source-pinned preparation](reviews/diagnostics/CLN-001-TASK-011/prepare_if11.sh),
-fresh Codex, then [restartable archive](reviews/diagnostics/CLN-001-TASK-011/archive_if11.sh).
-Distinct independent review follows new evidence. Separate
-NUM11 C numerical prototype and SVC11 provider inquiry may
-be authorized/worked as further evidence tracks.
+**Next eligible task:** [Stage-12 independent IF11 review task](reviews/diagnostics/CLN-001-TASK-012/TASK-REVIEW-IF11-012.md).
+Use [source-pinned preparation](reviews/diagnostics/CLN-001-TASK-012/prepare_if11_review012.sh),
+a fresh independent Codex reviewer, then [exact-byte archive](reviews/diagnostics/CLN-001-TASK-012/archive_if11_review012.sh).
+Read [Stage-12 handoff](reviews/diagnostics/CLN-001-TASK-012/STAGE12_HANDOFF.md).
+Review MUST independently replay source and challenge the exact
+conditional claims. This is review of NEW evidence, **not another
+assessment of identical prior UNKNOWNs**. A favorable disposition
+allows a separate CLN-001 delegate decision and concrete implementation
+or provider/consumer evidence task, not immediate AP acceptance.
 
-A process weakness was identified: excellent reviews can reproduce
-the same UNKNOWN without creating decision-relevant evidence.
-See versioned [progress retrospective and orchestration pilot proposal](docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md).
-**Sequencing recommendation:** fix evidence progression in this
-diagnostic now; continue CLN-001 through a defensible AP, CON, DE,
-C and scoped verification; in parallel develop a controlled
-deterministic orchestrator via offline receipt replay then a
-bounded live demonstration; only after a usable baseline/pilot
-run a distinct noncontaminated Toy1 and compare iteration time.
-The general process-progress rule, orchestrator automatic execution/
-push and fresh Toy1 restart are **NOT** activated by this note.
+The [progress/orchestration retrospective](docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md)
+remains a proposal: finish current CLN-001 end-to-end as baseline,
+pilot deterministic orchestrator separately (offline receipt replay,
+then bounded live execution), and conduct a separately isolated fresh
+Toy1 replay to measure iteration speed/human minutes. No autonomous
+orchestrator, generic progress policy or new cleanroom has been activated.
 
-Current authority remains activated AS-REV-002 plus accepted
-AS-ADDENDUM-008-R1, adopted F (RAM_peak, compute_effort,
-device_energy_consumption), D002, scoped T1/conditional T2.
-RI/RN/C-HIST, nonloss publisher pause, fixed epoch, forced reset
-and mandatory acknowledgment are not supplied/approved.
-T002-2..8 OPEN; R4 whole detection DEFERRED;
-PO-003-1/3 UNPROVEN. No AP selected, CON/DE/C, framework freeze,
-formal cleanroom, target/product qualification or old Toy1
-VO discharge.
+Current authority: original activated AS-REV-002 plus accepted
+AS-ADDENDUM-008-R1, D002, three-axis F, scoped T1/conditional T2.
+All A/B/C unselected; all fully realized H1–H6 and measured F
+remain UNKNOWN. T002-2..8 OPEN, R4 sustained detector deferred,
+PO-003-1/3 UNPROVEN. No CON/DE/C, external service approval,
+formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
