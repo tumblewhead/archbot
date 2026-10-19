@@ -1,0 +1,722 @@
+{
+  "final_integrity_check": {
+    "command": "python3 -B - <<'PY'\nfrom pathlib import Path\nimport ast, hashlib, json, re\nreceipt = json.loads(Path('out/IF11_RECEIPT.json').read_text())\nfor flag in ('AP_selected', 'AS_changed', 'RI_RN_C_HIST_approved', 'full_H1_H6_PASS', 'target_verified', 'product_verified', 'formal_cleanroom_qualified'):\n    if receipt[flag] is not False:\n        raise RuntimeError('protected flag changed: ' + flag)\nif receipt['vo_discharged'] != [] or receipt['study_id'] != 'CLN-001-IF11':\n    raise RuntimeError('protected identity/VO mismatch')\nfor item in receipt['source_hashes']['checks']:\n    if hashlib.sha256(Path(item['path']).read_bytes()).hexdigest() != item['expected_sha256']:\n        raise RuntimeError('source changed: ' + item['path'])\nfor path, expected in {**receipt['source_hashes']['controls'], **receipt['source_hashes']['artifacts']}.items():\n    if hashlib.sha256(Path(path).read_bytes()).hexdigest() != expected:\n        raise RuntimeError('control/artifact changed: ' + path)\nfor candidate in receipt['active_boundaries']['all_realized_H'].values():\n    if set(candidate.values()) != {'UNKNOWN'}:\n        raise RuntimeError('realized gate changed')\npositive = receipt['experiments']['final']\nnegative = receipt['experiments']['mutation']\nfor run in (positive, negative):\n    if run['expected_stdout'] != run['observed_stdout'] or run['expected_exit_code'] != run['observed_exit_code']:\n        raise RuntimeError('exact execution mismatch')\n    parsed = json.loads(run['observed_stdout'])\n    if parsed['total_cases'] != 14327 or sum(row['cases'] for row in parsed['groups'].values()) != 14327:\n        raise RuntimeError('case accounting differs')\nif json.loads(positive['observed_stdout'])['discrepancies'] != 0:\n    raise RuntimeError('positive discrepancies')\nfailed = json.loads(negative['observed_stdout'])\nif failed['discrepancies'] != 1 or failed['failures'][0]['expected'][0][1] != 2**256 + 1 or failed['failures'][0]['observed'][0][1] != 1:\n    raise RuntimeError('mutation witness or exact large integer differs')\nallowed = {Path(item['path']).resolve() for item in receipt['source_hashes']['checks']}\nallowed |= {Path(name).resolve() for name in ('AGENTS.md', 'TASK.md', 'inputs/SHA256SUMS', 'out/IF11_TRACE_MODEL.py', 'out/IF11_FEASIBILITY.md', 'out/IF11_RECEIPT.json', 'out/IF11_BRIEFING.md')}\nlinks = 0\nfor name in ('out/IF11_FEASIBILITY.md', 'out/IF11_BRIEFING.md'):\n    path = Path(name)\n    for target in re.findall(r'\\]\\(([^)]+)\\)', path.read_text()):\n        linked = (path.parent / target.split('#')[0]).resolve()\n        if linked not in allowed or not linked.is_file():\n            raise RuntimeError('nonallowlisted/broken output link: ' + target)\n        links += 1\nmodel = ast.parse(Path('out/IF11_TRACE_MODEL.py').read_text())\nif any(isinstance(n, (ast.ImportFrom, ast.AsyncFunctionDef)) for n in ast.walk(model)):\n    raise RuntimeError('unexpected model construct')\nfor node in ast.walk(model):\n    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in {'open', 'exec', 'eval', 'compile', '__import__'}:\n        raise RuntimeError('unexpected model call')\nprint(json.dumps({'study_id': 'CLN-001-IF11', 'payload_hashes_matched': 16, 'artifact_hashes_matched': 3, 'protected_flags_preserved': True, 'positive_cases': 14327, 'positive_exit': 0, 'mutation_cases': 14327, 'mutation_exit': 1, 'exact_outputs_match': True, 'large_integer_preserved': True, 'links_checked': links, 'validation': 'PASS_WITHIN_DECLARED_MODEL_SCOPE'}, sort_keys=True))\nPY",
+    "expected_exit_code": 0,
+    "observed_exit_code": 0,
+    "expected_stdout": "{\"artifact_hashes_matched\": 3, \"exact_outputs_match\": true, \"large_integer_preserved\": true, \"links_checked\": 21, \"mutation_cases\": 14327, \"mutation_exit\": 1, \"payload_hashes_matched\": 16, \"positive_cases\": 14327, \"positive_exit\": 0, \"protected_flags_preserved\": true, \"study_id\": \"CLN-001-IF11\", \"validation\": \"PASS_WITHIN_DECLARED_MODEL_SCOPE\"}\n",
+    "observed_stdout": "{\"artifact_hashes_matched\": 3, \"exact_outputs_match\": true, \"large_integer_preserved\": true, \"links_checked\": 21, \"mutation_cases\": 14327, \"mutation_exit\": 1, \"payload_hashes_matched\": 16, \"positive_cases\": 14327, \"positive_exit\": 0, \"protected_flags_preserved\": true, \"study_id\": \"CLN-001-IF11\", \"validation\": \"PASS_WITHIN_DECLARED_MODEL_SCOPE\"}\n",
+    "exact_output_match": true,
+    "scope": "Validated final source/input hashes, exact model and mutant outputs, gate/approval flags and all 21 dossier/briefing links before appending this execution record. Receipt self-hash intentionally excluded."
+  },
+  "schema": "cln001-if11-evidence-receipt/v1",
+  "study_id": "CLN-001-IF11",
+  "role": "evidence-acquisition engineer; no reviewer, sponsor, delegate, AP selector or approver authority",
+  "status": "NEW_CONDITIONAL_MODEL_EVIDENCE_READY_FOR_DISTINCT_INDEPENDENT_REVIEW",
+  "AP_selected": false,
+  "AS_changed": false,
+  "RI_RN_C_HIST_approved": false,
+  "full_H1_H6_PASS": false,
+  "target_verified": false,
+  "product_verified": false,
+  "formal_cleanroom_qualified": false,
+  "vo_discharged": [],
+  "authority_transfer": false,
+  "CON_DE_C_approved": false,
+  "F_changed": false,
+  "source_hashes": {
+    "artifacts": {
+      "out/IF11_BRIEFING.md": "3d967b3bef4856391212abc74c7cb7b597582165e908bb617a14c74a875b77e7",
+      "out/IF11_FEASIBILITY.md": "b82693a2c57c129d0971f7d1643d5ef9cff47d8c5b130490977780ccb2c58f01",
+      "out/IF11_TRACE_MODEL.py": "d592a4b4908604213fed97b3c3340a2efbb034abd2ceb2d64b0ad0e4510e79a4"
+    },
+    "checks": [
+      {
+        "bytes": 3639,
+        "expected_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "match": true,
+        "observed_sha256": "0ee6dd20aadc60e6d88ac497992cf3467177e6a4763084d818710d4c671ebb94",
+        "path": "inputs/PROOF-DISPOSITION-004.yaml"
+      },
+      {
+        "bytes": 8061,
+        "expected_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "match": true,
+        "observed_sha256": "1da2009c5363fcb47e07c9e607d3b024cbe8a11871617e30216f12c03ea55e36",
+        "path": "inputs/DECISION-001.yaml"
+      },
+      {
+        "bytes": 27326,
+        "expected_sha256": "24893aa459baa9e583602266aa71bd9c05ba1e558974f8ef9a716897a03a4654",
+        "match": true,
+        "observed_sha256": "24893aa459baa9e583602266aa71bd9c05ba1e558974f8ef9a716897a03a4654",
+        "path": "inputs/REVIEW-AP-EVALUATION-010.md"
+      },
+      {
+        "bytes": 403,
+        "expected_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "match": true,
+        "observed_sha256": "284d6c28e1566874c07793d5947028f58ec827e1117e94b24052d0024e9627d7",
+        "path": "inputs/adc.md"
+      },
+      {
+        "bytes": 10610,
+        "expected_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "match": true,
+        "observed_sha256": "36bf5e3fcad1e183a976991943e186bb5cb56d4e9647e7d027e5c70eb89a6830",
+        "path": "inputs/AS-REV-002.md"
+      },
+      {
+        "bytes": 5359,
+        "expected_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "match": true,
+        "observed_sha256": "42a8f3a0c138cb4646c107c2a9519cef16a8faddb3b11f299596286ca9553618",
+        "path": "inputs/AS-ADDENDUM-008-R1-DISPOSITION.yaml"
+      },
+      {
+        "bytes": 10233,
+        "expected_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+        "match": true,
+        "observed_sha256": "71407bc42a992351dfed4c25179d3b9116dd671fc96a2c11d3c01d8ae5c7fc03",
+        "path": "inputs/AP-EVALUATION-BRIEFING-009.md"
+      },
+      {
+        "bytes": 20197,
+        "expected_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "match": true,
+        "observed_sha256": "74ff94508f61c8a36957fc33f232624ad921e219482887194e4ef5434e693c00",
+        "path": "inputs/AP-CANDIDATES-006.md"
+      },
+      {
+        "bytes": 21937,
+        "expected_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "match": true,
+        "observed_sha256": "83105ae06ca91a6861e45391a5b9a93ccc831a919f12e81d356c4ca0241fb439",
+        "path": "inputs/AP-COMPARISON-006.md"
+      },
+      {
+        "bytes": 407,
+        "expected_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "match": true,
+        "observed_sha256": "90d0fe3d56c4eecaae63a7c9291d7e51eec9ccd767b335a07da1109914ce5333",
+        "path": "inputs/problem-origin.md"
+      },
+      {
+        "bytes": 5376,
+        "expected_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "match": true,
+        "observed_sha256": "ad3802e8672fc1366a04ff1e141aeef2951968cc7dd972e25f97512ea1d9eb2f",
+        "path": "inputs/F-DISPOSITION-003.yaml"
+      },
+      {
+        "bytes": 358,
+        "expected_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "match": true,
+        "observed_sha256": "c42eefa19ff0032d624fc8c92f209e97273bfd41f5744a52d8e785d17cd0ac64",
+        "path": "inputs/target.md"
+      },
+      {
+        "bytes": 4357,
+        "expected_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "match": true,
+        "observed_sha256": "cd3879ca943e48108c331a610ad9565f9a3d1037deeb6b55fcd66abea42cf5a1",
+        "path": "inputs/D002-INTERFACE-DISPOSITION.yaml"
+      },
+      {
+        "bytes": 6826,
+        "expected_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "match": true,
+        "observed_sha256": "d0faf69b08c0ae08f74773cd711658641fcecaa47c2762b9c45dd3322fdda550",
+        "path": "inputs/AS-ADDENDUM-008-R1.md"
+      },
+      {
+        "bytes": 4350,
+        "expected_sha256": "d6a62e0f524396a8226c6dbee71e8d081b20e1dbeee1cf59f6cd452e65230529",
+        "match": true,
+        "observed_sha256": "d6a62e0f524396a8226c6dbee71e8d081b20e1dbeee1cf59f6cd452e65230529",
+        "path": "inputs/AP-EVIDENCE-DISPOSITION-010.yaml"
+      },
+      {
+        "bytes": 4224,
+        "expected_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "match": true,
+        "observed_sha256": "d7bdf51424b25e768f1438d382f499f28ecead706208ece37d0737c7e8fafb1c",
+        "path": "inputs/AS-ACTIVATION-002.yaml"
+      }
+    ],
+    "controls": {
+      "AGENTS.md": "3a4fc4b16ed84f4d28e79d2bbae2e5e8c9e22adef57e94aedc5c57b4547339cc",
+      "TASK.md": "9896179d9b62216d0c0f92bfc9bd4251cfda7c60e2297ca5cef06b80df00129d",
+      "inputs/SHA256SUMS": "43a1d12dfabe4c7458896aec0af84ad73999eaddfd45fcbfdd6a64d76ded00dd"
+    },
+    "imports": [
+      "itertools",
+      "json",
+      "sys"
+    ],
+    "matched": 16,
+    "payload_count": 16,
+    "runtime": {
+      "executable": "/usr/sbin/python3",
+      "version": "3.14.7 (main, Aug 10 2026, 07:46:56) [GCC 16.1.1 20260728]"
+    },
+    "verification_command": "python3 -B - <<'PY'\nfrom pathlib import Path\nimport ast, hashlib, json, sys\nchecks = []\nfor line in Path('inputs/SHA256SUMS').read_text().splitlines():\n    expected, name = line.split()\n    path = Path('inputs') / name\n    data = path.read_bytes()\n    observed = hashlib.sha256(data).hexdigest()\n    checks.append({'path': str(path), 'expected_sha256': expected, 'observed_sha256': observed, 'bytes': len(data), 'match': expected == observed})\nif not all(c['match'] for c in checks):\n    raise RuntimeError('source hash mismatch')\ncontrols = {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in ('AGENTS.md', 'TASK.md', 'inputs/SHA256SUMS')}\nartifacts = {name: hashlib.sha256(Path(name).read_bytes()).hexdigest() for name in ('out/IF11_TRACE_MODEL.py', 'out/IF11_FEASIBILITY.md', 'out/IF11_BRIEFING.md')}\nsource = Path('out/IF11_TRACE_MODEL.py').read_text()\ntree = ast.parse(source)\nimports = sorted(node.names[0].name for node in ast.walk(tree) if isinstance(node, ast.Import))\nif imports != ['itertools', 'json', 'sys'] or any(isinstance(n, ast.ImportFrom) for n in ast.walk(tree)):\n    raise RuntimeError('unexpected import')\nprint(json.dumps({'checks': checks, 'controls': controls, 'artifacts': artifacts, 'imports': imports, 'runtime': {'executable': sys.executable, 'version': sys.version}, 'payload_count': len(checks), 'matched': sum(c['match'] for c in checks)}, sort_keys=True))\nPY",
+    "expected_exit_code": 0,
+    "observed_exit_code": 0,
+    "scope": "16 current payloads; not prior Stage-9/10 manifest counts or authenticated historical execution",
+    "receipt_self_hash_excluded": true
+  },
+  "access_boundary": {
+    "read_inputs": "AGENTS.md, TASK.md, inputs/SHA256SUMS and exactly its 16 payloads; own four outputs inspected for validation",
+    "git_history_used": false,
+    "other_workspaces_used": false,
+    "network_used": false,
+    "connected_apps_used": false,
+    "hidden_solution_used": false,
+    "subagents_used": false,
+    "OS_isolation_verified": false,
+    "connector_isolation_verified": false,
+    "provenance_limit": "Hashes establish current byte consistency only. No historical role separation/runtime isolation is authenticated."
+  },
+  "active_boundaries": {
+    "AS": [
+      "AS-REV-002 activated by AS-ACTIVATION-002",
+      "AS-ADDENDUM-008-R1 activated by AS-ADDENDUM-008-R1-DISPOSITION"
+    ],
+    "obligations": [
+      "exact latest-32 squared sum for each accepted valid event",
+      "accepted rank n is one-based since explicit reset; actual consumer must decode it",
+      "invalid attempts cannot advance numeric/index/association state",
+      "old accepted debt survives reset/restart/fault report",
+      "reset ordering and old/new association mandatory; distinct ACK optional",
+      "2048 detector-attributable bytes including persistent/scratch/owned stack",
+      "no hardware-FPU dependency",
+      "nominal 1 ms is not a hard deadline"
+    ],
+    "not_supplied": [
+      "publisher backpressure/pause/lossless staging",
+      "actual exact rank/context supplier",
+      "RN, RI or C-HIST accepted service",
+      "reliable transport, retry or universal crash-survival guarantee",
+      "finite epoch, forced reset or valid-sample loss authority"
+    ],
+    "D002": "All six disclosure/refinement/ownership/proof/F clauses retained.",
+    "F": {
+      "hard_gates": [
+        "H1_EXACTNESS",
+        "H2_STARTUP_RESET",
+        "H3_PER_EVENT_PAIR",
+        "H4_INVALID_AND_OBSERVABLE_FAULTS",
+        "H5_OWNED_RAM_2048_BYTE_CEILING",
+        "H6_NO_HARDWARE_FPU_DEPENDENCE"
+      ],
+      "active_axes": [
+        "RAM_peak",
+        "compute_effort",
+        "device_energy_consumption"
+      ],
+      "all_realized_values": "UNKNOWN",
+      "comparison": "No compatible full Pareto comparison or AP ranking; unknown is not zero, PASS or tie.",
+      "flash": "INACTIVE_UNKNOWN",
+      "device_energy": "Electrical joules distinct from signal E_n; no compatible measurements."
+    },
+    "proof": {
+      "T1": "Accepted future-numeric nonempty-continuation tail equivalence; excludes already-emitted output, logical index/reset/debt.",
+      "T2": "At fixed n>=32, deterministic complete retained numeric boundary, no external replay/readable uncounted history, unrestricted continuations: 2^372 states, >=372 bits/47 octets capacity. Not sufficient layout/local RAM bound for replay-open C.",
+      "C_local_no_replay": false,
+      "PO_003_1": "UNPROVEN",
+      "PO_003_3": "UNPROVEN",
+      "new_conditional_arguments": "BC2/BC6 are engineering conditional arguments, not accepted proof dispositions or VO discharge."
+    },
+    "all_realized_H": {
+      "A": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "B": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      },
+      "C": {
+        "H1": "UNKNOWN",
+        "H2": "UNKNOWN",
+        "H3": "UNKNOWN",
+        "H4": "UNKNOWN",
+        "H5": "UNKNOWN",
+        "H6": "UNKNOWN"
+      }
+    },
+    "T002": {
+      "T002-2": "OPEN",
+      "T002-3": "OPEN",
+      "T002-4": "OPEN",
+      "T002-5": "OPEN",
+      "T002-6": "OPEN",
+      "T002-7": "OPEN",
+      "T002-8": "OPEN"
+    },
+    "R4": "OPEN_DEFERRED"
+  },
+  "contracts": {
+    "S": {
+      "classification": "PROPOSED_SYNCHRONOUS_PHYSICAL_REFINEMENT_CONTRACT",
+      "decoder": "Consumer r increments on ordered success only; marker advances/reset context and zeroes r. No oracle labels or attempt counts enter decoder.",
+      "explicit_assumptions": [
+        "single outstanding acceptance; publisher coordination assumed",
+        "ordered reliable success/rejection and drain-before-reset marker",
+        "consumer retains exact rank/reset context across modeled restart"
+      ],
+      "lifetime": "Restart at action boundaries retains exact context. Old debt drained before reset completion; no universal inside-action crash guarantee.",
+      "rank_resources": "Consumer exact count/reset context grows; finite closed energy-only variant cannot support arbitrary rank. Detector-side S has no rank counter.",
+      "local_bounded_mechanism": "One live acceptance/result slot possible only with proposed publisher/rendezvous coordination; full allocation unmeasured.",
+      "actual_supplier_established": false
+    },
+    "X": {
+      "classification": "PROPOSED_EXPLICIT_SEQUENCE_ORDINAL_PHYSICAL_REFINEMENT_CONTRACT",
+      "decoder": "Canonical binary sequence/rank fields plus E; ordered reset marker checked by consumer; old frames keep original identity.",
+      "explicit_assumptions": [
+        "hypothetical exact sequence/accepted-ordinal owner",
+        "canonical binary framing and event-bound immutable response",
+        "ordered exact reset-completion frames; old numeric commits fenced before reset",
+        "lossless retained debt; restart preserves received-event dedup state"
+      ],
+      "lifetime": "Old numeric commit fenced before reset; old frames/debt survive. Model retains dedup/reset state across restart; safe deletion not proved.",
+      "rank_resources": "Exact numeral/reset generation, framing/parser lengths, output debt/retries and consumer seen set can grow; no finite external storage claimed.",
+      "actual_supplier_established": false
+    },
+    "C": {
+      "explicit_assumptions": [
+        "provider=True explicitly supplies pinned correct-event pre-tail",
+        "provider=False supplies nothing; no real C-HIST/RN is present"
+      ],
+      "provider_when_enabled": "TEST-only upstream accepted raw31 and immutable correct-event pre-tail",
+      "provider_when_disabled": "No energy produced; faults/None cannot discharge the two requested debts.",
+      "real_provider_established": false
+    }
+  },
+  "experiments": {
+    "capture": "exec_command output contains exactly one model stdout JSON line with newline; model prints no other diagnostics.",
+    "expected_output_basis": "Explicit dossier group counts and witness values; metadata/assumptions declared in source. Exact one-line strings retained for replay; not independent target qualification.",
+    "final": {
+      "command": "python3 -B out/IF11_TRACE_MODEL.py",
+      "seed": null,
+      "source_sha256": "d592a4b4908604213fed97b3c3340a2efbb034abd2ceb2d64b0ad0e4510e79a4",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0,
+      "expected_total_cases": 14327,
+      "observed_total_cases": 14327,
+      "expected_discrepancies": 0,
+      "observed_discrepancies": 0,
+      "expected_group_counts": {
+        "G01_rejection_state_invariance": 18,
+        "G01_valid_invalid_decoders": 1458,
+        "G02_numeric_reset_controls": 33,
+        "G03_X_lifecycle_schedules": 12636,
+        "G04_S_drained_no_ACK": 39,
+        "G05_restart_ambiguity_negative": 1,
+        "G05_restart_retention_control": 2,
+        "G06_ACK_only_negative": 2,
+        "G06_explicit_sequence_positive": 2,
+        "G07_retirement_positive": 4,
+        "G07_tag_reuse_negative": 4,
+        "G08_Q_plus_1_negative": 8,
+        "G08_extra_storage_positive": 8,
+        "G08_rendezvous_positive": 8,
+        "G09_bound_retry_positive": 4,
+        "G09_duplicate_frame_dedup": 4,
+        "G09_new_accept_is_not_recovery": 4,
+        "G09_new_accept_numeric_control": 4,
+        "G10_C_absence_debt_count": 1,
+        "G10_C_absence_retains_unmet_obligation": 1,
+        "G10_provider_availability": 6,
+        "G11_snapshot_event_binding_negative": 1,
+        "G12_large_rank_representation": 7,
+        "G12_malformed_binary": 4,
+        "G13_numeric_tail_not_debt": 1,
+        "G14_debt_family_distinctions": 5,
+        "G14_debt_family_numeric_control": 62
+      },
+      "expected_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"ordered exact reset-completion frames; old numeric commits fenced before reset\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+      "observed_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"ordered exact reset-completion frames; old numeric commits fenced before reset\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+      "exact_output_match": true
+    },
+    "mutation": {
+      "command": "python3 -B - <<'PY'\nfrom pathlib import Path\nsource = Path('out/IF11_TRACE_MODEL.py').read_text()\nneedle = 'return int(word, 2)'\nif source.count(needle) != 1:\n    raise RuntimeError('mutation site count differs')\nmutant = source.replace(needle, 'return int(word, 2) % (1 << 256)')\nexec(compile(mutant, '<IF11-in-memory-256-bit-wrap-mutant>', 'exec'), {'__name__': '__main__'})\nPY",
+      "seed": null,
+      "source_sha256_base": "d592a4b4908604213fed97b3c3340a2efbb034abd2ceb2d64b0ad0e4510e79a4",
+      "mutation": "In-memory only: parse_bits int(word,2) modulo 2**256. No mutant file.",
+      "expected_exit_code": 1,
+      "observed_exit_code": 1,
+      "expected_total_cases": 14327,
+      "observed_total_cases": 14327,
+      "expected_discrepancies": 1,
+      "observed_discrepancies": 1,
+      "expected_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"ordered exact reset-completion frames; old numeric commits fenced before reset\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":1,\"failures\":[{\"expected\":[[0,115792089237316195423570985008687907853269984665640564039457584007913129639937,0],257],\"group\":\"G12_large_rank_representation\",\"observed\":[[0,1,0],257]}],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":1},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+      "observed_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"ordered exact reset-completion frames; old numeric commits fenced before reset\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":1,\"failures\":[{\"expected\":[[0,115792089237316195423570985008687907853269984665640564039457584007913129639937,0],257],\"group\":\"G12_large_rank_representation\",\"observed\":[[0,1,0],257]}],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":1},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+      "exact_output_match": true,
+      "big_integer_recording": "Full decimal integer preserved inside exact stdout strings; no JSON-number round-off introduced."
+    },
+    "development_runs_not_pooled": [
+      {
+        "command": "python3 -B out/IF11_TRACE_MODEL.py",
+        "source_revision": "superseded: before G14 debt family and X marker tracking",
+        "source_sha256_at_execution": null,
+        "seed": null,
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "total_cases": 14260,
+        "discrepancies": 0,
+        "expected_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14260,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+        "observed_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14260,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+        "stdout_recording": "First terminal output fields preserved; serialization reconstructed from its exact deterministic field set. Superseded source not an identity-pinned final artifact."
+      },
+      {
+        "command": "python3 -B out/IF11_TRACE_MODEL.py",
+        "source_revision": "superseded: G14 present, before X marker tracking",
+        "source_sha256_at_execution": null,
+        "seed": null,
+        "expected_exit_code": 0,
+        "observed_exit_code": 0,
+        "total_cases": 14327,
+        "discrepancies": 0,
+        "expected_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+        "observed_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":0,\"failures\":[],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":0},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n"
+      },
+      {
+        "command": "python3 -B - <<'PY'\nfrom pathlib import Path\nsource = Path('out/IF11_TRACE_MODEL.py').read_text()\nneedle = 'return int(word, 2)'\nif source.count(needle) != 1:\n    raise RuntimeError('mutation site count differs')\nmutant = source.replace(needle, 'return int(word, 2) % (1 << 256)')\nexec(compile(mutant, '<IF11-in-memory-256-bit-wrap-mutant>', 'exec'), {'__name__': '__main__'})\nPY",
+        "source_revision": "superseded in-memory wrap mutation before X marker tracking",
+        "source_sha256_at_execution": null,
+        "seed": null,
+        "expected_exit_code": 1,
+        "observed_exit_code": 1,
+        "total_cases": 14327,
+        "discrepancies": 1,
+        "expected_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":1,\"failures\":[{\"expected\":[[0,115792089237316195423570985008687907853269984665640564039457584007913129639937,0],257],\"group\":\"G12_large_rank_representation\",\"observed\":[[0,1,0],257]}],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":1},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n",
+        "observed_stdout": "{\"AP_selected\":false,\"assumptions\":{\"C\":[\"provider=True explicitly supplies pinned correct-event pre-tail\",\"provider=False supplies nothing; no real C-HIST/RN is present\"],\"S\":[\"single outstanding acceptance; publisher coordination assumed\",\"ordered reliable success/rejection and drain-before-reset marker\",\"consumer retains exact rank/reset context across modeled restart\"],\"X\":[\"hypothetical exact sequence/accepted-ordinal owner\",\"canonical binary framing and event-bound immutable response\",\"lossless retained debt; restart preserves received-event dedup state\"],\"scope\":[\"finite enumerations, no random seed\",\"Python arbitrary precision/list storage is not bounded MCU RAM\",\"no universal crash survival, deadline, fairness or availability\"]},\"discrepancies\":1,\"failures\":[{\"expected\":[[0,115792089237316195423570985008687907853269984665640564039457584007913129639937,0],257],\"group\":\"G12_large_rank_representation\",\"observed\":[[0,1,0],257]}],\"full_H1_H6_PASS\":false,\"groups\":{\"G01_rejection_state_invariance\":{\"cases\":18,\"discrepancies\":0},\"G01_valid_invalid_decoders\":{\"cases\":1458,\"discrepancies\":0},\"G02_numeric_reset_controls\":{\"cases\":33,\"discrepancies\":0},\"G03_X_lifecycle_schedules\":{\"cases\":12636,\"discrepancies\":0},\"G04_S_drained_no_ACK\":{\"cases\":39,\"discrepancies\":0},\"G05_restart_ambiguity_negative\":{\"cases\":1,\"discrepancies\":0},\"G05_restart_retention_control\":{\"cases\":2,\"discrepancies\":0},\"G06_ACK_only_negative\":{\"cases\":2,\"discrepancies\":0},\"G06_explicit_sequence_positive\":{\"cases\":2,\"discrepancies\":0},\"G07_retirement_positive\":{\"cases\":4,\"discrepancies\":0},\"G07_tag_reuse_negative\":{\"cases\":4,\"discrepancies\":0},\"G08_Q_plus_1_negative\":{\"cases\":8,\"discrepancies\":0},\"G08_extra_storage_positive\":{\"cases\":8,\"discrepancies\":0},\"G08_rendezvous_positive\":{\"cases\":8,\"discrepancies\":0},\"G09_bound_retry_positive\":{\"cases\":4,\"discrepancies\":0},\"G09_duplicate_frame_dedup\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_is_not_recovery\":{\"cases\":4,\"discrepancies\":0},\"G09_new_accept_numeric_control\":{\"cases\":4,\"discrepancies\":0},\"G10_C_absence_debt_count\":{\"cases\":1,\"discrepancies\":0},\"G10_C_absence_retains_unmet_obligation\":{\"cases\":1,\"discrepancies\":0},\"G10_provider_availability\":{\"cases\":6,\"discrepancies\":0},\"G11_snapshot_event_binding_negative\":{\"cases\":1,\"discrepancies\":0},\"G12_large_rank_representation\":{\"cases\":7,\"discrepancies\":1},\"G12_malformed_binary\":{\"cases\":4,\"discrepancies\":0},\"G13_numeric_tail_not_debt\":{\"cases\":1,\"discrepancies\":0},\"G14_debt_family_distinctions\":{\"cases\":5,\"discrepancies\":0},\"G14_debt_family_numeric_control\":{\"cases\":62,\"discrepancies\":0}},\"physical_qualification\":false,\"seed\":null,\"study_id\":\"CLN-001-IF11\",\"total_cases\":14327,\"witnesses\":{\"Q2_capacity\":{\"accepted_unpublished\":3,\"assumption\":\"entry_only\",\"missing_slots\":1,\"retained_slots\":2},\"coherent_wrong_event\":{\"correct\":5,\"wrong\":9},\"debt_family\":{\"blocks_tested\":[1,2,3,4,5],\"distinct_debt_transcripts\":[2,4,8,16,32],\"numeric_final_states_per_length\":1},\"equal_old_new\":{\"ACK_alone_resolves\":false,\"n_E\":[1,1],\"sequences\":[0,1]},\"provider_matrix\":{\"A\":[true,true],\"B\":[true,true],\"C\":[false,true],\"availability_columns\":[false,true]},\"restart_energy_only\":{\"consumer_view\":[\"restart\",[\"success\",0]],\"lost_context_decoder_ranks\":[1,1],\"required_ranks\":[1,2]},\"retry_value_1\":{\"bound_retry\":[0,1,1],\"fresh_accept\":[0,2,2],\"original\":[0,1,1]},\"schedule_domain\":{\"base_schedules\":324,\"restart_positions_per_schedule\":13}}}\n"
+      }
+    ],
+    "oracle_independence": "Spec full accepted histories and independent slice/squares; Numeric A/B/C and consumer decoders do not read Spec. Same author/runtime/event scripts; not independently authored or physical supplier proof.",
+    "case_unit": "One Suite.check call; some cases replay whole traces or compare two histories. Not accepted-event count. 27 subgroup counters across G01-G14.",
+    "scheduling_domain": "324 base schedules including nine value pairs; 13 restart positions; three kernels. Old commit precedes reset start; no partial write/crash exploration.",
+    "source_language_limits": [
+      "Python arbitrary precision, maps/sets and copied snapshots",
+      "test histories/staging not an implementation RAM bound",
+      "framed Python tuples not a byte-transport parser",
+      "restart only between actions with explicitly retained context",
+      "no target/compiler/stack/timing/electrical measurement",
+      "positive assumed suppliers are not created or authorized"
+    ]
+  },
+  "findings": [
+    {
+      "id": "BC1",
+      "hypothesis_class": "CONDITIONAL_INFORMATION_IMPOSSIBILITY",
+      "assumptions": [
+        "lost accepted-context state",
+        "energy-only post-restart view",
+        "no accessible prefix/rank"
+      ],
+      "conclusion": "Identical restarted zero observations require ranks 1 and 2; excludes only this information-starved interface.",
+      "witness_groups": "G05",
+      "ledger_dependencies": "L1",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC2",
+      "hypothesis_class": "CONDITIONAL_FINITE_STATE_ARGUMENT",
+      "assumptions": [
+        "finite closed consumer",
+        "identical zero-event observations",
+        "no external transcript/numeral/clock/timing state",
+        "unrestricted accepted rank"
+      ],
+      "conclusion": "Repeated consumer state and identical next input cannot decode distinct required next ranks; not a universal AS impossibility.",
+      "witness_groups": "G05/G12 plus dossier proof",
+      "ledger_dependencies": "L1/L4",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC3",
+      "hypothesis_class": "FINITE_COUNTEREXAMPLE_AND_CONDITIONAL_REFINEMENT",
+      "assumptions": [
+        "old debt survives reset",
+        "equal old/new n and E",
+        "ACK has no binding/fence"
+      ],
+      "conclusion": "ACK alone aliases; S drain/marker and X explicit sequence succeed under named assumptions.",
+      "witness_groups": "G04/G06",
+      "ledger_dependencies": "L3",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC4",
+      "hypothesis_class": "FINITE_TAG_FALSIFIER_AND_RETIREMENT_CONTROL",
+      "assumptions": [
+        "finite tag modulus",
+        "old response remains live",
+        "reuse without full retirement"
+      ],
+      "conclusion": "Tag reuse collides for M=1,2,4,8; proven retirement avoids coexistence only under its explicit assumption.",
+      "witness_groups": "G07",
+      "ledger_dependencies": "L3",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC5",
+      "hypothesis_class": "ENTRY_ONLY_CAPACITY_FALSIFIER",
+      "assumptions": [
+        "Q indivisible result slots",
+        "Q+1 valid accept/commits",
+        "no publication/other queue/staging/store/replay/compression",
+        "no coordinated admission",
+        "arbitrarily long finite stall allowed; no deadline assumption"
+      ],
+      "conclusion": "Exactly one entry exceeds capacity; extra storage or a different coordinated schedule changes the boundary.",
+      "witness_groups": "G08",
+      "ledger_dependencies": "L2/L8",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC6",
+      "hypothesis_class": "CONDITIONAL_INFORMATION_LOWER_BOUND",
+      "assumptions": [
+        "unrestricted accepted prefixes and outage lengths",
+        "no publication during prefix",
+        "complete deterministic retained boundary",
+        "no uncounted channel/input/timing/history/store/replay",
+        "no admission/flow restriction",
+        "eventual opportunity to deliver"
+      ],
+      "conclusion": "m blocks of (1 or 2,32 zeros) yield 2^m owed transcripts at identical numeric tail/rank; >=m bits required. Finite closed unrestricted model blocked, not all AS implementations.",
+      "witness_groups": "G14 plus dossier proof",
+      "ledger_dependencies": "L2/L8",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC7",
+      "hypothesis_class": "FINITE_NUMERIC_VERSUS_DEBT_COUNTEREXAMPLE",
+      "assumptions": [
+        "old results unpaid",
+        "latest numeric tail/energy only retained"
+      ],
+      "conclusion": "Histories 1/2 then 32 zeros have equal future numeric state but different first debt.",
+      "witness_groups": "G13",
+      "ledger_dependencies": "L2/L3",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC8",
+      "hypothesis_class": "FINITE_RETRY_CONTROL",
+      "assumptions": [
+        "retry intent explicitly bound or fresh acceptance",
+        "retained immutable frame binding",
+        "retained consumer dedup"
+      ],
+      "conclusion": "Bound retry preserves original event; fresh accept creates new rank/energy. No real retry protocol supplied.",
+      "witness_groups": "G09",
+      "ledger_dependencies": "L3",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC9",
+      "hypothesis_class": "HYPOTHETICAL_SERVICE_CONTROL_AND_BINDING_FALSIFIER",
+      "assumptions": [
+        "provider absent/present explicitly toggled",
+        "C needs pre-event snapshot",
+        "A/B retain local tails"
+      ],
+      "conclusion": "A/B numeric computations do not need snapshots; absent C provider leaves two debts. Coherent wrong-event snapshot gives 9 instead of 5.",
+      "witness_groups": "G10/G11",
+      "ledger_dependencies": "L5",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    },
+    {
+      "id": "BC10",
+      "hypothesis_class": "FINITE_REPRESENTATION_AND_MUTATION_CONTROL",
+      "assumptions": [
+        "canonical binary framing",
+        "arbitrary precision test runtime",
+        "explicit hypothetical numeral owner"
+      ],
+      "conclusion": "Seven large ranks round-trip; 256-bit wrap mutant fails at 2^256+1. Arbitrary-rank support still needs growing state/framing/work.",
+      "witness_groups": "G12",
+      "ledger_dependencies": "L4/L8",
+      "source": "out/IF11_FEASIBILITY.md section 4",
+      "accepted_theorem": false,
+      "realized_H_status": "UNKNOWN"
+    }
+  ],
+  "resource_boundary": {
+    "detector": "max simultaneous live numeric+order+owned rank/debt/reset/retry/staging/scratch/stack+attributable shared allocation; count every allocation once",
+    "exact_rank": "L(n)=floor(log2 n)+1 bits for positive ordinary binary rank; bytes/objects/framing add costs",
+    "live_variables": [
+      "d(t) unpaid accepted events",
+      "z(t) old reset contexts",
+      "r(t) retained retry bindings",
+      "p(t) pinned snapshot versions"
+    ],
+    "consumer": "S exact rank/reset context; X parsed numerals/reset context and retained dedup set; growth not hidden",
+    "upstream": "C accepted tail plus pinned immutable snapshots, exact ordinal/reset source if X, result/retry storage and service/client cost; exclusively upstream exclusion only with ownership evidence",
+    "compute_effort": "UNKNOWN complete scope; include all variable-length rank, flow, reset/retry/fault/service work",
+    "device_energy_consumption": "UNKNOWN; reconcile same-device upstream and external-service scopes; compare completed equivalent debt/work",
+    "RAM_peak": "UNKNOWN for A/B/C; no <=2048 claim"
+  },
+  "blocker_ledger": [
+    {
+      "id": "L1",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "consumer/integration owner",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "next interface evidence; before full H3",
+      "next_action": "Name actual consumer, retained state and restart boundary; challenge hidden zero prefix and invalid-between-accepts.",
+      "provisional_eligibility_effect": "Passing supports only that decoder; failure excludes that interface variant.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L2",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "publisher/detector/transport integration owners",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "before acceptance/retention contract and H3/H5",
+      "next_action": "With declared Q stall receipt and attempt Q+1 valid values; locate every accepted debt and all storage without omissions.",
+      "provisional_eligibility_effect": "Establishes an assessable flow/storage branch or blocks the specified contract.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L3",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "consumer/transport lifecycle owners",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "before full H2/H3/H4",
+      "next_action": "Hold old (1,1), reset, create new (1,1), swap receipts, restart and force tag reuse; inventory buffered/retry copies.",
+      "provisional_eligibility_effect": "Demonstrated binding/fence supports only the named lifecycle scheme.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L4",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "prospective association/context supplier; diagnostic delegate for approval",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "capability inquiry next; reviewed contract before reliance",
+      "next_action": "Identify actual ordinal/context provider first; test invalid attempts/retries, power-of-two lengths and retained rank source.",
+      "provisional_eligibility_effect": "Absent supplier leaves X/external-context branch UNKNOWN; no finite wrapping repair.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L5",
+      "applies_to": [
+        "C"
+      ],
+      "owner_role": "prospective publisher-history supplier; diagnostic delegate for approval",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "before C full H1/H2/H3 or memory-advantage claims",
+      "next_action": "Identify actual snapshot provider; concurrent append/reset and delayed read for prior 1/current 2 must give 5; evict after acceptance and locate debt.",
+      "provisional_eligibility_effect": "Truthful available event-bound snapshots and ownership enable further C evaluation only.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L6",
+      "applies_to": [
+        "A"
+      ],
+      "owner_role": "detector implementation owner",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "separately authorized realization; before H1/H5/H6",
+      "next_action": "Instantiate chosen-width raw31 and full allocation/stack; challenge expiry/reset fence after interface envelope is concrete.",
+      "provisional_eligibility_effect": "Scoped numeric/build evidence still depends on L1-L4.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L7",
+      "applies_to": [
+        "B"
+      ],
+      "owner_role": "detector implementation owner",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "separately authorized realization; before H1/H2/H5/H6",
+      "next_action": "Test square31/S/cursor expiry and interrupted coupled writes/reset; account representations and stack.",
+      "provisional_eligibility_effect": "Scoped transition evidence cannot supply missing consumer/flow contracts.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L8",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "resource/integration owners",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "allocation contract before H5; target evidence before target claims",
+      "next_action": "Complete simultaneous peak ownership/lifetime table for exact rank, d debt, z resets, r retries, p snapshots and all stacks/buffers.",
+      "provisional_eligibility_effect": "Only proved attributable peak <=2048 can support H5; unknown ownership is not zero.",
+      "status": "OPEN"
+    },
+    {
+      "id": "L9",
+      "applies_to": [
+        "A",
+        "B",
+        "C"
+      ],
+      "owner_role": "target/build/measurement owner",
+      "owner_is_required_role_not_appointed_supplier": true,
+      "due_stage": "after supplier/lifecycle envelope; before full F comparison/target claims",
+      "next_action": "Pin target/build/workload/interval, equal debt endpoints and lifecycle/service work; measure timing/compute/joules with uncertainty.",
+      "provisional_eligibility_effect": "Compatible F comparison only after hard gates; never automatic AP selection.",
+      "status": "OPEN"
+    }
+  ],
+  "smallest_follow_up": {
+    "owners": [
+      "consumer/integration owner",
+      "publisher/detector/transport owners",
+      "diagnostic sponsor-delegate for authority questions"
+    ],
+    "action": "Obtain one concrete consumer/state/restart inventory and prospective Q+1 acceptance/retention trace; run zero-prefix restart, equal-payload reset and saturation before target expense.",
+    "provider_inquiry": "Identify actual numeral/context or C snapshot supplier if investigating those branches; do not presume one.",
+    "decision_boundary": "Determine from new evidence whether existing-AS contracts suffice, newly reviewed external services are needed, or a material behavior/AS amendment is required. IF11 does not decide this.",
+    "next_gate": "Distinct independent review of these exact four raw outputs; later AP commitment requires separate authority."
+  }
+}
