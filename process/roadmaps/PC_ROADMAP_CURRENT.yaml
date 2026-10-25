@@ -604,6 +604,14 @@ parallel_exploratory_implementation_and_progress_harness:
   prototype: experiments/cln001/integration_c/
   prototype_host_result: experiments/cln001/integration_c/EXPERIMENT-RESULT-001.json
   host_test_status: AUTHOR_EXECUTED_OPTIMIZED_AND_ASAN_UBSAN_ZERO_EXIT_PENDING_REVIEW
+  flow_002_experiment: experiments/cln001/integration_c/src/cln_flow_experiment.c
+  flow_002_receipt: experiments/cln001/integration_c/FLOW-RESULT-002.json
+  flow_002_test: bash experiments/cln001/integration_c/run_flow.sh
+  flow_002_host_result: GCC_AND_ASAN_UBSAN_EXIT_ZERO_55775_ACCEPTED_PER_ALGORITHM
+  flow_002_scope: ONE_OFFER_ONE_DEBT_ORDERED_CONSUMER_DEFERRED_RESET_HYPOTHETICAL
+  flow_002_physical_publisher_verified: false
+  flow_002_consumer_restart_and_unbounded_rank_verified: false
+  flow_002_independent_review: PENDING
   full_AS_compliant: false
   full_H1_H6_realized: UNKNOWN
   internal_numeric_kernel_A_B: HOST_EXPERIMENT_ONLY
