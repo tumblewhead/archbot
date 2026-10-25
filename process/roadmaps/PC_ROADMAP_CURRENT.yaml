@@ -14,6 +14,7 @@ source_of_truth:
   fr002_replacement_design: docs/PC_COOPERATIVE_OPERATING_MODEL.md
   fr002_bounded_replacement_proposal: process/proposals/FR002_BASELINE_CONTINUITY_REPLACEMENT_001.yaml
   human_machine_protocol: process/pull_run_push_contract.v1.json
+  evidence_progress_and_harness_plan: process/roadmaps/CLN001_PROGRESS_AND_HARNESS_001.yaml
 precedence:
   - "Read actual current Git HEAD and current authority receipts before acting."
   - "AGENTS.md and current PROJECT_SPINE.md govern startup, scope and next eligibility."
@@ -594,6 +595,28 @@ stage12_independent_IF11_review:
   review_expected_to_check: "Exact runnable model, mutation, trace assumptions and unpaid-debt bound before separate delegated evidence disposition."
   after_review: CONCRETE_NEW_INTEGRATION_OR_FIXED_WIDTH_C_EXPERIMENT_IF_AUTHORIZED
   no_AP_selection_from_review_alone: true
+parallel_exploratory_implementation_and_progress_harness:
+  status: PARALLEL_WORK_BRANCH_AUTHOR_EVIDENCE_NOT_ACTIVE_ACCEPTED_GATE
+  branch: work/cln001-integration-c-kernel-harness
+  base_commit: 869dd6793b9b31ce4afe9063134fd0802de926de
+  project_progress_note: docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md
+  roadmap_companion: process/roadmaps/CLN001_PROGRESS_AND_HARNESS_001.yaml
+  prototype: experiments/cln001/integration_c/
+  prototype_host_result: experiments/cln001/integration_c/EXPERIMENT-RESULT-001.json
+  host_test_status: AUTHOR_EXECUTED_OPTIMIZED_AND_ASAN_UBSAN_ZERO_EXIT_PENDING_REVIEW
+  full_AS_compliant: false
+  full_H1_H6_realized: UNKNOWN
+  internal_numeric_kernel_A_B: HOST_EXPERIMENT_ONLY
+  interface_S: BOUNDED_SYNCHRONOUS_HYPOTHETICAL_PRODUCER_CONSUMER
+  bounded_rank_failure: UINT64_EXHAUSTION_NOT_AN_APPROVED_EPOCH_CAP
+  no_new_selection_or_CON_DE_C_authority: true
+  offline_harness_input_id: ARCHBOT-HARNESS-ARCHITECTURE-001
+  offline_harness_design: docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md
+  offline_harness_status: PROPOSED_NOT_IMPLEMENTED_NOT_APPROVED
+  harness_d01_d05: DESIGN_DRAFTS_REQUIRE_SEPARATE_SOURCE_AND_AUTHORITY_REVIEW
+  no_cloud_or_github_runtime_dependency_planned: true
+  keep_current_stage12_formal_gate: true
+  next: "Independent reproduction of exploratory C/S witness, then actual owned publisher/consumer/debt contract."
 next_eligible_action:
   type: CLN001_STAGE12_INDEPENDENT_REVIEW_OF_NEW_IF11_EVIDENCE
   subject: "Independently reproduce and audit new S/X decoder, output-debt and information-bound source evidence; no physical AP approval."
