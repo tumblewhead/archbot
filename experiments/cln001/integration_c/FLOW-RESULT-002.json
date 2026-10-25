@@ -1,0 +1,78 @@
+{
+  "schema": "cln001-flow-contract-experiment/v1",
+  "id": "CLN001-FLOW-002",
+  "status": "AUTHOR_EXECUTED_HOST_FINITE_EVIDENCE_PENDING_INDEPENDENT_REVIEW",
+  "parent": "CLN001-INTEGRATION-C-EXPERIMENT-001",
+  "branch": "work/cln001-integration-c-kernel-harness",
+  "claimed_full_AS_compliance": false,
+  "AP_selected": false,
+  "CON_DE_C_approved": false,
+  "target_verified": false,
+  "product_verified": false,
+  "VO_discharged": [],
+  "implementation_scope": "Bounded one-offer publisher slot; one unpaid result; ordered S consumer decodes rank from success events; drain-before-reset with staged preacceptance offer; uint64_t finite rank/sequence",
+  "source_sha256": {
+    "include/cln_numeric.h": "17af95a5988b612b295df0975836eb07a174a6d767ab83e7364851e329def39d",
+    "include/cln_sync_experiment.h": "ab0df634de780971a3e7b1c655207b3eca138ca75e614ad11621aaf10577c3b1",
+    "include/cln_flow_experiment.h": "770ce4dfcf0c47f947c291ed6358b260abb990f54f039a22f0cc8faa2535455c",
+    "src/cln_numeric.c": "c50efcf5627c7bd44ddd926c7f9c79ce7d62a9cb8c07f5797c78b9940b23aa11",
+    "src/cln_sync_experiment.c": "1b44dc935fe999e065291579b580f9d81871a067fa2aac2f3e70424477dadb6b",
+    "src/cln_flow_experiment.c": "3780c52cbb4eabcfa0a4969f9e31e6d0e31cee393db56d9ac1c6486fd8e4b24f",
+    "tests/test_flow.c": "ca34abd548514b2f3404223c25b9b538a73c91d80b23f5765ce8076110e733df"
+  },
+  "source_identity_method": "Compared local git hash-object (Git blob SHA-1) of every seven test/source files with exact GitHub returned blob identifiers; these bytes compiled in the container.",
+  "host_toolchain": {
+    "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
+    "standard": "C11",
+    "system": "Linux container, not user's local MCU"
+  },
+  "runs": [
+    {
+      "command": "gcc -std=c11 -O2 -Wall -Wextra -Werror -pedantic -Iinclude src/cln_numeric.c src/cln_sync_experiment.c src/cln_flow_experiment.c tests/test_flow.c -o flow_test && ./flow_test",
+      "cwd": "cln-flow-local",
+      "exit_code": 0,
+      "stdout": "{\"study\":\"CLN001-FLOW-001\",\"accepted_per_algorithm\":55775,\"algorithms\":2,\"assertions_complete\":true,\"model_scope_only\":true,\"full_AS_pass\":false,\"actual_publisher_verified\":false}"
+    },
+    {
+      "command": "gcc -std=c11 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Werror -pedantic -Iinclude src/cln_numeric.c src/cln_sync_experiment.c src/cln_flow_experiment.c tests/test_flow.c -o flow_san && ASAN_OPTIONS=detect_leaks=1:abort_on_error=1 ./flow_san",
+      "cwd": "cln-flow-local",
+      "exit_code": 0,
+      "stdout": "{\"study\":\"CLN001-FLOW-001\",\"accepted_per_algorithm\":55775,\"algorithms\":2,\"assertions_complete\":true,\"model_scope_only\":true,\"full_AS_pass\":false,\"actual_publisher_verified\":false}"
+    }
+  ],
+  "preliminary_failure": {
+    "observed": "First host test failed an energy assertion due to a test oracle summing 32 prior samples rather than 31",
+    "action": "Corrected only the test oracle bound to 31 preceding samples; final optimized and sanitizer runs succeeded",
+    "claim": "This is a test oracle defect, not demonstrated C kernel failure"
+  },
+  "covered_witnesses": [
+    "Input range rejection does not mutate a staged state",
+    "Second offer rejected BUSY while producer staging slot occupied",
+    "Unpaid result blocks a second commit",
+    "Reset requested while a result is owed cannot complete",
+    "Unaccepted producer-staged input survives deferred reset and commits after marker",
+    "Consumer derives exact finite rank from ordered energy receipts, not the detector rank",
+    "Duplicate receive when no debt is rejected",
+    "Fixed-width ordinal exhaustion leaves staged input unaccepted and preserved",
+    "Consumer rank context loss on restart produces wrong rank (expected negative control)",
+    "Source computes exact 32-window energy with independently implemented 31-prior-sample oracle",
+    "55,775 accepted test events for each algorithm including deferred-reset staged inputs"
+  ],
+  "assumptions": [
+    "Publisher can retain/retry valid offers rejected BUSY; not guaranteed by original publisher contract",
+    "Consumer is always eventually available; calls are atomic and ordered with no crash mid-receive/reset",
+    "Consumer owns and preserves its sequence/ordinal across modeled restarts (negative test shows failure when lost)",
+    "No extra asynchronous arrivals or interrupt interleavings",
+    "At most one offered-but-unaccepted sample, at most one accepted-but-unreceived result",
+    "64-bit sequence/index eventually exhaust and do not meet unrestricted AS",
+    "Memory layout was not measured as a complete stack/queue/transport allocation",
+    "No device electrical energy, target cycles, or hardware FPU/dependency qualification"
+  ],
+  "next_required_evidence": [
+    "Distinct independent test review of exact C source, test oracle and mutation controls",
+    "Name actual physical producer, consumer and ownership; test actual acceptance under continuous arrivals/stalls",
+    "Add physical pending-result retention/retry/consumer restart persistence where available",
+    "Determine full attributable RAM including live stack and each staging/transport buffer",
+    "Independent AS impact decision if input restrictions or bounded rank are proposed"
+  ]
+}
