@@ -1,0 +1,69 @@
+{
+  "schema": "cln001-c-exploratory-evidence/v1",
+  "study_id": "CLN001-INTEGRATION-C-EXPERIMENT-001",
+  "evidence_status": "AUTHOR_EXECUTED_HOST_ONLY_PENDING_DISTINCT_REVIEW",
+  "branch": "work/cln001-integration-c-kernel-harness",
+  "source_branch_base": "869dd6793b9b31ce4afe9063134fd0802de926de",
+  "compiler": {
+    "name": "gcc",
+    "version": "14.2.0",
+    "target": "host Linux",
+    "flags": [
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pedantic"
+    ]
+  },
+  "host_environment": "Linux 6.18.55; container, not user/local target device",
+  "executions": [
+    {
+      "command": "bash experiments/cln001/integration_c/run.sh",
+      "exit_code": 0,
+      "output": {
+        "study": "CLN001-C-PROTOTYPE",
+        "numeric_accepted": 155494,
+        "uninterrupted_accepted": 32768,
+        "sync_accepted": 12112,
+        "raw_state_bytes": 64,
+        "square_state_bytes": 132,
+        "sync_state_bytes": 152,
+        "full_AS_pass": false,
+        "all_assertions_completed": true
+      }
+    },
+    {
+      "command": "gcc -std=c11 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Werror -pedantic -Iinclude src/cln_numeric.c src/cln_sync_experiment.c tests/test_cln.c -o /tmp/cln001_san && ASAN_OPTIONS=detect_leaks=1 /tmp/cln001_san",
+      "cwd": "experiments/cln001/integration_c",
+      "exit_code": 0,
+      "output": "same JSON as optimized execution"
+    }
+  ],
+  "source_sha256": {
+    "include/cln_numeric.h": "17af95a5988b612b295df0975836eb07a174a6d767ab83e7364851e329def39d",
+    "include/cln_sync_experiment.h": "ab0df634de780971a3e7b1c655207b3eca138ca75e614ad11621aaf10577c3b1",
+    "src/cln_numeric.c": "c50efcf5627c7bd44ddd926c7f9c79ce7d62a9cb8c07f5797c78b9940b23aa11",
+    "src/cln_sync_experiment.c": "1b44dc935fe999e065291579b580f9d81871a067fa2aac2f3e70424477dadb6b",
+    "tests/test_cln.c": "3863971441be52db142ff42ca7bc528b7a5829a6ee99762410cb4e1d6a25b742",
+    "run.sh": "3ddd5e64db05a5f974029245cb3e90989e42b67e9116d96a1c0d0b8f40486f8d"
+  },
+  "claims_not_established": [
+    "Complete actual consumer decoder for arbitrary lifetime",
+    "Real lossless publisher admission/backpressure",
+    "Retained unpaid result debt across faults or resets",
+    "Real C snapshot or exact ordinal service",
+    "Complete 2048-byte attributable peak RAM incl stack",
+    "Target MCU instruction/dependency qualification",
+    "Complete compute F or electrical device-energy F",
+    "AP selection, CON/DE/C or any T002/VO discharge"
+  ],
+  "known_shortfall": "The synchronous interface uses uint64_t ordinal/sequence and reports exhausted; this is insufficient for unrestricted accepted index, so full AS is NOT satisfied.",
+  "AP_selected": false,
+  "AS_changed": false,
+  "all_full_H1_H6_PASS": false,
+  "target_verified": false,
+  "product_verified": false,
+  "vo_discharged": []
+}
