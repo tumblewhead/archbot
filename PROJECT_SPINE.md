@@ -53,6 +53,23 @@ formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
 ## Parallel evidence prototype and roadmap improvement (not active Stage-12 authority)
 
+**FLOW-002 newly executed host evidence:** An additional
+[finite publisher/consumer C flow witness](experiments/cln001/integration_c/README.md)
+uses a one-sample offered input slot and one accepted-but-unreceived
+result, orders commit/receipt, defers reset through debt settlement,
+and keeps pre-reset offered (not accepted) samples for admission after
+the reset marker. GCC 14.2 optimized and ASan/UBSan runs each returned
+zero with 55,775 accepted events per A/B model. Exact checked source
+bytes and initial oracle off-by-one correction are in
+[FLOW-RESULT-002.json](experiments/cln001/integration_c/FLOW-RESULT-002.json).
+**This is bounded conditional evidence, not a working physical ADC
+publisher:** a second offer returns BUSY; upstream lossless staging
+and retry are unsupported. The consumer's rank state is hypothetical
+and retained, the 64-bit rank exhausts, publication/receipt is assumed
+atomic and actual reset/restart/pending-output recovery is not tested.
+All fully realized H1–H6 remain UNKNOWN; independent evidence review
+is pending, and the original Stage-12 IF11 review is not replaced.
+
 A separately branched exploratory C experiment and bounded S
 synchronous interface witness are authored at
 [experiments/cln001/integration_c](experiments/cln001/integration_c/README.md)
