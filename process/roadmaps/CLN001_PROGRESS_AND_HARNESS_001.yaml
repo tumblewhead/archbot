@@ -56,6 +56,33 @@ parallel_exploratory_experiments:
       - "uint64_t rank and reset counter can EXHAUST; full AS H3 remains UNKNOWN."
     next: "Real publisher/consumer owner inventory and lossless acceptance/debt/reset contract."
     accepted_hard_gates: []
+  - id: FLOW-002
+    source: experiments/cln001/integration_c/src/cln_flow_experiment.c
+    status: BOUNDED_HOST_AUTHOR_EVIDENCE_PENDING_DISTINCT_REVIEW
+    test: bash experiments/cln001/integration_c/run_flow.sh
+    sanitizer_test: SANITIZE=1 bash experiments/cln001/integration_c/run_flow.sh
+    receipt: experiments/cln001/integration_c/FLOW-RESULT-002.json
+    reported_host_accepted_per_candidate: 55775
+    provisional_positive_claim: >-
+      Under a cooperative one-slot publisher offer, one detector
+      result debt and atomically acknowledged ordered consumer
+      receipt, a reset request defers completion until debt is paid.
+      An already offered but not accepted sample can be admitted
+      after the reset marker.
+    tested_negative_controls: [BUSY_SECOND_OFFER, DEBT_BLOCKS_COMMIT,
+      DEBT_BLOCKS_RESET, INVALID_NO_STATE_CHANGE,
+      DUPLICATE_RECEIPT_REJECTED, LOST_CONSUMER_RANK_CONTEXT,
+      UINT64_RANK_EXHAUSTED]
+    unclosed_physical_gates: [REAL_PUBLISHER_LOSSLESS_STAGING,
+      CONSUMER_RESTART_PERSISTENCE, ATOMIC_RECEIPT_AND_COMMIT,
+      UNBOUNDED_INDEX, ASYNCHRONOUS_DEBT_RETENTION,
+      TARGET_PEAK_RAM_AND_STACK, ELECTRICAL_ENERGY]
+    no_full_AS_compliance_claim: true
+    next: >-
+      Independent exact-source host/sanitizer replay and deliberate
+      interruption/backpressure stress, followed by an actual
+      producer/consumer owner and failure-contract inventory.
+    accepted_hard_gates: []
 harness_architecture:
   status: ARCHITECTURE_REQUEST_AND_BOUNDED_DESIGN_NOT_IMPLEMENTED
   principles: [ARTIFACT_FIRST, NONLINEAR_ENTRY, CONTINUOUS_INTERVENTION,
