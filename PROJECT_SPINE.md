@@ -51,6 +51,41 @@ remain UNKNOWN. T002-2..8 OPEN, R4 sustained detector deferred,
 PO-003-1/3 UNPROVEN. No CON/DE/C, external service approval,
 formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
+## Parallel evidence prototype and roadmap improvement (not active Stage-12 authority)
+
+A separately branched exploratory C experiment and bounded S
+synchronous interface witness are authored at
+[experiments/cln001/integration_c](experiments/cln001/integration_c/README.md)
+with an [author-executed host test receipt](experiments/cln001/integration_c/EXPERIMENT-RESULT-001.json).
+The source bytes passed optimized GCC and sanitizer host runs in the
+assistant's container; no local Cortex-M/target test or independent
+review has occurred. A's 31 raw samples and B's 31 squares plus
+sum are implemented as fixed-width C numeric kernels with independent
+32-slot oracle tests. The S caller is explicitly bounded: its
+`uint64_t` ordinal/sequence eventually exhaust, it has no
+real asynchronous publisher or owed-result queue, and **cannot be
+claimed full-AS compliant**. Full H1-H6 remain UNKNOWN and A/B/C
+unselected. The experiment does not start protected CON/DE/C.
+
+The previously identified **review-without-evidence-progress defect**
+is now referenced by the actual central
+[roadmap](process/roadmaps/PC_ROADMAP_CURRENT.yaml), its
+[typed companion](process/roadmaps/CLN001_PROGRESS_AND_HARNESS_001.yaml),
+and original [retrospective](docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md).
+A separate human design request `ARCHBOT-HARNESS-ARCHITECTURE-001`
+is reflected in a
+[bounded offline open-source harness architecture proposal](docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md),
+including D01-D05 design drafts: artifact-first, nonlinear entry,
+deterministic authorized mutation, provenance, durable worker replay,
+composable spines and human intervention. It is **not**
+a deployed orchestrator, changed process authority or a new
+cleanroom Toy1 run.
+
+The original experiment branch and its next Stage-12 independent
+IF11 evidence review remain untouched and necessary. The parallel
+prototype and harness design require separate review before any
+adoption or merge.
+
 **Parked ideas:** [Process Orchestrator and Human Attention Contract](docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md)
 and [Goblin Graph BKP spine builder](docs/GOBLIN_GRAPH_SPINE_BUILDER_REUSE_NOTE.md)
 are design proposals, not authorized framework implementations.
