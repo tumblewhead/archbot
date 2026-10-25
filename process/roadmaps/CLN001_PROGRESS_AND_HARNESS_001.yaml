@@ -1,0 +1,100 @@
+schema: pc-program-evidence-throughput-and-harness-roadmap/v1
+id: CLN001-PROGRESS-AND-HARNESS-001
+status: PROPOSED_PARALLEL_EXPERIMENT_ROADMAP_NOT_ACTIVE_GATE_CHANGE
+date: "2026-10-24"
+branch: work/cln001-integration-c-kernel-harness
+baseline_experiment_branch: experiment/toy1-pipe-cleaner-001
+baseline_ref: 869dd6793b9b31ce4afe9063134fd0802de926de
+owner: CLN001_diagnostic_sponsor_delegate_for_scoped_experiments
+source_notes:
+  engineering_retro: docs/CLN001_PROGRESS_GAP_AND_ORCHESTRATOR_PILOT_001.md
+  orchestrator_proposal: docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md
+  harness_architecture_request: ARCHBOT-HARNESS-ARCHITECTURE-001
+  harness_architecture_design: docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md
+lessons:
+  - id: PROGRESS-1
+    finding: "Independent review can validate unchanged UNKNOWNs without advancing physical feasibility."
+    corrective_rule_proposed: >-
+      Every high-impact decision-blocking UNKNOWN must carry an owner,
+      a discriminating evidence-acquisition task, due gate and a
+      decision it would unlock. Reviewer receipt is not evidence creation.
+    classification: PROCESS_DESIGN_NOT_ACTIVATED
+  - id: HUMAN-TIME-1
+    finding: "Manual pull, agent launch, archive, push and recover are mechanical oversight overhead."
+    corrective_rule_proposed: >-
+      A deterministic, durable orchestrator should automate authorized
+      mechanical transitions, retaining human attention for changed
+      requirements, risk, AP commitments and surprising evidence.
+    classification: HARNESS_DESIGN_NOT_IMPLEMENTED
+  - id: SOURCES-1
+    finding: "Numerical state, accepted-result debt and consumer index have different information lifetimes."
+    corrective_rule_proposed: "Require evidence at explicitly owned consumer and publication boundaries."
+    classification: NEW_CLN001_CONDITIONAL_WORK_NOT_GATE_DISCHARGE
+current_diagnostic:
+  completed_author_evidence: reviews/diagnostics/CLN-001-TASK-011/IF11_FEASIBILITY.md
+  prior_author_commit: 1baf0d1fc03c67fc181341e8f53dac9011581c52
+  mandatory_pending_review: reviews/diagnostics/CLN-001-TASK-012/STAGE12_HANDOFF.md
+  stage12_status: PREPARED_NOT_ARCHIVED_AS_OF_BASE_REF
+  next_eligible_formal_gate: STAGE12_INDEPENDENT_IF11_EVIDENCE_REVIEW
+  no_new_AP_selection: true
+  no_CON_DE_C_authority: true
+parallel_exploratory_experiments:
+  - id: NUM13-C
+    source: experiments/cln001/integration_c/
+    status: HOST_SOURCE_AND_TEST_RESULTS_AUTHORED_PENDING_DISTINCT_REVIEW
+    candidate_scope: [AP-006-A_NUMERIC_ONLY, AP-006-B_NUMERIC_ONLY]
+    evidence: experiments/cln001/integration_c/EXPERIMENT-RESULT-001.json
+    test: bash experiments/cln001/integration_c/run.sh
+    next: "Independent reproduction, chosen-width audit and complete stack/allocation inventory."
+    accepted_hard_gates: []
+  - id: IF13-S
+    source: experiments/cln001/integration_c/include/cln_sync_experiment.h
+    status: BOUNDED_SYNCHRONOUS_HOST_INTERFACE_MODEL
+    operating_assumptions:
+      - "Synchronous caller; no accepted-but-unpublished state modeled."
+      - "Publisher never runs independently or loses samples."
+      - "uint64_t rank and reset counter can EXHAUST; full AS H3 remains UNKNOWN."
+    next: "Real publisher/consumer owner inventory and lossless acceptance/debt/reset contract."
+    accepted_hard_gates: []
+harness_architecture:
+  status: ARCHITECTURE_REQUEST_AND_BOUNDED_DESIGN_NOT_IMPLEMENTED
+  principles: [ARTIFACT_FIRST, NONLINEAR_ENTRY, CONTINUOUS_INTERVENTION,
+    SEPARATE_IDENTITY_AND_AUTHORITY, DETERMINISTIC_MUTATION,
+    EVIDENCE_GOVERNANCE, HISTORY_PRESERVATION, COMPOSABLE_KNOWLEDGE,
+    DURABLE_EXECUTION, MINIMAL_CONTEXT]
+  constraints:
+    offline: REQUIRED
+    open_source: REQUIRED
+    github_runtime_dependency: FORBIDDEN
+    llm: LOCAL_CAPABLE_PROVIDER_NEUTRAL
+    model_weights_license: TRACK_SEPARATELY
+    source_migration: NO_UNAUTHORIZED_MIGRATION
+    authority: HUMAN_REVIEWED_GATES_ONLY
+  deliverables:
+    D01: GAP_ANALYSIS_DESIGN_DRAFT
+    D02: REFERENCE_ARCHITECTURE_DESIGN_DRAFT
+    D03: ARTIFACT_ADMISSION_CONTRACT_DESIGN_DRAFT
+    D04: INCREMENTAL_MIGRATION_ROADMAP_DESIGN_DRAFT
+    D05: FAULT_INJECTION_ACCEPTANCE_PLAN_DESIGN_DRAFT
+  first_implementation_gate: >-
+    Separately review the draft design and authorize a minimal
+    offline local artifact admission plus durable event journal
+    with failure injection, not a process-wide rewrite.
+  offline_replay_before_live_agent_autonomy: true
+  cleanroom_Toy1_replay: AFTER_BASELINE_AND_SEPARATE_ISOLATION_AUTHORIZATION
+  no_auto_approval: true
+next_milestones:
+  - "Finish Stage12 independent review of IF11 on the diagnostic branch."
+  - "Independently reproduce new C host and bounded S integration evidence."
+  - "Identify actual publisher/consumer and replay/backpressure assumptions."
+  - "Obtain reversible AP decision if supportable; then CON, DE, C and scoped verification."
+  - "Implement and qualify offline harness micro-slice separately."
+  - "Compare completed baseline with fresh orchestrated Toy1, without old-solution leakage."
+metrics:
+  engineering: ["decision_blocking_unknowns_resolved", "new_evidence_per_iteration",
+    "obligations_due_and_satisfied", "independent_contradictions", "artifact_provenance"]
+  iteration: ["eligibility_to_reviewed_decision_seconds", "human_active_minutes",
+    "human_mechanical_interventions", "agent_uses", "retry_and_recovery_time",
+    "context_leak_or_invalid_authority_count"]
+  target_of_optimization: "Evidence acquired and correct decisions per engineering hour"
+  guardrails: ["NO_QUALITY_WEAKENING", "NO_AUTO_ACCEPT", "NO_FAKE_TARGET_METRICS"]
