@@ -92,3 +92,60 @@ remaining index/backpressure/debt assumptions rather than hiding
 them under a model-success or RAM claim. A subsequent distinct review
 must verify these bytes, measurements and scope before promoting
 any finding to an accepted evidence disposition.
+
+
+## FLOW-002: admission, debt and reset integration evidence
+
+New experimental S-model files:
+
+- `include/cln_flow_experiment.h`, `src/cln_flow_experiment.c`: one
+  offered-but-not-accepted publisher slot, one accepted-but-unreceived
+  result, explicit commit/receipt split and deferred reset.
+- `tests/test_flow.c`: independent 32-position test oracle which sums
+  the current value and **31 preceding** accepted samples, with
+  validity/reset/ordering/expiry and negative control assertions.
+- `run_flow.sh`: reproducible host test; `SANITIZE=1` enables a
+  second sanitizer compilation/run. Script builds in disposable
+  temporary storage, not in the repo.
+- `FLOW-RESULT-002.json`: author test results and byte-verified
+  inputs (not yet independently reviewed).
+
+To reproduce:
+
+```bash
+bash experiments/cln001/integration_c/run_flow.sh
+SANITIZE=1 bash experiments/cln001/integration_c/run_flow.sh
+```
+
+The completed GCC 14.2 host run and separate ASan/UBSan run each
+reported **55,775 accepted events per numeric algorithm**, with exit
+zero and no assertion failures. The first preliminary test exposed
+a *test-oracle* off-by-one (32 prior versus required 31); the corrected
+oracle was rerun successfully. The seven source/test files compiled
+were independently matched to their repository Git blob IDs.
+
+**Important semantics:** `offer` is not detector acceptance; it
+uses a hypothetical one-sample publisher staging slot.
+`BUSY` means that a second offered sample is neither accepted nor
+retained by this component. The real publisher must have its own
+lossless retention/retry behavior or the accepted operation may be
+unrealizable under continuous arrivals. `commit` accepts and creates
+one owed result. `receive` atomically transfers that result to an
+ordered consumer and discharges the debt *only under this host model*.
+A reset request is held until the owed result is received, and any
+already offered but unaccepted sample is committed **after** the
+reset marker. Distinct acknowledgment is not required by this model.
+
+The energy-only consumer's ordinal is inferred by counting ordered
+successful receipts. Artificially deleting consumer state demonstrates
+index ambiguity on restart; fixed `uint64_t` rank exhaustion remains
+a full-AS gap. The program assumes no failure mid-operation,
+no independent hardware data source, no transport interruption,
+persistent consumer context and no hard completion deadline.
+
+**This is not a complete contract.** No target allocation peak,
+stack bound, live publisher, actual retry persistence, device joule
+measurement, physical RI/RN/C-HIST service or formal H1–H6 PASS has
+been established. A/B/C remain unselected. The earlier
+`run.sh` numerical tests and `EXPERIMENT-RESULT-001.json` stay
+unchanged.
