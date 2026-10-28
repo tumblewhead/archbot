@@ -30,6 +30,19 @@ lessons:
     finding: "Numerical state, accepted-result debt and consumer index have different information lifetimes."
     corrective_rule_proposed: "Require evidence at explicitly owned consumer and publication boundaries."
     classification: NEW_CLN001_CONDITIONAL_WORK_NOT_GATE_DISCHARGE
+  - id: IMPLEMENTATION-S0
+    finding: "Implementation structure and resource consumption should be visible before algorithms obscure the module boundary."
+    user_direction: "Always begin implementation with a linkable skeleton; populate the skeleton afterward."
+    corrective_rule_proposed: >-
+      Build and link the entire intended module/API/port skeleton first,
+      record a baseline linker map, symbols, section placement and
+      incomplete stack/resource inventory, then populate one reviewed
+      contract or DE at a time with size/dependency deltas.
+    status: USER_REQUEST_RECORDED_PROPOSED_GENERIC_PLAYBOOK_REVISION
+    implementation_protocol: docs/IMPLEMENTATION_SKELETON_FIRST_001.md
+    proposed_playbook: process/playbooks/IMPLEMENT_DE.md
+    note: "The existing exploratory CLN001 C prototypes cannot be retroactively represented as skeleton-first evidence."
+
 current_diagnostic:
   completed_author_evidence: reviews/diagnostics/CLN-001-TASK-011/IF11_FEASIBILITY.md
   prior_author_commit: 1baf0d1fc03c67fc181341e8f53dac9011581c52
@@ -110,8 +123,22 @@ harness_architecture:
   offline_replay_before_live_agent_autonomy: true
   cleanroom_Toy1_replay: AFTER_BASELINE_AND_SEPARATE_ISOLATION_AUTHORIZATION
   no_auto_approval: true
+implementation_skeleton_first:
+  status: USER_REQUEST_CAPTURED_WORK_BRANCH_PROPOSAL_PENDING_GENERIC_REVIEW
+  protocol: docs/IMPLEMENTATION_SKELETON_FIRST_001.md
+  amended_playbook_candidate: process/playbooks/IMPLEMENT_DE.md
+  first_milestone: S0_COMPLETE_LINKABLE_MODULE_AND_PORT_SKELETON
+  baseline_evidence: [BUILD_STATUS, LINKER_MAP, SYMBOL_CROSS_REFERENCE,
+    TEXT_RODATA_DATA_BSS_OTHER_SECTIONS, MEMORY_REGION_ACCOUNTING,
+    STACK_ANALYSIS_LIMITATIONS, STUB_MANIFEST, SOURCE_AND_TOOLCHAIN_IDENTITY]
+  population_policy: INCREMENTAL_PER_APPROVED_DE_CONTRACT_WITH_LINK_AND_SIZE_DELTAS
+  qualifies_functionality: false
+  enforce_sram_resident_text_where_applicable: true
+  independent_process_review_before_generic_enforcement: true
+  existing_exploratory_prototype_s0_retroactively_claimed: false
 next_milestones:
   - "Finish Stage12 independent review of IF11 on the diagnostic branch."
+  - "At the next authorized implementation entry: establish linkable S0 and section/map baseline before populating behavior."
   - "Independently reproduce new C host and bounded S integration evidence."
   - "Identify actual publisher/consumer and replay/backpressure assumptions."
   - "Obtain reversible AP decision if supportable; then CON, DE, C and scoped verification."
