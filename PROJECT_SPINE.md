@@ -53,6 +53,25 @@ formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
 ## Parallel evidence prototype and roadmap improvement (not active Stage-12 authority)
 
+**New implementation-method direction, captured in the roadmap:** begin
+every authorized implementation at an **S0 linkable skeleton**
+containing the planned modules, exact public signatures, port and
+integration boundaries, and build/link configuration, *before* filling
+in application logic. Save an initial linker map, symbol/cross-reference
+inventory, section placement (`.text`, `.rodata`, `.data`, `.bss`),
+memory-region ownership and explicit stack/peak-memory unknowns.
+Then populate a single reviewed contract/DE at a time, relinking
+and measuring size/dependency deltas. A linked stub is a structural
+milestone, **not** evidence of functional compliance. Where
+instructions and constants are SRAM-resident, include them in
+the SRAM budget. See the user-directed
+[implementation skeleton-first protocol](docs/IMPLEMENTATION_SKELETON_FIRST_001.md),
+its [proposed IMPLEMENT_DE playbook amendment](process/playbooks/IMPLEMENT_DE.md),
+and the [CLN001 typed roadmap](process/roadmaps/CLN001_PROGRESS_AND_HARNESS_001.yaml).
+The generic process amendment is on the work branch pending review.
+Existing A/B and FLOW-002 prototypes were **not** created in
+skeleton-first order and must not be represented otherwise.
+
 **FLOW-002 newly executed host evidence:** An additional
 [finite publisher/consumer C flow witness](experiments/cln001/integration_c/README.md)
 uses a one-sample offered input slot and one accepted-but-unreceived
