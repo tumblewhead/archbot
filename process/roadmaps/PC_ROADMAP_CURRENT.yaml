@@ -624,6 +624,17 @@ parallel_exploratory_implementation_and_progress_harness:
   harness_d01_d05: DESIGN_DRAFTS_REQUIRE_SEPARATE_SOURCE_AND_AUTHORITY_REVIEW
   no_cloud_or_github_runtime_dependency_planned: true
   keep_current_stage12_formal_gate: true
+  skeleton_first_user_direction_recorded: true
+  skeleton_first_implementation_protocol: docs/IMPLEMENTATION_SKELETON_FIRST_001.md
+  skeleton_first_playbook_revision: process/playbooks/IMPLEMENT_DE.md
+  skeleton_first_revision_status: WORK_BRANCH_PROPOSAL_PENDING_GENERIC_PROCESS_REVIEW
+  skeleton_first_S0: COMPLETE_LINKABLE_STRUCTURE_AND_INITIAL_LINK_MAP_BEFORE_LOGIC
+  skeleton_first_evidence: [SYMBOL_DEPENDENCIES, LINKED_SECTION_BYTES,
+    MEMORY_REGIONS, PORT_AND_MODULE_LAYOUT, STUB_MANIFEST,
+    TOOLCHAIN_IDENTITY, STACK_ACCOUNTING_LIMITS]
+  skeleton_first_populate: INCREMENTAL_CONTRACT_BY_CONTRACT_RELNK_AND_SIZE_DELTA
+  skeleton_first_retrospective_claim_for_prior_prototypes: false
+  skeleton_first_full_functional_or_target_verification: false
   next: "Independent reproduction of exploratory C/S witness, then actual owned publisher/consumer/debt contract."
 next_eligible_action:
   type: CLN001_STAGE12_INDEPENDENT_REVIEW_OF_NEW_IF11_EVIDENCE
