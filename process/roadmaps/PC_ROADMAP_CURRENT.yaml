@@ -645,7 +645,10 @@ parallel_exploratory_implementation_and_progress_harness:
   elephant_goldfish_P0_tests: experiments/egm_serialization/tests/test_assess.py
   elephant_goldfish_status: USER_REPORTED_P0_10_PASS_P1_DIAGNOSTIC_SOURCE_PACKAGE_PREPARED_NOT_LAUNCHED
   elephant_goldfish_P0_user_report: experiments/egm_serialization/P0_USER_TEST_REPORT_001.json
-  elephant_goldfish_P0_independent_review: PENDING
+  elephant_goldfish_P0_independent_review: PREPARED_NOT_EXECUTED
+  elephant_goldfish_P0_review_handoff: experiments/egm_serialization/p0_review/README.md
+  elephant_goldfish_P0_review_preparer: experiments/egm_serialization/p0_review/prepare.sh
+  elephant_goldfish_P0_review_archiver: experiments/egm_serialization/p0_review/archive.sh
   elephant_goldfish_P1_preparer: experiments/egm_serialization/p1/prepare_p1.sh
   elephant_goldfish_P1_task: experiments/egm_serialization/p1/TASK_GOLDFISH.md
   elephant_goldfish_P1_reference: experiments/egm_serialization/p1/REFERENCE.json
