@@ -637,6 +637,8 @@ parallel_exploratory_implementation_and_progress_harness:
   skeleton_first_full_functional_or_target_verification: false
   elephant_goldfish_note_received: "2026-10-28"
   elephant_goldfish_input: archbot_research_note/v1.0/elephant_goldfish_model_applicability
+  elephant_goldfish_raw_note: docs/research/EGM_ELEPHANT_GOLDFISH_USER_NOTE_20261028.yaml
+  elephant_goldfish_raw_note_sha256: 5f496b9da56e3de64c4466192cc272678870dcc30d2a6046b28cd917dacf4952
   elephant_goldfish_proposal: docs/EGM_GOLDFISH_SERIALIZATION_001.md
   elephant_goldfish_research_roadmap: process/roadmaps/EGM_GOLDFISH_001.yaml
   elephant_goldfish_P0_comparator: experiments/egm_serialization/assess.py
