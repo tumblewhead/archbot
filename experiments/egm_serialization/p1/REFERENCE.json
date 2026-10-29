@@ -1,0 +1,96 @@
+{
+  "schema": "pc-egm-evaluator-reference/v0",
+  "project_id": "EGM-HARNESS-001",
+  "allowed_source_ids": [
+    "HARNESS",
+    "SKELETON",
+    "EGM"
+  ],
+  "required_facts": [
+    {
+      "id": "HARNESS-ARTIFACT-REGISTRY",
+      "kind": "MODULE",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "HARNESS"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "HARNESS-WORKFLOW-KERNEL",
+      "kind": "MODULE",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "HARNESS"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "HARNESS-CONTEXT-COMPILER",
+      "kind": "MODULE",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "HARNESS"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "HARNESS-EVIDENCE-AUTHORITY",
+      "kind": "MODULE",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "HARNESS"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "S0-LINKABLE-SKELETON",
+      "kind": "CONTRACT",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "SKELETON"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "EGM-FRESH-RECONSTRUCTION",
+      "kind": "VERIFICATION",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "EGM"
+      ],
+      "proof_conditions": []
+    },
+    {
+      "id": "EGM-NO-AUTO-ACCEPT",
+      "kind": "ASSUMPTION",
+      "authority": "PROPOSED",
+      "source_ids": [
+        "EGM"
+      ],
+      "proof_conditions": []
+    }
+  ],
+  "required_relations": [
+    {
+      "from": "HARNESS-CONTEXT-COMPILER",
+      "type": "DEPENDS_ON",
+      "to": "HARNESS-ARTIFACT-REGISTRY"
+    },
+    {
+      "from": "HARNESS-WORKFLOW-KERNEL",
+      "type": "DEPENDS_ON",
+      "to": "HARNESS-EVIDENCE-AUTHORITY"
+    },
+    {
+      "from": "S0-LINKABLE-SKELETON",
+      "type": "TESTED_BY",
+      "to": "EGM-FRESH-RECONSTRUCTION"
+    },
+    {
+      "from": "EGM-NO-AUTO-ACCEPT",
+      "type": "CONSTRAINS",
+      "to": "EGM-FRESH-RECONSTRUCTION"
+    }
+  ]
+}
