@@ -145,7 +145,11 @@ harness_architecture:
 egm_goldfish_serialization:
   status: USER_REPORTED_P0_10_OF_10_PASS_P1_SOURCE_PACKAGE_PREPARED_NOT_LAUNCHED
   p0_report: experiments/egm_serialization/P0_USER_TEST_REPORT_001.json
-  p0_independent_review: PENDING
+  p0_independent_review: PREPARED_NOT_EXECUTED
+  p0_review_task: experiments/egm_serialization/p0_review/TASK.md
+  p0_review_preparer: experiments/egm_serialization/p0_review/prepare.sh
+  p0_review_archiver: experiments/egm_serialization/p0_review/archive.sh
+  p0_review_handoff: experiments/egm_serialization/p0_review/README.md
   p1_task: experiments/egm_serialization/p1/TASK_GOLDFISH.md
   p1_spine: experiments/egm_serialization/p1/SPINE.md
   p1_prep: experiments/egm_serialization/p1/prepare_p1.sh
