@@ -3,10 +3,13 @@
 **Status:** PROPOSED RESEARCH / BOUNDED DIAGNOSTIC, NOT ACCEPTED
 GENERIC GATE OR FORMAL CLEANROOM QUALIFICATION.
 
-**Origin:** human-provided `archbot_research_note`, version `1.0`,
-topic `elephant_goldfish_model_applicability`, status `proposal`,
-received 2026-10-28. This document is a transformation of the
-proposal into a test plan, not an independent confirmation of its claims.
+**Origin:** [byte-preserved human research note](research/EGM_ELEPHANT_GOLDFISH_USER_NOTE_20261028.yaml),
+`archbot_research_note` version `1.0`,
+topic `elephant_goldfish_model_applicability`, `status: proposal`,
+received 2026-10-28. The original uploaded source had SHA-256
+`5f496b9da56e3de64c4466192cc272678870dcc30d2a6046b28cd917dacf4952`
+(14,228 bytes). This document is a transformation of that source
+into a test plan, not an independent confirmation of its claims.
 
 ## Why this belongs in Archbot
 
