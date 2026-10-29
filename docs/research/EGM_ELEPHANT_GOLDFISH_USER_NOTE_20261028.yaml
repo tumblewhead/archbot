@@ -1,0 +1,459 @@
+type: archbot_research_note
+version: "1.0"
+topic: elephant_goldfish_model_applicability
+audience: archbot_agent
+status: proposal
+source_context:
+  project: archbot
+  related_concepts:
+    - OKF
+    - spines
+    - metaspines
+    - proof_driven_architecture
+    - repository_as_canonical_memory
+    - fresh_agent_handoffs
+    - progressive_concretization
+
+summary:
+  thesis: >
+    The Elephant-Goldfish Model (EGM) is highly applicable to Archbot.
+    Archbot already implements several EGM-like behaviors independently:
+    long-context design agents, repository-authoritative state, compact spines,
+    fresh-agent handoffs, proof artifacts, and implementation validation.
+    The strongest synthesis is to treat Goldfish review as an explicit
+    serialization/deserialization test for architectural knowledge.
+
+mapping:
+  elephant:
+    archbot_equivalent:
+      - long_running_architecture_agent
+      - research_agent
+      - orchestration_agent
+    responsibilities:
+      - accumulate_context
+      - explore_design_space
+      - resolve_tradeoffs
+      - derive_architecture
+      - identify_hidden_assumptions
+
+  serialization_boundary:
+    archbot_equivalent:
+      - spine
+      - OKF_graph
+      - contracts
+      - proofs
+      - ERS
+      - verification_ladder
+      - continue_md
+      - agents_md
+    purpose:
+      - externalize_authoritative_knowledge
+      - remove_dependency_on_chat_memory
+      - preserve_provenance
+      - support_selective_context_reconstruction
+
+  goldfish:
+    archbot_equivalent:
+      - fresh_agent
+      - cleanroom_reviewer
+      - implementation_agent_with_minimal_context
+    responsibilities:
+      - reconstruct_design_from_artifacts_only
+      - identify_missing_assumptions
+      - detect_ambiguous_links
+      - challenge_architecture
+      - verify_implementability
+      - detect_specification_leakage_from_elephant_memory
+
+  proof_layer:
+    archbot_extension_over_basic_egm:
+      - formalize_accepted_assumptions
+      - constrain_legal_implementation_transformations
+      - provide_pre_code_architecture_tests
+      - convert_design_intent_into_checkable_invariants
+
+  implementation:
+    archbot_equivalent:
+      - cleanroom_C_agent
+      - implementation_branch
+    rule: >
+      Implementation should consume only authoritative serialized artifacts and
+      referenced source material, not undocumented Elephant conversation state.
+
+  drift_check:
+    archbot_equivalent:
+      - architecture_vs_code_review
+      - proof_vs_code_review
+      - spine_refresh
+      - verification_ladder
+    purpose:
+      - detect_implementation_drift
+      - detect_spec_drift
+      - detect_stale_links
+      - detect_hidden_new_assumptions
+
+core_insight:
+  serialization_test_model:
+    elephant: "live_object_graph"
+    spine_and_specs: "serialized_state"
+    goldfish: "fresh_process"
+    success_condition: >
+      A fresh agent can reconstruct, critique, verify, and implement the system
+      correctly using only the serialized repository artifacts and permitted
+      source references.
+    failure_condition: >
+      The fresh agent requires undocumented conversational context, guesses an
+      architectural decision, misinterprets ownership, or cannot determine why
+      an invariant exists.
+    interpretation: >
+      Any such failure is evidence that the architecture has not been fully
+      serialized into the repository.
+
+recommended_archbot_flow:
+  - id: E1
+    name: elephant_exploration
+    inputs:
+      - problem_statement
+      - source_material
+      - existing_spines
+    outputs:
+      - candidate_architecture
+      - explicit_open_questions
+      - assumptions
+      - proposed_OKF_links
+
+  - id: E2
+    name: deterministic_serialization
+    inputs:
+      - accepted_architecture
+    outputs:
+      - updated_spine
+      - contracts
+      - typed_OKF_relationships
+      - proof_obligations
+    constraints:
+      - only_deterministic_writer_mutates_canonical_spine
+      - LLM_proposes_changes
+      - schema_and_business_logic_validate_changes
+
+  - id: E3
+    name: goldfish_review
+    context_policy:
+      fresh_agent: true
+      conversation_history: none
+      allowed_inputs:
+        - target_spine
+        - explicitly_linked_artifacts
+        - required_source_documents
+    review_roles:
+      - naive_reader
+      - architecture_critic
+      - implementer
+      - verification_engineer
+      - dependency_auditor
+    outputs:
+      - missing_information
+      - ambiguous_relationships
+      - unverifiable_claims
+      - implementation_blockers
+      - suggested_proof_obligations
+
+  - id: E4
+    name: elephant_resolution
+    inputs:
+      - goldfish_findings
+    outputs:
+      - accepted_resolutions
+      - rejected_findings_with_rationale
+      - updated_architecture
+
+  - id: E5
+    name: proof_gate
+    outputs:
+      - architecture_proofs
+      - invariants
+      - boundedness_claims
+      - failure_conditions
+      - verification_mapping
+    rule: >
+      Proof artifacts should be treated as architecture-level unit tests before
+      implementation begins.
+
+  - id: E6
+    name: cleanroom_implementation
+    context_policy:
+      fresh_agent: preferred
+      source_of_truth:
+        - spine
+        - contracts
+        - proofs
+        - ERS
+        - implementation_plan
+    initial_action:
+      - create_linkable_skeleton
+    outputs:
+      - code
+      - build_artifacts
+      - implementation_notes
+
+  - id: E7
+    name: post_implementation_goldfish
+    goals:
+      - compare_code_to_architecture
+      - compare_code_to_proofs
+      - identify_new_undocumented_assumptions
+      - detect_context_leakage
+      - detect_spine_drift
+
+  - id: E8
+    name: canonical_refresh
+    outputs:
+      - refreshed_spine
+      - refreshed_proofs
+      - refreshed_continue_md
+      - preserved_evidence
+      - next_action
+
+goldfish_test_classes:
+  comprehension:
+    question: "Can a fresh agent explain the system correctly?"
+    detects:
+      - missing_context
+      - unexplained_terms
+      - ownership_ambiguity
+
+  dependency:
+    question: "Can a fresh agent derive who depends on whom and why?"
+    detects:
+      - missing_OKF_links
+      - hidden_cross_component_assumptions
+      - incomplete_metaspine_relations
+
+  implementation:
+    question: "Can a fresh agent produce a correct linkable skeleton?"
+    detects:
+      - underspecified_interfaces
+      - missing_ABI_constraints
+      - missing_initialization_order
+      - hidden_runtime_assumptions
+
+  proof:
+    question: "Can a fresh agent explain why each optimization or invariant is legal?"
+    detects:
+      - proof_not_serialized
+      - assumptions_only_known_to_elephant
+      - invalid_specialization
+
+  verification:
+    question: "Can a fresh agent derive the required tests from the architecture?"
+    detects:
+      - incomplete_verification_ladder
+      - claims_without_evidence_paths
+
+  zoom_out:
+    question: "Does the architecture still make sense as a composed system?"
+    detects:
+      - local_optima
+      - emergent_cross_spine_failures
+      - metaspine_gaps
+
+relationship_to_spines:
+  recommendation: >
+    Treat a spine as the compact serialization root for Goldfish reconstruction,
+    not as a complete monolithic specification.
+  desired_property: >
+    The spine should contain enough typed links and local context for a fresh
+    agent to decide what additional nodes to traverse.
+  avoid:
+    - copying_all_source_material_into_spine
+    - requiring_elephant_chat_history
+    - flattening_large_evidence_into_context
+  principle: >
+    Preserve full provenance and retrievability while minimizing initial
+    context load.
+
+relationship_to_metaspines:
+  recommendation: >
+    Use Goldfish agents to derive and validate metaspine topics from dependency
+    graphs across pure component spines.
+  examples:
+    - power
+    - clocks
+    - reset
+    - startup_order
+    - shared_interrupts
+    - memory_ownership
+    - timing_dependencies
+  rule: >
+    Component spines remain component-pure; metaspines capture emergent
+    composition behavior.
+
+relationship_to_proofs:
+  key_observation: >
+    Archbot can go beyond ordinary EGM by making proofs part of the serialized
+    state consumed by Goldfish and implementation agents.
+  benefits:
+    - prevents_architecture_intent_from_remaining_tacit
+    - makes_optimizations_legible_to_fresh_agents
+    - supports_preimplementation_failure_detection
+    - creates_machine_checkable_or_reviewable_change_boundaries
+  interpretation: >
+    Proofs function as architecture unit tests before C code exists.
+
+potential_new_archbot_features:
+  - name: goldfish_score
+    description: >
+      Quantify how independently reconstructable a spine/spec is.
+    candidate_metrics:
+      - unresolved_terms
+      - undocumented_dependencies
+      - missing_authority_links
+      - implementation_questions
+      - assumptions_not_backed_by_artifacts
+      - traversal_depth_required
+
+  - name: serialization_completeness_gate
+    description: >
+      Block implementation when a fresh agent cannot reconstruct required
+      architecture without asking the Elephant for undocumented context.
+
+  - name: goldfish_role_matrix
+    roles:
+      - naive_reader
+      - implementation_engineer
+      - verification_engineer
+      - architecture_critic
+      - dependency_auditor
+      - security_or_safety_reviewer
+    description: >
+      Run multiple independent fresh reviews with different failure-detection
+      objectives.
+
+  - name: context_leak_detector
+    description: >
+      Flag statements in implementation or review that rely on facts absent
+      from the traversed OKF subgraph.
+
+  - name: proof_link_requirement
+    description: >
+      Require architecture-changing implementation optimizations to reference
+      the proof or contract that licenses them.
+
+  - name: spine_deserialization_test
+    description: >
+      Ask a fresh agent to reconstruct a machine-readable architecture model
+      from the spine and compare it against the canonical model.
+
+  - name: goldfish_cleanroom_build
+    description: >
+      Give a fresh implementation agent only the selected spine projection and
+      require a linkable skeleton before substantive code is added.
+
+  - name: drift_goldfish
+    description: >
+      After implementation, use a fresh agent to compare code, generated
+      artifacts, proofs, and spine relationships for divergence.
+
+important_distinction:
+  statement: >
+    Goldfish should not merely be a reviewer with a fresh chat.
+  stronger_archbot_definition: >
+    A Goldfish is an intentional test of whether authoritative system knowledge
+    has been successfully serialized into the repository graph.
+  consequence: >
+    If a Goldfish needs to ask the Elephant what something means, that question
+    should usually result in a repository artifact improvement rather than an
+    ephemeral answer.
+
+risks:
+  - risk: goldfish_context_starvation
+    mitigation: >
+      Allow graph traversal from a compact spine rather than forcing an
+      artificially tiny fixed context.
+
+  - risk: elephant_overfitting_to_goldfish_feedback
+    mitigation: >
+      Preserve independent reviewer roles and require explicit rationale when
+      rejecting findings.
+
+  - risk: artifact_bloat
+    mitigation: >
+      Keep spines compact and link to proofs, reports, datasets, and source
+      evidence rather than embedding them.
+
+  - risk: false_independence
+    mitigation: >
+      Ensure Goldfish agents do not inherit hidden conversation summaries or
+      undocumented orchestration state.
+
+  - risk: goldfish_becomes_new_elephant
+    mitigation: >
+      Bound each review task and discard conversational state after the review.
+
+  - risk: stale_serialization
+    mitigation: >
+      Run drift review after code changes and require spine/proof refresh at
+      merge checkpoints.
+
+proposed_archbot_invariant:
+  id: EGM-INV-1
+  statement: >
+    No architectural fact required for correct implementation may exist only in
+    an agent's conversational memory.
+  verification: >
+    A fresh Goldfish implementation/review agent must be able to recover that
+    fact through the canonical spine/OKF graph and linked authoritative
+    artifacts.
+
+proposed_archbot_invariant_2:
+  id: EGM-INV-2
+  statement: >
+    Every architecture-changing implementation specialization must identify the
+    contract, proof, generated precondition, or source authority that licenses
+    it.
+
+proposed_archbot_invariant_3:
+  id: EGM-INV-3
+  statement: >
+    Failure of a fresh Goldfish to reconstruct a required dependency is treated
+    as a specification defect, not primarily as an agent defect.
+
+recommended_experiment:
+  name: toy1_egm_cleanroom_round
+  goal: >
+    Re-run toy-1 using explicit Elephant/serialization/Goldfish roles and
+    compare iteration count, implementation defects, context usage, and
+    architecture drift against the previous toy-1 run.
+  procedure:
+    - use_current_archbot_process_as_elephant
+    - serialize_authority_into_spine_OKF_contracts_and_proofs
+    - start_fresh_goldfish_without_chat_history
+    - require_goldfish_to_reconstruct_architecture
+    - record_every_question_or_ambiguity
+    - patch_repository_artifacts_not_goldfish_memory
+    - run_cleanroom_linkable_skeleton_implementation
+    - run_second_goldfish_as_postimplementation_auditor
+  metrics:
+    - goldfish_questions_count
+    - missing_link_count
+    - undocumented_assumption_count
+    - implementation_rework_cycles
+    - context_tokens_consumed
+    - time_to_linkable_skeleton
+    - proof_failures_before_code
+    - postimplementation_architecture_drift
+  expected_result: >
+    The explicit EGM framing should reduce hidden-context dependence and make
+    Archbot's existing spine/proof process easier to evaluate quantitatively.
+
+recommended_archbot_architecture_phrase:
+  concise: >
+    Elephant discovers; spine serializes; Goldfish deserializes and attacks;
+    proofs constrain; implementation concretizes; drift review closes the loop.
+
+priority:
+  recommendation: high
+  rationale: >
+    EGM aligns closely with Archbot's existing direction and provides a useful
+    conceptual model and measurable acceptance criterion for spines:
+    reconstructability by a fresh agent.
