@@ -82,7 +82,12 @@ and evaluator-only [reference](experiments/egm_serialization/p1/REFERENCE.json).
 The reference is a **provisional author draft** requiring independent
 source-grounded validation. The P1 worker has NOT been launched; no
 runtime isolation, semantic comparison or generic gate approval
-is claimed.
+is claimed. The next EGM-specific action is a
+[focused independent P0 checker and P1 answer-key review](experiments/egm_serialization/p0_review/README.md),
+with source-pinned preparer, independent reviewer, and restartable
+original-output archive. The EGM pilot's current target is source
+recoverability, not implementation correctness or a changed
+protected Stage-12 IF11 gate.
 The proposed EGM-INV-1/2/3 and mandatory fresh-Goldfish gates are
 not active policy. Source-pinned Goldfish reconstruction is a
 potential pre-code check of whether an independent implementer can
