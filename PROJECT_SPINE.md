@@ -53,6 +53,29 @@ formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
 ## Parallel evidence prototype and roadmap improvement (not active Stage-12 authority)
 
+**EGM Goldfish research input captured:** A user-supplied
+`archbot_research_note/v1.0` (Elephant–Goldfish Model) proposes
+testing architecture **serialization/deserialization** rather than
+treating every fresh review as an adequate handoff. The Elephant
+explores, the accepted spine/OKF/CON/proof/ERS graph serializes,
+and a truly fresh Goldfish reconstructs requirements, ownership
+and dependencies without conversational context. A private,
+independently source-grounded evaluator reference checks whether
+implementation-critical facts and proof conditions survive the
+boundary; a structural match cannot itself prove semantic accuracy
+or authority. See the
+[bounded EGM design](docs/EGM_GOLDFISH_SERIALIZATION_001.md),
+[typed EGM roadmap](process/roadmaps/EGM_GOLDFISH_001.yaml)
+and [offline structural checker/tests](experiments/egm_serialization/README.md).
+The code is authored on this exploratory branch but **has not been
+locally executed, independently reviewed or used to launch an agent**.
+The proposed EGM-INV-1/2/3 and mandatory fresh-Goldfish gates are
+not active policy. Source-pinned Goldfish reconstruction is a
+potential pre-code check of whether an independent implementer can
+produce the previously proposed **S0 linkable skeleton**; implementation
+still requires its own authority. The CLN-001 Stage-12 IF11 review
+remains the next formal gate.
+
 **New implementation-method direction, captured in the roadmap:** begin
 every authorized implementation at an **S0 linkable skeleton**
 containing the planned modules, exact public signatures, port and
