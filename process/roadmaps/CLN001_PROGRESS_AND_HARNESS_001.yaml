@@ -43,6 +43,23 @@ lessons:
     proposed_playbook: process/playbooks/IMPLEMENT_DE.md
     note: "The existing exploratory CLN001 C prototypes cannot be retroactively represented as skeleton-first evidence."
 
+  - id: SERIALIZATION-EGM-1
+    user_source: archbot_research_note/v1.0
+    received: "2026-10-28"
+    finding: >-
+      A fresh Goldfish is useful as an intentional architecture
+      serialization/deserialization test, not just a new-chat review.
+      The Elephant's hidden conversational context must not be needed
+      to reconstruct implementation-critical dependencies.
+    corrective_rule_proposed: >-
+      Project-owned deterministic context compilation plus a private,
+      source-grounded reconstruction reference. Treat failed
+      reconstruction as a candidate missing-specification or graph-link
+      defect, while independently distinguishing agent errors and
+      source projection/OS isolation failures.
+    status: HUMAN_RESEARCH_NOTE_CAPTURED_EGM_P0_NOT_ACTIVATED
+    design: docs/EGM_GOLDFISH_SERIALIZATION_001.md
+    roadmap: process/roadmaps/EGM_GOLDFISH_001.yaml
 current_diagnostic:
   completed_author_evidence: reviews/diagnostics/CLN-001-TASK-011/IF11_FEASIBILITY.md
   prior_author_commit: 1baf0d1fc03c67fc181341e8f53dac9011581c52
@@ -123,6 +140,28 @@ harness_architecture:
   offline_replay_before_live_agent_autonomy: true
   cleanroom_Toy1_replay: AFTER_BASELINE_AND_SEPARATE_ISOLATION_AUTHORIZATION
   no_auto_approval: true
+egm_goldfish_serialization:
+  status: PROPOSED_P0_STRUCTURAL_COMPARATOR_AUTHORED_NOT_EXECUTED_OR_REVIEWED
+  human_input: archbot_research_note/version_1.0/elephant_goldfish_model_applicability
+  proposal: docs/EGM_GOLDFISH_SERIALIZATION_001.md
+  task_plan: process/roadmaps/EGM_GOLDFISH_001.yaml
+  offline_comparator: experiments/egm_serialization/assess.py
+  offline_tests: experiments/egm_serialization/tests/test_assess.py
+  bounded_protocol: experiments/egm_serialization/README.md
+  original_separate_evaluator_reference_required: true
+  fresh_agent_source_allowlist_required: true
+  actual_fresh_agent_reconstruction_completed: false
+  comparator_structural_match_proves_semantic_correctness: false
+  introduces_new_authority: false
+  may_bypass_Stage12_IF11_review: false
+  S0_linkable_skeleton_relation: >-
+    Once a real implementation stage is authorized, an independent
+    Goldfish can test whether accepted serialized DE/CON/proof
+    information is sufficient to build the complete S0 skeleton.
+  next: >-
+    Run/independently review offline P0 syntax and tests; only
+    thereafter consider a source-pinned fresh Goldfish run without
+    prior solution or private evaluation rubric.
 implementation_skeleton_first:
   status: USER_REQUEST_CAPTURED_WORK_BRANCH_PROPOSAL_PENDING_GENERIC_REVIEW
   protocol: docs/IMPLEMENTATION_SKELETON_FIRST_001.md
@@ -142,6 +181,7 @@ next_milestones:
   - "Independently reproduce new C host and bounded S integration evidence."
   - "Identify actual publisher/consumer and replay/backpressure assumptions."
   - "Obtain reversible AP decision if supportable; then CON, DE, C and scoped verification."
+  - "Validate EGM-P0 reconstruction comparator and review its isolation/reference limits before a fresh Goldfish run."
   - "Implement and qualify offline harness micro-slice separately."
   - "Compare completed baseline with fresh orchestrated Toy1, without old-solution leakage."
 metrics:
