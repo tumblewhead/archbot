@@ -1,6 +1,6 @@
 schema: pc-egm-research-roadmap/v1
 id: EGM-GOLDFISH-001
-status: PROPOSED_RESEARCH_P0_STRUCTURAL_TOOL_AUTHORED_PENDING_TEST_AND_REVIEW
+status: P0_LOCAL_USER_TEST_PASS_P1_PACKAGE_PREPARED_PENDING_INDEPENDENT_REVIEW
 source:
   user_note:
     type: archbot_research_note
@@ -54,7 +54,12 @@ role_separation:
 phases:
   - id: EGM-P0
     scope: OFFLINE_SYNTHETIC_NON_TOY1_FIXTURE
-    status: STRUCTURAL_COMPARATOR_AUTHORED_NOT_EXECUTED_OR_INDEPENDENTLY_REVIEWED
+    status: USER_REPORTED_LOCAL_UNIT_TEST_PASS_NOT_INDEPENDENTLY_REVIEWED
+    user_report: experiments/egm_serialization/P0_USER_TEST_REPORT_001.json
+    reported_unit_tests: 10
+    reported_unit_failures: 0
+    python_py_compile_result_observed: false
+    author_or_independent_review: PENDING
     files:
       design: docs/EGM_GOLDFISH_SERIALIZATION_001.md
       comparator: experiments/egm_serialization/assess.py
@@ -68,7 +73,19 @@ phases:
       unsupported assertions. Checker output is structural only.
   - id: EGM-P1
     scope: FRESH_GOLDFISH_REAL_REPO_SPINE_PROJECTION
-    status: NOT_AUTHORIZED
+    status: SOURCE_PINNED_PILOT_PACKAGE_PREPARED_NOT_LAUNCHED
+    authority_for_general_mandatory_gate: NOT_AUTHORIZED
+    prerequisite_for_qualified_run: [EGM_P0_INDEPENDENT_REVIEW, VERIFIED_CONTEXT_ALLOWLIST, EVALUATOR_REFERENCE_INDEPENDENTLY_REVIEWED]
+    preparation:
+      path: experiments/egm_serialization/p1/prepare_p1.sh
+      task: experiments/egm_serialization/p1/TASK_GOLDFISH.md
+      spine: experiments/egm_serialization/p1/SPINE.md
+      evaluator_only_reference: experiments/egm_serialization/p1/REFERENCE.json
+      evaluator: experiments/egm_serialization/p1/evaluate_p1.sh
+      runbook: experiments/egm_serialization/p1/README.md
+    worker_launch_completed: false
+    worker_runtime_isolation_verified: false
+    semantic_reconstruction_review_completed: false
     prerequisites: [EGM_P0_INDEPENDENT_REVIEW, VERIFIED_CONTEXT_ALLOWLIST]
     exit: >-
       Fresh invocation reconstructs source-grounded architecture with
@@ -118,5 +135,7 @@ limits:
   AP_selected: false
   CON_DE_C_started_from_this_research: false
 next_authorized_action: >-
-  Validate and independently review EGM-P0 tool and synthetic fixtures;
-  do not launch a fresh agent with old Toy1 answer in its view.
+  Independently review P0 source and user-reported tests plus the
+  proposed P1 reference/projection; P1 source-pinned task and evaluator
+  are prepared but no fresh-agent run, semantic certification or
+  process-gate activation has occurred.
