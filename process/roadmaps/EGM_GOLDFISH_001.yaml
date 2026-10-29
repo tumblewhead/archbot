@@ -8,6 +8,9 @@ source:
     topic: elephant_goldfish_model_applicability
     status: proposal
     received: "2026-10-28"
+    exact_source: docs/research/EGM_ELEPHANT_GOLDFISH_USER_NOTE_20261028.yaml
+    source_sha256: 5f496b9da56e3de64c4466192cc272678870dcc30d2a6046b28cd917dacf4952
+    source_bytes: 14228
   basis:
     - docs/EGM_GOLDFISH_SERIALIZATION_001.md
     - docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md
