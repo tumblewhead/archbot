@@ -1,0 +1,51 @@
+{
+  "schema": "pc-egm-p0-user-test-observation/v1",
+  "source": "user_pasted_terminal_output_in_current_conversation",
+  "status": "USER_REPORTED_LOCAL_UNIT_TEST_PASS_NOT_INDEPENDENT_REVIEW",
+  "source_revision_at_reporting": "0d13cf156b8ef8932c3b8b8fb9df127b105c5fc6",
+  "test_command_in_prior_runbook": "python3 -m unittest discover -s experiments/egm_serialization/tests -p 'test_*.py' -v",
+  "actual_command_independently_observed": false,
+  "test_counts": {
+    "run": 10,
+    "passed": 10,
+    "errors": 0,
+    "failures": 0,
+    "reported_elapsed_seconds": 0.002
+  },
+  "tests": [
+    "test_cli_exit_codes",
+    "test_duplicate_fact_fails_closed",
+    "test_duplicate_json_key_rejected",
+    "test_matching_is_structural_not_semantic_acceptance",
+    "test_misclassified_authority_detected",
+    "test_missing_edge_detected",
+    "test_missing_proof_condition_detected",
+    "test_unallowlisted_source_fails_closed",
+    "test_unexpected_fact_detected",
+    "test_unknown_is_visible_not_passed"
+  ],
+  "cli_evidence": [
+    {
+      "return_code": 0,
+      "output_field": "structural_match",
+      "observed": true
+    },
+    {
+      "return_code": 1,
+      "output_field": "structural_match",
+      "observed": false,
+      "example": "MISSING_RELATION"
+    },
+    {
+      "return_code": 2,
+      "output_field": "error",
+      "observed": "Cannot read/parse JSON"
+    }
+  ],
+  "additional_command_python_py_compile_reported": false,
+  "independent_review_completed": false,
+  "semantic_source_validation_completed": false,
+  "worker_runtime_isolation_verified": false,
+  "P1_reconstruction_completed": false,
+  "approval_or_gate_change": false
+}
