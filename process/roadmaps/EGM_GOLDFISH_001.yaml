@@ -1,0 +1,119 @@
+schema: pc-egm-research-roadmap/v1
+id: EGM-GOLDFISH-001
+status: PROPOSED_RESEARCH_P0_STRUCTURAL_TOOL_AUTHORED_PENDING_TEST_AND_REVIEW
+source:
+  user_note:
+    type: archbot_research_note
+    version: "1.0"
+    topic: elephant_goldfish_model_applicability
+    status: proposal
+    received: "2026-10-28"
+  basis:
+    - docs/EGM_GOLDFISH_SERIALIZATION_001.md
+    - docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md
+    - docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md
+    - docs/IMPLEMENTATION_SKELETON_FIRST_001.md
+repo_branch: work/cln001-integration-c-kernel-harness
+original_diagnostic_branch: experiment/toy1-pipe-cleaner-001
+core_thesis: >-
+  Test the recoverability of implementation-critical architecture
+  from repository/OKF artifacts using a truly fresh agent as a
+  deserialization process, not merely as another reviewer.
+proposed_invariants:
+  EGM-INV-1:
+    statement: "No implementation-critical fact may exist only in an agent conversation."
+    status: PROPOSED_NOT_ACTIVATED
+  EGM-INV-2:
+    statement: "Every architecture-changing specialization cites its governing contract, proof or source authority."
+    status: PROPOSED_NOT_ACTIVATED
+  EGM-INV-3:
+    statement: "Failed fresh reconstruction produces a candidate specification defect before attributing agent error."
+    status: PROPOSED_NOT_ACTIVATED
+role_separation:
+  Elephant:
+    input: "Original sources, current graph and permissioned exploration"
+    produces: "Candidate architecture, assumptions, questions"
+    owns_authority: false
+  Serializer:
+    input: "Only approved source/decision artifacts"
+    writes: "Canonical graph through deterministic mutation"
+    status: DESIGNED_ONLY
+  Goldfish:
+    context: "Positive allowlist built from spine and authorized typed links"
+    prohibited: [ELEPHANT_CHAT, PRIOR_SOLUTION, EVALUATOR_ONLY_REFERENCE,
+      HIDDEN_ORCHESTRATION_STATE, UNAPPROVED_EXTERNAL_CONTEXT]
+    produces: "Machine-readable independent architecture reconstruction"
+    must_be_separate_invocation: true
+  Evaluator:
+    input: "Private source-grounded reference plus Goldfish reconstruction"
+    must_not_leak_reference_to_worker: true
+    produces: "Structural diff, independent semantic review, source-linked findings"
+phases:
+  - id: EGM-P0
+    scope: OFFLINE_SYNTHETIC_NON_TOY1_FIXTURE
+    status: STRUCTURAL_COMPARATOR_AUTHORED_NOT_EXECUTED_OR_INDEPENDENTLY_REVIEWED
+    files:
+      design: docs/EGM_GOLDFISH_SERIALIZATION_001.md
+      comparator: experiments/egm_serialization/assess.py
+      tests: experiments/egm_serialization/tests/test_assess.py
+      instructions: experiments/egm_serialization/README.md
+    no_agent_launch: true
+    no_auto_approval: true
+    exit: >-
+      Independently verify deterministic diagnostics for missing facts,
+      typed links, required proof conditions, source citation gaps and
+      unsupported assertions. Checker output is structural only.
+  - id: EGM-P1
+    scope: FRESH_GOLDFISH_REAL_REPO_SPINE_PROJECTION
+    status: NOT_AUTHORIZED
+    prerequisites: [EGM_P0_INDEPENDENT_REVIEW, VERIFIED_CONTEXT_ALLOWLIST]
+    exit: >-
+      Fresh invocation reconstructs source-grounded architecture with
+      all role and source boundaries recorded; independent evaluator
+      distinguishes real specification defects from agent errors.
+  - id: EGM-P2
+    scope: EGM_LINKABLE_SKELETON_AND_PROOF_INTERPRETATION
+    status: NOT_AUTHORIZED
+    prerequisites: [EGM_P1_EVIDENCE_AND_APPROPRIATE_PROJECT_GATE,
+      APPROVED_CON_DE_OR_SCOPED_EXPLORATION, S0_BUILD_POLICY_REVIEW]
+    exit: >-
+      Fresh implementer produces complete S0 linkable skeleton from
+      permitted graph; record map/symbols/section accounting; evaluate
+      inferred versus required dependencies and proofs.
+  - id: EGM-P3
+    scope: POST_IMPLEMENTATION_DRIFT_GOLDFISH
+    status: NOT_AUTHORIZED
+    prerequisites: [REVIEWED_IMPLEMENTATION_EVIDENCE, VERIFIED_CONTEXT_PROJECTION]
+  - id: EGM-P4
+    scope: FRESH_TOY1_ORCHESTRATED_COMPARISON
+    status: NOT_AUTHORIZED
+    prerequisites: [COMPLETE_CURRENT_TOY1_BASELINE,
+      OFFLINE_HARNESS_REVIEW_AND_PERMISSION, QUALIFIED_ISOLATION]
+    exit: >-
+      Compare time-to-linkable-skeleton, human mechanical interventions,
+      goldfish questions, undocumented assumptions, implementation
+      rework, source leakage and architecture drift. No old solution
+      may be available to fresh workers.
+metrics:
+  source_reconstruction: [REQUIRED_FACTS_RECOVERED,
+    REQUIRED_TYPED_RELATIONS_RECOVERED, MISSING_PROVENANCE,
+    MISSING_PROOF_CONDITIONS, UNSUPPORTED_ASSERTIONS]
+  independence: [ACTUAL_ISOLATION_MODE, ALLOWLIST_HASHES,
+    LEAKAGE_CHECKS, REVIEWER_ROLE_SEPARATION]
+  engineering: [IMPLEMENTATION_BLOCKERS_NEWLY_FOUND,
+    REQUIRED_EVIDENCE_PRODUCED, S0_TIME_TO_LINK,
+    POSTCODE_DRIFT, REWORK_CYCLES]
+  iteration: [HUMAN_ACTIVE_MINUTES, ELAPSED_TIME_TO_REVIEWED_DECISION,
+    AGENT_CONTEXT_TOKENS, RETRIEVAL_DEPTH]
+limits:
+  structural_match_is_semantic_proof: false
+  structural_match_is_authority: false
+  goldfish_fresh_directory_is_verified_isolation: false
+  actual_generic_gate_changed: false
+  stage12_IF11_review_bypassed: false
+  prior_source_history_rewritten: false
+  AP_selected: false
+  CON_DE_C_started_from_this_research: false
+next_authorized_action: >-
+  Validate and independently review EGM-P0 tool and synthetic fixtures;
+  do not launch a fresh agent with old Toy1 answer in its view.
