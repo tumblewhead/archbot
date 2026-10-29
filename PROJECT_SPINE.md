@@ -53,8 +53,9 @@ formal cleanroom, target/product qualification or old Toy1 VO discharge.
 
 ## Parallel evidence prototype and roadmap improvement (not active Stage-12 authority)
 
-**EGM Goldfish research input captured:** A user-supplied
-`archbot_research_note/v1.0` (Elephant–Goldfish Model) proposes
+**EGM Goldfish research input captured:** A
+[byte-preserved user research note](docs/research/EGM_ELEPHANT_GOLDFISH_USER_NOTE_20261028.yaml)
+(`archbot_research_note/v1.0`, Elephant–Goldfish Model) proposes
 testing architecture **serialization/deserialization** rather than
 treating every fresh review as an adequate handoff. The Elephant
 explores, the accepted spine/OKF/CON/proof/ERS graph serializes,
