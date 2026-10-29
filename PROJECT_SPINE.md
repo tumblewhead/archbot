@@ -68,8 +68,21 @@ or authority. See the
 [bounded EGM design](docs/EGM_GOLDFISH_SERIALIZATION_001.md),
 [typed EGM roadmap](process/roadmaps/EGM_GOLDFISH_001.yaml)
 and [offline structural checker/tests](experiments/egm_serialization/README.md).
-The code is authored on this exploratory branch but **has not been
-locally executed, independently reviewed or used to launch an agent**.
+The user reported **10/10 EGM-P0 unit tests passed**, including
+three distinct structural-checker CLI exits, preserved as
+[P0 local test observation](experiments/egm_serialization/P0_USER_TEST_REPORT_001.json).
+This is user-reported local test evidence, **not independent review,
+source/semantic qualification or a fresh-agent experiment**.
+A first [P1 source-pinned Goldfish package](experiments/egm_serialization/p1/README.md)
+has been authored on this work branch, with a compact
+[spine](experiments/egm_serialization/p1/SPINE.md), independent
+[reconstruction task](experiments/egm_serialization/p1/TASK_GOLDFISH.md),
+positive-allowlist [preparer](experiments/egm_serialization/p1/prepare_p1.sh)
+and evaluator-only [reference](experiments/egm_serialization/p1/REFERENCE.json).
+The reference is a **provisional author draft** requiring independent
+source-grounded validation. The P1 worker has NOT been launched; no
+runtime isolation, semantic comparison or generic gate approval
+is claimed.
 The proposed EGM-INV-1/2/3 and mandatory fresh-Goldfish gates are
 not active policy. Source-pinned Goldfish reconstruction is a
 potential pre-code check of whether an independent implementer can
