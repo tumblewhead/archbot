@@ -11,6 +11,8 @@ source_notes:
   orchestrator_proposal: docs/PROCESS_ORCHESTRATOR_HUMAN_ATTENTION_PROPOSAL.md
   harness_architecture_request: ARCHBOT-HARNESS-ARCHITECTURE-001
   harness_architecture_design: docs/ARCHBOT_HARNESS_ARCHITECTURE_001.md
+  egm_raw_human_note: docs/research/EGM_ELEPHANT_GOLDFISH_USER_NOTE_20261028.yaml
+  egm_raw_note_sha256: 5f496b9da56e3de64c4466192cc272678870dcc30d2a6046b28cd917dacf4952
 lessons:
   - id: PROGRESS-1
     finding: "Independent review can validate unchanged UNKNOWNs without advancing physical feasibility."
