@@ -635,6 +635,19 @@ parallel_exploratory_implementation_and_progress_harness:
   skeleton_first_populate: INCREMENTAL_CONTRACT_BY_CONTRACT_RELNK_AND_SIZE_DELTA
   skeleton_first_retrospective_claim_for_prior_prototypes: false
   skeleton_first_full_functional_or_target_verification: false
+  elephant_goldfish_note_received: "2026-10-28"
+  elephant_goldfish_input: archbot_research_note/v1.0/elephant_goldfish_model_applicability
+  elephant_goldfish_proposal: docs/EGM_GOLDFISH_SERIALIZATION_001.md
+  elephant_goldfish_research_roadmap: process/roadmaps/EGM_GOLDFISH_001.yaml
+  elephant_goldfish_P0_comparator: experiments/egm_serialization/assess.py
+  elephant_goldfish_P0_tests: experiments/egm_serialization/tests/test_assess.py
+  elephant_goldfish_status: PROPOSED_STRUCTURAL_TEST_AUTHORED_NOT_EXECUTED_OR_APPROVED
+  elephant_goldfish_process_invariants_status: PROPOSED_NOT_MANDATORY
+  elephant_goldfish_fresh_worker_completed: false
+  elephant_goldfish_evaluator_only_reference_required: true
+  elephant_goldfish_structural_comparison_is_not_semantic_or_authority: true
+  elephant_goldfish_future_s0_linkable_skeleton_gate_requires_SEPARATE_AUTHORIZATION: true
+  elephant_goldfish_may_change_current_Stage12_eligibility: false
   next: "Independent reproduction of exploratory C/S witness, then actual owned publisher/consumer/debt contract."
 next_eligible_action:
   type: CLN001_STAGE12_INDEPENDENT_REVIEW_OF_NEW_IF11_EVIDENCE
