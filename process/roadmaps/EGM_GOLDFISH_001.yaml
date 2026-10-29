@@ -60,6 +60,13 @@ phases:
     reported_unit_failures: 0
     python_py_compile_result_observed: false
     author_or_independent_review: PENDING
+    focused_independent_review:
+      status: PREPARED_NOT_EXECUTED
+      task: experiments/egm_serialization/p0_review/TASK.md
+      preparer: experiments/egm_serialization/p0_review/prepare.sh
+      archive: experiments/egm_serialization/p0_review/archive.sh
+      handoff: experiments/egm_serialization/p0_review/README.md
+      outputs: [REVIEW_EGM_P0_001.md, REVIEW_EGM_P0_001.json]
     files:
       design: docs/EGM_GOLDFISH_SERIALIZATION_001.md
       comparator: experiments/egm_serialization/assess.py
@@ -83,6 +90,9 @@ phases:
       evaluator_only_reference: experiments/egm_serialization/p1/REFERENCE.json
       evaluator: experiments/egm_serialization/p1/evaluate_p1.sh
       runbook: experiments/egm_serialization/p1/README.md
+      audited_reference: AUTHOR_DRAFT_PENDING_FOCUSED_INDEPENDENT_REVIEW
+      original_Toy1_solution_in_worker_projection: FORBIDDEN
+      worker_input_source_pins: FIVE_GIT_BLOBS_VERIFIED_BY_PREPARER
     worker_launch_completed: false
     worker_runtime_isolation_verified: false
     semantic_reconstruction_review_completed: false
